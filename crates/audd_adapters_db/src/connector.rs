@@ -44,6 +44,8 @@ pub trait DbSchemaConnector {
 ///
 /// - SQLite: `sqlite:///path/to/database.db` (absolute) or `sqlite://path/to/database.db` (relative)
 /// - MySQL: `mysql://user:password@host:port/database` or `mysql://user:password@host/database`
+/// - PostgreSQL: `postgres://user:password@host:port/database` or `postgresql://...`
+/// - MongoDB: `mongodb://user:password@host:port/database` or `mongodb+srv://...`
 ///
 /// # Examples
 ///
@@ -105,14 +107,23 @@ pub fn parse_connection_string(conn_str: &str) -> DbResult<(String, String)> {
             Ok((normalized_engine, conn_details.to_string()))
         }
         "postgresql" | "postgres" => {
-            Err(DbError::UnsupportedEngine(
-                "PostgreSQL support is planned for future releases".to_string(),
-            ))
+            // PostgreSQL format: postgres://user:pass@host:port/database
+            // Normalize postgresql to postgres
+            let normalized_engine = "postgres".to_string();
+            Ok((normalized_engine, conn_details.to_string()))
         }
-        "mongodb" | "mongo" => {
-            Err(DbError::UnsupportedEngine(
-                "MongoDB support is planned for future releases".to_string(),
-            ))
+        "mongodb" | "mongo" | "mongodb+srv" => {
+            // MongoDB format: mongodb://user:pass@host:port/database
+            // or mongodb+srv://... for Atlas clusters
+            let normalized_engine = if engine == "mongodb+srv" {
+                // Keep the +srv variant for MongoDB Atlas
+                engine
+            } else if engine == "mongo" {
+                "mongodb".to_string()
+            } else {
+                engine
+            };
+            Ok((normalized_engine, conn_details.to_string()))
         }
         _ => Err(DbError::UnsupportedEngine(engine)),
     }
@@ -169,13 +180,26 @@ mod tests {
     }
 
     #[test]
-    fn test_parse_future_engines() {
+    fn test_parse_postgres_and_mongodb() {
+        // PostgreSQL and MongoDB are now supported
         let result = parse_connection_string("postgresql://localhost/db");
-        assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("future releases"));
+        assert!(result.is_ok());
+        let (engine, _) = result.unwrap();
+        assert_eq!(engine, "postgres");
+
+        let result = parse_connection_string("postgres://localhost/db");
+        assert!(result.is_ok());
+        let (engine, _) = result.unwrap();
+        assert_eq!(engine, "postgres");
 
         let result = parse_connection_string("mongodb://localhost/db");
-        assert!(result.is_err());
-        assert!(result.unwrap_err().to_string().contains("future releases"));
+        assert!(result.is_ok());
+        let (engine, _) = result.unwrap();
+        assert_eq!(engine, "mongodb");
+
+        let result = parse_connection_string("mongodb+srv://host/db");
+        assert!(result.is_ok());
+        let (engine, _) = result.unwrap();
+        assert_eq!(engine, "mongodb+srv");
     }
 }

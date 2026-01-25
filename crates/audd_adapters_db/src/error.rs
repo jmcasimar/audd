@@ -42,12 +42,12 @@ impl fmt::Display for DbError {
                 write!(f, "Invalid connection string: {}. ", msg)?;
                 write!(
                     f,
-                    "Expected format: sqlite://<path> or mysql://<user>:<pass>@<host>/<db>"
+                    "Expected format: sqlite://<path>, mysql://<user>:<pass>@<host>/<db>, postgres://<user>:<pass>@<host>/<db>, or mongodb://<host>/<db>"
                 )
             }
             Self::UnsupportedEngine(engine) => {
                 write!(f, "Unsupported database engine: {}", engine)?;
-                write!(f, " (Supported: sqlite, mysql)")
+                write!(f, " (Supported: sqlite, mysql, postgres, mongodb)")
             }
             Self::ExtractionError(msg) => write!(f, "Schema extraction error: {}", msg),
             Self::TypeMappingError(msg) => write!(f, "Type mapping error: {}", msg),
