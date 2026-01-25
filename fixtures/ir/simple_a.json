@@ -1,0 +1,90 @@
+{
+  "source_name": "users_db",
+  "source_type": "mysql",
+  "ir_version": "1.0.0",
+  "entities": [
+    {
+      "entity_name": "users",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false,
+          "metadata": {
+            "original_name": "id",
+            "original_type": "INT",
+            "auto_increment": true
+          }
+        },
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false,
+          "constraints": [
+            {
+              "constraint_type": "MaxLength",
+              "value": 255
+            },
+            {
+              "constraint_type": "Unique"
+            }
+          ],
+          "metadata": {
+            "original_name": "email",
+            "original_type": "VARCHAR(255)"
+          }
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "MaxLength",
+              "value": 100
+            }
+          ],
+          "metadata": {
+            "original_name": "name",
+            "original_type": "VARCHAR(100)"
+          }
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false,
+          "metadata": {
+            "original_name": "created_at",
+            "original_type": "TIMESTAMP"
+          }
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "boolean"
+          },
+          "nullable": false,
+          "metadata": {
+            "original_name": "is_active",
+            "original_type": "TINYINT(1)"
+          }
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": ["id"]
+        }
+      ]
+    }
+  ]
+}
