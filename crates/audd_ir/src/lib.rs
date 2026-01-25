@@ -43,7 +43,7 @@ mod schema;
 mod types;
 
 pub use constraint::Constraint;
-pub use key::Key;
+pub use key::{Key, KeyType};
 pub use normalization::{map_type_to_canonical, normalize_identifier};
 pub use schema::{EntitySchema, FieldSchema, SourceSchema};
 pub use types::CanonicalType;

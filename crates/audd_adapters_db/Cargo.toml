@@ -1,0 +1,23 @@
+[package]
+name = "audd_adapters_db"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Database adapters for extracting schemas from various database engines"
+
+[dependencies]
+audd_ir = { path = "../audd_ir" }
+serde.workspace = true
+serde_json.workspace = true
+rusqlite = { version = "0.32", optional = true }
+mysql = { version = "25", optional = true }
+
+[features]
+default = ["sqlite", "mysql"]
+sqlite = ["rusqlite"]
+mysql = ["dep:mysql"]
+
+[dev-dependencies]
+tempfile = "3.8"
