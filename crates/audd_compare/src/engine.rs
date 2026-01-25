@@ -6,7 +6,7 @@ use std::collections::HashMap;
 use crate::config::CompareConfig;
 use crate::conflict::Conflict;
 use crate::matcher::{match_entities, match_fields};
-use crate::result::{ComparisonResult, Exclusive, ExclusiveSide, Match};
+use crate::result::{ComparisonResult, Exclusive, ExclusiveSide};
 use crate::types::{compare_types, TypeCompatibility};
 
 /// Compare two schemas and produce a comparison result

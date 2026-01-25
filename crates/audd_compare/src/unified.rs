@@ -132,8 +132,8 @@ impl UnifiedSchema {
         entity_a: &EntitySchema,
         entity_b: &EntitySchema,
         result: &ComparisonResult,
-        entity_idx_a: usize,
-        entity_idx_b: usize,
+        _entity_idx_a: usize,
+        _entity_idx_b: usize,
     ) -> UnifiedEntity {
         let mut fields = Vec::new();
         let entity_name = &entity_a.entity_name;
@@ -226,7 +226,7 @@ impl UnifiedSchema {
     }
 
     /// Create entity from schema A (exclusive)
-    fn entity_from_a(entity: &EntitySchema, idx: usize, _result: &ComparisonResult) -> UnifiedEntity {
+    fn entity_from_a(entity: &EntitySchema, _idx: usize, _result: &ComparisonResult) -> UnifiedEntity {
         let fields = entity
             .fields
             .iter()
@@ -248,7 +248,7 @@ impl UnifiedSchema {
     }
 
     /// Create entity from schema B (exclusive)
-    fn entity_from_b(entity: &EntitySchema, idx: usize, _result: &ComparisonResult) -> UnifiedEntity {
+    fn entity_from_b(entity: &EntitySchema, _idx: usize, _result: &ComparisonResult) -> UnifiedEntity {
         let fields = entity
             .fields
             .iter()
