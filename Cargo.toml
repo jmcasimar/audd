@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/audd-cli", "crates/audd_compare", "crates/audd_ir"]
+members = ["crates/audd-cli", "crates/audd_compare", "crates/audd_ir", "crates/audd_resolution"]
 
 [workspace.package]
 version = "0.1.0"
