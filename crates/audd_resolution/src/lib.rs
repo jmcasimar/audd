@@ -41,8 +41,10 @@
 
 mod decision;
 mod decision_log;
+mod engine;
 mod suggestion;
 
 pub use decision::{Decision, DecisionSource, DecisionStatus};
 pub use decision_log::DecisionLog;
+pub use engine::SuggestionEngine;
 pub use suggestion::{Confidence, Impact, Suggestion, SuggestionKind};

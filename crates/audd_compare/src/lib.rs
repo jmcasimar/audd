@@ -35,7 +35,7 @@ mod types;
 mod unified;
 
 pub use config::CompareConfig;
-pub use conflict::{Conflict, ConflictSeverity, ConflictType};
+pub use conflict::{Conflict, ConflictEvidence, ConflictSeverity, ConflictType};
 pub use engine::compare;
 pub use result::{ComparisonResult, Exclusive, ExclusiveSide, Match, MatchReason};
 pub use types::{compare_types, TypeCompatibility};
