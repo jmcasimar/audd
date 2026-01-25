@@ -2,6 +2,7 @@
 
 use audd_compare::{Conflict, ConflictType};
 
+use crate::config::ResolutionConfig;
 use crate::suggestion::{Confidence, Impact, Suggestion, SuggestionKind};
 
 /// Counter for generating unique suggestion IDs
@@ -16,19 +17,33 @@ fn generate_suggestion_id() -> String {
 
 /// Engine for generating suggestions from conflicts
 pub struct SuggestionEngine {
-    /// Whether to generate risky suggestions
-    pub allow_risky: bool,
+    /// Configuration for resolution policies
+    config: ResolutionConfig,
 }
 
 impl SuggestionEngine {
     /// Create a new suggestion engine with default settings
     pub fn new() -> Self {
-        Self { allow_risky: true }
+        Self {
+            config: ResolutionConfig::default(),
+        }
+    }
+
+    /// Create an engine with custom configuration
+    pub fn with_config(config: ResolutionConfig) -> Self {
+        Self { config }
     }
 
     /// Create an engine that only generates safe suggestions
     pub fn safe_only() -> Self {
-        Self { allow_risky: false }
+        Self {
+            config: ResolutionConfig::conservative(),
+        }
+    }
+
+    /// Get the current configuration
+    pub fn config(&self) -> &ResolutionConfig {
+        &self.config
     }
 
     /// Generate suggestions for a single conflict
@@ -70,7 +85,7 @@ impl SuggestionEngine {
                         type_a, type_b
                     ),
                 ));
-            } else if self.allow_risky {
+            } else if self.config.allow_risky_suggestions {
                 // Risky cast (e.g., Int64 -> Int32, Float -> Int)
                 suggestions.push(Suggestion::cast_risky(
                     generate_suggestion_id(),
@@ -544,5 +559,40 @@ mod tests {
         let (safe, warning) = analyze_cast_safety("Float", "Int").unwrap();
         assert!(!safe);
         assert!(warning.contains("decimal"));
+    }
+
+    #[test]
+    fn test_engine_with_custom_config() {
+        use crate::config::ResolutionConfig;
+
+        let conflict = Conflict::type_incompatible(
+            "users".to_string(),
+            "big_number".to_string(),
+            "Int64".to_string(),
+            "Int32".to_string(),
+            0,
+            1,
+        );
+
+        // Conservative config should not suggest risky casts
+        let conservative_config = ResolutionConfig::conservative();
+        let engine = SuggestionEngine::with_config(conservative_config);
+        let suggestions = engine.suggest(&conflict);
+
+        assert!(!suggestions.is_empty());
+        assert!(matches!(
+            suggestions[0].kind,
+            SuggestionKind::NoSuggestion { .. }
+        ));
+
+        // Default config should suggest risky casts
+        let default_engine = SuggestionEngine::new();
+        let suggestions = default_engine.suggest(&conflict);
+
+        assert!(!suggestions.is_empty());
+        assert!(matches!(
+            suggestions[0].kind,
+            SuggestionKind::CastRisky { .. }
+        ));
     }
 }

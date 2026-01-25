@@ -39,11 +39,13 @@
 //! - Confidence levels and impact tracking
 //! - Auditable decision history with timestamps
 
+mod config;
 mod decision;
 mod decision_log;
 mod engine;
 mod suggestion;
 
+pub use config::{LengthPolicy, NullabilityPolicy, ResolutionConfig, TypePreferencePolicy};
 pub use decision::{Decision, DecisionSource, DecisionStatus};
 pub use decision_log::DecisionLog;
 pub use engine::SuggestionEngine;
