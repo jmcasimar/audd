@@ -15,7 +15,8 @@ enum Commands {
     Load {
         /// Source identifier
         /// - File: path/to/file.csv or file:path/to/file.csv
-        /// - Database: db:sqlite:///path/to/db.sqlite or db:mysql://user:pass@host/db
+        /// - Database: db:sqlite://path, db:mysql://user:pass@host/db, 
+        ///   db:postgres://user:pass@host/db, or db:mongodb://host/db
         #[arg(short, long)]
         source: String,
 
