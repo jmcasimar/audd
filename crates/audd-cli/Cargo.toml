@@ -1,0 +1,15 @@
+[package]
+name = "audd-cli"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "CLI for AUDD - Dynamic Data Unification Algorithm"
+
+[[bin]]
+name = "audd"
+path = "src/main.rs"
+
+[dependencies]
+clap.workspace = true
