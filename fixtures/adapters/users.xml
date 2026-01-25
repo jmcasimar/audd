@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+  <record>
+    <id>1</id>
+    <name>Alice Smith</name>
+    <email>alice@example.com</email>
+    <age>30</age>
+  </record>
+  <record>
+    <id>2</id>
+    <name>Bob Jones</name>
+    <email>bob@example.com</email>
+    <age>25</age>
+  </record>
+</users>
