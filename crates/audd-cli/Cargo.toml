@@ -13,5 +13,7 @@ path = "src/main.rs"
 
 [dependencies]
 clap.workspace = true
+audd_ir = { path = "../audd_ir" }
 audd_adapters_file = { path = "../audd_adapters_file" }
+audd_adapters_db = { path = "../audd_adapters_db" }
 serde_json.workspace = true

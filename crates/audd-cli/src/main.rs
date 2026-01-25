@@ -11,27 +11,40 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Load and display schema from a file source
+    /// Load and display schema from a source (file or database)
     Load {
-        /// Path to the file source (e.g., data.csv, schema.sql)
-        /// Supports: .csv, .json, .xml, .sql, .ddl
+        /// Source identifier
+        /// - File: path/to/file.csv or file:path/to/file.csv
+        /// - Database: db:sqlite:///path/to/db.sqlite or db:mysql://user:pass@host/db
         #[arg(short, long)]
         source: String,
+
+        /// Connection string (only for database sources)
+        #[arg(short, long)]
+        conn: Option<String>,
 
         /// Output format
         #[arg(short, long, default_value = "json")]
         format: String,
     },
 
-    /// Compare and unify data from different sources (stub implementation)
+    /// Compare and unify data from different sources
     Compare {
-        /// Path to the first data source
-        #[arg(short = '1', long)]
-        source1: String,
+        /// First source identifier
+        #[arg(long = "source-a")]
+        source_a: String,
 
-        /// Path to the second data source
-        #[arg(short = '2', long)]
-        source2: String,
+        /// Connection string for first source (only for database sources)
+        #[arg(long = "conn-a")]
+        conn_a: Option<String>,
+
+        /// Second source identifier
+        #[arg(long = "source-b")]
+        source_b: String,
+
+        /// Connection string for second source (only for database sources)
+        #[arg(long = "conn-b")]
+        conn_b: Option<String>,
 
         /// Output format
         #[arg(short, long, default_value = "json")]
@@ -43,24 +56,47 @@ fn main() {
     let cli = Cli::parse();
 
     match &cli.command {
-        Some(Commands::Load { source, format }) => {
-            handle_load(source, format);
+        Some(Commands::Load { source, conn, format }) => {
+            handle_load(source, conn.as_deref(), format);
         }
         Some(Commands::Compare {
-            source1,
-            source2,
+            source_a,
+            conn_a,
+            source_b,
+            conn_b,
             format,
         }) => {
-            println!("🔍 AUDD Compare (Stub Implementation)");
+            println!("🔍 AUDD Compare");
             println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-            println!("Source 1: {}", source1);
-            println!("Source 2: {}", source2);
+            
+            // Load schema A
+            println!("Loading schema A...");
+            let schema_a = match load_schema(source_a, conn_a.as_deref()) {
+                Ok(s) => s,
+                Err(e) => {
+                    eprintln!("❌ Error loading source A: {}", e);
+                    std::process::exit(1);
+                }
+            };
+            println!("✓ Schema A loaded: {} ({} entities)", schema_a.source_name, schema_a.entities.len());
+
+            // Load schema B
+            println!("Loading schema B...");
+            let schema_b = match load_schema(source_b, conn_b.as_deref()) {
+                Ok(s) => s,
+                Err(e) => {
+                    eprintln!("❌ Error loading source B: {}", e);
+                    std::process::exit(1);
+                }
+            };
+            println!("✓ Schema B loaded: {} ({} entities)", schema_b.source_name, schema_b.entities.len());
+
+            println!();
             println!("Format:   {}", format);
             println!();
-            println!("✓ Comparison completed successfully!");
+            println!("✓ Schemas loaded successfully!");
             println!();
-            println!("Note: This is a stub implementation.");
-            println!("Full comparison logic will be implemented in upcoming sprints.");
+            println!("Note: Full comparison logic will be implemented in upcoming sprints.");
         }
         None => {
             println!("AUDD - Dynamic Data Unification Algorithm");
@@ -69,18 +105,46 @@ fn main() {
     }
 }
 
-fn handle_load(source: &str, format: &str) {
+/// Load schema from either a file or database source
+fn load_schema(source: &str, conn: Option<&str>) -> Result<audd_ir::SourceSchema, String> {
     use audd_adapters_file::load_schema_from_file;
+    use audd_adapters_db::create_connector;
 
-    // Support both "file:path" and "path" formats
-    let path = source.strip_prefix("file:").unwrap_or(source);
+    // Determine source type
+    if source.starts_with("db:") {
+        // Database source
+        let db_conn_str = if let Some(conn_str) = conn {
+            // Legacy format: --source db:sqlite --conn /path/to/db
+            let engine = source.strip_prefix("db:").unwrap();
+            format!("{}://{}", engine, conn_str)
+        } else {
+            // New format: --source db:sqlite:///path/to/db
+            source.strip_prefix("db:").unwrap().to_string()
+        };
 
+        let connector = create_connector(&db_conn_str)
+            .map_err(|e| format!("Failed to create database connector: {}", e))?;
+        
+        connector.load()
+            .map_err(|e| format!("Failed to load database schema: {}", e))
+    } else {
+        // File source
+        let path = source.strip_prefix("file:").unwrap_or(source);
+        load_schema_from_file(path)
+            .map_err(|e| format!("Failed to load file schema: {}", e))
+    }
+}
+
+fn handle_load(source: &str, conn: Option<&str>, format: &str) {
     println!("📁 AUDD Load Schema");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    println!("Source: {}", path);
+    println!("Source: {}", source);
+    if let Some(conn_str) = conn {
+        println!("Connection: {}", conn_str);
+    }
     println!();
 
-    match load_schema_from_file(path) {
+    match load_schema(source, conn) {
         Ok(schema) => {
             println!("✓ Schema loaded successfully!");
             println!();

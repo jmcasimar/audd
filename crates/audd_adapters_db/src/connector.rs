@@ -42,7 +42,7 @@ pub trait DbSchemaConnector {
 ///
 /// # Supported formats
 ///
-/// - SQLite: `sqlite:///path/to/database.db` or `sqlite://path/to/database.db`
+/// - SQLite: `sqlite:///path/to/database.db` (absolute) or `sqlite://path/to/database.db` (relative)
 /// - MySQL: `mysql://user:password@host:port/database` or `mysql://user:password@host/database`
 ///
 /// # Examples
@@ -52,7 +52,7 @@ pub trait DbSchemaConnector {
 ///
 /// let (engine, conn) = parse_connection_string("sqlite:///data/app.db").unwrap();
 /// assert_eq!(engine, "sqlite");
-/// assert_eq!(conn, "data/app.db");
+/// assert_eq!(conn, "/data/app.db");
 ///
 /// let (engine, conn) = parse_connection_string("mysql://user:pass@localhost/mydb").unwrap();
 /// assert_eq!(engine, "mysql");
@@ -81,7 +81,17 @@ pub fn parse_connection_string(conn_str: &str) -> DbResult<(String, String)> {
     match engine.as_str() {
         "sqlite" => {
             // SQLite format: sqlite:///path or sqlite://path
-            let path = conn_details.strip_prefix('/').unwrap_or(conn_details);
+            // Keep absolute paths (starting with /) as-is, strip one / from relative paths
+            let path = if conn_details.starts_with("//") {
+                // sqlite:///absolute/path -> /absolute/path
+                &conn_details[1..]
+            } else if conn_details.starts_with('/') {
+                // sqlite://absolute/path -> /absolute/path (already correct)
+                conn_details
+            } else {
+                // sqlite://relative/path -> relative/path
+                conn_details
+            };
             Ok((engine, path.to_string()))
         }
         "mysql" | "mariadb" => {
@@ -114,13 +124,14 @@ mod tests {
 
     #[test]
     fn test_parse_sqlite_connection() {
+        // Absolute path with triple slash
         let result = parse_connection_string("sqlite:///data/test.db");
         assert!(result.is_ok());
         let (engine, conn) = result.unwrap();
         assert_eq!(engine, "sqlite");
-        assert_eq!(conn, "data/test.db");
+        assert_eq!(conn, "/data/test.db");
 
-        // Test without triple slash
+        // Relative path with double slash
         let result = parse_connection_string("sqlite://data/test.db");
         assert!(result.is_ok());
         let (engine, conn) = result.unwrap();
