@@ -271,14 +271,10 @@ fn map_sqlite_type(sqlite_type: &str) -> CanonicalType {
     // SQLite type affinity rules
     if type_upper.contains("INT") {
         CanonicalType::Int64
-    } else if type_upper.contains("CHAR") 
-        || type_upper.contains("CLOB") 
-        || type_upper.contains("TEXT") {
-        if type_upper.contains("TEXT") || type_upper.contains("CLOB") {
-            CanonicalType::Text
-        } else {
-            CanonicalType::String
-        }
+    } else if type_upper.contains("TEXT") || type_upper.contains("CLOB") {
+        CanonicalType::Text
+    } else if type_upper.contains("CHAR") {
+        CanonicalType::String
     } else if type_upper.contains("BLOB") {
         CanonicalType::Binary
     } else if type_upper.contains("REAL") 

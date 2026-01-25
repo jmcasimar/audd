@@ -81,15 +81,15 @@ pub fn parse_connection_string(conn_str: &str) -> DbResult<(String, String)> {
     match engine.as_str() {
         "sqlite" => {
             // SQLite format: sqlite:///path or sqlite://path
-            // Keep absolute paths (starting with /) as-is, strip one / from relative paths
-            let path = if conn_details.starts_with("//") {
-                // sqlite:///absolute/path -> /absolute/path
-                &conn_details[1..]
-            } else if conn_details.starts_with('/') {
-                // sqlite://absolute/path -> /absolute/path (already correct)
+            // After split on "://", conn_details will be:
+            // - For sqlite:///absolute/path: "/absolute/path" (two slashes stripped)
+            // - For sqlite://relative/path: "relative/path" 
+            // We need to restore the leading slash for absolute paths
+            let path = if conn_details.starts_with('/') {
+                // Already absolute path from sqlite:///
                 conn_details
             } else {
-                // sqlite://relative/path -> relative/path
+                // Relative path from sqlite://
                 conn_details
             };
             Ok((engine, path.to_string()))

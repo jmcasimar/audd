@@ -264,12 +264,13 @@ impl DbSchemaConnector for MysqlConnector {
 /// * `column_type` - The full column type with details (e.g., "int(11)", "varchar(255)")
 fn map_mysql_type(data_type: &str, column_type: &str) -> CanonicalType {
     let data_type_lower = data_type.to_lowercase();
+    let column_type_lower = column_type.to_lowercase();
 
     match data_type_lower.as_str() {
         // Integer types
         "tinyint" => {
             // TINYINT(1) is often used for boolean
-            if column_type.contains("tinyint(1)") {
+            if column_type_lower.contains("tinyint(1)") {
                 CanonicalType::Boolean
             } else {
                 CanonicalType::Int32
@@ -324,12 +325,12 @@ fn map_mysql_type(data_type: &str, column_type: &str) -> CanonicalType {
         // Spatial types (not fully supported, map to unknown)
         "geometry" | "point" | "linestring" | "polygon" | "multipoint" | "multilinestring"
         | "multipolygon" | "geometrycollection" => CanonicalType::Unknown {
-            original_type: data_type.to_string(),
+            original_type: data_type_lower,
         },
 
         // Unknown types
         _ => CanonicalType::Unknown {
-            original_type: data_type.to_string(),
+            original_type: data_type_lower,
         },
     }
 }
@@ -391,8 +392,12 @@ mod tests {
         assert_eq!(map_mysql_type("json", "json"), CanonicalType::Json);
         assert_eq!(map_mysql_type("blob", "blob"), CanonicalType::Binary);
 
-        // TINYINT(1) as boolean
+        // TINYINT(1) as boolean - lowercase
         assert_eq!(map_mysql_type("tinyint", "tinyint(1)"), CanonicalType::Boolean);
+        // TINYINT(1) as boolean - uppercase
+        assert_eq!(map_mysql_type("TINYINT", "TINYINT(1)"), CanonicalType::Boolean);
+        // TINYINT(1) as boolean - mixed case
+        assert_eq!(map_mysql_type("TinyInt", "TinyInt(1)"), CanonicalType::Boolean);
         // Other TINYINT as Int32
         assert_eq!(map_mysql_type("tinyint", "tinyint(4)"), CanonicalType::Int32);
     }
