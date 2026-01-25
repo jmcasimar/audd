@@ -39,4 +39,4 @@ pub use conflict::{Conflict, ConflictSeverity, ConflictType};
 pub use engine::compare;
 pub use result::{ComparisonResult, Exclusive, ExclusiveSide, Match, MatchReason};
 pub use types::{compare_types, TypeCompatibility};
-pub use unified::UnifiedSchema;
+pub use unified::{FieldOrigin, FieldState, UnifiedEntity, UnifiedField, UnifiedSchema};
