@@ -47,18 +47,34 @@ impl SqlAdapter {
     fn extract_table_name(sql: &str) -> Result<String, String> {
         let upper = sql.to_uppercase();
         if let Some(start) = upper.find("CREATE TABLE") {
-            let after_create = &sql[start + 12..].trim_start();
+            // Calculate position after "CREATE TABLE" in original string
+            let pos_after_create = start + 12;
+            if pos_after_create >= sql.len() {
+                return Err("Invalid SQL after CREATE TABLE".to_string());
+            }
+            
+            let after_create = sql.get(pos_after_create..)
+                .ok_or("Invalid SQL structure")?
+                .trim_start();
             
             // Handle optional IF NOT EXISTS
             let after_if = if after_create.to_uppercase().starts_with("IF NOT EXISTS") {
-                after_create[13..].trim_start()
+                let skip_len = "IF NOT EXISTS".len();
+                if skip_len >= after_create.len() {
+                    return Err("Invalid SQL after IF NOT EXISTS".to_string());
+                }
+                after_create.get(skip_len..)
+                    .ok_or("Invalid SQL after IF NOT EXISTS")?
+                    .trim_start()
             } else {
                 after_create
             };
             
             // Find table name (before opening parenthesis)
             if let Some(paren_pos) = after_if.find('(') {
-                let name = after_if[..paren_pos].trim();
+                let name = after_if.get(..paren_pos)
+                    .ok_or("Invalid table name")?
+                    .trim();
                 // Remove quotes if present
                 let name = name.trim_matches('`').trim_matches('"').trim_matches('\'');
                 return Ok(name.to_string());
@@ -70,8 +86,10 @@ impl SqlAdapter {
     fn extract_columns_section(sql: &str) -> Result<String, String> {
         if let Some(start) = sql.find('(') {
             if let Some(end) = sql.rfind(')') {
-                if end > start {
-                    return Ok(sql[start + 1..end].to_string());
+                if end > start && start + 1 <= end {
+                    return sql.get(start + 1..end)
+                        .map(|s| s.to_string())
+                        .ok_or_else(|| "Could not extract column definitions".to_string());
                 }
             }
         }
@@ -93,8 +111,11 @@ impl SqlAdapter {
                 // Extract column names from PRIMARY KEY (col1, col2)
                 if let Some(start) = def.find('(') {
                     if let Some(end) = def.find(')') {
-                        let cols = def[start + 1..end].to_string();
-                        primary_keys.extend(cols.split(',').map(|s| s.trim().to_string()));
+                        if end > start && start + 1 <= end {
+                            if let Some(cols_str) = def.get(start + 1..end) {
+                                primary_keys.extend(cols_str.split(',').map(|s| s.trim().to_string()));
+                            }
+                        }
                     }
                 }
                 continue;
