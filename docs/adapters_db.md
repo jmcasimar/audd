@@ -6,15 +6,12 @@ AUDD provides database adapters that allow you to extract schema metadata direct
 
 ## Supported Database Engines
 
-### Current Support (MVP)
+### Current Support
 
 - **SQLite** - Full support for schema extraction
 - **MySQL/MariaDB** - Full support for schema extraction
-
-### Roadmap (Future Releases)
-
-- **PostgreSQL** - Planned
-- **MongoDB** - Planned (will require special handling for schema-flexible collections)
+- **PostgreSQL** - Full support for schema extraction
+- **MongoDB** - Full support with schema inference from document sampling
 
 ## Connection String Formats
 
@@ -61,6 +58,51 @@ mysql://user:pass@mariadb-server/myapp_db
 
 **Note:** MariaDB connection strings use the `mysql://` prefix as they are compatible.
 
+### PostgreSQL
+
+```
+postgres://user:password@host:port/database
+postgresql://user:password@host:port/database  # Alias
+postgres://user:password@host/database  # Port defaults to 5432
+```
+
+**Examples:**
+```bash
+# With explicit port
+postgres://admin:secret@localhost:5432/myapp_db
+
+# Default port (5432)
+postgres://user:pass@localhost/myapp_db
+
+# Remote PostgreSQL server
+postgres://dbuser:dbpass@pg.example.com/production_db
+```
+
+### MongoDB
+
+```
+mongodb://host:port/database
+mongodb://user:password@host:port/database
+mongodb+srv://cluster/database  # MongoDB Atlas
+```
+
+**Examples:**
+```bash
+# Local MongoDB
+mongodb://localhost:27017/myapp_db
+
+# With authentication
+mongodb://admin:secret@localhost:27017/myapp_db
+
+# MongoDB Atlas cluster
+mongodb+srv://cluster0.mongodb.net/production_db
+
+# With connection options
+mongodb://localhost:27017/mydb?retryWrites=true&w=majority
+```
+
+**Note:** MongoDB schema is inferred by sampling documents (default: 100 documents per collection).
+
 ## CLI Usage
 
 ### Load Schema from Database
@@ -85,6 +127,26 @@ audd load --source "db:mysql://user:password@localhost/mydb"
 audd load --source "db:mysql://admin:secret@localhost:3306/myapp"
 ```
 
+#### PostgreSQL Example
+
+```bash
+# Load schema from PostgreSQL database
+audd load --source "db:postgres://user:password@localhost/mydb"
+
+# With explicit port
+audd load --source "db:postgres://admin:secret@localhost:5432/myapp"
+```
+
+#### MongoDB Example
+
+```bash
+# Load schema from MongoDB database
+audd load --source "db:mongodb://localhost:27017/mydb"
+
+# MongoDB Atlas
+audd load --source "db:mongodb+srv://cluster0.mongodb.net/production"
+```
+
 #### Legacy Format (with separate --conn flag)
 
 ```bash
@@ -93,6 +155,12 @@ audd load --source db:sqlite --conn /path/to/database.db
 
 # MySQL with separate connection parameter
 audd load --source db:mysql --conn user:password@localhost/mydb
+
+# PostgreSQL with separate connection parameter
+audd load --source db:postgres --conn user:password@localhost:5432/mydb
+
+# MongoDB with separate connection parameter
+audd load --source db:mongodb --conn localhost:27017/mydb
 ```
 
 ### Compare Schemas from Different Sources
@@ -100,20 +168,25 @@ audd load --source db:mysql --conn user:password@localhost/mydb
 You can compare schemas from different database engines or between databases and files:
 
 ```bash
-# Compare SQLite with MySQL
+# Compare SQLite with PostgreSQL
 audd compare \
   --source-a "db:sqlite:///local/app.db" \
-  --source-b "db:mysql://user:pass@remote.com/prod_db"
+  --source-b "db:postgres://user:pass@remote.com/prod_db"
+
+# Compare MongoDB with MySQL
+audd compare \
+  --source-a "db:mongodb://localhost:27017/development" \
+  --source-b "db:mysql://user:pass@staging/myapp"
 
 # Compare database with CSV file
 audd compare \
-  --source-a "db:sqlite:///data/current.db" \
+  --source-a "db:postgres://user:pass@localhost/current" \
   --source-b "schema.csv"
 
-# Compare two MySQL databases
+# Compare two PostgreSQL databases
 audd compare \
-  --source-a "db:mysql://user:pass@staging/myapp" \
-  --source-b "db:mysql://user:pass@production/myapp"
+  --source-a "db:postgres://user:pass@staging:5432/myapp" \
+  --source-b "db:postgres://user:pass@production:5432/myapp"
 ```
 
 ## Schema Extraction Details
@@ -163,6 +236,66 @@ The MySQL adapter extracts the following metadata:
 - JSON → Json
 - TINYINT(1) → Boolean
 
+### PostgreSQL
+
+The PostgreSQL adapter extracts the following metadata:
+
+- **Tables**: All base tables in the public schema
+- **Columns**: Name, type, nullability, precision/scale
+- **Primary Keys**: Single and composite primary keys
+- **Unique Constraints**: Unique constraints
+
+**Type Mapping:**
+- SMALLINT, INTEGER → Int32
+- BIGINT → Int64
+- SMALLSERIAL, SERIAL → Int32
+- BIGSERIAL → Int64
+- REAL → Float32
+- DOUBLE PRECISION → Float64
+- NUMERIC, DECIMAL → Decimal (with precision/scale)
+- MONEY → Decimal(19,2)
+- CHARACTER, CHARACTER VARYING, VARCHAR → String
+- TEXT → Text
+- BYTEA → Binary
+- BOOLEAN → Boolean
+- DATE → Date
+- TIME → Time
+- TIMESTAMP → DateTime
+- TIMESTAMP WITH TIME ZONE → Timestamp
+- JSON, JSONB → Json
+- UUID → Uuid
+- ARRAY → Unknown (preserves element type info)
+- User-defined types → Unknown (preserves original type name)
+
+### MongoDB
+
+The MongoDB adapter infers schema by sampling documents:
+
+- **Collections**: All collections in the database
+- **Fields**: Detected from sampled documents (default: 100 per collection)
+- **Types**: Inferred from BSON types in documents
+- **Primary Key**: Automatic _id detection
+- **Nullable**: Inferred based on presence of null values
+
+**Sampling Behavior:**
+- Default sample size: 100 documents per collection
+- Configurable via API
+- Fields present in < 100% of documents marked as nullable
+- Mixed types reported as Unknown with type list
+
+**Type Mapping:**
+- Int32, Int64 → Int32, Int64
+- Double → Float64
+- Decimal128 → Decimal(34,0)
+- String → String
+- Boolean → Boolean
+- Binary → Binary
+- DateTime → DateTime
+- Timestamp → Timestamp
+- ObjectId → String
+- Nested documents/arrays → Json
+- Mixed types → Unknown (with type list)
+
 ## Error Handling
 
 The database adapters provide clear error messages for common issues:
@@ -176,9 +309,9 @@ The database adapters provide clear error messages for common issues:
 
 **Common causes:**
 - Database file doesn't exist (SQLite)
-- Incorrect credentials (MySQL)
-- Database server not running (MySQL)
-- Network issues (MySQL)
+- Incorrect credentials (MySQL, PostgreSQL, MongoDB)
+- Database server not running (MySQL, PostgreSQL, MongoDB)
+- Network issues (all network databases)
 
 **Solutions:**
 - Verify the database path/connection string
@@ -191,7 +324,8 @@ The database adapters provide clear error messages for common issues:
 ```
 ❌ Error loading schema: Failed to create database connector: 
    Invalid connection string: Missing database name. 
-   Expected format: sqlite://<path> or mysql://<user>:<pass>@<host>/<db>
+   Expected format: sqlite://<path>, mysql://<user>:<pass>@<host>/<db>, 
+   postgres://<user>:<pass>@<host>/<db>, or mongodb://<host>/<db>
 ```
 
 **Solution:** Check the connection string format matches the documented patterns.
@@ -200,23 +334,26 @@ The database adapters provide clear error messages for common issues:
 
 ```
 ❌ Error loading schema: Failed to create database connector: 
-   Unsupported database engine: oracle (Supported: sqlite, mysql)
+   Unsupported database engine: oracle (Supported: sqlite, mysql, postgres, mongodb)
 ```
 
-**Solution:** Use a supported database engine or wait for future releases.
+**Solution:** Use a supported database engine.
 
 ## Features and Limitations
 
 ### Current Features
 
-✅ Extract table schemas  
+✅ Extract table/collection schemas  
 ✅ Column types, nullability  
 ✅ Primary keys (single and composite)  
 ✅ Unique constraints  
 ✅ Type mapping to canonical IR types  
 ✅ Error handling with helpful messages  
+✅ Schema inference for MongoDB  
+✅ PostgreSQL full support  
+✅ MongoDB document sampling  
 
-### Limitations (MVP)
+### Limitations
 
 ❌ Foreign key relationships (planned)  
 ❌ Indexes (non-unique)  
@@ -224,17 +361,17 @@ The database adapters provide clear error messages for common issues:
 ❌ Stored procedures  
 ❌ Triggers  
 ❌ Complex constraints (CHECK, etc.)  
+❌ MongoDB validators and JSON schema  
 
 ### Future Enhancements
 
-- PostgreSQL support
-- MongoDB support (with schema inference)
 - Foreign key extraction
 - Index analysis
 - View metadata
 - Advanced constraint detection
-- Connection pooling for MySQL
+- Connection pooling for network databases
 - SSL/TLS connection options
+- MongoDB validation rules extraction
 
 ## Performance
 
@@ -244,8 +381,10 @@ The metadata extraction is optimized for speed:
 
 - **SQLite**: Uses efficient PRAGMA queries
 - **MySQL**: Uses INFORMATION_SCHEMA with indexed queries
+- **PostgreSQL**: Uses information_schema and pg_catalog
+- **MongoDB**: Configurable document sampling (default: 100 docs)
 
-**Target:** < 2 seconds for databases with up to 100 tables
+**Target:** < 2 seconds for databases with up to 100 tables/collections
 
 ### Best Practices
 
@@ -329,6 +468,47 @@ audd compare \
 - Verify database exists
 - Check user has access to the database
 
+### PostgreSQL Issues
+
+**Problem:** "connection refused"
+- Verify PostgreSQL server is running
+- Check that PostgreSQL is listening on the correct host/port
+- Verify pg_hba.conf allows connections from your host
+- Check firewall rules
+
+**Problem:** "authentication failed"
+- Verify username and password
+- Check PostgreSQL authentication method in pg_hba.conf
+- Ensure user has SELECT permissions on information_schema
+
+**Problem:** "database does not exist"
+- Verify database name is spelled correctly
+- Check user has CONNECT privilege on the database
+- Ensure database exists using psql
+
+### MongoDB Issues
+
+**Problem:** "connection timed out"
+- Verify MongoDB server is running
+- Check MongoDB is listening on the correct host/port
+- Verify firewall rules allow connections
+- Check network connectivity
+
+**Problem:** "authentication failed"
+- Verify username and password
+- Check user has read permissions on the database
+- Ensure authentication database is correct
+
+**Problem:** "no collections found"
+- Verify database name is correct
+- Check that collections exist in the database
+- Ensure user has list_collections permission
+
+**Problem:** "schema appears incomplete"
+- Increase sample size (MongoDB uses sampling)
+- Some fields may not appear in all documents
+- Consider sampling more documents for better coverage
+
 ## API Usage
 
 For programmatic usage in Rust code:
@@ -343,6 +523,14 @@ let schema = connector.load()?;
 // MySQL
 let connector = create_connector("mysql://user:pass@localhost/mydb")?;
 let schema = connector.load()?;
+
+// PostgreSQL
+let connector = create_connector("postgres://user:pass@localhost:5432/mydb")?;
+let schema = connector.load()?;
+
+// MongoDB
+let connector = create_connector("mongodb://localhost:27017/mydb")?;
+let schema = connector.load()?;
 ```
 
 See the crate documentation for more details on the API.
@@ -356,5 +544,6 @@ For issues, feature requests, or questions:
 
 ## Version History
 
-- **v0.1.0** (MVP) - SQLite and MySQL/MariaDB support
-- Future: PostgreSQL, MongoDB, enhanced features
+- **v0.1.0** - SQLite and MySQL/MariaDB support
+- **v0.2.0** - PostgreSQL and MongoDB support (schema inference)
+- Future: Foreign keys, views, advanced constraints
