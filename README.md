@@ -10,11 +10,14 @@ AUDD provides automated data reconciliation and schema mapping for datasets from
 
 ## ✨ Features
 
-- Dynamic schema detection and alignment
-- Multi-format support (CSV, JSON, XML)
-- Intelligent field mapping
-- Conflict resolution strategies
-- CLI and library interfaces
+- **File Adapters**: Load schemas from CSV, JSON, XML, and SQL/DDL files
+- **Intermediate Representation (IR)**: Canonical schema model for heterogeneous sources
+- **Auto-detection**: Automatic format detection from file extensions
+- **Type Inference**: Smart type detection for JSON and SQL sources
+- **Conflict Detection**: Advanced schema comparison and conflict identification
+- **Resolution Engine**: Automated and manual conflict resolution strategies
+- **Auditable Decisions**: Track and document all schema unification decisions
+- **CLI and Library**: Use as command-line tool or Rust library
 
 ## 🚀 Quick Start
 
@@ -31,7 +34,14 @@ Binary available at: `target/release/audd`
 
 ### Usage
 
-**Compare two data sources:**
+**Load schema from a file:**
+```bash
+audd load --source users.csv
+audd load --source schema.sql
+audd load --source data.json
+```
+
+**Compare two data sources (stub):**
 ```bash
 audd compare --source1 data1.csv --source2 data2.json
 ```
@@ -39,17 +49,17 @@ audd compare --source1 data1.csv --source2 data2.json
 **Get help:**
 ```bash
 audd --help
-audd compare --help
+audd load --help
 ```
 
 ### Example
 
 ```bash
-# Compare customer data from two systems
-audd compare \
-  --source1 crm_export.csv \
-  --source2 erp_data.json \
-  --format json
+# Load and inspect a CSV schema
+audd load --source fixtures/adapters/users.csv
+
+# Load SQL DDL with multiple tables
+audd load --source fixtures/adapters/schema.sql --format json
 ```
 
 **Output (stub):**
