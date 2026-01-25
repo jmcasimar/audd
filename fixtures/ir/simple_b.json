@@ -1,0 +1,106 @@
+{
+  "source_name": "customers_db",
+  "source_type": "postgresql",
+  "ir_version": "1.0.0",
+  "entities": [
+    {
+      "entity_name": "users",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false,
+          "metadata": {
+            "original_name": "id",
+            "original_type": "BIGINT",
+            "sequence": "users_id_seq"
+          }
+        },
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false,
+          "constraints": [
+            {
+              "constraint_type": "MaxLength",
+              "value": 255
+            },
+            {
+              "constraint_type": "Unique"
+            }
+          ],
+          "metadata": {
+            "original_name": "email",
+            "original_type": "VARCHAR(255)"
+          }
+        },
+        {
+          "field_name": "full_name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "MaxLength",
+              "value": 150
+            }
+          ],
+          "metadata": {
+            "original_name": "full_name",
+            "original_type": "VARCHAR(150)"
+          }
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false,
+          "metadata": {
+            "original_name": "created_at",
+            "original_type": "TIMESTAMPTZ"
+          }
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "boolean"
+          },
+          "nullable": false,
+          "metadata": {
+            "original_name": "is_active",
+            "original_type": "BOOLEAN"
+          }
+        },
+        {
+          "field_name": "user_uuid",
+          "canonical_type": {
+            "type": "uuid"
+          },
+          "nullable": false,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ],
+          "metadata": {
+            "original_name": "user_uuid",
+            "original_type": "UUID"
+          }
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": ["id"]
+        }
+      ]
+    }
+  ]
+}

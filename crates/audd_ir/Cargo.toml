@@ -1,0 +1,12 @@
+[package]
+name = "audd_ir"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Canonical schema intermediate representation for AUDD"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
