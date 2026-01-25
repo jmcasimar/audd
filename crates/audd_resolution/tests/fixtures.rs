@@ -217,7 +217,7 @@ pub fn nullability_fixtures() -> Vec<Conflict> {
         Conflict::nullability_mismatch(
             "orders".to_string(),
             "notes".to_string(),
-            true,
+            false,
             true,
             0,
             1,
