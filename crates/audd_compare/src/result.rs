@@ -15,6 +15,13 @@ pub enum MatchReason {
     },
     /// Similarity-based match
     Similarity { score: f64 },
+    /// Semantic match with detailed scoring
+    Semantic {
+        score: f64,
+        decision: String,
+        #[serde(skip_serializing_if = "Option::is_none")]
+        details: Option<serde_json::Value>,
+    },
 }
 
 /// A matched field or entity between schemas A and B
@@ -110,6 +117,30 @@ impl Match {
             entity_name,
             field_name,
             MatchReason::Similarity { score },
+            score,
+            index_a,
+            index_b,
+        )
+    }
+
+    /// Create a semantic match
+    pub fn semantic(
+        entity_name: String,
+        field_name: Option<String>,
+        score: f64,
+        decision: String,
+        details: Option<serde_json::Value>,
+        index_a: usize,
+        index_b: usize,
+    ) -> Self {
+        Self::new(
+            entity_name,
+            field_name,
+            MatchReason::Semantic {
+                score,
+                decision,
+                details,
+            },
             score,
             index_a,
             index_b,
