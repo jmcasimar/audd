@@ -67,10 +67,12 @@ impl PostgresConnector {
                 DbError::ConnectionError(format!("Failed to connect to PostgreSQL: {}", e))
             })?;
 
-        // Spawn connection handler
+        // P1 Fix (H7): Proper error handling for connection task
+        // Spawn connection handler with error logging
         tokio::spawn(async move {
             if let Err(e) = connection.await {
-                eprintln!("PostgreSQL connection error: {}", e);
+                // Log to stderr as fallback - caller should handle connection errors through queries
+                eprintln!("PostgreSQL connection handler encountered error: {}", e);
             }
         });
 

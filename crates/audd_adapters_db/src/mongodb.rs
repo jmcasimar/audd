@@ -61,6 +61,17 @@ impl MongoDbConnector {
     /// * `conn_str` - Full MongoDB connection string
     /// * `sample_size` - Number of documents to sample for schema inference
     pub async fn new_with_sample_size(conn_str: &str, sample_size: usize) -> DbResult<Self> {
+        // P1 Fix (H4): Validate sample size to prevent OOM and invalid inputs
+        const MIN_SAMPLE_SIZE: usize = 1;
+        const MAX_SAMPLE_SIZE: usize = 10000;
+        
+        if sample_size < MIN_SAMPLE_SIZE || sample_size > MAX_SAMPLE_SIZE {
+            return Err(DbError::InvalidConnectionString(format!(
+                "Sample size must be between {} and {} (got {})",
+                MIN_SAMPLE_SIZE, MAX_SAMPLE_SIZE, sample_size
+            )));
+        }
+        
         // Parse the connection string to get the database name
         let full_uri = if conn_str.starts_with("mongodb://") || conn_str.starts_with("mongodb+srv://") {
             conn_str.to_string()

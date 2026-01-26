@@ -92,6 +92,9 @@ pub fn create_connector(conn_str: &str) -> DbResult<Box<dyn DbSchemaConnector>> 
                 let connector = runtime.block_on(async {
                     PostgresConnector::new(&conn_details).await
                 })?;
+                
+                // P1 Fix (H5): Explicit runtime cleanup to prevent resource leaks
+                runtime.shutdown_background();
                 Ok(Box::new(connector))
             }
             #[cfg(not(feature = "postgres"))]
@@ -113,6 +116,9 @@ pub fn create_connector(conn_str: &str) -> DbResult<Box<dyn DbSchemaConnector>> 
                 let connector = runtime.block_on(async {
                     MongoDbConnector::new(&full_conn_str).await
                 })?;
+                
+                // P1 Fix (H5): Explicit runtime cleanup to prevent resource leaks
+                runtime.shutdown_background();
                 Ok(Box::new(connector))
             }
             #[cfg(not(feature = "mongodb"))]
@@ -132,6 +138,9 @@ pub fn create_connector(conn_str: &str) -> DbResult<Box<dyn DbSchemaConnector>> 
                 let connector = runtime.block_on(async {
                     SqlServerConnector::new(&conn_details).await
                 })?;
+                
+                // P1 Fix (H5): Explicit runtime cleanup to prevent resource leaks
+                runtime.shutdown_background();
                 Ok(Box::new(connector))
             }
             #[cfg(not(feature = "sqlserver"))]

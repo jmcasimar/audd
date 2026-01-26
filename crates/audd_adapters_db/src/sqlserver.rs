@@ -84,7 +84,11 @@ impl SqlServerConnector {
 
         // Parse host and port
         let (host, port) = if let Some((h, p)) = host_port.split_once(':') {
-            (h.to_string(), p.parse::<u16>().unwrap_or(1433))
+            // P1 Fix (H1): Proper port validation instead of silent fallback
+            let port = p.parse::<u16>().map_err(|_|
+                DbError::InvalidConnectionString(format!("Invalid port number: '{}'. Port must be a number between 1 and 65535.", p))
+            )?;
+            (h.to_string(), port)
         } else {
             (host_port.to_string(), 1433)
         };
@@ -176,9 +180,13 @@ impl SqlServerConnector {
 
         let mut fields = Vec::new();
         for row in rows.iter() {
-            let column_name: &str = row.get(0).unwrap_or("");
-            let data_type: &str = row.get(1).unwrap_or("");
-            let is_nullable: &str = row.get(2).unwrap_or("YES");
+            // P1 Fix (H3): Proper error handling instead of silent data corruption
+            let column_name: &str = row.try_get(0)
+                .map_err(|e| DbError::QueryError(format!("Failed to read column name: {}", e)))?;
+            let data_type: &str = row.try_get(1)
+                .map_err(|e| DbError::QueryError(format!("Failed to read data type for column {}: {}", column_name, e)))?;
+            let is_nullable: &str = row.try_get(2)
+                .map_err(|e| DbError::QueryError(format!("Failed to read nullable flag for column {}: {}", column_name, e)))?;
             let max_length: Option<i32> = row.get(3);
             let precision: Option<u8> = row.get(4);
             let scale: Option<u8> = row.get(5);
@@ -282,10 +290,15 @@ impl SqlServerConnector {
         let mut fk_map: HashMap<String, (Vec<String>, String, String)> = HashMap::new();
 
         for row in rows.iter() {
-            let fk_name: &str = row.get(0).unwrap_or("");
-            let column_name: &str = row.get(1).unwrap_or("");
-            let ref_table: &str = row.get(2).unwrap_or("");
-            let ref_column: &str = row.get(3).unwrap_or("");
+            // P1 Fix (H3): Proper error handling instead of silent data corruption
+            let fk_name: &str = row.try_get(0)
+                .map_err(|e| DbError::QueryError(format!("Failed to read foreign key name for table {}: {}", table_name, e)))?;
+            let column_name: &str = row.try_get(1)
+                .map_err(|e| DbError::QueryError(format!("Failed to read column name for FK {}: {}", fk_name, e)))?;
+            let ref_table: &str = row.try_get(2)
+                .map_err(|e| DbError::QueryError(format!("Failed to read referenced table for FK {}: {}", fk_name, e)))?;
+            let ref_column: &str = row.try_get(3)
+                .map_err(|e| DbError::QueryError(format!("Failed to read referenced column for FK {}: {}", fk_name, e)))?;
 
             fk_map
                 .entry(fk_name.to_string())
@@ -343,11 +356,16 @@ impl SqlServerConnector {
         let mut index_map: HashMap<String, (bool, String, Option<String>, Vec<String>)> = HashMap::new();
 
         for row in rows.iter() {
-            let index_name: &str = row.get(0).unwrap_or("");
-            let is_unique: bool = row.get(1).unwrap_or(false);
-            let type_desc: &str = row.get(2).unwrap_or("");
+            // P1 Fix (H3): Proper error handling instead of silent data corruption
+            let index_name: &str = row.try_get(0)
+                .map_err(|e| DbError::QueryError(format!("Failed to read index name for table {}: {}", table_name, e)))?;
+            let is_unique: bool = row.try_get(1)
+                .map_err(|e| DbError::QueryError(format!("Failed to read unique flag for index {}: {}", index_name, e)))?;
+            let type_desc: &str = row.try_get(2)
+                .map_err(|e| DbError::QueryError(format!("Failed to read type for index {}: {}", index_name, e)))?;
             let filter_def: Option<&str> = row.get(3);
-            let column_name: &str = row.get(4).unwrap_or("");
+            let column_name: &str = row.try_get(4)
+                .map_err(|e| DbError::QueryError(format!("Failed to read column name for index {}: {}", index_name, e)))?;
 
             index_map
                 .entry(index_name.to_string())
