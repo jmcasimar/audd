@@ -4,6 +4,7 @@ use audd_ir::{normalize_identifier, EntitySchema, FieldSchema};
 
 use crate::config::CompareConfig;
 use crate::result::Match;
+use crate::semantic::{SemanticMatchDecision, SemanticMatchPipeline};
 
 /// Match entities by name
 pub fn match_entities(
@@ -32,6 +33,48 @@ fn try_match_entity(
     idx_b: usize,
     config: &CompareConfig,
 ) -> Option<Match> {
+    // Try semantic matching first if enabled
+    if config.semantic_match.enabled {
+        let pipeline = SemanticMatchPipeline::new(config.semantic_match.clone());
+        let result = pipeline.compare(&entity_a.entity_name, &entity_b.entity_name);
+
+        match result.decision {
+            SemanticMatchDecision::Match => {
+                let details = result.reasons.map(|reasons| {
+                    serde_json::to_value(reasons).unwrap_or(serde_json::Value::Null)
+                });
+                return Some(Match::semantic(
+                    entity_a.entity_name.clone(),
+                    None,
+                    result.final_score,
+                    "match".to_string(),
+                    details,
+                    idx_a,
+                    idx_b,
+                ));
+            }
+            SemanticMatchDecision::ProbableMatch => {
+                if config.semantic_match.allow_probable_as_match {
+                    let details = result.reasons.map(|reasons| {
+                        serde_json::to_value(reasons).unwrap_or(serde_json::Value::Null)
+                    });
+                    return Some(Match::semantic(
+                        entity_a.entity_name.clone(),
+                        None,
+                        result.final_score,
+                        "probable_match".to_string(),
+                        details,
+                        idx_a,
+                        idx_b,
+                    ));
+                }
+            }
+            SemanticMatchDecision::NoMatch => {
+                // Continue to legacy matching strategies
+            }
+        }
+    }
+
     // Exact name match
     if config.exact_matching && entity_a.entity_name == entity_b.entity_name {
         return Some(Match::exact(
@@ -105,6 +148,48 @@ fn try_match_field(
     idx_b: usize,
     config: &CompareConfig,
 ) -> Option<Match> {
+    // Try semantic matching first if enabled
+    if config.semantic_match.enabled {
+        let pipeline = SemanticMatchPipeline::new(config.semantic_match.clone());
+        let result = pipeline.compare(&field_a.field_name, &field_b.field_name);
+
+        match result.decision {
+            SemanticMatchDecision::Match => {
+                let details = result.reasons.map(|reasons| {
+                    serde_json::to_value(reasons).unwrap_or(serde_json::Value::Null)
+                });
+                return Some(Match::semantic(
+                    entity_name.to_string(),
+                    Some(field_a.field_name.clone()),
+                    result.final_score,
+                    "match".to_string(),
+                    details,
+                    idx_a,
+                    idx_b,
+                ));
+            }
+            SemanticMatchDecision::ProbableMatch => {
+                if config.semantic_match.allow_probable_as_match {
+                    let details = result.reasons.map(|reasons| {
+                        serde_json::to_value(reasons).unwrap_or(serde_json::Value::Null)
+                    });
+                    return Some(Match::semantic(
+                        entity_name.to_string(),
+                        Some(field_a.field_name.clone()),
+                        result.final_score,
+                        "probable_match".to_string(),
+                        details,
+                        idx_a,
+                        idx_b,
+                    ));
+                }
+            }
+            SemanticMatchDecision::NoMatch => {
+                // Continue to legacy matching strategies
+            }
+        }
+    }
+
     // Exact name match
     if config.exact_matching && field_a.field_name == field_b.field_name {
         return Some(Match::exact(
@@ -158,6 +243,7 @@ pub fn calculate_similarity(a: &str, b: &str) -> f64 {
 mod tests {
     use super::*;
     use audd_ir::CanonicalType;
+    use crate::result::MatchReason;
 
     fn create_test_entity(name: &str) -> EntitySchema {
         EntitySchema::builder().entity_name(name).build()
@@ -173,7 +259,8 @@ mod tests {
 
     #[test]
     fn test_exact_entity_match() {
-        let config = CompareConfig::default();
+        let mut config = CompareConfig::default();
+        config.semantic_match.enabled = false;
         let entities_a = vec![create_test_entity("users")];
         let entities_b = vec![create_test_entity("users")];
 
@@ -186,7 +273,8 @@ mod tests {
 
     #[test]
     fn test_normalized_entity_match() {
-        let config = CompareConfig::default();
+        let mut config = CompareConfig::default();
+        config.semantic_match.enabled = false;
         let entities_a = vec![create_test_entity("UserTable")];
         let entities_b = vec![create_test_entity("user_table")];
 
@@ -207,7 +295,8 @@ mod tests {
 
     #[test]
     fn test_similarity_entity_match() {
-        let config = CompareConfig::all_features().with_similarity_threshold(0.8);
+        let mut config = CompareConfig::all_features().with_similarity_threshold(0.8);
+        config.semantic_match.enabled = false;
         let entities_a = vec![create_test_entity("users")];
         let entities_b = vec![create_test_entity("user")];
 
@@ -224,7 +313,8 @@ mod tests {
 
     #[test]
     fn test_exact_field_match() {
-        let config = CompareConfig::default();
+        let mut config = CompareConfig::default();
+        config.semantic_match.enabled = false;
         let fields_a = vec![create_test_field("email")];
         let fields_b = vec![create_test_field("email")];
 
@@ -237,7 +327,8 @@ mod tests {
 
     #[test]
     fn test_normalized_field_match() {
-        let config = CompareConfig::default();
+        let mut config = CompareConfig::default();
+        config.semantic_match.enabled = false;
         let fields_a = vec![create_test_field("firstName")];
         let fields_b = vec![create_test_field("first_name")];
 

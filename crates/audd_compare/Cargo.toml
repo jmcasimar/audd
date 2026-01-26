@@ -11,3 +11,5 @@ audd_ir = { path = "../audd_ir" }
 serde = { workspace = true }
 serde_json = { workspace = true }
 strsim = "0.11"
+unicode-normalization = "0.1"
+unidecode = "0.3"
