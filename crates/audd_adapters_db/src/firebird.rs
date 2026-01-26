@@ -4,6 +4,8 @@
 use rsfbclient::{Connection, ConnectionBuilder, FbError};
 #[cfg(feature = "firebird")]
 use std::collections::HashMap;
+#[cfg(feature = "firebird")]
+use serde_json;
 
 use audd_ir::{
     CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, KeyType, SourceSchema,
@@ -85,13 +87,13 @@ impl FirebirdConnector {
         "#;
 
         let rows = self.conn.query_iter(query, ())
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query tables: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query tables: {}", e)))?;
 
         let mut tables = Vec::new();
         for row in rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             let table_name: String = row.get(0)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get table name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get table name: {}", e)))?;
 
             let fields = self.extract_columns(&table_name)?;
             let keys = self.extract_keys(&table_name)?;
@@ -129,16 +131,16 @@ impl FirebirdConnector {
         "#;
 
         let rows = self.conn.query_iter(query, (table_name,))
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query columns: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query columns: {}", e)))?;
 
         let mut fields = Vec::new();
         for row in rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             
             let column_name: String = row.get(0)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get column name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get column name: {}", e)))?;
             let field_type: i16 = row.get(1)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get field type: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get field type: {}", e)))?;
             let field_sub_type: Option<i16> = row.get(2).ok();
             let field_length: Option<i16> = row.get(3).ok();
             let field_precision: Option<i16> = row.get(4).ok();
@@ -272,19 +274,19 @@ impl FirebirdConnector {
         "#;
 
         let pk_rows = self.conn.query_iter(pk_query, (table_name,))
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query primary keys: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query primary keys: {}", e)))?;
 
         let mut pk_columns = Vec::new();
         let mut pk_name = String::new();
         
         for row in pk_rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             if pk_name.is_empty() {
                 pk_name = row.get(0)
-                    .map_err(|e| DbError::QueryFailed(format!("Failed to get constraint name: {}", e)))?;
+                    .map_err(|e| DbError::QueryError(format!("Failed to get constraint name: {}", e)))?;
             }
             let column_name: String = row.get(1)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get column name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get column name: {}", e)))?;
             pk_columns.push(column_name);
         }
 
@@ -318,21 +320,21 @@ impl FirebirdConnector {
         "#;
 
         let fk_rows = self.conn.query_iter(fk_query, (table_name,))
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query foreign keys: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query foreign keys: {}", e)))?;
 
         let mut current_fk: Option<(String, Vec<String>, String, Vec<String>)> = None;
 
         for row in fk_rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             
             let constraint_name: String = row.get(0)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get constraint name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get constraint name: {}", e)))?;
             let column_name: String = row.get(1)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get column name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get column name: {}", e)))?;
             let referenced_table: String = row.get(3)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get referenced table: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get referenced table: {}", e)))?;
             let referenced_column: String = row.get(4)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get referenced column: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get referenced column: {}", e)))?;
 
             match &mut current_fk {
                 Some((name, cols, _ref_table, ref_cols)) if name == &constraint_name => {
@@ -343,8 +345,8 @@ impl FirebirdConnector {
                     // Save previous FK if exists
                     if let Some((name, cols, ref_table, ref_cols)) = current_fk.take() {
                         let mut metadata = HashMap::new();
-                        metadata.insert("referenced_table".to_string(), ref_table);
-                        metadata.insert("referenced_columns".to_string(), ref_cols.join(","));
+                        metadata.insert("referenced_table".to_string(), serde_json::Value::String(ref_table));
+                        metadata.insert("referenced_columns".to_string(), serde_json::Value::String(ref_cols.join(",")));
 
                         keys.push(Key {
                             key_type: KeyType::Foreign,
@@ -367,8 +369,8 @@ impl FirebirdConnector {
         // Save last FK
         if let Some((name, cols, ref_table, ref_cols)) = current_fk {
             let mut metadata = HashMap::new();
-            metadata.insert("referenced_table".to_string(), ref_table);
-            metadata.insert("referenced_columns".to_string(), ref_cols.join(","));
+            metadata.insert("referenced_table".to_string(), serde_json::Value::String(ref_table));
+            metadata.insert("referenced_columns".to_string(), serde_json::Value::String(ref_cols.join(",")));
 
             keys.push(Key {
                 key_type: KeyType::Foreign,
@@ -392,17 +394,17 @@ impl FirebirdConnector {
         "#;
 
         let uq_rows = self.conn.query_iter(uq_query, (table_name,))
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query unique constraints: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query unique constraints: {}", e)))?;
 
         let mut current_uq: Option<(String, Vec<String>)> = None;
 
         for row in uq_rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             
             let constraint_name: String = row.get(0)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get constraint name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get constraint name: {}", e)))?;
             let column_name: String = row.get(1)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get column name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get column name: {}", e)))?;
 
             match &mut current_uq {
                 Some((name, cols)) if name == &constraint_name => {
@@ -456,18 +458,18 @@ impl FirebirdConnector {
         "#;
 
         let rows = self.conn.query_iter(query, (table_name,))
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query indexes: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query indexes: {}", e)))?;
 
         let mut indexes_map: HashMap<String, (bool, Vec<String>, Option<String>)> = HashMap::new();
 
         for row in rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             
             let index_name: String = row.get(0)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get index name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get index name: {}", e)))?;
             let unique_flag: Option<i16> = row.get(1).ok();
             let column_name: String = row.get(2)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get column name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get column name: {}", e)))?;
             let expression: Option<String> = row.get(4).ok();
 
             let is_unique = unique_flag == Some(1);
@@ -511,21 +513,22 @@ impl FirebirdConnector {
         "#;
 
         let rows = self.conn.query_iter(query, ())
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query views: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query views: {}", e)))?;
 
         let mut views = Vec::new();
         for row in rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             
             let view_name: String = row.get(0)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get view name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get view name: {}", e)))?;
             let definition: Option<String> = row.get(1).ok();
 
             views.push(View {
                 view_name,
                 definition,
                 is_materialized: false, // Firebird doesn't have materialized views
-                fields: Vec::new(),
+                field_names: Vec::new(),
+                metadata: HashMap::new(),
             });
         }
 
@@ -544,14 +547,14 @@ impl FirebirdConnector {
         "#;
 
         let rows = self.conn.query_iter(query, ())
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query stored procedures: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query stored procedures: {}", e)))?;
 
         let mut procedures = Vec::new();
         for row in rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             
             let procedure_name: String = row.get(0)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get procedure name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get procedure name: {}", e)))?;
             let source: Option<String> = row.get(1).ok();
 
             procedures.push(StoredProcedure {
@@ -560,6 +563,7 @@ impl FirebirdConnector {
                 return_type: None,
                 parameters: Vec::new(),
                 definition: source,
+                metadata: HashMap::new(),
             });
         }
 
@@ -581,18 +585,18 @@ impl FirebirdConnector {
         "#;
 
         let rows = self.conn.query_iter(query, ())
-            .map_err(|e| DbError::QueryFailed(format!("Failed to query triggers: {}", e)))?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query triggers: {}", e)))?;
 
         let mut triggers = Vec::new();
         for row in rows {
-            let row = row.map_err(|e| DbError::QueryFailed(format!("Failed to fetch row: {}", e)))?;
+            let row = row.map_err(|e| DbError::QueryError(format!("Failed to fetch row: {}", e)))?;
             
             let trigger_name: String = row.get(0)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get trigger name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get trigger name: {}", e)))?;
             let table_name: String = row.get(1)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get table name: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get table name: {}", e)))?;
             let trigger_type: i16 = row.get(2)
-                .map_err(|e| DbError::QueryFailed(format!("Failed to get trigger type: {}", e)))?;
+                .map_err(|e| DbError::QueryError(format!("Failed to get trigger type: {}", e)))?;
             let source: Option<String> = row.get(3).ok();
 
             // Decode trigger type (combination of timing and event)
@@ -613,6 +617,7 @@ impl FirebirdConnector {
                 timing: timing.to_string(),
                 event: event.to_string(),
                 definition: source,
+                metadata: HashMap::new(),
             });
         }
 
@@ -645,10 +650,12 @@ impl DbSchemaConnector for FirebirdConnector {
         Ok(SourceSchema {
             source_name: self.database_name.clone(),
             source_type: "firebird".to_string(),
+            ir_version: audd_ir::IR_VERSION.to_string(),
             entities: tables,
             views,
             stored_procedures,
             triggers,
+            metadata: HashMap::new(),
         })
     }
 }

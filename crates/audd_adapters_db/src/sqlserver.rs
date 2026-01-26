@@ -95,7 +95,8 @@ impl SqlServerConnector {
         config.port(port);
         config.database(&database_name);
         config.authentication(AuthMethod::sql_server(username, password));
-        config.trust_cert(); // For development/testing
+        // Enable TLS encryption for production use
+        config.encryption(tiberius::EncryptionLevel::Required);
 
         // Connect to SQL Server
         let tcp = TcpStream::connect(config.get_addr())

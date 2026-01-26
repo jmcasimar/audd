@@ -35,6 +35,20 @@ pub struct MysqlConnector {
 }
 
 #[cfg(feature = "mysql")]
+fn validate_sql_identifier(name: &str) -> DbResult<()> {
+    if name.is_empty() || name.len() > 64 {
+        return Err(DbError::ExtractionError(format!("Invalid identifier length: {}", name)));
+    }
+    if !name.chars().all(|c| c.is_alphanumeric() || c == '_' || c == '$') {
+        return Err(DbError::ExtractionError(format!("Invalid identifier characters: {}", name)));
+    }
+    if name.starts_with(char::is_numeric) {
+        return Err(DbError::ExtractionError(format!("Identifier cannot start with number: {}", name)));
+    }
+    Ok(())
+}
+
+#[cfg(feature = "mysql")]
 impl MysqlConnector {
     /// Create a new MySQL connector
     ///
@@ -98,6 +112,7 @@ impl MysqlConnector {
 
     /// Extract schema for a specific table
     fn extract_table_schema(&self, table_name: &str) -> DbResult<EntitySchema> {
+        validate_sql_identifier(table_name)?;
         let fields = self.extract_fields(table_name)?;
         let keys = self.extract_keys(table_name)?;
         let indexes = self.extract_indexes(table_name)?;
@@ -113,6 +128,7 @@ impl MysqlConnector {
 
     /// Extract field schemas for a table
     fn extract_fields(&self, table_name: &str) -> DbResult<Vec<FieldSchema>> {
+        validate_sql_identifier(table_name)?;
         let mut conn = self.get_conn()?;
 
         let query = format!(
@@ -173,6 +189,7 @@ impl MysqlConnector {
 
     /// Extract primary key fields
     fn extract_primary_key(&self, table_name: &str) -> DbResult<Vec<String>> {
+        validate_sql_identifier(table_name)?;
         let mut conn = self.get_conn()?;
 
         let query = format!(
@@ -194,6 +211,7 @@ impl MysqlConnector {
 
     /// Extract unique indexes
     fn extract_unique_indexes(&self, table_name: &str) -> DbResult<Vec<Key>> {
+        validate_sql_identifier(table_name)?;
         let mut conn = self.get_conn()?;
 
         // Get unique index names (excluding primary key)
@@ -226,6 +244,8 @@ impl MysqlConnector {
 
     /// Extract columns for a specific index
     fn extract_index_columns(&self, table_name: &str, index_name: &str) -> DbResult<Vec<String>> {
+        validate_sql_identifier(table_name)?;
+        validate_sql_identifier(index_name)?;
         let mut conn = self.get_conn()?;
 
         let query = format!(
@@ -249,6 +269,7 @@ impl MysqlConnector {
 
     /// Extract foreign keys for a table
     fn extract_foreign_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
+        validate_sql_identifier(table_name)?;
         let mut conn = self.get_conn()?;
 
         let query = format!(
@@ -300,6 +321,7 @@ impl MysqlConnector {
 
     /// Extract regular indexes (non-unique, non-primary) for a table
     fn extract_indexes(&self, table_name: &str) -> DbResult<Vec<Index>> {
+        validate_sql_identifier(table_name)?;
         let mut conn = self.get_conn()?;
 
         // Get all indexes (excluding primary key)
@@ -421,6 +443,7 @@ impl MysqlConnector {
 
     /// Extract all triggers for a specific table
     fn extract_table_triggers(&self, table_name: &str) -> DbResult<Vec<Trigger>> {
+        validate_sql_identifier(table_name)?;
         let mut conn = self.get_conn()?;
 
         let query = format!(

@@ -11,9 +11,41 @@ use crate::json_adapter::JsonAdapter;
 use crate::sql_adapter::SqlAdapter;
 use crate::xml_adapter::XmlAdapter;
 use audd_ir::SourceSchema;
-use std::io::Write;
+use std::io::{Write, Read};
 use std::path::Path;
 use tempfile::NamedTempFile;
+
+/// Maximum allowed file size for remote downloads (50MB)
+const MAX_FILE_SIZE: u64 = 50 * 1024 * 1024;
+
+/// Validate URL for security concerns
+fn validate_url_safety(url: &str) -> Result<(), Box<dyn std::error::Error>> {
+    let parsed = url::Url::parse(url)?;
+    
+    // Block localhost and private IPs
+    if let Some(host) = parsed.host_str() {
+        if host == "localhost" || host == "127.0.0.1" || host.starts_with("192.168.") 
+            || host.starts_with("10.") || host.starts_with("172.16.") 
+            || host.starts_with("172.17.") || host.starts_with("172.18.")
+            || host.starts_with("172.19.") || host.starts_with("172.20.")
+            || host.starts_with("172.21.") || host.starts_with("172.22.")
+            || host.starts_with("172.23.") || host.starts_with("172.24.")
+            || host.starts_with("172.25.") || host.starts_with("172.26.")
+            || host.starts_with("172.27.") || host.starts_with("172.28.")
+            || host.starts_with("172.29.") || host.starts_with("172.30.")
+            || host.starts_with("172.31.") || host == "::1" 
+            || host.starts_with("169.254.") {
+            return Err("Private/localhost URLs not allowed".into());
+        }
+    }
+    
+    // Only allow HTTP/HTTPS
+    if parsed.scheme() != "http" && parsed.scheme() != "https" {
+        return Err("Only HTTP/HTTPS URLs allowed".into());
+    }
+    
+    Ok(())
+}
 
 /// Adapter for loading schemas from remote URLs
 pub struct RemoteAdapter {
@@ -142,6 +174,14 @@ impl RemoteAdapter {
             self.url.clone()
         };
 
+        // Validate URL for security
+        validate_url_safety(&url).map_err(|e| {
+            AdapterError::IoError(std::io::Error::new(
+                std::io::ErrorKind::PermissionDenied,
+                format!("URL validation failed: {}", e),
+            ))
+        })?;
+
         // Use ureq for HTTP requests (synchronous, simple)
         let response = ureq::get(&url)
             .call()
@@ -158,11 +198,31 @@ impl RemoteAdapter {
             )));
         }
 
-        // Read the response body
-        let mut reader = response.into_reader();
+        // Check content-length header for file size limit
+        if let Some(content_length) = response.header("content-length") {
+            if let Ok(size) = content_length.parse::<u64>() {
+                if size > MAX_FILE_SIZE {
+                    return Err(AdapterError::IoError(std::io::Error::new(
+                        std::io::ErrorKind::Other,
+                        format!("File too large: {} bytes (max: {} bytes)", size, MAX_FILE_SIZE),
+                    )));
+                }
+            }
+        }
+
+        // Read the response body with size limit
+        let reader = response.into_reader();
         let mut buffer = Vec::new();
-        std::io::copy(&mut reader, &mut buffer)
+        let bytes_read = std::io::copy(&mut reader.take(MAX_FILE_SIZE), &mut buffer)
             .map_err(|e| AdapterError::IoError(e))?;
+
+        // Enforce size limit even if content-length header was missing
+        if bytes_read >= MAX_FILE_SIZE {
+            return Err(AdapterError::IoError(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                format!("File too large: reached {} byte limit", MAX_FILE_SIZE),
+            )));
+        }
 
         Ok(buffer)
     }
