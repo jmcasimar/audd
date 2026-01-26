@@ -3,8 +3,6 @@ mod error;
 mod loader;
 mod output;
 
-use audd_cli::report;
-
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use error::CliResult;

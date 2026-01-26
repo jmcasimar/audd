@@ -77,6 +77,7 @@ pub fn load_schema_from_file<P: AsRef<Path>>(path: P) -> AdapterResult<SourceSch
 /// # Errors
 ///
 /// Returns an error if the file extension is not recognized
+#[allow(dead_code)]
 pub fn get_adapter_for_file<P: AsRef<Path>>(
     path: P,
 ) -> AdapterResult<Box<dyn SchemaAdapter>> {

@@ -105,6 +105,7 @@ pub fn compare_types(type_a: &CanonicalType, type_b: &CanonicalType) -> TypeComp
 }
 
 /// Check if two types are compatible (not incompatible)
+#[allow(dead_code)]
 pub fn are_types_compatible(type_a: &CanonicalType, type_b: &CanonicalType) -> bool {
     !matches!(
         compare_types(type_a, type_b),

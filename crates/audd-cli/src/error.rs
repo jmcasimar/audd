@@ -26,12 +26,15 @@ pub enum CliError {
     },
 
     #[error("Invalid source format: {0}")]
+    #[allow(dead_code)]
     InvalidSource(String),
 
     #[error("Comparison failed: {0}")]
+    #[allow(dead_code)]
     ComparisonFailed(String),
 
     #[error("Resolution failed: {0}")]
+    #[allow(dead_code)]
     ResolutionFailed(String),
 
     #[error("Failed to parse configuration file: {0}")]

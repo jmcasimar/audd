@@ -6,7 +6,7 @@ use mysql::{Pool, PooledConn, prelude::Queryable};
 use serde_json::Value;
 
 use audd_ir::{
-    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, KeyType, SourceSchema,
+    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, SourceSchema,
     StoredProcedure, Trigger, View,
 };
 use crate::connector::DbSchemaConnector;
@@ -442,6 +442,7 @@ impl MysqlConnector {
     }
 
     /// Extract all triggers for a specific table
+    #[allow(dead_code)]
     fn extract_table_triggers(&self, table_name: &str) -> DbResult<Vec<Trigger>> {
         validate_sql_identifier(table_name)?;
         let mut conn = self.get_conn()?;

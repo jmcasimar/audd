@@ -98,6 +98,7 @@ pub fn write_json_report(out_dir: &Path, log: &DecisionLog, result: &ComparisonR
 }
 
 /// Write IR schema to JSON (for inspect command)
+#[allow(dead_code)]
 pub fn write_ir_schema(out_dir: &Path, schema: &audd_ir::SourceSchema) -> CliResult<PathBuf> {
     let path = out_dir.join("ir.json");
     let json = schema.to_json()?;

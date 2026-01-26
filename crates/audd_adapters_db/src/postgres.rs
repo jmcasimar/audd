@@ -488,6 +488,7 @@ impl PostgresConnector {
     }
 
     /// Extract triggers for a table
+    #[allow(dead_code)]
     async fn extract_table_triggers(&self, table_name: &str) -> DbResult<Vec<Trigger>> {
         let query = "
             SELECT

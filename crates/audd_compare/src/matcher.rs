@@ -3,7 +3,7 @@
 use audd_ir::{normalize_identifier, EntitySchema, FieldSchema};
 
 use crate::config::CompareConfig;
-use crate::result::{Match, MatchReason};
+use crate::result::Match;
 
 /// Match entities by name
 pub fn match_entities(
