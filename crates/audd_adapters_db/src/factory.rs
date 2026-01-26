@@ -15,6 +15,9 @@ use crate::postgres::PostgresConnector;
 #[cfg(feature = "mongodb")]
 use crate::mongodb::MongoDbConnector;
 
+#[cfg(feature = "sqlserver")]
+use crate::sqlserver::SqlServerConnector;
+
 /// Create a database connector from a connection string
 ///
 /// # Arguments
@@ -24,6 +27,7 @@ use crate::mongodb::MongoDbConnector;
 ///   - MySQL: `mysql://user:password@host:port/database`
 ///   - PostgreSQL: `postgres://user:password@host:port/database`
 ///   - MongoDB: `mongodb://host:port/database`
+///   - SQL Server: `sqlserver://user:password@host:port/database`
 ///
 /// # Examples
 ///
@@ -111,6 +115,25 @@ pub fn create_connector(conn_str: &str) -> DbResult<Box<dyn DbSchemaConnector>> 
             {
                 Err(DbError::FeatureNotEnabled(
                     "mongodb - enable the 'mongodb' feature".to_string(),
+                ))
+            }
+        }
+        "sqlserver" => {
+            #[cfg(feature = "sqlserver")]
+            {
+                // SQL Server connector is async, so we need to create it in a runtime
+                let runtime = tokio::runtime::Runtime::new()
+                    .map_err(|e| DbError::Other(format!("Failed to create tokio runtime: {}", e)))?;
+                
+                let connector = runtime.block_on(async {
+                    SqlServerConnector::new(&conn_details).await
+                })?;
+                Ok(Box::new(connector))
+            }
+            #[cfg(not(feature = "sqlserver"))]
+            {
+                Err(DbError::FeatureNotEnabled(
+                    "sqlserver - enable the 'sqlserver' feature".to_string(),
                 ))
             }
         }

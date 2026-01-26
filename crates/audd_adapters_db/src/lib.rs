@@ -9,6 +9,7 @@
 //! - **MySQL/MariaDB** - via the `mysql` feature (enabled by default)
 //! - **PostgreSQL** - via the `postgres` feature (enabled by default)
 //! - **MongoDB** - via the `mongodb` feature (enabled by default)
+//! - **Microsoft SQL Server** - via the `sqlserver` feature (enabled by default)
 //!
 //! # Examples
 //!
@@ -58,6 +59,7 @@
 //! - **MySQL**: `mysql://user:password@host:port/database` (port defaults to 3306 if omitted)
 //! - **PostgreSQL**: `postgres://user:password@host:port/database`
 //! - **MongoDB**: `mongodb://host:port/database` or `mongodb+srv://host/database`
+//! - **SQL Server**: `sqlserver://user:password@host:port/database` or `mssql://user:password@host:port/database`
 //!
 //! # Features
 //!
@@ -65,6 +67,7 @@
 //! - `mysql` - Enable MySQL/MariaDB support (default)
 //! - `postgres` - Enable PostgreSQL support (default)
 //! - `mongodb` - Enable MongoDB support (default)
+//! - `sqlserver` - Enable Microsoft SQL Server support (default)
 
 mod connector;
 mod error;
@@ -81,6 +84,9 @@ pub mod postgres;
 
 #[cfg(feature = "mongodb")]
 pub mod mongodb;
+
+#[cfg(feature = "sqlserver")]
+pub mod sqlserver;
 
 pub use connector::{parse_connection_string, DbSchemaConnector};
 pub use error::{DbError, DbResult};

@@ -46,6 +46,7 @@ pub trait DbSchemaConnector {
 /// - MySQL: `mysql://user:password@host:port/database` or `mysql://user:password@host/database`
 /// - PostgreSQL: `postgres://user:password@host:port/database` or `postgresql://...`
 /// - MongoDB: `mongodb://user:password@host:port/database` or `mongodb+srv://...`
+/// - SQL Server: `sqlserver://user:password@host:port/database` or `mssql://...`
 ///
 /// # Examples
 ///
@@ -123,6 +124,12 @@ pub fn parse_connection_string(conn_str: &str) -> DbResult<(String, String)> {
             } else {
                 engine
             };
+            Ok((normalized_engine, conn_details.to_string()))
+        }
+        "sqlserver" | "mssql" => {
+            // SQL Server format: sqlserver://user:pass@host:port/database
+            // Normalize mssql to sqlserver
+            let normalized_engine = "sqlserver".to_string();
             Ok((normalized_engine, conn_details.to_string()))
         }
         _ => Err(DbError::UnsupportedEngine(engine)),
