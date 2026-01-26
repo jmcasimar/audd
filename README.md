@@ -37,6 +37,15 @@ Binary available at: `target/release/audd`
 
 ### Usage
 
+**Generate configuration file:**
+```bash
+# Create a config file with default settings
+audd generate-config
+
+# Customize behavior (optional)
+# Edit audd.toml to set confidence thresholds, output options, etc.
+```
+
 **Inspect a schema (IR export):**
 ```bash
 # Print to stdout
@@ -65,6 +74,12 @@ audd compare \
 # - output/diff.json             (Comparison results)
 # - output/decision_log.json     (Resolution decisions)
 # - output/report.md             (Human-readable report)
+
+# Use custom config file
+audd --config team-config.toml compare --source-a a.csv --source-b b.json
+
+# Override confidence threshold
+audd compare --source-a a.csv --source-b b.json --confidence-threshold 0.95
 ```
 
 **Work with databases:**
@@ -75,7 +90,7 @@ audd inspect --source "db:sqlite:///path/to/db.sqlite"
 # Compare file vs database
 audd compare \
   --source-a users.csv \
-  --source-b "db:postgres://user:pass@host/db" \
+  --source-b "db:mysql://user:pass@host/db" \
   --out comparison_output
 ```
 
@@ -84,6 +99,7 @@ audd compare \
 audd --help
 audd compare --help
 audd inspect --help
+audd generate-config --help
 ```
 
 ### Example

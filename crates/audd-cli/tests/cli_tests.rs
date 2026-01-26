@@ -37,6 +37,8 @@ fn test_help_command() {
     assert!(stdout.contains("compare"));
     assert!(stdout.contains("inspect"));
     assert!(stdout.contains("load"));
+    assert!(stdout.contains("generate-config"));
+    assert!(stdout.contains("--config"));
 }
 
 #[test]
@@ -187,4 +189,97 @@ fn test_load_csv() {
     assert!(stdout.contains("Schema loaded successfully"));
     assert!(stdout.contains("Source Name: users"));
     assert!(stdout.contains("Source Type: csv"));
+}
+
+#[test]
+fn test_generate_config() {
+    let temp_dir = tempfile::tempdir().unwrap();
+    let config_file = temp_dir.path().join("test_config.toml");
+
+    let output = Command::new(get_audd_bin())
+        .args(&["generate-config", "--out", config_file.to_str().unwrap()])
+        .output()
+        .expect("Failed to execute command");
+
+    assert!(output.status.success());
+    assert!(config_file.exists());
+
+    let content = fs::read_to_string(&config_file).unwrap();
+    assert!(content.contains("confidence_threshold"));
+    assert!(content.contains("similarity_threshold"));
+    assert!(content.contains("[resolution]"));
+    assert!(content.contains("[compare]"));
+    assert!(content.contains("[output]"));
+}
+
+#[test]
+fn test_compare_with_config_file() {
+    let fixtures = get_fixtures_dir();
+    let csv_file = fixtures.join("users.csv");
+    let json_file = fixtures.join("users.json");
+    
+    let temp_dir = tempfile::tempdir().unwrap();
+    let config_file = temp_dir.path().join("config.toml");
+    let out_dir = temp_dir.path().join("output_with_config");
+
+    // Create a custom config file
+    let config_content = r#"
+[resolution]
+confidence_threshold = 0.85
+decision_id_prefix = "test_dec"
+
+[compare]
+default_output_dir = "custom_output"
+"#;
+    fs::write(&config_file, config_content).unwrap();
+
+    let output = Command::new(get_audd_bin())
+        .args(&[
+            "--config",
+            config_file.to_str().unwrap(),
+            "compare",
+            "--source-a",
+            csv_file.to_str().unwrap(),
+            "--source-b",
+            json_file.to_str().unwrap(),
+            "--out",
+            out_dir.to_str().unwrap(),
+        ])
+        .output()
+        .expect("Failed to execute command");
+
+    assert!(output.status.success());
+    assert!(out_dir.join("decision_log.json").exists());
+
+    // Verify decision IDs use custom prefix
+    let log_content = fs::read_to_string(out_dir.join("decision_log.json")).unwrap();
+    assert!(log_content.contains("test_dec_"));
+}
+
+#[test]
+fn test_compare_with_confidence_threshold_flag() {
+    let fixtures = get_fixtures_dir();
+    let csv_file = fixtures.join("users.csv");
+    let json_file = fixtures.join("users.json");
+    
+    let temp_dir = tempfile::tempdir().unwrap();
+    let out_dir = temp_dir.path().join("output_with_threshold");
+
+    let output = Command::new(get_audd_bin())
+        .args(&[
+            "compare",
+            "--source-a",
+            csv_file.to_str().unwrap(),
+            "--source-b",
+            json_file.to_str().unwrap(),
+            "--out",
+            out_dir.to_str().unwrap(),
+            "--confidence-threshold",
+            "0.95",
+        ])
+        .output()
+        .expect("Failed to execute command");
+
+    assert!(output.status.success());
+    assert!(out_dir.join("unified_schema.json").exists());
 }

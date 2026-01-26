@@ -1,3 +1,4 @@
+mod config;
 mod error;
 mod loader;
 mod output;
@@ -5,18 +6,17 @@ mod output;
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use error::CliResult;
-
-/// Confidence threshold for auto-accepting suggestions
-const HIGH_CONFIDENCE_THRESHOLD: f64 = 0.9;
-
-/// Prefix for decision IDs
-const DECISION_ID_PREFIX: &str = "auto_dec";
+use config::Config;
 
 #[derive(Parser)]
 #[command(name = "audd")]
 #[command(about = "AUDD - Dynamic Data Unification Algorithm", long_about = None)]
 #[command(version)]
 struct Cli {
+    /// Path to configuration file (optional)
+    #[arg(long = "config", global = true)]
+    config: Option<PathBuf>,
+
     #[command(subcommand)]
     command: Option<Commands>,
 }
@@ -63,8 +63,12 @@ enum Commands {
         conn_b: Option<String>,
 
         /// Output directory for generated files (unified_schema.json, diff.json, report.md, decision_log.json)
-        #[arg(short, long, default_value = "output")]
-        out: PathBuf,
+        #[arg(short, long)]
+        out: Option<PathBuf>,
+
+        /// Confidence threshold for auto-accepting suggestions (0.0 to 1.0)
+        #[arg(long = "confidence-threshold")]
+        confidence_threshold: Option<f64>,
 
         /// Output format (legacy, not used with --out)
         #[arg(short, long, default_value = "json")]
@@ -85,10 +89,32 @@ enum Commands {
         #[arg(short, long)]
         out: Option<PathBuf>,
     },
+
+    /// Generate a sample configuration file
+    GenerateConfig {
+        /// Output path for the configuration file
+        #[arg(short, long, default_value = "audd.toml")]
+        out: PathBuf,
+    },
 }
 
 fn main() {
     let cli = Cli::parse();
+
+    // Load configuration
+    let config = if let Some(config_path) = &cli.config {
+        // Load from specified path
+        match Config::from_file(config_path) {
+            Ok(cfg) => cfg,
+            Err(e) => {
+                eprintln!("❌ Error loading config file: {}", e);
+                std::process::exit(1);
+            }
+        }
+    } else {
+        // Try to load from default locations
+        Config::load_default()
+    };
 
     let result = match &cli.command {
         Some(Commands::Load { source, conn, format }) => {
@@ -100,12 +126,17 @@ fn main() {
             source_b,
             conn_b,
             out,
+            confidence_threshold,
             format: _,
         }) => {
-            handle_compare(source_a, conn_a.as_deref(), source_b, conn_b.as_deref(), out)
+            let out_dir = out.clone().unwrap_or_else(|| PathBuf::from(config.get_default_output_dir()));
+            handle_compare(source_a, conn_a.as_deref(), source_b, conn_b.as_deref(), &out_dir, &config, *confidence_threshold)
         }
         Some(Commands::Inspect { source, conn, out }) => {
             handle_inspect(source, conn.as_deref(), out.as_ref())
+        }
+        Some(Commands::GenerateConfig { out }) => {
+            handle_generate_config(out)
         }
         None => {
             println!("AUDD - Dynamic Data Unification Algorithm");
@@ -175,6 +206,8 @@ fn handle_compare(
     source_b: &str,
     conn_b: Option<&str>,
     out_dir: &PathBuf,
+    config: &Config,
+    confidence_threshold_override: Option<f64>,
 ) -> CliResult<()> {
     println!("🔍 AUDD Compare");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -192,8 +225,8 @@ fn handle_compare(
     // Compare schemas
     println!();
     println!("Comparing schemas...");
-    let config = audd_compare::CompareConfig::default();
-    let comparison_result = audd_compare::compare(&schema_a, &schema_b, &config);
+    let compare_config = audd_compare::CompareConfig::default();
+    let comparison_result = audd_compare::compare(&schema_a, &schema_b, &compare_config);
     
     println!("✓ Comparison complete!");
     println!("  - Matches: {}", comparison_result.matches.len());
@@ -207,15 +240,19 @@ fn handle_compare(
     let mut decision_log = audd_resolution::DecisionLog::new()
         .with_schema_ids(schema_a.source_name.clone(), schema_b.source_name.clone());
 
+    // Get confidence threshold from precedence: CLI flag > config > default
+    let confidence_threshold = config.get_confidence_threshold(confidence_threshold_override);
+    let decision_id_prefix = config.get_decision_id_prefix(None);
+
     let mut decision_counter = 0;
     for conflict in &comparison_result.conflicts {
         let suggestions = suggestion_engine.suggest(conflict);
-        // Auto-accept high-confidence suggestions (>= HIGH_CONFIDENCE_THRESHOLD)
+        // Auto-accept high-confidence suggestions (>= threshold)
         for suggestion in suggestions {
-            if suggestion.confidence.value() >= HIGH_CONFIDENCE_THRESHOLD {
+            if suggestion.confidence.value() >= confidence_threshold {
                 decision_counter += 1;
                 let decision = audd_resolution::Decision::by_system(
-                    format!("{}_{}", DECISION_ID_PREFIX, decision_counter),
+                    format!("{}_{}", decision_id_prefix, decision_counter),
                     suggestion,
                     true,
                     "high_confidence_auto_accept".to_string(),
@@ -238,17 +275,25 @@ fn handle_compare(
     println!("Writing output files to {}...", out_dir.display());
     output::ensure_output_dir(out_dir)?;
 
-    let unified_path = output::write_unified_schema(out_dir, &unified_schema)?;
-    println!("✓ Wrote {}", unified_path.display());
+    if config.should_generate_unified_schema() {
+        let unified_path = output::write_unified_schema(out_dir, &unified_schema)?;
+        println!("✓ Wrote {}", unified_path.display());
+    }
 
-    let diff_path = output::write_diff(out_dir, &comparison_result)?;
-    println!("✓ Wrote {}", diff_path.display());
+    if config.should_generate_diff() {
+        let diff_path = output::write_diff(out_dir, &comparison_result)?;
+        println!("✓ Wrote {}", diff_path.display());
+    }
 
-    let log_path = output::write_decision_log(out_dir, &decision_log)?;
-    println!("✓ Wrote {}", log_path.display());
+    if config.should_generate_decision_log() {
+        let log_path = output::write_decision_log(out_dir, &decision_log)?;
+        println!("✓ Wrote {}", log_path.display());
+    }
 
-    let report_path = output::write_report(out_dir, &decision_log, &comparison_result)?;
-    println!("✓ Wrote {}", report_path.display());
+    if config.should_generate_report() {
+        let report_path = output::write_report(out_dir, &decision_log, &comparison_result)?;
+        println!("✓ Wrote {}", report_path.display());
+    }
 
     println!();
     println!("✅ Comparison completed successfully!");
@@ -291,6 +336,29 @@ fn handle_inspect(source: &str, conn: Option<&str>, out_path: Option<&PathBuf>) 
         println!("{}", json);
     }
 
+    Ok(())
+}
+
+fn handle_generate_config(out_path: &PathBuf) -> CliResult<()> {
+    println!("📝 Generating sample configuration file...");
+    
+    let sample = Config::sample();
+    
+    std::fs::write(out_path, sample).map_err(|e| error::CliError::OutputWrite {
+        path: out_path.display().to_string(),
+        details: e,
+    })?;
+    
+    println!("✓ Sample configuration written to: {}", out_path.display());
+    println!();
+    println!("You can customize this file and use it with:");
+    println!("  audd --config {} compare ...", out_path.display());
+    println!();
+    println!("Or place it in one of these locations to be loaded automatically:");
+    println!("  - ./audd.toml");
+    println!("  - ~/.audd.toml");
+    println!("  - ~/.config/audd/config.toml");
+    
     Ok(())
 }
 

@@ -2,6 +2,20 @@
 
 ## Basic Usage
 
+### Generate Configuration File
+
+Create a configuration file to customize AUDD behavior:
+
+```bash
+# Generate default config
+audd generate-config
+
+# Generate to custom location
+audd generate-config --out ~/.audd.toml
+```
+
+See [CONFIG.md](../../docs/CONFIG.md) for detailed configuration documentation.
+
 ### Inspect a single data source
 
 Load and inspect the IR (Intermediate Representation) of a data source:
@@ -218,3 +232,59 @@ $ audd inspect --source nonexistent.csv
 $ audd inspect --source "db:mysql://invalid"
 ❌ Error: Failed to load schema from source 'db:mysql://invalid': ...
 ```
+
+## Configuration Files
+
+AUDD supports configuration files for persistent settings. See [CONFIG.md](../../docs/CONFIG.md) for comprehensive documentation.
+
+### Quick Start with Config Files
+
+```bash
+# 1. Generate a config file
+audd generate-config --out audd.toml
+
+# 2. Edit the config file
+cat audd.toml
+# [resolution]
+# confidence_threshold = 0.9
+# decision_id_prefix = "auto_dec"
+
+# 3. Use the config (automatically loaded from ./audd.toml)
+audd compare --source-a a.csv --source-b b.json
+
+# 4. Or specify a custom config file
+audd --config /path/to/config.toml compare --source-a a.csv --source-b b.json
+```
+
+### Configuration Precedence
+
+Settings are applied in this order (highest to lowest priority):
+1. **CLI flags** - `--confidence-threshold 0.95`
+2. **Config file** - From `--config` or auto-loaded
+3. **Default values** - Built-in defaults
+
+### Example: Custom Confidence Threshold
+
+Config file (`team-config.toml`):
+```toml
+[resolution]
+confidence_threshold = 0.85
+decision_id_prefix = "team_dec"
+
+[compare]
+default_output_dir = "comparisons"
+```
+
+Usage:
+```bash
+# Uses team config settings
+audd --config team-config.toml compare --source-a a.csv --source-b b.json
+
+# Override confidence threshold just for this run
+audd --config team-config.toml compare \
+  --source-a a.csv \
+  --source-b b.json \
+  --confidence-threshold 0.95
+```
+
+For detailed configuration options and examples, see the [Configuration Documentation](../../docs/CONFIG.md).

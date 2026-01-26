@@ -34,6 +34,9 @@ pub enum CliError {
     #[error("Resolution failed: {0}")]
     ResolutionFailed(String),
 
+    #[error("Failed to parse configuration file: {0}")]
+    ConfigParseError(String),
+
     #[error("Serialization error: {0}")]
     SerializationError(#[from] serde_json::Error),
 
