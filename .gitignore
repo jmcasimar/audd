@@ -22,3 +22,8 @@ Thumbs.db
 # Build artifacts
 /dist
 /build
+
+# Database test files
+*.db
+*.sqlite
+*.sqlite3

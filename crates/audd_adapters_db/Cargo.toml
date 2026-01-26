@@ -1,0 +1,35 @@
+[package]
+name = "audd_adapters_db"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Database adapters for extracting schemas from various database engines"
+
+[dependencies]
+audd_ir = { path = "../audd_ir" }
+serde.workspace = true
+serde_json.workspace = true
+rusqlite = { version = "0.32", optional = true }
+mysql = { version = "25", optional = true }
+tokio-postgres = { version = "0.7", optional = true }
+mongodb = { version = "3.1", optional = true }
+tokio = { version = "1.42", optional = true, features = ["rt", "macros", "net", "rt-multi-thread"] }
+futures = { version = "0.3", optional = true }
+tiberius = { version = "0.12", optional = true }
+tokio-util = { version = "0.7", optional = true, features = ["compat"] }
+rsfbclient = { version = "0.23", optional = true }
+
+[features]
+default = ["sqlite", "mysql", "postgres", "mongodb"]
+sqlite = ["rusqlite"]
+mysql = ["dep:mysql"]
+postgres = ["tokio-postgres", "tokio"]
+mongodb = ["dep:mongodb", "tokio", "futures"]
+sqlserver = ["tiberius", "tokio", "tokio-util", "futures"]
+firebird = ["rsfbclient"]
+
+[dev-dependencies]
+tempfile = "3.8"
+tokio = { version = "1.42", features = ["rt", "macros"] }

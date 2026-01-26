@@ -5,7 +5,7 @@ edition.workspace = true
 authors.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "File adapters for AUDD (CSV, JSON, XML, SQL/DDL)"
+description = "File adapters for AUDD (CSV, JSON, XML, SQL/DDL, Remote URLs)"
 
 [dependencies]
 audd_ir = { path = "../audd_ir" }
@@ -14,6 +14,9 @@ serde_json.workspace = true
 csv = "1.3"
 quick-xml = "0.32"
 thiserror = "2.0"
+ureq = "2.10"
+tempfile = "3.13"
+url = "2.5"
 
 [dev-dependencies]
 tempfile = "3.13"

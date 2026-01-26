@@ -1,0 +1,723 @@
+//! MySQL/MariaDB database schema connector
+
+#[cfg(feature = "mysql")]
+use mysql::{Pool, PooledConn, prelude::Queryable};
+#[cfg(feature = "mysql")]
+use serde_json::Value;
+
+use audd_ir::{
+    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, KeyType, SourceSchema,
+    StoredProcedure, Trigger, View,
+};
+use crate::connector::DbSchemaConnector;
+use crate::error::{DbError, DbResult};
+
+/// MySQL/MariaDB schema connector
+///
+/// Extracts schema metadata from MySQL/MariaDB databases using INFORMATION_SCHEMA.
+///
+/// # Examples
+///
+/// ```no_run
+/// # #[cfg(feature = "mysql")]
+/// # {
+/// use audd_adapters_db::mysql::MysqlConnector;
+/// use audd_adapters_db::DbSchemaConnector;
+///
+/// let connector = MysqlConnector::new("user:password@localhost:3306/mydb").unwrap();
+/// let schema = connector.load().unwrap();
+/// # }
+/// ```
+#[cfg(feature = "mysql")]
+pub struct MysqlConnector {
+    pool: Pool,
+    database_name: String,
+}
+
+#[cfg(feature = "mysql")]
+fn validate_sql_identifier(name: &str) -> DbResult<()> {
+    if name.is_empty() || name.len() > 64 {
+        return Err(DbError::ExtractionError(format!("Invalid identifier length: {}", name)));
+    }
+    if !name.chars().all(|c| c.is_alphanumeric() || c == '_' || c == '$') {
+        return Err(DbError::ExtractionError(format!("Invalid identifier characters: {}", name)));
+    }
+    if name.starts_with(char::is_numeric) {
+        return Err(DbError::ExtractionError(format!("Identifier cannot start with number: {}", name)));
+    }
+    Ok(())
+}
+
+#[cfg(feature = "mysql")]
+impl MysqlConnector {
+    /// Create a new MySQL connector
+    ///
+    /// # Arguments
+    ///
+    /// * `conn_str` - Connection string in format: `user:password@host:port/database`
+    ///   Port is optional and defaults to 3306
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the connection cannot be established
+    pub fn new(conn_str: &str) -> DbResult<Self> {
+        // Parse connection string: user:password@host:port/database
+        let (credentials_host, database) = conn_str
+            .rsplit_once('/')
+            .ok_or_else(|| {
+                DbError::InvalidConnectionString(
+                    "Missing database name (format: user:pass@host/database)".to_string(),
+                )
+            })?;
+
+        let database_name = database.to_string();
+
+        // Build MySQL connection URL
+        let mysql_url = format!("mysql://{}/{}", credentials_host, database);
+
+        let pool = Pool::new(mysql_url.as_str()).map_err(|e| {
+            DbError::ConnectionError(format!("Failed to connect to MySQL: {}", e))
+        })?;
+
+        Ok(Self {
+            pool,
+            database_name,
+        })
+    }
+
+    /// Get a connection from the pool
+    fn get_conn(&self) -> DbResult<PooledConn> {
+        self.pool.get_conn().map_err(|e| {
+            DbError::ConnectionError(format!("Failed to get connection from pool: {}", e))
+        })
+    }
+
+    /// Get list of all tables in the database
+    fn get_table_names(&self) -> DbResult<Vec<String>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES 
+             WHERE TABLE_SCHEMA = '{}' AND TABLE_TYPE = 'BASE TABLE'
+             ORDER BY TABLE_NAME",
+            self.database_name
+        );
+
+        let tables: Vec<String> = conn
+            .query_map(query, |table_name: String| table_name)
+            .map_err(|e| DbError::QueryError(format!("Failed to query tables: {}", e)))?;
+
+        Ok(tables)
+    }
+
+    /// Extract schema for a specific table
+    fn extract_table_schema(&self, table_name: &str) -> DbResult<EntitySchema> {
+        validate_sql_identifier(table_name)?;
+        let fields = self.extract_fields(table_name)?;
+        let keys = self.extract_keys(table_name)?;
+        let indexes = self.extract_indexes(table_name)?;
+
+        Ok(EntitySchema::builder()
+            .entity_name(table_name.to_string())
+            .entity_type("table")
+            .fields(fields)
+            .keys(keys)
+            .indexes(indexes)
+            .build())
+    }
+
+    /// Extract field schemas for a table
+    fn extract_fields(&self, table_name: &str) -> DbResult<Vec<FieldSchema>> {
+        validate_sql_identifier(table_name)?;
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_TYPE, COLUMN_DEFAULT
+             FROM INFORMATION_SCHEMA.COLUMNS
+             WHERE TABLE_SCHEMA = '{}' AND TABLE_NAME = '{}'
+             ORDER BY ORDINAL_POSITION",
+            self.database_name, table_name
+        );
+
+        let rows: Vec<(String, String, String, String, Option<String>)> = conn
+            .query_map(
+                query,
+                |(col_name, data_type, is_nullable, column_type, default_value)| {
+                    (col_name, data_type, is_nullable, column_type, default_value)
+                },
+            )
+            .map_err(|e| DbError::QueryError(format!("Failed to query columns: {}", e)))?;
+
+        let mut fields = Vec::new();
+
+        for (col_name, data_type, is_nullable, column_type, _default_value) in rows {
+            let canonical_type = map_mysql_type(&data_type, &column_type);
+            let nullable = is_nullable.to_uppercase() == "YES";
+
+            fields.push(
+                FieldSchema::builder()
+                    .field_name(col_name)
+                    .canonical_type(canonical_type)
+                    .nullable(nullable)
+                    .build(),
+            );
+        }
+
+        Ok(fields)
+    }
+
+    /// Extract keys (primary, foreign, and unique) for a table
+    fn extract_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
+        let mut keys = Vec::new();
+
+        // Extract primary key
+        let pk_fields = self.extract_primary_key(table_name)?;
+        if !pk_fields.is_empty() {
+            keys.push(Key::primary(pk_fields));
+        }
+
+        // Extract foreign keys
+        let foreign_keys = self.extract_foreign_keys(table_name)?;
+        keys.extend(foreign_keys);
+
+        // Extract unique indexes
+        let unique_keys = self.extract_unique_indexes(table_name)?;
+        keys.extend(unique_keys);
+
+        Ok(keys)
+    }
+
+    /// Extract primary key fields
+    fn extract_primary_key(&self, table_name: &str) -> DbResult<Vec<String>> {
+        validate_sql_identifier(table_name)?;
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT COLUMN_NAME
+             FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+             WHERE TABLE_SCHEMA = '{}' 
+               AND TABLE_NAME = '{}'
+               AND CONSTRAINT_NAME = 'PRIMARY'
+             ORDER BY ORDINAL_POSITION",
+            self.database_name, table_name
+        );
+
+        let pk_fields: Vec<String> = conn
+            .query_map(query, |col_name: String| col_name)
+            .map_err(|e| DbError::QueryError(format!("Failed to query primary key: {}", e)))?;
+
+        Ok(pk_fields)
+    }
+
+    /// Extract unique indexes
+    fn extract_unique_indexes(&self, table_name: &str) -> DbResult<Vec<Key>> {
+        validate_sql_identifier(table_name)?;
+        let mut conn = self.get_conn()?;
+
+        // Get unique index names (excluding primary key)
+        let query = format!(
+            "SELECT DISTINCT INDEX_NAME
+             FROM INFORMATION_SCHEMA.STATISTICS
+             WHERE TABLE_SCHEMA = '{}' 
+               AND TABLE_NAME = '{}'
+               AND NON_UNIQUE = 0
+               AND INDEX_NAME != 'PRIMARY'
+             ORDER BY INDEX_NAME",
+            self.database_name, table_name
+        );
+
+        let index_names: Vec<String> = conn
+            .query_map(query, |index_name: String| index_name)
+            .map_err(|e| DbError::QueryError(format!("Failed to query unique indexes: {}", e)))?;
+
+        let mut unique_keys = Vec::new();
+
+        for index_name in index_names {
+            let columns = self.extract_index_columns(table_name, &index_name)?;
+            if !columns.is_empty() {
+                unique_keys.push(Key::unique(columns));
+            }
+        }
+
+        Ok(unique_keys)
+    }
+
+    /// Extract columns for a specific index
+    fn extract_index_columns(&self, table_name: &str, index_name: &str) -> DbResult<Vec<String>> {
+        validate_sql_identifier(table_name)?;
+        validate_sql_identifier(index_name)?;
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT COLUMN_NAME
+             FROM INFORMATION_SCHEMA.STATISTICS
+             WHERE TABLE_SCHEMA = '{}' 
+               AND TABLE_NAME = '{}'
+               AND INDEX_NAME = '{}'
+             ORDER BY SEQ_IN_INDEX",
+            self.database_name, table_name, index_name
+        );
+
+        let columns: Vec<String> = conn
+            .query_map(query, |col_name: String| col_name)
+            .map_err(|e| {
+                DbError::QueryError(format!("Failed to query index columns: {}", e))
+            })?;
+
+        Ok(columns)
+    }
+
+    /// Extract foreign keys for a table
+    fn extract_foreign_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
+        validate_sql_identifier(table_name)?;
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                CONSTRAINT_NAME,
+                COLUMN_NAME,
+                REFERENCED_TABLE_NAME,
+                REFERENCED_COLUMN_NAME
+             FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+             WHERE TABLE_SCHEMA = '{}'
+               AND TABLE_NAME = '{}'
+               AND REFERENCED_TABLE_NAME IS NOT NULL
+             ORDER BY CONSTRAINT_NAME, ORDINAL_POSITION",
+            self.database_name, table_name
+        );
+
+        let rows: Vec<(String, String, String, String)> = conn
+            .query_map(
+                query,
+                |(constraint_name, column_name, ref_table, ref_column)| {
+                    (constraint_name, column_name, ref_table, ref_column)
+                },
+            )
+            .map_err(|e| DbError::QueryError(format!("Failed to query foreign keys: {}", e)))?;
+
+        // Group by constraint name to handle composite foreign keys
+        let mut fk_map: std::collections::HashMap<String, (Vec<String>, String, String)> =
+            std::collections::HashMap::new();
+
+        for (constraint_name, column_name, ref_table, ref_column) in rows {
+            fk_map
+                .entry(constraint_name)
+                .or_insert_with(|| (Vec::new(), ref_table.clone(), ref_column.clone()))
+                .0
+                .push(column_name);
+        }
+
+        let mut foreign_keys = Vec::new();
+        for (_constraint_name, (columns, ref_table, ref_column)) in fk_map {
+            let fk = Key::foreign(columns).with_metadata(
+                "referenced_table".to_string(),
+                Value::String(format!("{}({})", ref_table, ref_column)),
+            );
+            foreign_keys.push(fk);
+        }
+
+        Ok(foreign_keys)
+    }
+
+    /// Extract regular indexes (non-unique, non-primary) for a table
+    fn extract_indexes(&self, table_name: &str) -> DbResult<Vec<Index>> {
+        validate_sql_identifier(table_name)?;
+        let mut conn = self.get_conn()?;
+
+        // Get all indexes (excluding primary key)
+        let query = format!(
+            "SELECT DISTINCT 
+                INDEX_NAME,
+                NON_UNIQUE,
+                INDEX_TYPE
+             FROM INFORMATION_SCHEMA.STATISTICS
+             WHERE TABLE_SCHEMA = '{}'
+               AND TABLE_NAME = '{}'
+               AND INDEX_NAME != 'PRIMARY'
+             ORDER BY INDEX_NAME",
+            self.database_name, table_name
+        );
+
+        let rows: Vec<(String, i32, String)> = conn
+            .query_map(query, |(index_name, non_unique, index_type)| {
+                (index_name, non_unique, index_type)
+            })
+            .map_err(|e| DbError::QueryError(format!("Failed to query indexes: {}", e)))?;
+
+        let mut indexes = Vec::new();
+
+        for (index_name, non_unique, index_type) in rows {
+            // Skip unique indexes (they're handled as keys)
+            if non_unique == 0 {
+                continue;
+            }
+
+            let columns = self.extract_index_columns(table_name, &index_name)?;
+            if !columns.is_empty() {
+                let idx_type = match index_type.to_uppercase().as_str() {
+                    "FULLTEXT" => IndexType::FullText,
+                    "SPATIAL" => IndexType::Spatial,
+                    _ => IndexType::Regular,
+                };
+
+                let index = match idx_type {
+                    IndexType::FullText => Index::new(index_name, IndexType::FullText, columns),
+                    IndexType::Spatial => Index::new(index_name, IndexType::Spatial, columns),
+                    _ => Index::regular(index_name, columns),
+                };
+
+                indexes.push(index);
+            }
+        }
+
+        Ok(indexes)
+    }
+
+    /// Extract all views from the database
+    fn extract_views(&self) -> DbResult<Vec<View>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                TABLE_NAME,
+                VIEW_DEFINITION
+             FROM INFORMATION_SCHEMA.VIEWS
+             WHERE TABLE_SCHEMA = '{}'
+             ORDER BY TABLE_NAME",
+            self.database_name
+        );
+
+        let rows: Vec<(String, String)> = conn
+            .query_map(query, |(view_name, definition)| (view_name, definition))
+            .map_err(|e| DbError::QueryError(format!("Failed to query views: {}", e)))?;
+
+        let mut views = Vec::new();
+        for (view_name, definition) in rows {
+            views.push(View::new(view_name).with_definition(definition));
+        }
+
+        Ok(views)
+    }
+
+    /// Extract all stored procedures and functions from the database
+    fn extract_stored_procedures(&self) -> DbResult<Vec<StoredProcedure>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                ROUTINE_NAME,
+                ROUTINE_TYPE,
+                DTD_IDENTIFIER,
+                ROUTINE_DEFINITION
+             FROM INFORMATION_SCHEMA.ROUTINES
+             WHERE ROUTINE_SCHEMA = '{}'
+             ORDER BY ROUTINE_NAME",
+            self.database_name
+        );
+
+        let rows: Vec<(String, String, Option<String>, Option<String>)> = conn
+            .query_map(
+                query,
+                |(name, routine_type, return_type, definition)| {
+                    (name, routine_type, return_type, definition)
+                },
+            )
+            .map_err(|e| {
+                DbError::QueryError(format!("Failed to query stored procedures: {}", e))
+            })?;
+
+        let mut procedures = Vec::new();
+        for (name, routine_type, return_type, definition) in rows {
+            let mut proc = StoredProcedure::new(name, routine_type);
+            if let Some(ret_type) = return_type {
+                proc = proc.with_return_type(ret_type);
+            }
+            if let Some(def) = definition {
+                proc = proc.with_definition(def);
+            }
+            procedures.push(proc);
+        }
+
+        Ok(procedures)
+    }
+
+    /// Extract all triggers for a specific table
+    fn extract_table_triggers(&self, table_name: &str) -> DbResult<Vec<Trigger>> {
+        validate_sql_identifier(table_name)?;
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                TRIGGER_NAME,
+                ACTION_TIMING,
+                EVENT_MANIPULATION,
+                ACTION_STATEMENT
+             FROM INFORMATION_SCHEMA.TRIGGERS
+             WHERE EVENT_OBJECT_TABLE = '{}'
+               AND TRIGGER_SCHEMA = '{}'
+             ORDER BY TRIGGER_NAME",
+            table_name, self.database_name
+        );
+
+        let rows: Vec<(String, String, String, String)> = conn
+            .query_map(query, |(name, timing, event, definition)| {
+                (name, timing, event, definition)
+            })
+            .map_err(|e| DbError::QueryError(format!("Failed to query triggers: {}", e)))?;
+
+        let mut triggers = Vec::new();
+        for (name, timing_str, event_str, definition) in rows {
+            triggers.push(
+                Trigger::new(name, table_name.to_string(), timing_str, event_str)
+                    .with_definition(definition),
+            );
+        }
+
+        Ok(triggers)
+    }
+
+    /// Extract all triggers from the database
+    fn extract_all_triggers(&self) -> DbResult<Vec<Trigger>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                TRIGGER_NAME,
+                EVENT_OBJECT_TABLE,
+                ACTION_TIMING,
+                EVENT_MANIPULATION,
+                ACTION_STATEMENT
+             FROM INFORMATION_SCHEMA.TRIGGERS
+             WHERE TRIGGER_SCHEMA = '{}'
+             ORDER BY TRIGGER_NAME",
+            self.database_name
+        );
+
+        let rows: Vec<(String, String, String, String, String)> = conn
+            .query_map(
+                query,
+                |(name, table_name, timing, event, definition)| {
+                    (name, table_name, timing, event, definition)
+                },
+            )
+            .map_err(|e| DbError::QueryError(format!("Failed to query all triggers: {}", e)))?;
+
+        let mut triggers = Vec::new();
+        for (name, table_name, timing_str, event_str, definition) in rows {
+            triggers.push(
+                Trigger::new(name, table_name, timing_str, event_str).with_definition(definition),
+            );
+        }
+
+        Ok(triggers)
+    }
+}
+
+#[cfg(feature = "mysql")]
+impl DbSchemaConnector for MysqlConnector {
+    fn load(&self) -> DbResult<SourceSchema> {
+        let table_names = self.get_table_names()?;
+        let mut entities = Vec::new();
+
+        for table_name in table_names {
+            let entity = self.extract_table_schema(&table_name)?;
+            entities.push(entity);
+        }
+
+        // Extract views
+        let views = self.extract_views()?;
+
+        // Extract stored procedures
+        let stored_procedures = self.extract_stored_procedures()?;
+
+        // Extract all triggers
+        let triggers = self.extract_all_triggers()?;
+
+        Ok(SourceSchema::builder()
+            .source_name(self.database_name.clone())
+            .source_type("mysql")
+            .entities(entities)
+            .views(views)
+            .stored_procedures(stored_procedures)
+            .triggers(triggers)
+            .build())
+    }
+}
+
+/// Map MySQL type to canonical type
+///
+/// # Arguments
+///
+/// * `data_type` - The base data type (e.g., "int", "varchar")
+/// * `column_type` - The full column type with details (e.g., "int(11)", "varchar(255)")
+fn map_mysql_type(data_type: &str, column_type: &str) -> CanonicalType {
+    let data_type_lower = data_type.to_lowercase();
+    let column_type_lower = column_type.to_lowercase();
+
+    match data_type_lower.as_str() {
+        // Integer types
+        "tinyint" => {
+            // TINYINT(1) is often used for boolean
+            if column_type_lower.contains("tinyint(1)") {
+                CanonicalType::Boolean
+            } else {
+                CanonicalType::Int32
+            }
+        }
+        "smallint" => CanonicalType::Int32,
+        "mediumint" => CanonicalType::Int32,
+        "int" | "integer" => CanonicalType::Int32,
+        "bigint" => CanonicalType::Int64,
+
+        // Floating point types
+        "float" => CanonicalType::Float32,
+        "double" | "real" => CanonicalType::Float64,
+
+        // Decimal/Numeric types
+        "decimal" | "numeric" => {
+            // Try to extract precision and scale from column_type
+            // Format: decimal(10,2)
+            if let Some(params) = extract_decimal_params(column_type) {
+                params
+            } else {
+                // Default MySQL decimal
+                CanonicalType::Decimal {
+                    precision: 10,
+                    scale: 0,
+                }
+            }
+        }
+
+        // String types
+        "char" | "varchar" => CanonicalType::String,
+        "text" | "tinytext" | "mediumtext" | "longtext" => CanonicalType::Text,
+
+        // Binary types
+        "binary" | "varbinary" | "blob" | "tinyblob" | "mediumblob" | "longblob" => {
+            CanonicalType::Binary
+        }
+
+        // Date/Time types
+        "date" => CanonicalType::Date,
+        "time" => CanonicalType::Time,
+        "datetime" => CanonicalType::DateTime,
+        "timestamp" => CanonicalType::Timestamp,
+        "year" => CanonicalType::Int32,
+
+        // JSON type
+        "json" => CanonicalType::Json,
+
+        // Enum and Set (treat as string)
+        "enum" | "set" => CanonicalType::String,
+
+        // Spatial types (not fully supported, map to unknown)
+        "geometry" | "point" | "linestring" | "polygon" | "multipoint" | "multilinestring"
+        | "multipolygon" | "geometrycollection" => CanonicalType::Unknown {
+            original_type: data_type_lower,
+        },
+
+        // Unknown types
+        _ => CanonicalType::Unknown {
+            original_type: data_type_lower,
+        },
+    }
+}
+
+/// Extract precision and scale from decimal/numeric column type
+fn extract_decimal_params(column_type: &str) -> Option<CanonicalType> {
+    // Expected format: decimal(precision,scale) or decimal(precision)
+    let start = column_type.find('(')?;
+    let end = column_type.find(')')?;
+    let params = &column_type[start + 1..end];
+
+    let parts: Vec<&str> = params.split(',').collect();
+
+    match parts.len() {
+        1 => {
+            // Only precision specified
+            let precision = parts[0].trim().parse::<u16>().ok()?;
+            Some(CanonicalType::Decimal {
+                precision,
+                scale: 0,
+            })
+        }
+        2 => {
+            // Both precision and scale specified
+            let precision = parts[0].trim().parse::<u16>().ok()?;
+            let scale = parts[1].trim().parse::<u16>().ok()?;
+            Some(CanonicalType::Decimal { precision, scale })
+        }
+        _ => None,
+    }
+}
+
+// Stub implementation when feature is not enabled
+#[cfg(not(feature = "mysql"))]
+pub struct MysqlConnector;
+
+#[cfg(not(feature = "mysql"))]
+impl MysqlConnector {
+    pub fn new(_conn_str: &str) -> DbResult<Self> {
+        Err(DbError::FeatureNotEnabled("mysql".to_string()))
+    }
+}
+
+#[cfg(all(test, feature = "mysql"))]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_mysql_type_mapping() {
+        assert_eq!(map_mysql_type("int", "int(11)"), CanonicalType::Int32);
+        assert_eq!(map_mysql_type("bigint", "bigint(20)"), CanonicalType::Int64);
+        assert_eq!(map_mysql_type("varchar", "varchar(255)"), CanonicalType::String);
+        assert_eq!(map_mysql_type("text", "text"), CanonicalType::Text);
+        assert_eq!(map_mysql_type("float", "float"), CanonicalType::Float32);
+        assert_eq!(map_mysql_type("double", "double"), CanonicalType::Float64);
+        assert_eq!(map_mysql_type("date", "date"), CanonicalType::Date);
+        assert_eq!(map_mysql_type("datetime", "datetime"), CanonicalType::DateTime);
+        assert_eq!(map_mysql_type("timestamp", "timestamp"), CanonicalType::Timestamp);
+        assert_eq!(map_mysql_type("json", "json"), CanonicalType::Json);
+        assert_eq!(map_mysql_type("blob", "blob"), CanonicalType::Binary);
+
+        // TINYINT(1) as boolean - lowercase
+        assert_eq!(map_mysql_type("tinyint", "tinyint(1)"), CanonicalType::Boolean);
+        // TINYINT(1) as boolean - uppercase
+        assert_eq!(map_mysql_type("TINYINT", "TINYINT(1)"), CanonicalType::Boolean);
+        // TINYINT(1) as boolean - mixed case
+        assert_eq!(map_mysql_type("TinyInt", "TinyInt(1)"), CanonicalType::Boolean);
+        // Other TINYINT as Int32
+        assert_eq!(map_mysql_type("tinyint", "tinyint(4)"), CanonicalType::Int32);
+    }
+
+    #[test]
+    fn test_decimal_params_extraction() {
+        let result = map_mysql_type("decimal", "decimal(10,2)");
+        match result {
+            CanonicalType::Decimal { precision, scale } => {
+                assert_eq!(precision, 10);
+                assert_eq!(scale, 2);
+            }
+            _ => panic!("Expected Decimal type"),
+        }
+
+        let result = map_mysql_type("decimal", "decimal(8)");
+        match result {
+            CanonicalType::Decimal { precision, scale } => {
+                assert_eq!(precision, 8);
+                assert_eq!(scale, 0);
+            }
+            _ => panic!("Expected Decimal type"),
+        }
+    }
+
+    #[test]
+    fn test_unknown_type() {
+        match map_mysql_type("geometry", "geometry") {
+            CanonicalType::Unknown { original_type } => {
+                assert_eq!(original_type, "geometry");
+            }
+            _ => panic!("Expected Unknown type"),
+        }
+    }
+}
