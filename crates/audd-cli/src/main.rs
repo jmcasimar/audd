@@ -297,6 +297,11 @@ fn handle_compare(
         println!("✓ Wrote {}", report_path.display());
     }
 
+    if config.should_generate_json_report() {
+        let json_report_path = output::write_json_report(out_dir, &decision_log, &comparison_result)?;
+        println!("✓ Wrote {}", json_report_path.display());
+    }
+
     println!();
     println!("✅ Comparison completed successfully!");
     println!("Output files written to: {}", out_dir.display());

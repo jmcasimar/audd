@@ -5,6 +5,7 @@
 
 use audd_compare::{ComparisonResult, Conflict, ConflictSeverity, ExclusiveSide, MatchReason};
 use audd_resolution::DecisionLog;
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 
 /// Risk level for overall compatibility assessment
@@ -726,4 +727,585 @@ mod tests {
         assert!(report.contains("Technical Details"));
         assert!(report.contains("Recommendations"));
     }
+}
+
+// JSON Report Structures
+
+/// JSON representation of a report for programmatic consumption
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonReport {
+    /// Report metadata
+    pub metadata: JsonReportMetadata,
+    
+    /// Executive summary
+    pub executive_summary: JsonExecutiveSummary,
+    
+    /// Detailed breakdown
+    pub detailed_breakdown: JsonDetailedBreakdown,
+    
+    /// Technical details
+    pub technical_details: JsonTechnicalDetails,
+    
+    /// Resolution suggestions (if available)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resolution: Option<JsonResolutionSection>,
+    
+    /// Recommendations
+    pub recommendations: Vec<String>,
+}
+
+/// Report metadata
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonReportMetadata {
+    pub generated_at: String,
+    pub schema_a: String,
+    pub schema_b: String,
+    pub report_version: String,
+}
+
+/// Executive summary
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonExecutiveSummary {
+    pub compatibility_overview: JsonCompatibilityOverview,
+    pub risk_assessment: JsonRiskAssessment,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub top_conflicts: Option<Vec<JsonEntityConflicts>>,
+}
+
+/// Compatibility overview metrics
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonCompatibilityOverview {
+    pub total_matches: usize,
+    pub total_exclusives: usize,
+    pub total_conflicts: usize,
+    pub exclusives_from_a: usize,
+    pub exclusives_from_b: usize,
+    pub compatibility_score: f64,
+    pub safe_addition_rate: f64,
+    pub conflict_rate: f64,
+}
+
+/// Risk assessment
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonRiskAssessment {
+    pub risk_level: String,
+    pub critical_conflicts: usize,
+    pub high_severity_conflicts: usize,
+    pub reasons: Vec<String>,
+}
+
+/// Entity conflicts summary
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonEntityConflicts {
+    pub entity_name: String,
+    pub conflict_count: usize,
+    pub highest_severity: String,
+}
+
+/// Detailed breakdown
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonDetailedBreakdown {
+    pub matches: JsonMatchesBreakdown,
+    pub exclusives: JsonExclusivesBreakdown,
+    pub conflicts: JsonConflictsBreakdown,
+}
+
+/// Matches breakdown
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonMatchesBreakdown {
+    pub total: usize,
+    pub exact_name_matches: usize,
+    pub normalized_matches: usize,
+    pub similarity_matches: usize,
+    pub average_confidence: f64,
+}
+
+/// Exclusives breakdown
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonExclusivesBreakdown {
+    pub from_schema_a: usize,
+    pub from_schema_b: usize,
+    pub safe_from_a: usize,
+    pub safe_from_b: usize,
+    pub safe_addition_rate: f64,
+}
+
+/// Conflicts breakdown
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonConflictsBreakdown {
+    pub total: usize,
+    pub by_type: HashMap<String, usize>,
+    pub by_severity: HashMap<String, usize>,
+}
+
+/// Technical details
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonTechnicalDetails {
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub matches: Vec<JsonMatch>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub exclusives: Vec<JsonExclusive>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    pub conflicts: Vec<JsonConflict>,
+}
+
+/// Match details
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonMatch {
+    pub entity: String,
+    pub field: Option<String>,
+    pub match_type: String,
+    pub score: f64,
+    pub index_a: usize,
+    pub index_b: usize,
+}
+
+/// Exclusive details
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonExclusive {
+    pub entity: String,
+    pub field: Option<String>,
+    pub side: String,
+    pub safe_to_add: bool,
+    pub index: usize,
+}
+
+/// Conflict details
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonConflict {
+    pub id: usize,
+    pub entity: String,
+    pub field: Option<String>,
+    pub conflict_type: String,
+    pub severity: String,
+    pub evidence_a: String,
+    pub evidence_b: String,
+    pub rule: String,
+    pub index_a: usize,
+    pub index_b: usize,
+}
+
+/// Resolution section
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonResolutionSection {
+    pub summary: JsonResolutionSummary,
+    pub suggestions: Vec<JsonSuggestion>,
+    pub decisions: Vec<JsonDecision>,
+}
+
+/// Resolution summary
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonResolutionSummary {
+    pub total_suggestions: usize,
+    pub high_confidence: usize,
+    pub medium_confidence: usize,
+    pub auto_accepted: usize,
+    pub total_decisions: usize,
+    pub accepted_decisions: usize,
+    pub rejected_decisions: usize,
+    pub system_decisions: usize,
+    pub user_decisions: usize,
+}
+
+/// Suggestion details
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonSuggestion {
+    pub id: String,
+    pub conflict_id: Option<usize>,
+    pub entity: String,
+    pub field: Option<String>,
+    pub kind: String,
+    pub confidence: f64,
+    pub impact: String,
+    pub explanation: String,
+    pub evidence: Vec<String>,
+    pub status: String,
+}
+
+/// Decision details
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JsonDecision {
+    pub id: String,
+    pub suggestion_id: String,
+    pub accepted: bool,
+    pub source: String,
+    pub rationale: String,
+    pub timestamp: String,
+}
+
+/// Generate a JSON report from comparison results
+pub fn generate_json_report(
+    schema_a_name: &str,
+    schema_b_name: &str,
+    result: &ComparisonResult,
+    decision_log: Option<&DecisionLog>,
+) -> JsonReport {
+    let metrics = ReportMetrics::from_comparison(result);
+    let now = chrono::Utc::now();
+
+    // Build metadata
+    let metadata = JsonReportMetadata {
+        generated_at: now.format("%Y-%m-%d %H:%M:%S UTC").to_string(),
+        schema_a: schema_a_name.to_string(),
+        schema_b: schema_b_name.to_string(),
+        report_version: "1.0.0".to_string(),
+    };
+
+    // Build executive summary
+    let executive_summary = build_json_executive_summary(&metrics, result);
+
+    // Build detailed breakdown
+    let detailed_breakdown = build_json_detailed_breakdown(&metrics, result);
+
+    // Build technical details
+    let technical_details = build_json_technical_details(result);
+
+    // Build resolution section if available
+    let resolution = decision_log.map(|log| build_json_resolution_section(result, log));
+
+    // Build recommendations
+    let recommendations = build_json_recommendations(&metrics, decision_log);
+
+    JsonReport {
+        metadata,
+        executive_summary,
+        detailed_breakdown,
+        technical_details,
+        resolution,
+        recommendations,
+    }
+}
+
+fn build_json_executive_summary(metrics: &ReportMetrics, result: &ComparisonResult) -> JsonExecutiveSummary {
+    let compatibility_overview = JsonCompatibilityOverview {
+        total_matches: metrics.total_matches,
+        total_exclusives: metrics.total_exclusives,
+        total_conflicts: metrics.total_conflicts,
+        exclusives_from_a: metrics.exclusives_a,
+        exclusives_from_b: metrics.exclusives_b,
+        compatibility_score: metrics.compatibility_score,
+        safe_addition_rate: metrics.safe_addition_rate,
+        conflict_rate: metrics.conflict_rate,
+    };
+
+    let mut reasons = Vec::new();
+    if metrics.critical_conflicts > 0 {
+        reasons.push(format!("{} critical-severity conflict(s) detected", metrics.critical_conflicts));
+    }
+    if metrics.high_severity_conflicts > 0 {
+        reasons.push(format!("{} high-severity conflict(s) detected", metrics.high_severity_conflicts));
+    }
+    if metrics.conflict_rate > 25.0 {
+        reasons.push(format!("Conflict rate is {:.1}% (above 25% threshold)", metrics.conflict_rate));
+    } else if metrics.conflict_rate > 10.0 {
+        reasons.push(format!("Conflict rate is {:.1}% (above 10% threshold)", metrics.conflict_rate));
+    }
+    if metrics.risk_level == RiskLevel::Low {
+        reasons.push("Low conflict rate and no high-severity issues".to_string());
+    }
+
+    let risk_assessment = JsonRiskAssessment {
+        risk_level: metrics.risk_level.label().to_string(),
+        critical_conflicts: metrics.critical_conflicts,
+        high_severity_conflicts: metrics.high_severity_conflicts,
+        reasons,
+    };
+
+    let top_conflicts = if metrics.total_conflicts > 0 {
+        Some(build_json_top_conflicts(result))
+    } else {
+        None
+    };
+
+    JsonExecutiveSummary {
+        compatibility_overview,
+        risk_assessment,
+        top_conflicts,
+    }
+}
+
+fn build_json_top_conflicts(result: &ComparisonResult) -> Vec<JsonEntityConflicts> {
+    let mut entity_map: HashMap<String, Vec<&Conflict>> = HashMap::new();
+    for conflict in &result.conflicts {
+        entity_map.entry(conflict.entity_name.clone())
+            .or_insert_with(Vec::new)
+            .push(conflict);
+    }
+
+    let mut entity_conflicts: Vec<JsonEntityConflicts> = entity_map
+        .iter()
+        .map(|(name, conflicts)| {
+            let highest_severity = conflicts.iter()
+                .map(|c| c.severity)
+                .max()
+                .unwrap_or(ConflictSeverity::Low);
+            JsonEntityConflicts {
+                entity_name: name.clone(),
+                conflict_count: conflicts.len(),
+                highest_severity: format!("{:?}", highest_severity),
+            }
+        })
+        .collect();
+
+    entity_conflicts.sort_by(|a, b| {
+        b.conflict_count.cmp(&a.conflict_count)
+    });
+
+    entity_conflicts.into_iter().take(5).collect()
+}
+
+fn build_json_detailed_breakdown(metrics: &ReportMetrics, result: &ComparisonResult) -> JsonDetailedBreakdown {
+    let exact_matches = result.matches.iter()
+        .filter(|m| matches!(m.reason, MatchReason::ExactName))
+        .count();
+    let normalized_matches = result.matches.iter()
+        .filter(|m| matches!(m.reason, MatchReason::NormalizedName { .. }))
+        .count();
+    let similarity_matches = result.matches.iter()
+        .filter(|m| matches!(m.reason, MatchReason::Similarity { .. }))
+        .count();
+
+    let matches = JsonMatchesBreakdown {
+        total: metrics.total_matches,
+        exact_name_matches: exact_matches,
+        normalized_matches,
+        similarity_matches,
+        average_confidence: metrics.average_match_confidence,
+    };
+
+    let safe_from_a = result.exclusives.iter()
+        .filter(|e| e.side == ExclusiveSide::A && e.safe_to_add)
+        .count();
+    let safe_from_b = result.exclusives.iter()
+        .filter(|e| e.side == ExclusiveSide::B && e.safe_to_add)
+        .count();
+
+    let exclusives = JsonExclusivesBreakdown {
+        from_schema_a: metrics.exclusives_a,
+        from_schema_b: metrics.exclusives_b,
+        safe_from_a,
+        safe_from_b,
+        safe_addition_rate: metrics.safe_addition_rate,
+    };
+
+    let mut by_type: HashMap<String, usize> = HashMap::new();
+    for conflict in &result.conflicts {
+        let type_name = format!("{:?}", conflict.conflict_type);
+        *by_type.entry(type_name).or_insert(0) += 1;
+    }
+
+    let mut by_severity: HashMap<String, usize> = HashMap::new();
+    for conflict in &result.conflicts {
+        let severity_name = format!("{:?}", conflict.severity);
+        *by_severity.entry(severity_name).or_insert(0) += 1;
+    }
+
+    let conflicts = JsonConflictsBreakdown {
+        total: metrics.total_conflicts,
+        by_type,
+        by_severity,
+    };
+
+    JsonDetailedBreakdown {
+        matches,
+        exclusives,
+        conflicts,
+    }
+}
+
+fn build_json_technical_details(result: &ComparisonResult) -> JsonTechnicalDetails {
+    let matches = result.matches.iter()
+        .map(|m| {
+            let match_type = match &m.reason {
+                MatchReason::ExactName => "exact_name",
+                MatchReason::NormalizedName { .. } => "normalized",
+                MatchReason::Similarity { .. } => "similarity",
+            };
+            JsonMatch {
+                entity: m.entity_name.clone(),
+                field: m.field_name.clone(),
+                match_type: match_type.to_string(),
+                score: m.score,
+                index_a: m.index_a,
+                index_b: m.index_b,
+            }
+        })
+        .collect();
+
+    let exclusives = result.exclusives.iter()
+        .map(|e| JsonExclusive {
+            entity: e.entity_name.clone(),
+            field: e.field_name.clone(),
+            side: match e.side {
+                ExclusiveSide::A => "A",
+                ExclusiveSide::B => "B",
+            }.to_string(),
+            safe_to_add: e.safe_to_add,
+            index: e.index,
+        })
+        .collect();
+
+    let conflicts = result.conflicts.iter()
+        .enumerate()
+        .map(|(i, c)| JsonConflict {
+            id: i + 1,
+            entity: c.entity_name.clone(),
+            field: c.field_name.clone(),
+            conflict_type: format!("{:?}", c.conflict_type),
+            severity: format!("{:?}", c.severity),
+            evidence_a: c.evidence.from_a.clone(),
+            evidence_b: c.evidence.from_b.clone(),
+            rule: c.evidence.rule.clone(),
+            index_a: c.index_a,
+            index_b: c.index_b,
+        })
+        .collect();
+
+    JsonTechnicalDetails {
+        matches,
+        exclusives,
+        conflicts,
+    }
+}
+
+fn build_json_resolution_section(result: &ComparisonResult, log: &DecisionLog) -> JsonResolutionSection {
+    let decisions = log.get_decisions();
+    
+    let high_conf = decisions.iter().filter(|d| d.suggestion.confidence.value() >= 0.85).count();
+    let medium_conf = decisions.iter().filter(|d| {
+        let conf = d.suggestion.confidence.value();
+        conf >= 0.60 && conf < 0.85
+    }).count();
+    let auto_accepted = decisions.iter().filter(|d| d.accepted).count();
+    
+    let system_decisions = decisions.iter()
+        .filter(|d| matches!(d.source, audd_resolution::DecisionSource::System { .. }))
+        .count();
+
+    let summary = JsonResolutionSummary {
+        total_suggestions: decisions.len(),
+        high_confidence: high_conf,
+        medium_confidence: medium_conf,
+        auto_accepted,
+        total_decisions: decisions.len(),
+        accepted_decisions: log.get_accepted_decisions().len(),
+        rejected_decisions: log.get_rejected_decisions().len(),
+        system_decisions,
+        user_decisions: decisions.len() - system_decisions,
+    };
+
+    let suggestions = decisions.iter()
+        .map(|d| {
+            let sug = &d.suggestion;
+            let conflict_id = result.conflicts.iter()
+                .position(|c| {
+                    c.entity_name == sug.entity_name &&
+                    c.field_name == sug.field_name
+                })
+                .map(|i| i + 1);
+
+            JsonSuggestion {
+                id: sug.id.clone(),
+                conflict_id,
+                entity: sug.entity_name.clone(),
+                field: sug.field_name.clone(),
+                kind: format!("{:?}", sug.kind),
+                confidence: sug.confidence.value(),
+                impact: format!("{:?}", sug.impact),
+                explanation: sug.explanation.clone(),
+                evidence: sug.evidence.clone(),
+                status: if d.accepted { "accepted" } else { "rejected" }.to_string(),
+            }
+        })
+        .collect();
+
+    let json_decisions = decisions.iter()
+        .map(|d| {
+            let source = match &d.source {
+                audd_resolution::DecisionSource::System { rule } => format!("system:{}", rule),
+                audd_resolution::DecisionSource::User { username } => format!("user:{}", username),
+            };
+            JsonDecision {
+                id: d.id.clone(),
+                suggestion_id: d.suggestion.id.clone(),
+                accepted: d.accepted,
+                source,
+                rationale: d.rationale.clone(),
+                timestamp: d.timestamp.to_rfc3339(),
+            }
+        })
+        .collect();
+
+    JsonResolutionSection {
+        summary,
+        suggestions,
+        decisions: json_decisions,
+    }
+}
+
+fn build_json_recommendations(metrics: &ReportMetrics, decision_log: Option<&DecisionLog>) -> Vec<String> {
+    let mut recommendations = Vec::new();
+
+    match metrics.risk_level {
+        RiskLevel::Critical => {
+            recommendations.push("CRITICAL: Immediate manual review required before proceeding".to_string());
+        }
+        RiskLevel::High => {
+            recommendations.push("HIGH RISK: Careful review of all conflicts recommended".to_string());
+        }
+        RiskLevel::Medium => {
+            recommendations.push("Review medium and high-severity conflicts before unification".to_string());
+        }
+        RiskLevel::Low => {
+            recommendations.push("Low risk detected - schemas are mostly compatible".to_string());
+        }
+    }
+
+    if metrics.critical_conflicts > 0 {
+        recommendations.push(format!(
+            "Review {} critical-severity conflict(s) immediately",
+            metrics.critical_conflicts
+        ));
+    }
+    
+    if metrics.high_severity_conflicts > 0 {
+        recommendations.push(format!(
+            "Address {} high-severity conflict(s) before auto-unification",
+            metrics.high_severity_conflicts
+        ));
+    }
+
+    let unresolved = if let Some(log) = decision_log {
+        let resolved_count = log.get_accepted_decisions().len();
+        metrics.total_conflicts.saturating_sub(resolved_count)
+    } else {
+        metrics.total_conflicts
+    };
+
+    if unresolved > 0 {
+        recommendations.push(format!(
+            "{} conflict(s) remain without accepted resolutions",
+            unresolved
+        ));
+    }
+
+    let unsafe_exclusives = metrics.total_exclusives - metrics.safe_exclusives;
+    if unsafe_exclusives > 0 {
+        recommendations.push(format!(
+            "Review {} exclusive field(s) marked for manual review",
+            unsafe_exclusives
+        ));
+    }
+
+    if metrics.compatibility_score >= 80.0 {
+        recommendations.push("High compatibility score - schemas align well".to_string());
+    } else if metrics.compatibility_score < 50.0 {
+        recommendations.push("Low compatibility score - consider manual schema alignment".to_string());
+    }
+
+    if decision_log.is_some() {
+        recommendations.push("See decision_log.json for complete decision history".to_string());
+    }
+
+    recommendations
 }

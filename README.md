@@ -74,6 +74,7 @@ audd compare \
 # - output/diff.json             (Comparison results)
 # - output/decision_log.json     (Resolution decisions)
 # - output/report.md             (Human-readable report)
+# - output/report.json           (Structured report, optional)
 
 # Use custom config file
 audd --config team-config.toml compare --source-a a.csv --source-b b.json

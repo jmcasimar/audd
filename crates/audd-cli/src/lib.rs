@@ -4,4 +4,4 @@
 
 pub mod report;
 
-pub use report::{generate_report, ReportMetrics, RiskLevel};
+pub use report::{generate_report, generate_json_report, JsonReport, ReportMetrics, RiskLevel};

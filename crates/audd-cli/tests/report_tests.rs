@@ -249,3 +249,55 @@ fn test_metrics_calculation_edge_cases() {
     assert_eq!(metrics.compatibility_score, 100.0); // No conflicts means 100% compatible
     assert_eq!(metrics.conflict_rate, 0.0);
 }
+
+#[test]
+fn test_json_report_generation() {
+    use audd_compare::{ComparisonResult, Match, Exclusive, Conflict};
+    use audd_cli::report::generate_json_report;
+
+    // Create minimal test data
+    let matches = vec![
+        Match::exact("test_entity".to_string(), Some("field1".to_string()), 0, 0),
+    ];
+    let exclusives = vec![
+        Exclusive::from_a("test_entity".to_string(), Some("field2".to_string()), 1),
+    ];
+    let conflicts = vec![
+        Conflict::type_incompatible(
+            "test_entity".to_string(),
+            "field3".to_string(),
+            "String".to_string(),
+            "Int32".to_string(),
+            2,
+            2,
+        ),
+    ];
+
+    let result = ComparisonResult::new(matches, exclusives, conflicts);
+    
+    // Generate JSON report
+    let json_report = generate_json_report("schema_a", "schema_b", &result, None);
+
+    // Verify structure
+    assert_eq!(json_report.metadata.schema_a, "schema_a");
+    assert_eq!(json_report.metadata.schema_b, "schema_b");
+    assert_eq!(json_report.metadata.report_version, "1.0.0");
+    
+    assert_eq!(json_report.executive_summary.compatibility_overview.total_matches, 1);
+    assert_eq!(json_report.executive_summary.compatibility_overview.total_conflicts, 1);
+    assert_eq!(json_report.executive_summary.compatibility_overview.total_exclusives, 1);
+    
+    assert!(json_report.technical_details.matches.len() == 1);
+    assert!(json_report.technical_details.exclusives.len() == 1);
+    assert!(json_report.technical_details.conflicts.len() == 1);
+    
+    // Should not have resolution section when no decision log
+    assert!(json_report.resolution.is_none());
+    
+    // Verify it serializes to valid JSON
+    let json_str = serde_json::to_string(&json_report).expect("Failed to serialize");
+    assert!(!json_str.is_empty());
+    
+    // Verify deserialization works
+    let _: audd_cli::JsonReport = serde_json::from_str(&json_str).expect("Failed to deserialize");
+}

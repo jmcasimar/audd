@@ -77,6 +77,10 @@ pub struct OutputConfig {
     /// Whether to generate the markdown report
     #[serde(skip_serializing_if = "Option::is_none")]
     pub generate_report: Option<bool>,
+    
+    /// Whether to generate the JSON report
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub generate_json_report: Option<bool>,
 }
 
 impl Default for Config {
@@ -115,6 +119,7 @@ impl Default for OutputConfig {
             generate_diff: None,
             generate_decision_log: None,
             generate_report: None,
+            generate_json_report: None,
         }
     }
 }
@@ -209,6 +214,14 @@ impl Config {
             .unwrap_or(true)
     }
     
+    /// Check if JSON report generation is enabled
+    pub fn should_generate_json_report(&self) -> bool {
+        self.output
+            .as_ref()
+            .and_then(|o| o.generate_json_report)
+            .unwrap_or(false) // Off by default
+    }
+    
     /// Generate a sample configuration file
     pub fn sample() -> String {
         let sample = Config {
@@ -226,6 +239,7 @@ impl Config {
                 generate_diff: Some(true),
                 generate_decision_log: Some(true),
                 generate_report: Some(true),
+                generate_json_report: Some(false),
             }),
         };
         

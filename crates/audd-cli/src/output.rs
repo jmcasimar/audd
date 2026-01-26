@@ -73,6 +73,30 @@ pub fn write_report(out_dir: &Path, log: &DecisionLog, result: &ComparisonResult
     Ok(path)
 }
 
+/// Write JSON report (optional structured export)
+pub fn write_json_report(out_dir: &Path, log: &DecisionLog, result: &ComparisonResult) -> CliResult<PathBuf> {
+    let path = out_dir.join("report.json");
+    
+    // Extract schema names from decision log metadata or use defaults
+    let schema_a_name = log.metadata.schema_a_id.as_deref().unwrap_or("Schema A");
+    let schema_b_name = log.metadata.schema_b_id.as_deref().unwrap_or("Schema B");
+    
+    // Generate JSON report
+    let json_report = audd_cli::report::generate_json_report(
+        schema_a_name,
+        schema_b_name,
+        result,
+        Some(log),
+    );
+    
+    let json = serde_json::to_string_pretty(&json_report)?;
+    fs::write(&path, json).map_err(|e| CliError::OutputWrite {
+        path: path.display().to_string(),
+        details: e,
+    })?;
+    Ok(path)
+}
+
 /// Write IR schema to JSON (for inspect command)
 pub fn write_ir_schema(out_dir: &Path, schema: &audd_ir::SourceSchema) -> CliResult<PathBuf> {
     let path = out_dir.join("ir.json");
