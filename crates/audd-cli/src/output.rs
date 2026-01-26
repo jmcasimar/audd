@@ -53,21 +53,44 @@ pub fn write_decision_log(out_dir: &Path, log: &DecisionLog) -> CliResult<PathBu
 /// Write markdown report
 pub fn write_report(out_dir: &Path, log: &DecisionLog, result: &ComparisonResult) -> CliResult<PathBuf> {
     let path = out_dir.join("report.md");
-    let mut md = String::new();
+    
+    // Extract schema names from decision log metadata or use defaults
+    let schema_a_name = log.metadata.schema_a_id.as_deref().unwrap_or("Schema A");
+    let schema_b_name = log.metadata.schema_b_id.as_deref().unwrap_or("Schema B");
+    
+    // Generate comprehensive report using the report module
+    let report_content = audd_cli::report::generate_report(
+        schema_a_name,
+        schema_b_name,
+        result,
+        Some(log),
+    );
+    
+    fs::write(&path, report_content).map_err(|e| CliError::OutputWrite {
+        path: path.display().to_string(),
+        details: e,
+    })?;
+    Ok(path)
+}
 
-    // Title
-    md.push_str("# AUDD Comparison Report\n\n");
-
-    // Summary
-    md.push_str("## Summary\n\n");
-    md.push_str(&format!("- **Matches**: {}\n", result.matches.len()));
-    md.push_str(&format!("- **Exclusives**: {}\n", result.exclusives.len()));
-    md.push_str(&format!("- **Conflicts**: {}\n\n", result.conflicts.len()));
-
-    // Decision log summary
-    md.push_str(&log.to_markdown());
-
-    fs::write(&path, md).map_err(|e| CliError::OutputWrite {
+/// Write JSON report (optional structured export)
+pub fn write_json_report(out_dir: &Path, log: &DecisionLog, result: &ComparisonResult) -> CliResult<PathBuf> {
+    let path = out_dir.join("report.json");
+    
+    // Extract schema names from decision log metadata or use defaults
+    let schema_a_name = log.metadata.schema_a_id.as_deref().unwrap_or("Schema A");
+    let schema_b_name = log.metadata.schema_b_id.as_deref().unwrap_or("Schema B");
+    
+    // Generate JSON report
+    let json_report = audd_cli::report::generate_json_report(
+        schema_a_name,
+        schema_b_name,
+        result,
+        Some(log),
+    );
+    
+    let json = serde_json::to_string_pretty(&json_report)?;
+    fs::write(&path, json).map_err(|e| CliError::OutputWrite {
         path: path.display().to_string(),
         details: e,
     })?;

@@ -3,6 +3,8 @@ mod error;
 mod loader;
 mod output;
 
+use audd_cli::report;
+
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use error::CliResult;
@@ -293,6 +295,11 @@ fn handle_compare(
     if config.should_generate_report() {
         let report_path = output::write_report(out_dir, &decision_log, &comparison_result)?;
         println!("✓ Wrote {}", report_path.display());
+    }
+
+    if config.should_generate_json_report() {
+        let json_report_path = output::write_json_report(out_dir, &decision_log, &comparison_result)?;
+        println!("✓ Wrote {}", json_report_path.display());
     }
 
     println!();
