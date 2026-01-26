@@ -2,7 +2,8 @@ mod config;
 mod error;
 mod loader;
 mod output;
-mod report;
+
+use audd_cli::report;
 
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;

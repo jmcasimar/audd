@@ -59,7 +59,7 @@ pub fn write_report(out_dir: &Path, log: &DecisionLog, result: &ComparisonResult
     let schema_b_name = log.metadata.schema_b_id.as_deref().unwrap_or("Schema B");
     
     // Generate comprehensive report using the report module
-    let report_content = crate::report::generate_report(
+    let report_content = audd_cli::report::generate_report(
         schema_a_name,
         schema_b_name,
         result,

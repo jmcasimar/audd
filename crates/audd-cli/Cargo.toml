@@ -7,6 +7,10 @@ license.workspace = true
 repository.workspace = true
 description = "CLI for AUDD - Dynamic Data Unification Algorithm"
 
+[lib]
+name = "audd_cli"
+path = "src/lib.rs"
+
 [[bin]]
 name = "audd"
 path = "src/main.rs"
