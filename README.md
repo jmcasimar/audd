@@ -1,5 +1,9 @@
 # AUDD - Algoritmo de Unificación Dinámica de Datos
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org)
+[![CI](https://github.com/jmcasimar/AUDD/workflows/CI/badge.svg)](https://github.com/jmcasimar/AUDD/actions)
+
 **Algoritmo de Unificación Dinámica de Datos**
 
 ---
@@ -139,7 +143,7 @@ audd compare \
 # Output files written to: output
 ```
 
-Para más ejemplos, ver [`examples/cli/README.md`](../../examples/cli/README.md).
+Para más ejemplos, ver [`examples/cli/README.md`](examples/cli/README.md).
 
 ## 🏗️ Arquitectura
 
@@ -168,6 +172,27 @@ Para más ejemplos, ver [`examples/cli/README.md`](../../examples/cli/README.md)
 │  (Conflict resolution, export)  │
 └─────────────────────────────────┘
 ```
+
+Para información arquitectónica detallada, ver [docs/Architecture.md](docs/Architecture.md).
+
+## 📚 Documentación
+
+**Guías Principales:**
+- 🚀 [**Inicio Rápido**](docs/Getting-Started.md) - Tu primera comparación en 30 minutos
+- 🏗️ [**Arquitectura**](docs/Architecture.md) - Diseño del sistema y componentes
+- ⚙️ [**Configuración**](docs/CONFIG.md) - Opciones y personalización avanzada
+- 💡 [**Ejemplos de Uso**](docs/Usage-Examples.md) - Casos de uso reales y workflows
+- 🤝 [**Contribuir**](docs/Contributing.md) - Guía para colaboradores
+- ❓ [**FAQ**](docs/FAQ.md) - Preguntas frecuentes y solución de problemas
+
+**Documentación Técnica:**
+- [Intermediate Representation (IR)](docs/ir.md) - Especificación del modelo canónico
+- [Adaptadores de Archivo](docs/adapters_files.md) - CSV, JSON, XML, SQL
+- [Adaptadores de Base de Datos](docs/adapters_db.md) - MySQL, PostgreSQL, MongoDB, etc.
+- [Motor de Comparación](docs/audit_report.md) - Algoritmos y estrategias
+- [Estructura de Reportes](docs/reporting.md) - Formatos de salida
+
+**Versión en Inglés:** Toda la documentación está disponible en [docs/en/](docs/en/)
 
 ## 📋 Roadmap (MVP)
 
@@ -201,15 +226,15 @@ cargo clippy
 
 ## 📝 Contribuir
 
-Ver [CONTRIBUTING.md](../../CONTRIBUTING.md) para lineamientos.
+Ver [CONTRIBUTING.md](CONTRIBUTING.md) para lineamientos.
 
 ## 🔒 Seguridad
 
-Ver [SECURITY.md](../../SECURITY.md) para procedimientos de reporte.
+Ver [SECURITY.md](SECURITY.md) para procedimientos de reporte.
 
 ## 📄 Licencia
 
-Licenciado bajo la Licencia MIT. Ver [LICENSE](../../LICENSE) para detalles.
+Licenciado bajo la Licencia MIT. Ver [LICENSE](LICENSE) para detalles.
 
 ## 👥 Autores
 
