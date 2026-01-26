@@ -1,50 +1,50 @@
-# AUDD Technical Audit Report
+# Reporte de Auditoría Técnica de AUDD
 
-**Date:** 2026-01-26  
-**Scope:** Database connectors (SQLite, PostgreSQL, MySQL/MariaDB, MongoDB, SQL Server, Firebird), File adapters (CSV/JSON/XML/SQL), Remote adapter (HTTP/HTTPS, Google Sheets), IR extensions
-
----
-
-## Executive Summary
-
-**Total Issues Identified:** 20  
-**Critical:** 5 | **High:** 8 | **Medium:** 5 | **Low:** 2
-
-### Critical Findings Requiring Immediate Action
-
-1. **SQL Injection Vulnerabilities** - SQLite and MySQL connectors use string interpolation for table names
-2. **Compilation Failures** - Firebird connector has missing type references preventing build
-3. **Security Misconfiguration** - SQL Server disables TLS certificate validation in production code
-4. **Resource Exhaustion** - Remote adapter can consume unlimited memory downloading files
-5. **SSRF Vulnerability** - Remote adapter accepts unvalidated URLs including internal services
+**Fecha:** 2026-01-26  
+**Alcance:** Conectores de bases de datos (SQLite, PostgreSQL, MySQL/MariaDB, MongoDB, SQL Server, Firebird), Adaptadores de archivos (CSV/JSON/XML/SQL), Adaptador remoto (HTTP/HTTPS, Google Sheets), extensiones IR
 
 ---
 
-## Detailed Findings
+## Resumen Ejecutivo
 
-### 🔴 CRITICAL SEVERITY
+**Total de Problemas Identificados:** 20  
+**Críticos:** 5 | **Altos:** 8 | **Medios:** 5 | **Bajos:** 2
 
-#### C1: SQL Injection in SQLite Connector
+### Hallazgos Críticos que Requieren Acción Inmediata
 
-**File:** `crates/audd_adapters_db/src/sqlite.rs` lines 100, 164, 234  
-**Risk Level:** Critical  
-**CVSS Score:** 9.8 (Critical)
+1. **Vulnerabilidades de SQL Injection** - Los conectores SQLite y MySQL utilizan interpolación de cadenas para nombres de tablas
+2. **Fallos de Compilación** - El conector Firebird tiene referencias de tipo faltantes que impiden la compilación
+3. **Configuración de Seguridad Incorrecta** - SQL Server deshabilita la validación de certificados TLS en código de producción
+4. **Agotamiento de Recursos** - El adaptador remoto puede consumir memoria ilimitada al descargar archivos
+5. **Vulnerabilidad SSRF** - El adaptador remoto acepta URLs no validadas incluyendo servicios internos
 
-**Problem:**
+---
+
+## Hallazgos Detallados
+
+### 🔴 SEVERIDAD CRÍTICA
+
+#### C1: SQL Injection en el Conector SQLite
+
+**Archivo:** `crates/audd_adapters_db/src/sqlite.rs` líneas 100, 164, 234  
+**Nivel de Riesgo:** Crítico  
+**Puntuación CVSS:** 9.8 (Crítico)
+
+**Problema:**
 ```rust
-let query = format!("PRAGMA table_info('{}')", table_name); // UNSAFE
+let query = format!("PRAGMA table_info('{}')", table_name); // INSEGURO
 ```
 
-Table names and index names from database metadata are directly interpolated into SQL queries without validation. A malicious SQLite database file with table name `'; DROP TABLE users--` could execute arbitrary SQL.
+Los nombres de tablas y nombres de índices de los metadatos de la base de datos se interpolan directamente en consultas SQL sin validación. Un archivo de base de datos SQLite malicioso con nombre de tabla `'; DROP TABLE users--` podría ejecutar SQL arbitrario.
 
-**Attack Scenario:**
-1. Attacker creates malicious SQLite database with table named `'; INSERT INTO admin_users VALUES('hacker','password')--`
-2. AUDD loads this database for schema extraction
-3. SQL injection executes, adding attacker to admin table
+**Escenario de Ataque:**
+1. El atacante crea una base de datos SQLite maliciosa con una tabla llamada `'; INSERT INTO admin_users VALUES('hacker','password')--`
+2. AUDD carga esta base de datos para extracción de esquema
+3. La inyección SQL se ejecuta, agregando al atacante a la tabla de administradores
 
-**Remediation:**
+**Remediación:**
 ```rust
-// Add validation function
+// Agregar función de validación
 fn validate_sqlite_identifier(name: &str) -> DbResult<()> {
     if name.contains('\'') || name.contains(';') || name.contains('\0') || name.contains('"') {
         return Err(DbError::ExtractionError(
@@ -57,39 +57,39 @@ fn validate_sqlite_identifier(name: &str) -> DbResult<()> {
     Ok(())
 }
 
-// Use before query construction
+// Usar antes de la construcción de la consulta
 validate_sqlite_identifier(&table_name)?;
 let query = format!("PRAGMA table_info('{}')", table_name);
 ```
 
-**Priority:** P0 - Fix immediately before any production deployment
+**Prioridad:** P0 - Corregir inmediatamente antes de cualquier despliegue a producción
 
 ---
 
-#### C2: SQL Injection in MySQL Connector  
+#### C2: SQL Injection en el Conector MySQL  
 
-**File:** `crates/audd_adapters_db/src/mysql.rs` lines 85-90, 118-124, 231-239  
-**Risk Level:** Critical  
-**CVSS Score:** 9.1 (Critical)
+**Archivo:** `crates/audd_adapters_db/src/mysql.rs` líneas 85-90, 118-124, 231-239  
+**Nivel de Riesgo:** Crítico  
+**Puntuación CVSS:** 9.1 (Crítico)
 
-**Problem:**
+**Problema:**
 ```rust
 let query = format!(
     "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES 
      WHERE TABLE_SCHEMA = '{}' AND TABLE_TYPE = 'BASE TABLE'",
-    self.database_name  // UNSAFE
+    self.database_name  // INSEGURO
 );
 ```
 
-Database name and table names are interpolated without sanitization. Unlike SQLite where names come from database file, MySQL connection string is user-provided, making this exploitable.
+El nombre de la base de datos y los nombres de tablas se interpolan sin sanitización. A diferencia de SQLite donde los nombres provienen del archivo de base de datos, la cadena de conexión de MySQL es proporcionada por el usuario, lo que hace esto explotable.
 
-**Attack Scenario:**
-1. User provides connection string: `mysql://user:pass@host/'; DROP DATABASE prod; --`
-2. Code executes: `WHERE TABLE_SCHEMA = ''; DROP DATABASE prod; --'`
-3. Production database dropped
+**Escenario de Ataque:**
+1. El usuario proporciona una cadena de conexión: `mysql://user:pass@host/'; DROP DATABASE prod; --`
+2. El código ejecuta: `WHERE TABLE_SCHEMA = ''; DROP DATABASE prod; --'`
+3. La base de datos de producción es eliminada
 
-**Remediation:**
-Use parameterized queries for all INFORMATION_SCHEMA queries:
+**Remediación:**
+Utilice consultas parametrizadas para todas las consultas de INFORMATION_SCHEMA:
 ```rust
 let mut stmt = conn.prepare(
     "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES 
@@ -99,78 +99,78 @@ let mut stmt = conn.prepare(
 let tables = stmt.query(&[&self.database_name])?;
 ```
 
-**Priority:** P0 - Critical security vulnerability
+**Prioridad:** P0 - Vulnerabilidad de seguridad crítica
 
 ---
 
-#### C3: Firebird Connector Compilation Failures
+#### C3: Fallos de Compilación en el Conector Firebird
 
-**File:** `crates/audd_adapters_db/src/firebird.rs`, `crates/audd_adapters_db/src/error.rs`  
-**Risk Level:** Critical (Availability)  
-**Impact:** Complete build failure with firebird feature
+**Archivo:** `crates/audd_adapters_db/src/firebird.rs`, `crates/audd_adapters_db/src/error.rs`  
+**Nivel de Riesgo:** Crítico (Disponibilidad)  
+**Impacto:** Fallo completo de compilación con la característica firebird
 
-**Problems:**
+**Problemas:**
 
-1. **Missing Error Variant:**
+1. **Variante de Error Faltante:**
 ```rust
-// error.rs - DbError enum doesn't have QueryFailed variant
-// But firebird.rs uses it 33 times:
-return Err(DbError::QueryFailed(format!("..."))) // COMPILATION ERROR
+// error.rs - El enum DbError no tiene la variante QueryFailed
+// Pero firebird.rs la usa 33 veces:
+return Err(DbError::QueryFailed(format!("..."))) // ERROR DE COMPILACIÓN
 ```
 
-2. **Invalid Import:**
+2. **Importación Inválida:**
 ```rust
 // firebird.rs:4
 use rsfbclient::{Connection, ConnectionBuilder, FbError};
-// ERROR: no `ConnectionBuilder` in rsfbclient crate
+// ERROR: no existe `ConnectionBuilder` en el crate rsfbclient
 ```
 
-**Remediation:**
+**Remediación:**
 ```rust
-// Option 1: Add missing variant to error.rs
+// Opción 1: Agregar variante faltante a error.rs
 pub enum DbError {
-    // ... existing variants
-    QueryFailed(String), // ADD THIS
+    // ... variantes existentes
+    QueryFailed(String), // AGREGAR ESTO
 }
 
-// Option 2: Replace all QueryFailed with QueryError in firebird.rs
+// Opción 2: Reemplazar todos los QueryFailed con QueryError en firebird.rs
 return Err(DbError::QueryError(format!("...")))
 
-// For ConnectionBuilder - check rsfbclient docs for correct API
-// May need: use rsfbclient::ConnectionConfiguration;
+// Para ConnectionBuilder - revisar la documentación de rsfbclient para la API correcta
+// Puede necesitar: use rsfbclient::ConnectionConfiguration;
 ```
 
-**Priority:** P0 - Code doesn't compile
+**Prioridad:** P0 - El código no compila
 
 ---
 
-#### C4: Unbounded Memory Consumption in Remote Adapter
+#### C4: Consumo de Memoria Ilimitado en el Adaptador Remoto
 
-**File:** `crates/audd_adapters_file/src/remote_adapter.rs` lines 162-165  
-**Risk Level:** Critical (DoS)  
-**CVSS Score:** 7.5 (High)
+**Archivo:** `crates/audd_adapters_file/src/remote_adapter.rs` líneas 162-165  
+**Nivel de Riesgo:** Crítico (DoS)  
+**Puntuación CVSS:** 7.5 (Alto)
 
-**Problem:**
+**Problema:**
 ```rust
 let mut reader = response.into_reader();
 let mut buffer = Vec::new();
-std::io::copy(&mut reader, &mut buffer) // NO SIZE LIMIT
+std::io::copy(&mut reader, &mut buffer) // SIN LÍMITE DE TAMAÑO
     .map_err(|e| AdapterError::IoError(e))?;
 ```
 
-Entire HTTP response loaded into memory without size limit. Attacker can provide URL to 10GB file causing OOM crash.
+La respuesta HTTP completa se carga en memoria sin límite de tamaño. Un atacante puede proporcionar una URL a un archivo de 10GB causando un fallo por falta de memoria (OOM).
 
-**Attack Scenario:**
-1. Attacker provides URL: `https://evil.com/10GB-file.csv`
-2. AUDD starts downloading, allocating 10GB in Vec
-3. System runs out of memory, process killed
+**Escenario de Ataque:**
+1. El atacante proporciona una URL: `https://evil.com/10GB-file.csv`
+2. AUDD comienza a descargar, asignando 10GB en Vec
+3. El sistema se queda sin memoria, el proceso es terminado
 
-**Remediation:**
+**Remediación:**
 ```rust
 const MAX_REMOTE_FILE_SIZE: u64 = 100 * 1024 * 1024; // 100MB
 
 let mut reader = response.into_reader().take(MAX_REMOTE_FILE_SIZE);
-let mut buffer = Vec::with_capacity(4096); // Reasonable initial capacity
+let mut buffer = Vec::with_capacity(4096); // Capacidad inicial razonable
 let bytes_read = std::io::copy(&mut reader, &mut buffer)
     .map_err(|e| AdapterError::IoError(e))?;
 
@@ -181,46 +181,46 @@ if bytes_read >= MAX_REMOTE_FILE_SIZE {
 }
 ```
 
-**Priority:** P0 - DoS vulnerability
+**Prioridad:** P0 - Vulnerabilidad DoS
 
 ---
 
-#### C5: SSRF Vulnerability in Remote Adapter
+#### C5: Vulnerabilidad SSRF en el Adaptador Remoto
 
-**File:** `crates/audd_adapters_file/src/remote_adapter.rs` lines 138-151  
-**Risk Level:** Critical  
-**CVSS Score:** 9.1 (Critical)
+**Archivo:** `crates/audd_adapters_file/src/remote_adapter.rs` líneas 138-151  
+**Nivel de Riesgo:** Crítico  
+**Puntuación CVSS:** 9.1 (Crítico)
 
-**Problem:**
+**Problema:**
 ```rust
 fn fetch_content(&self) -> AdapterResult<Vec<u8>> {
     let url = if self.is_google_sheets_url() {
         self.convert_google_sheets_url()
     } else {
-        self.url.clone() // NO VALIDATION
+        self.url.clone() // SIN VALIDACIÓN
     };
-    let response = ureq::get(&url).call() // FETCHES ANY URL
+    let response = ureq::get(&url).call() // OBTIENE CUALQUIER URL
 ```
 
-Accepts any URL without validation. Can be used to scan internal network, access cloud metadata endpoints, or read local files.
+Acepta cualquier URL sin validación. Puede utilizarse para escanear la red interna, acceder a endpoints de metadatos en la nube, o leer archivos locales.
 
-**Attack Scenarios:**
-1. **Internal Port Scan:** `http://192.168.1.1:22`, `http://192.168.1.1:3306` etc.
-2. **Cloud Metadata:** `http://169.254.169.254/latest/meta-data/` (AWS credentials)
-3. **Local Files:** `file:///etc/passwd` (if ureq supports file://)
-4. **Internal Services:** `http://localhost:6379/` (Redis), `http://localhost:9200/` (Elasticsearch)
+**Escenarios de Ataque:**
+1. **Escaneo de Puerto Interno:** `http://192.168.1.1:22`, `http://192.168.1.1:3306`, etc.
+2. **Metadatos en la Nube:** `http://169.254.169.254/latest/meta-data/` (credenciales de AWS)
+3. **Archivos Locales:** `file:///etc/passwd` (si ureq soporta file://)
+4. **Servicios Internos:** `http://localhost:6379/` (Redis), `http://localhost:9200/` (Elasticsearch)
 
-**Remediation:**
+**Remediación:**
 ```rust
 fn validate_url(url: &str) -> AdapterResult<()> {
-    // Only allow HTTP/HTTPS
+    // Solo permitir HTTP/HTTPS
     if !url.starts_with("http://") && !url.starts_with("https://") {
         return Err(AdapterError::InvalidUrl(
             "Only HTTP and HTTPS URLs are supported".to_string()
         ));
     }
 
-    // Parse URL to get host
+    // Analizar URL para obtener el host
     let url_parts: Vec<&str> = url.split('/').collect();
     if url_parts.len() < 3 {
         return Err(AdapterError::InvalidUrl("Malformed URL".to_string()));
@@ -229,7 +229,7 @@ fn validate_url(url: &str) -> AdapterResult<()> {
     let host_port = url_parts[2];
     let host = host_port.split(':').next().unwrap_or(host_port);
     
-    // Block localhost and private IPs
+    // Bloquear localhost e IPs privadas
     let blocked = [
         "localhost", "127.0.0.1", "0.0.0.0",
         "169.254.169.254", // AWS metadata
@@ -244,7 +244,7 @@ fn validate_url(url: &str) -> AdapterResult<()> {
         }
     }
     
-    // Block private IP ranges: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
+    // Bloquear rangos de IP privadas: 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16
     if host.starts_with("10.") || 
        host.starts_with("192.168.") ||
        host.starts_with("172.16.") || host.starts_with("172.17.") {
@@ -256,30 +256,30 @@ fn validate_url(url: &str) -> AdapterResult<()> {
     Ok(())
 }
 
-// Use in fetch_content before ureq::get()
+// Usar en fetch_content antes de ureq::get()
 validate_url(&url)?;
 let response = ureq::get(&url).call()
 ```
 
-**Priority:** P0 - SSRF allows internal network access
+**Prioridad:** P0 - SSRF permite acceso a la red interna
 
 ---
 
-### 🟠 HIGH SEVERITY
+### 🟠 SEVERIDAD ALTA
 
-#### H1: Insecure Port Parsing with Silent Failure
+#### H1: Análisis de Puerto Inseguro con Fallo Silencioso
 
-**File:** `crates/audd_adapters_db/src/sqlserver.rs` line 87  
-**Risk Level:** High
+**Archivo:** `crates/audd_adapters_db/src/sqlserver.rs` línea 87  
+**Nivel de Riesgo:** Alto
 
-**Problem:**
+**Problema:**
 ```rust
-let port = p.parse::<u16>().unwrap_or(1433) // SILENT FAILURE
+let port = p.parse::<u16>().unwrap_or(1433) // FALLO SILENCIOSO
 ```
 
-Invalid port like "abc" silently becomes 1433. Could connect to wrong server.
+Un puerto inválido como "abc" se convierte silenciosamente en 1433. Podría conectarse al servidor incorrecto.
 
-**Remediation:**
+**Remediación:**
 ```rust
 let port = p.parse::<u16>().map_err(|_| 
     DbError::InvalidConnectionString(format!("Invalid port number: {}", p))
@@ -288,24 +288,24 @@ let port = p.parse::<u16>().map_err(|_|
 
 ---
 
-#### H2: TLS Certificate Validation Disabled in SQL Server
+#### H2: Validación de Certificados TLS Deshabilitada en SQL Server
 
-**File:** `crates/audd_adapters_db/src/sqlserver.rs` line 98  
-**Risk Level:** High  
-**CVSS Score:** 6.8 (Medium)
+**Archivo:** `crates/audd_adapters_db/src/sqlserver.rs` línea 98  
+**Nivel de Riesgo:** Alto  
+**Puntuación CVSS:** 6.8 (Medio)
 
-**Problem:**
+**Problema:**
 ```rust
-config.trust_cert(); // For development/testing - IN PRODUCTION CODE!
+config.trust_cert(); // Para desarrollo/pruebas - ¡EN CÓDIGO DE PRODUCCIÓN!
 ```
 
-All SQL Server connections vulnerable to MITM attacks.
+Todas las conexiones de SQL Server son vulnerables a ataques MITM.
 
-**Remediation:**
+**Remediación:**
 ```rust
-// Remove trust_cert() entirely
-// Add documentation about certificate requirements
-// Optionally: add environment variable for dev mode only
+// Eliminar trust_cert() completamente
+// Agregar documentación sobre requisitos de certificados
+// Opcionalmente: agregar variable de entorno solo para modo desarrollo
 if std::env::var("AUDD_DEV_MODE").is_ok() {
     eprintln!("WARNING: TLS certificate validation disabled (dev mode)");
     config.trust_cert();
@@ -314,30 +314,30 @@ if std::env::var("AUDD_DEV_MODE").is_ok() {
 
 ---
 
-#### H3: Production Code Uses unwrap() Without Error Handling
+#### H3: El Código de Producción Usa unwrap() Sin Manejo de Errores
 
-**Files:** Multiple locations in sqlserver.rs, postgres.rs  
-**Risk Level:** High
+**Archivos:** Múltiples ubicaciones en sqlserver.rs, postgres.rs  
+**Nivel de Riesgo:** Alto
 
-**Problem:**
+**Problema:**
 ```rust
-let column_name: &str = row.get(0).unwrap_or(""); // SILENT DATA CORRUPTION
+let column_name: &str = row.get(0).unwrap_or(""); // CORRUPCIÓN DE DATOS SILENCIOSA
 ```
 
-Unexpected database schema causes empty strings instead of errors.
+Un esquema de base de datos inesperado causa cadenas vacías en lugar de errores.
 
-**Remediation:** Return proper errors instead of fallbacks
+**Remediación:** Retornar errores apropiados en lugar de valores predeterminados
 
 ---
 
-#### H4: MongoDB Sample Size Not Validated
+#### H4: Tamaño de Muestra de MongoDB No Validado
 
-**File:** `crates/audd_adapters_db/src/mongodb.rs` line 63  
-**Risk Level:** High
+**Archivo:** `crates/audd_adapters_db/src/mongodb.rs` línea 63  
+**Nivel de Riesgo:** Alto
 
-**Problem:** Accepts sample_size=0 (no inference) or sample_size=10000000 (OOM/slow)
+**Problema:** Acepta sample_size=0 (sin inferencia) o sample_size=10000000 (OOM/lento)
 
-**Remediation:**
+**Remediación:**
 ```rust
 const MIN_SAMPLE_SIZE: usize = 1;
 const MAX_SAMPLE_SIZE: usize = 10000;
@@ -351,117 +351,117 @@ if sample_size < MIN_SAMPLE_SIZE || sample_size > MAX_SAMPLE_SIZE {
 
 ---
 
-#### H5: Async Runtime Resource Leak
+#### H5: Fuga de Recursos en Runtime Asíncrono
 
-**File:** `crates/audd_adapters_db/src/factory.rs` lines 89-95, 108-116, 129-135  
-**Risk Level:** High (Memory Leak)
+**Archivo:** `crates/audd_adapters_db/src/factory.rs` líneas 89-95, 108-116, 129-135  
+**Nivel de Riesgo:** Alto (Fuga de Memoria)
 
-**Problem:** Tokio runtime created but never cleaned up. Thread pools may leak in long-running processes.
+**Problema:** El runtime Tokio se crea pero nunca se limpia. Los pools de hilos pueden fugarse en procesos de larga duración.
 
-**Remediation:**
+**Remediación:**
 ```rust
 let connector = runtime.block_on(async {
     PostgresConnector::new(&conn_details).await
 })?;
-runtime.shutdown_background(); // Explicit cleanup
+runtime.shutdown_background(); // Limpieza explícita
 Ok(Box::new(connector))
 ```
 
 ---
 
-#### H6: Hardcoded Decimal Precision Loses Data
+#### H6: Precisión Decimal Codificada Pierde Datos
 
-**File:** `crates/audd_adapters_db/src/sqlite.rs` lines 472-475  
-**Risk Level:** High (Data Loss)
+**Archivo:** `crates/audd_adapters_db/src/sqlite.rs` líneas 472-475  
+**Nivel de Riesgo:** Alto (Pérdida de Datos)
 
-**Problem:** DECIMAL(20,4) mapped to hardcoded (10,2). Values truncated without error.
+**Problema:** DECIMAL(20,4) se mapea a (10,2) codificado. Los valores se truncan sin error.
 
-**Remediation:** Parse precision from type string or store original type in metadata
-
----
-
-#### H7: PostgreSQL Connection Errors Only to stderr
-
-**File:** `crates/audd_adapters_db/src/postgres.rs` lines 71-75  
-**Risk Level:** High
-
-**Problem:** Connection errors printed to stderr, not surfaced to caller. Queries fail without clear reason.
-
-**Remediation:** Use channel or Arc<Mutex<Option<Error>>> to surface errors
+**Remediación:** Analizar la precisión de la cadena de tipo o almacenar el tipo original en los metadatos
 
 ---
 
-#### H8: SQL Definitions Stored Without Sanitization
+#### H7: Errores de Conexión PostgreSQL Solo a stderr
 
-**Files:** All IR and adapter code handling definitions  
-**Risk Level:** High
+**Archivo:** `crates/audd_adapters_db/src/postgres.rs` líneas 71-75  
+**Nivel de Riesgo:** Alto
 
-**Problem:** View/trigger/procedure SQL definitions from malicious database could contain injection payloads executed when schema applied elsewhere.
+**Problema:** Los errores de conexión se imprimen en stderr, no se exponen al llamador. Las consultas fallan sin razón clara.
 
-**Remediation:** Add warnings in documentation. Consider validation/sanitization before re-execution.
-
----
-
-### 🟡 MEDIUM SEVERITY
-
-#### M1-M5: See full report for medium severity issues
-- Foreign key metadata format inconsistency across connectors
-- Missing test coverage for error paths
-- Error variant naming inconsistency
-- PostgreSQL connection spawned without proper error handling
-- No validation on various input parameters
+**Remediación:** Usar canal o Arc<Mutex<Option<Error>>> para exponer errores
 
 ---
 
-### ⚪ LOW SEVERITY
+#### H8: Definiciones SQL Almacenadas Sin Sanitización
 
-#### L1-L2: See full report for low severity issues
-- Unused imports (warnings)
-- Magic numbers in Firebird type mapping
-- Doc comment examples use unwrap()
-- Google Sheets ID extraction could be more robust
+**Archivos:** Todo el código IR y de adaptador que maneja definiciones  
+**Nivel de Riesgo:** Alto
 
----
+**Problema:** Las definiciones SQL de vistas/triggers/procedimientos de una base de datos maliciosa podrían contener payloads de inyección ejecutados cuando el esquema se aplica en otro lugar.
 
-## Recommendations by Priority
-
-### Immediate Actions (P0 - This Week)
-
-1. **Fix Firebird compilation errors** - Add QueryFailed variant, fix imports
-2. **Implement SQL injection protection** - Add identifier validation to SQLite/MySQL
-3. **Add URL validation to remote adapter** - Block SSRF attacks
-4. **Add file size limits** - Prevent OOM in remote adapter
-5. **Remove TLS trust_cert()** - Enable proper certificate validation
-
-### Short Term (P1 - Next Sprint)
-
-6. Fix port parsing to return errors instead of silent fallback
-7. Replace unwrap() calls with proper error handling
-8. Add MongoDB sample size validation
-9. Implement runtime cleanup for async connectors
-10. Parse and preserve DECIMAL precision/scale
-
-### Medium Term (P2 - This Quarter)
-
-11. Standardize foreign key metadata format
-12. Add comprehensive error path testing
-13. Improve PostgreSQL connection error handling
-14. Add SQL definition sanitization/validation
-
-### Long Term (P3 - Ongoing)
-
-15. Remove unused imports
-16. Replace magic numbers with constants
-17. Update doc examples to use proper error handling
-18. Improve Google Sheets URL parsing robustness
+**Remediación:** Agregar advertencias en la documentación. Considerar validación/sanitización antes de la re-ejecución.
 
 ---
 
-## Testing Recommendations
+### 🟡 SEVERIDAD MEDIA
 
-### Critical Path Tests (Implement First)
+#### M1-M5: Ver reporte completo para problemas de severidad media
+- Inconsistencia en el formato de metadatos de claves foráneas entre conectores
+- Falta de cobertura de pruebas para rutas de error
+- Inconsistencia en nomenclatura de variantes de error
+- Conexión PostgreSQL generada sin manejo apropiado de errores
+- Sin validación en varios parámetros de entrada
 
-1. **SQL Injection Tests:**
+---
+
+### ⚪ SEVERIDAD BAJA
+
+#### L1-L2: Ver reporte completo para problemas de severidad baja
+- Importaciones no utilizadas (advertencias)
+- Números mágicos en el mapeo de tipos de Firebird
+- Los ejemplos en comentarios de documentación usan unwrap()
+- La extracción de ID de Google Sheets podría ser más robusta
+
+---
+
+## Recomendaciones por Prioridad
+
+### Acciones Inmediatas (P0 - Esta Semana)
+
+1. **Corregir errores de compilación de Firebird** - Agregar variante QueryFailed, corregir importaciones
+2. **Implementar protección contra SQL injection** - Agregar validación de identificadores a SQLite/MySQL
+3. **Agregar validación de URL al adaptador remoto** - Bloquear ataques SSRF
+4. **Agregar límites de tamaño de archivo** - Prevenir OOM en adaptador remoto
+5. **Eliminar TLS trust_cert()** - Habilitar validación apropiada de certificados
+
+### Corto Plazo (P1 - Siguiente Sprint)
+
+6. Corregir análisis de puerto para retornar errores en lugar de valor predeterminado silencioso
+7. Reemplazar llamadas unwrap() con manejo apropiado de errores
+8. Agregar validación de tamaño de muestra de MongoDB
+9. Implementar limpieza de runtime para conectores asíncronos
+10. Analizar y preservar precisión/escala DECIMAL
+
+### Mediano Plazo (P2 - Este Trimestre)
+
+11. Estandarizar formato de metadatos de claves foráneas
+12. Agregar pruebas exhaustivas de rutas de error
+13. Mejorar manejo de errores de conexión PostgreSQL
+14. Agregar sanitización/validación de definiciones SQL
+
+### Largo Plazo (P3 - En Curso)
+
+15. Eliminar importaciones no utilizadas
+16. Reemplazar números mágicos con constantes
+17. Actualizar ejemplos de documentación para usar manejo apropiado de errores
+18. Mejorar robustez del análisis de URL de Google Sheets
+
+---
+
+## Recomendaciones de Pruebas
+
+### Pruebas de Ruta Crítica (Implementar Primero)
+
+1. **Pruebas de SQL Injection:**
 ```rust
 #[test]
 fn test_sqlite_sql_injection_prevention() {
@@ -471,12 +471,12 @@ fn test_sqlite_sql_injection_prevention() {
         "test\0table",
     ];
     for name in malicious_names {
-        // Verify injection is blocked
+        // Verificar que la inyección es bloqueada
     }
 }
 ```
 
-2. **SSRF Prevention Tests:**
+2. **Pruebas de Prevención SSRF:**
 ```rust
 #[test]
 fn test_remote_adapter_blocks_localhost() {
@@ -492,16 +492,16 @@ fn test_remote_adapter_blocks_localhost() {
 }
 ```
 
-3. **Resource Limit Tests:**
+3. **Pruebas de Límite de Recursos:**
 ```rust
 #[test]
 fn test_remote_adapter_size_limit() {
-    // Mock server that sends 200MB
-    // Verify adapter rejects with FileTooLarge error
+    // Servidor simulado que envía 200MB
+    // Verificar que el adaptador rechaza con error FileTooLarge
 }
 ```
 
-4. **Port Validation Tests:**
+4. **Pruebas de Validación de Puerto:**
 ```rust
 #[test]
 fn test_sqlserver_invalid_port_rejected() {
@@ -510,55 +510,55 @@ fn test_sqlserver_invalid_port_rejected() {
 }
 ```
 
-### Comprehensive Test Coverage
+### Cobertura de Pruebas Exhaustiva
 
-See `/docs/test_plan.md` for complete 150+ test specification including:
-- Unit tests for all error paths
-- Integration tests with mock databases
-- Property-based tests for type mapping
-- Fuzzing tests for parsers
-- Regression tests between connectors
-- CI/CD automation
-
----
-
-## Security Audit Summary
-
-**Critical Vulnerabilities:** 5  
-**All Must Be Fixed Before Production**
-
-1. SQL Injection (2 instances)
-2. SSRF vulnerability
-3. TLS disabled
-4. Unbounded resource consumption
-
-**Recommended Actions:**
-- Conduct security review of all input validation
-- Implement comprehensive fuzzing
-- Add security scanning to CI/CD pipeline
-- Document security assumptions and requirements
+Consulte `/docs/test_plan.md` para especificación completa de más de 150 pruebas incluyendo:
+- Pruebas unitarias para todas las rutas de error
+- Pruebas de integración con bases de datos simuladas
+- Pruebas basadas en propiedades para mapeo de tipos
+- Pruebas de fuzzing para analizadores
+- Pruebas de regresión entre conectores
+- Automatización CI/CD
 
 ---
 
-## Appendix: Affected Files
+## Resumen de Auditoría de Seguridad
 
-### Files Requiring Immediate Changes
+**Vulnerabilidades Críticas:** 5  
+**Todas Deben Corregirse Antes de Producción**
 
-- `crates/audd_adapters_db/src/sqlite.rs` - SQL injection fix
-- `crates/audd_adapters_db/src/mysql.rs` - SQL injection fix  
-- `crates/audd_adapters_db/src/firebird.rs` - Compilation fixes
-- `crates/audd_adapters_db/src/error.rs` - Add missing variant
-- `crates/audd_adapters_db/src/sqlserver.rs` - TLS, port parsing
-- `crates/audd_adapters_file/src/remote_adapter.rs` - SSRF, size limits
-- `crates/audd_adapters_db/src/factory.rs` - Runtime cleanup
+1. SQL Injection (2 instancias)
+2. Vulnerabilidad SSRF
+3. TLS deshabilitado
+4. Consumo de recursos ilimitado
 
-### Files Requiring Test Coverage
-
-- All connector files (error path tests)
-- All adapter files (malformed input tests)
-- IR schema files (round-trip tests)
-- Factory files (integration tests)
+**Acciones Recomendadas:**
+- Realizar revisión de seguridad de toda la validación de entrada
+- Implementar fuzzing exhaustivo
+- Agregar escaneo de seguridad al pipeline CI/CD
+- Documentar supuestos y requisitos de seguridad
 
 ---
 
-**End of Audit Report**
+## Apéndice: Archivos Afectados
+
+### Archivos que Requieren Cambios Inmediatos
+
+- `crates/audd_adapters_db/src/sqlite.rs` - Corrección de SQL injection
+- `crates/audd_adapters_db/src/mysql.rs` - Corrección de SQL injection  
+- `crates/audd_adapters_db/src/firebird.rs` - Correcciones de compilación
+- `crates/audd_adapters_db/src/error.rs` - Agregar variante faltante
+- `crates/audd_adapters_db/src/sqlserver.rs` - TLS, análisis de puerto
+- `crates/audd_adapters_file/src/remote_adapter.rs` - SSRF, límites de tamaño
+- `crates/audd_adapters_db/src/factory.rs` - Limpieza de runtime
+
+### Archivos que Requieren Cobertura de Pruebas
+
+- Todos los archivos de conectores (pruebas de rutas de error)
+- Todos los archivos de adaptadores (pruebas de entrada malformada)
+- Archivos de esquema IR (pruebas de ida y vuelta)
+- Archivos de factory (pruebas de integración)
+
+---
+
+**Fin del Reporte de Auditoría**

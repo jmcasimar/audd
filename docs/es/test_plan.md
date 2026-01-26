@@ -1,38 +1,38 @@
-# AUDD Comprehensive Test Plan
+# Plan de Pruebas Integral para AUDD
 
-**Version:** 1.0  
-**Date:** 2026-01-26  
-**Scope:** Database connectors, File adapters, Remote adapter, IR extensions
+**Versión:** 1.0  
+**Fecha:** 2026-01-26  
+**Alcance:** Conectores de base de datos, Adaptadores de archivos, Adaptador remoto, Extensiones IR
 
 ---
 
-## Test Strategy Overview
+## Resumen de Estrategia de Pruebas
 
-### Testing Pyramid
+### Pirámide de Pruebas
 
 ```
          /\
-        /  \  10 Property-Based Tests (Fuzzing, Invariants)
+        /  \  10 Pruebas Basadas en Propiedades (Fuzzing, Invariantes)
        /----\
-      /      \  30 Integration Tests (Real DBs, End-to-End)
+      /      \  30 Pruebas de Integración (BDs Reales, Extremo a Extremo)
      /--------\
-    /          \  110 Unit Tests (Functions, Error Paths)
+    /          \  110 Pruebas Unitarias (Funciones, Rutas de Error)
    /____________\
 ```
 
-**Total New Tests:** 150+  
-**Current Coverage:** ~40% (220 existing tests, mostly happy path)  
-**Target Coverage:** 85%+ (with focus on critical paths: 95%+)
+**Total de Pruebas Nuevas:** 150+  
+**Cobertura Actual:** ~40% (220 pruebas existentes, principalmente caminos felices)  
+**Cobertura Objetivo:** 85%+ (con enfoque en rutas críticas: 95%+)
 
 ---
 
-## Test Categories
+## Categorías de Pruebas
 
-### 1. Security Tests (Priority: P0)
+### 1. Pruebas de Seguridad (Prioridad: P0)
 
-#### 1.1 SQL Injection Prevention
+#### 1.1 Prevención de Inyección SQL
 
-**File:** `tests/security/sql_injection_test.rs`
+**Archivo:** `tests/security/sql_injection_test.rs`
 
 ```rust
 #[cfg(test)]
@@ -50,9 +50,9 @@ mod sql_injection_tests {
         ];
         
         for case in malicious_cases {
-            // Create temp SQLite DB with malicious table name
-            // Attempt to load schema
-            // Verify: Either error returned OR injection not executed
+            // Crear BD SQLite temporal con nombre de tabla maliciosa
+            // Intentar cargar schema
+            // Verificar: Error retornado O inyección no ejecutada
             let result = validate_sqlite_identifier(case);
             assert!(
                 result.is_err(),
@@ -72,23 +72,23 @@ mod sql_injection_tests {
         for db_name in malicious_dbs {
             let conn_str = format!("mysql://user:pass@localhost/{}", db_name);
             let result = MysqlConnector::new(&conn_str);
-            // Should fail during connection string validation
+            // Debería fallar durante validación de cadena de conexión
             assert!(result.is_err());
         }
     }
     
     #[test]
     fn test_parameterized_queries_used() {
-        // Verify that actual SQL queries don't use string interpolation
-        // This could be done via code inspection or mock database
-        // that logs actual queries received
+        // Verificar que las queries SQL reales no usen interpolación de cadenas
+        // Esto podría hacerse mediante inspección de código o base de datos mock
+        // que registre las queries reales recibidas
     }
 }
 ```
 
-#### 1.2 SSRF Prevention
+#### 1.2 Prevención de SSRF
 
-**File:** `tests/security/ssrf_test.rs`
+**Archivo:** `tests/security/ssrf_test.rs`
 
 ```rust
 #[test]
@@ -154,14 +154,14 @@ fn test_remote_adapter_allows_valid_urls() {
 }
 ```
 
-#### 1.3 Resource Exhaustion Prevention
+#### 1.3 Prevención de Agotamiento de Recursos
 
-**File:** `tests/security/resource_limits_test.rs`
+**Archivo:** `tests/security/resource_limits_test.rs`
 
 ```rust
 #[test]
 fn test_remote_adapter_enforces_size_limit() {
-    // Mock HTTP server that returns 200MB response
+    // Servidor HTTP mock que retorna respuesta de 200MB
     let mock_server = MockServer::start();
     mock_server.mock(|when, then| {
         when.path("/huge.csv");
@@ -178,11 +178,11 @@ fn test_remote_adapter_enforces_size_limit() {
 #[test]
 fn test_mongodb_sample_size_limits() {
     let tests = vec![
-        (0, true),      // Too small
-        (1, false),     // Min valid
-        (10000, false), // Max valid
-        (10001, true),  // Too large
-        (usize::MAX, true), // Way too large
+        (0, true),      // Muy pequeño
+        (1, false),     // Mínimo válido
+        (10000, false), // Máximo válido
+        (10001, true),  // Muy grande
+        (usize::MAX, true), // Excesivamente grande
     ];
     
     for (size, should_error) in tests {
@@ -212,9 +212,9 @@ fn test_port_number_validation() {
 
 ---
 
-### 2. Type Mapping Tests (Priority: P0)
+### 2. Pruebas de Mapeo de Tipos (Prioridad: P0)
 
-**File:** `tests/type_mapping/comprehensive_type_test.rs`
+**Archivo:** `tests/type_mapping/comprehensive_type_test.rs`
 
 ```rust
 #[test]
@@ -226,7 +226,7 @@ fn test_decimal_precision_preserved() {
     ];
     
     for (db_type, expected) in test_cases {
-        // Test for each connector
+        // Probar para cada conector
         assert_eq!(SqliteConnector::map_type(db_type), expected);
         assert_eq!(MysqlConnector::map_type(db_type), expected);
         // etc.
@@ -264,25 +264,25 @@ fn test_type_mapping_case_insensitive() {
             .map(|v| SqliteConnector::map_type(v))
             .collect();
         
-        // All variants should map to same canonical type
+        // Todas las variantes deberían mapearse al mismo tipo canónico
         assert!(results.windows(2).all(|w| w[0] == w[1]));
     }
 }
 
 #[test]
 fn test_type_roundtrip_consistency() {
-    // For each connector:
-    // 1. Map database type to canonical
-    // 2. Map canonical back to database type
-    // 3. Verify semantics preserved
+    // Para cada conector:
+    // 1. Mapear tipo de base de datos a canónico
+    // 2. Mapear canónico de vuelta a tipo de base de datos
+    // 3. Verificar que la semántica se preserva
 }
 ```
 
 ---
 
-### 3. Error Handling Tests (Priority: P1)
+### 3. Pruebas de Manejo de Errores (Prioridad: P1)
 
-**File:** `tests/error_handling/connector_errors_test.rs`
+**Archivo:** `tests/error_handling/connector_errors_test.rs`
 
 ```rust
 #[test]
@@ -302,7 +302,7 @@ fn test_invalid_connection_strings() {
         assert!(result.is_err(), "Failed to reject: {}", conn_str);
         
         match result.unwrap_err() {
-            DbError::InvalidConnectionString(_) => {}, // Expected
+            DbError::InvalidConnectionString(_) => {}, // Esperado
             e => panic!("Wrong error type for '{}': {:?}", conn_str, e),
         }
     }
@@ -310,20 +310,20 @@ fn test_invalid_connection_strings() {
 
 #[test]
 fn test_connection_refused_error() {
-    // Try to connect to port that's not listening
+    // Intentar conectarse a puerto que no está escuchando
     let conn_str = "db:mysql://user:pass@localhost:9999/db";
     let result = create_connector(conn_str);
     
     assert!(result.is_err());
     match result.unwrap_err() {
-        DbError::ConnectionError(_) => {}, // Expected
+        DbError::ConnectionError(_) => {}, // Esperado
         e => panic!("Wrong error for refused connection: {:?}", e),
     }
 }
 
 #[test]
 fn test_authentication_failure() {
-    // Assuming test DB is running with known credentials
+    // Asumiendo que BD de prueba está ejecutándose con credenciales conocidas
     let conn_str = "db:mysql://wrong:wrong@localhost/test";
     let connector = MysqlConnector::new(conn_str);
     let result = connector.load();
@@ -342,7 +342,7 @@ fn test_database_not_found() {
 
 #[test]
 fn test_malformed_database_file() {
-    // Create file that's not a valid SQLite database
+    // Crear archivo que no es una base de datos SQLite válida
     let temp_file = NamedTempFile::new().unwrap();
     temp_file.write_all(b"This is not a SQLite database").unwrap();
     
@@ -356,59 +356,59 @@ fn test_malformed_database_file() {
 
 ---
 
-### 4. Integration Tests (Priority: P1)
+### 4. Pruebas de Integración (Prioridad: P1)
 
-**File:** `tests/integration/end_to_end_test.rs`
+**Archivo:** `tests/integration/end_to_end_test.rs`
 
 ```rust
 #[test]
 fn test_sqlite_full_schema_extraction() {
-    // Create test database with:
-    // - Multiple tables
-    // - Foreign keys
-    // - Unique indexes
-    // - Views
+    // Crear base de datos de prueba con:
+    // - Múltiples tablas
+    // - Claves foráneas
+    // - Índices únicos
+    // - Vistas
     // - Triggers
     
     let test_db = create_test_sqlite_db();
     let connector = SqliteConnector::new(test_db.path());
     let schema = connector.load().unwrap();
     
-    // Verify all objects extracted
+    // Verificar que todos los objetos fueron extraídos
     assert_eq!(schema.entities.len(), 3);
     assert_eq!(schema.views.len(), 1);
     assert_eq!(schema.triggers.len(), 2);
     
-    // Verify foreign keys
+    // Verificar claves foráneas
     let users_table = schema.entities.iter()
         .find(|e| e.entity_name == "users")
         .unwrap();
     assert!(users_table.keys.iter().any(|k| k.key_type == KeyType::Foreign));
     
-    // Verify indexes
+    // Verificar índices
     assert!(!users_table.indexes.is_empty());
 }
 
 #[test]
 fn test_cross_database_comparison() {
-    // Create same schema in SQLite and MySQL
-    // Compare them
-    // Verify they match (modulo type differences)
+    // Crear mismo schema en SQLite y MySQL
+    // Compararlos
+    // Verificar que coinciden (salvo diferencias de tipos)
     
     let sqlite_schema = load_from_sqlite();
     let mysql_schema = load_from_mysql();
     
     let differences = compare_schemas(&sqlite_schema, &mysql_schema);
     
-    // Should only differ in type representation
+    // Solo deberían diferir en representación de tipos
     assert!(differences.iter().all(|d| matches!(d, Difference::TypeDifference(_))));
 }
 
 #[test]
 fn test_remote_file_to_database_comparison() {
-    // Load schema from CSV
-    // Load same schema from database
-    // Compare them
+    // Cargar schema desde CSV
+    // Cargar mismo schema desde base de datos
+    // Compararlos
     
     let csv_url = "https://example.com/schema.csv";
     let db_conn = "db:postgres://localhost/test";
@@ -416,18 +416,18 @@ fn test_remote_file_to_database_comparison() {
     let csv_schema = load_schema_from_url(csv_url).unwrap();
     let db_schema = load_schema_from_db(db_conn).unwrap();
     
-    // Schemas should match
+    // Los schemas deberían ser equivalentes
     assert_schemas_equivalent(&csv_schema, &db_schema);
 }
 ```
 
 ---
 
-### 5. Property-Based Tests (Priority: P2)
+### 5. Pruebas Basadas en Propiedades (Prioridad: P2)
 
-**File:** `tests/property/type_mapping_properties.rs`
+**Archivo:** `tests/property/type_mapping_properties.rs`
 
-Using `proptest` or `quickcheck`:
+Usando `proptest` o `quickcheck`:
 
 ```rust
 use proptest::prelude::*;
@@ -437,7 +437,7 @@ proptest! {
     fn test_identifier_validation_never_allows_sql_injection(
         name in "[a-zA-Z_][a-zA-Z0-9_]*"
     ) {
-        // Valid identifiers should always pass validation
+        // Identificadores válidos siempre deberían pasar validación
         assert!(validate_sqlite_identifier(&name).is_ok());
     }
     
@@ -453,7 +453,7 @@ proptest! {
     fn test_type_mapping_deterministic(
         db_type in "[A-Z]{3,10}"
     ) {
-        // Same input should always produce same output
+        // Misma entrada siempre debería producir misma salida
         let result1 = map_type(&db_type);
         let result2 = map_type(&db_type);
         assert_eq!(result1, result2);
@@ -471,11 +471,11 @@ proptest! {
 
 ---
 
-### 6. Fuzzing Tests (Priority: P2)
+### 6. Pruebas de Fuzzing (Prioridad: P2)
 
-**File:** `fuzz/fuzz_targets/connection_string_fuzzer.rs`
+**Archivo:** `fuzz/fuzz_targets/connection_string_fuzzer.rs`
 
-Using `cargo-fuzz`:
+Usando `cargo-fuzz`:
 
 ```rust
 #![no_main]
@@ -484,18 +484,18 @@ use audd_adapters_db::*;
 
 fuzz_target!(|data: &[u8]| {
     if let Ok(s) = std::str::from_utf8(data) {
-        // Should never panic, only return error
+        // Nunca debería entrar en pánico, solo retornar error
         let _ = parse_connection_string(s);
     }
 });
 ```
 
-**File:** `fuzz/fuzz_targets/type_mapping_fuzzer.rs`
+**Archivo:** `fuzz/fuzz_targets/type_mapping_fuzzer.rs`
 
 ```rust
 fuzz_target!(|data: &[u8]| {
     if let Ok(type_str) = std::str::from_utf8(data) {
-        // Should never panic
+        // Nunca debería entrar en pánico
         let _ = SqliteConnector::map_type(type_str);
         let _ = MysqlConnector::map_type(type_str);
         let _ = PostgresConnector::map_type(type_str);
@@ -505,15 +505,15 @@ fuzz_target!(|data: &[u8]| {
 
 ---
 
-### 7. Regression Tests (Priority: P1)
+### 7. Pruebas de Regresión (Prioridad: P1)
 
-**File:** `tests/regression/known_issues_test.rs`
+**Archivo:** `tests/regression/known_issues_test.rs`
 
 ```rust
 #[test]
 fn test_issue_001_decimal_precision_lost() {
-    // Before fix: DECIMAL(20,4) became DECIMAL(10,2)
-    // After fix: precision/scale preserved
+    // Antes del fix: DECIMAL(20,4) se convertía en DECIMAL(10,2)
+    // Después del fix: precisión/escala preservadas
     
     let schema = extract_schema_from_sqlite_with_decimal_20_4();
     let decimal_field = schema.entities[0].fields[0];
@@ -529,12 +529,12 @@ fn test_issue_001_decimal_precision_lost() {
 
 #[test]
 fn test_issue_002_foreign_key_metadata_consistent() {
-    // All connectors should use same metadata format
+    // Todos los conectores deberían usar el mismo formato de metadata
     let sqlite_fk = extract_fk_from_sqlite();
     let mysql_fk = extract_fk_from_mysql();
     let postgres_fk = extract_fk_from_postgres();
     
-    // Metadata keys should match
+    // Las claves de metadata deberían coincidir
     assert_eq!(
         sqlite_fk.metadata.keys().collect::<Vec<_>>(),
         mysql_fk.metadata.keys().collect::<Vec<_>>()
@@ -544,15 +544,15 @@ fn test_issue_002_foreign_key_metadata_consistent() {
 
 ---
 
-### 8. Performance Tests (Priority: P3)
+### 8. Pruebas de Rendimiento (Prioridad: P3)
 
-**File:** `benches/connector_benchmarks.rs`
+**Archivo:** `benches/connector_benchmarks.rs`
 
 ```rust
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 
 fn bench_sqlite_extraction(c: &mut Criterion) {
-    let db = create_large_test_db(); // 100 tables, 1000 columns
+    let db = create_large_test_db(); // 100 tablas, 1000 columnas
     
     c.bench_function("sqlite_extraction_large_db", |b| {
         b.iter(|| {
@@ -578,14 +578,14 @@ criterion_main!(benches);
 
 ---
 
-## Test Data & Fixtures
+## Datos de Prueba y Fixtures
 
-### Minimal Reproducible Datasets
+### Conjuntos de Datos Reproducibles Mínimos
 
-**File:** `tests/fixtures/databases/sqlite_test.sql`
+**Archivo:** `tests/fixtures/databases/sqlite_test.sql`
 
 ```sql
--- Minimal SQLite database for testing
+-- Base de datos SQLite mínima para pruebas
 CREATE TABLE users (
     id INTEGER PRIMARY KEY,
     username TEXT NOT NULL UNIQUE,
@@ -615,7 +615,7 @@ BEGIN
 END;
 ```
 
-**File:** `tests/fixtures/files/schema.csv`
+**Archivo:** `tests/fixtures/files/schema.csv`
 
 ```csv
 table_name,column_name,data_type,nullable,primary_key
@@ -627,44 +627,44 @@ posts,user_id,INTEGER,false,false
 posts,title,TEXT,false,false
 ```
 
-**File:** `tests/fixtures/mocks/http_server.rs`
+**Archivo:** `tests/fixtures/mocks/http_server.rs`
 
 ```rust
 pub struct MockHttpServer {
-    // Implementation for testing remote adapter
-    // without real network requests
+    // Implementación para probar adaptador remoto
+    // sin solicitudes de red reales
 }
 
 impl MockHttpServer {
     pub fn new() -> Self {
-        // Create mock server on localhost random port
+        // Crear servidor mock en localhost puerto aleatorio
     }
     
     pub fn mock_file(&self, path: &str, content: &[u8]) {
-        // Configure response for path
+        // Configurar respuesta para ruta
     }
     
     pub fn mock_google_sheets(&self, sheet_id: &str, csv_content: &str) {
-        // Mock Google Sheets export endpoint
+        // Simular endpoint de exportación de Google Sheets
     }
     
     pub fn mock_large_file(&self, path: &str, size_mb: usize) {
-        // Return file that exceeds size limit
+        // Retornar archivo que excede límite de tamaño
     }
     
     pub fn mock_error(&self, path: &str, status: u16) {
-        // Return HTTP error
+        // Retornar error HTTP
     }
 }
 ```
 
 ---
 
-## CI/CD Automation
+## Automatización CI/CD
 
-### GitHub Actions Workflow
+### Workflow de GitHub Actions
 
-**File:** `.github/workflows/comprehensive-tests.yml`
+**Archivo:** `.github/workflows/comprehensive-tests.yml`
 
 ```yaml
 name: Comprehensive Test Suite
@@ -816,48 +816,48 @@ jobs:
 
 ---
 
-## Acceptance Criteria
+## Criterios de Aceptación
 
-### Test Suite Must Pass
+### La Suite de Pruebas Debe Pasar
 
-**For PR to be merged:**
-- ✅ All security tests pass (0 failures)
-- ✅ All unit tests pass (110+ tests)
-- ✅ All integration tests pass (30+ tests)
-- ✅ Code coverage ≥ 85%
-- ✅ Critical path coverage ≥ 95%
-- ✅ No new security vulnerabilities from `cargo audit`
-- ✅ Fuzzing runs for 1 hour without crashes
-- ✅ All static analysis checks pass
+**Para que el PR sea fusionado:**
+- ✅ Todas las pruebas de seguridad pasan (0 fallas)
+- ✅ Todas las pruebas unitarias pasan (110+ pruebas)
+- ✅ Todas las pruebas de integración pasan (30+ pruebas)
+- ✅ Cobertura de código ≥ 85%
+- ✅ Cobertura de rutas críticas ≥ 95%
+- ✅ Sin nuevas vulnerabilidades de seguridad de `cargo audit`
+- ✅ Fuzzing se ejecuta por 1 hora sin crashes
+- ✅ Todas las verificaciones de análisis estático pasan
 
-**For production deployment:**
-- ✅ All critical issues (C1-C5) fixed
-- ✅ All high priority issues (H1-H8) fixed
-- ✅ Security review completed
-- ✅ Performance benchmarks within acceptable range
-- ✅ Documentation updated
-
----
-
-## Test Maintenance
-
-### Continuous Monitoring
-
-- **Weekly:** Review test failures and flakiness
-- **Monthly:** Update test datasets with new edge cases
-- **Quarterly:** Review coverage reports and identify gaps
-- **Per Release:** Run full fuzzing suite (24 hours)
-
-### Test Data Updates
-
-- Add new test cases when bugs are found
-- Update fixtures when database schemas change
-- Expand property tests with new invariants
-- Add regression tests for each bug fix
+**Para despliegue a producción:**
+- ✅ Todos los problemas críticos (C1-C5) resueltos
+- ✅ Todos los problemas de alta prioridad (H1-H8) resueltos
+- ✅ Revisión de seguridad completada
+- ✅ Benchmarks de rendimiento dentro del rango aceptable
+- ✅ Documentación actualizada
 
 ---
 
-## Appendix: Test File Organization
+## Mantenimiento de Pruebas
+
+### Monitoreo Continuo
+
+- **Semanal:** Revisar fallas de pruebas y comportamiento inestable
+- **Mensual:** Actualizar conjuntos de datos de prueba con nuevos casos límite
+- **Trimestral:** Revisar reportes de cobertura e identificar vacíos
+- **Por Versión:** Ejecutar suite completa de fuzzing (24 horas)
+
+### Actualizaciones de Datos de Prueba
+
+- Agregar nuevos casos de prueba cuando se encuentren bugs
+- Actualizar fixtures cuando cambien los schemas de base de datos
+- Expandir pruebas de propiedades con nuevas invariantes
+- Agregar pruebas de regresión para cada corrección de bug
+
+---
+
+## Apéndice: Organización de Archivos de Prueba
 
 ```
 tests/
@@ -909,4 +909,4 @@ benches/
 
 ---
 
-**End of Test Plan**
+**Fin del Plan de Pruebas**

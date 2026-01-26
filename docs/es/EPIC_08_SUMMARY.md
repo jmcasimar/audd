@@ -1,61 +1,61 @@
-# EPIC 08 Implementation Summary
+# Resumen de Implementación EPIC 08
 
-## Overview
-Successfully implemented comprehensive reporting and traceability functionality for AUDD as specified in EPIC 08.
+## Resumen General
+Se implementó exitosamente la funcionalidad integral de reportes y trazabilidad para AUDD según lo especificado en EPIC 08.
 
-## What Was Implemented
+## Qué se Implementó
 
-### 1. Report Structure Documentation (Issue 08.1)
-**File:** `docs/reporting.md`
+### 1. Documentación de Estructura de Reportes (Issue 08.1)
+**Archivo:** `docs/reporting.md`
 
-Defined a stable, versioned (1.0.0) report structure with:
-- Executive Summary sections
-- Detailed Breakdown sections  
-- Technical Details sections
-- Resolution Suggestions sections
-- Metrics and formulas
-- Example output mock
-- Visual conventions (emojis, tables, anchors)
+Se definió una estructura de reporte estable y versionada (1.0.0) con:
+- Secciones de Resumen Ejecutivo
+- Secciones de Desglose Detallado
+- Secciones de Detalles Técnicos
+- Secciones de Sugerencias de Resolución
+- Métricas y fórmulas
+- Ejemplo de salida
+- Convenciones visuales (emojis, tablas, anchors)
 
-### 2. Markdown Report Generator (Issues 08.2-08.4)
-**File:** `crates/audd-cli/src/report.rs` (730+ lines)
+### 2. Generador de Reportes Markdown (Issues 08.2-08.4)
+**Archivo:** `crates/audd-cli/src/report.rs` (730+ líneas)
 
-Implemented comprehensive report generation with:
+Se implementó generación integral de reportes con:
 
-**Executive Summary:**
-- Compatibility Overview with metrics (compatibility score, conflict rate, etc.)
-- Risk Assessment (Low/Medium/High/Critical) based on conflict analysis
-- Top Conflicts table showing entities with most issues
+**Resumen Ejecutivo:**
+- Vista General de Compatibilidad con métricas (puntaje de compatibilidad, tasa de conflictos, etc.)
+- Evaluación de Riesgos (Bajo/Medio/Alto/Crítico) basada en análisis de conflictos
+- Tabla de Principales Conflictos mostrando entidades con más problemas
 
-**Detailed Breakdown:**
-- Matches statistics (by type, average confidence)
-- Exclusives statistics (by side, safe addition rate)
-- Conflicts statistics (by type, by severity)
+**Desglose Detallado:**
+- Estadísticas de coincidencias (por tipo, confianza promedio)
+- Estadísticas de elementos exclusivos (por lado, tasa de adición segura)
+- Estadísticas de conflictos (por tipo, por severidad)
 
-**Technical Details:**
-- Complete matches listing with scores
-- Complete exclusives listing with safety flags
-- Complete conflicts listing with full evidence
+**Detalles Técnicos:**
+- Listado completo de coincidencias con puntajes
+- Listado completo de elementos exclusivos con banderas de seguridad
+- Listado completo de conflictos con evidencia completa
 
-**Resolution Integration:**
-- Suggestions per conflict with confidence scores
-- Decision log with acceptance status
-- Auto-accepted vs manual decisions tracking
+**Integración de Resolución:**
+- Sugerencias por conflicto con puntajes de confianza
+- Registro de decisiones con estado de aceptación
+- Seguimiento de decisiones auto-aceptadas vs manuales
 
-**Recommendations:**
-- Risk-based actionable items
-- Priority-ordered suggestions
-- References to supporting files
+**Recomendaciones:**
+- Elementos accionables basados en riesgos
+- Sugerencias ordenadas por prioridad
+- Referencias a archivos de soporte
 
-### 3. JSON Report Export (Issue 08.6)
-**Features:**
-- Fully typed Rust structures for type safety
-- Complete data mirroring Markdown report
-- Serde serialization/deserialization
-- Optional via configuration (off by default)
-- Machine-readable for dashboards/APIs
+### 3. Exportación de Reportes JSON (Issue 08.6)
+**Características:**
+- Estructuras Rust completamente tipadas para seguridad de tipos
+- Datos completos reflejando el reporte Markdown
+- Serialización/deserialización Serde
+- Opcional vía configuración (desactivado por defecto)
+- Legible por máquinas para dashboards/APIs
 
-**JSON Structure:**
+**Estructura JSON:**
 ```rust
 pub struct JsonReport {
     metadata: JsonReportMetadata,
@@ -67,156 +67,156 @@ pub struct JsonReport {
 }
 ```
 
-### 4. Comprehensive Testing (Issue 08.5)
-**Files:** 
-- `crates/audd-cli/tests/report_tests.rs` (280+ lines)
+### 4. Pruebas Integrales (Issue 08.5)
+**Archivos:** 
+- `crates/audd-cli/tests/report_tests.rs` (280+ líneas)
 - `crates/audd-cli/tests/golden/users_csv_vs_json.md`
 - `crates/audd-cli/tests/README.md`
 
-Implemented:
-- 5 integration tests for report generation
-- Golden file testing with UPDATE_GOLDEN mechanism
-- Timestamp normalization for deterministic tests
-- JSON serialization/deserialization tests
-- Edge case coverage (empty results, etc.)
+Se implementó:
+- 5 pruebas de integración para generación de reportes
+- Pruebas de golden files con mecanismo UPDATE_GOLDEN
+- Normalización de timestamps para pruebas determinísticas
+- Pruebas de serialización/deserialización JSON
+- Cobertura de casos extremos (resultados vacíos, etc.)
 
-### 5. CLI Integration
-**Modified Files:**
-- `crates/audd-cli/src/output.rs` - Report file writers
-- `crates/audd-cli/src/main.rs` - CLI flow integration
-- `crates/audd-cli/src/config.rs` - Configuration options
-- `crates/audd-cli/src/lib.rs` - Library exports
-- `crates/audd-cli/Cargo.toml` - Dependencies and lib target
+### 5. Integración CLI
+**Archivos Modificados:**
+- `crates/audd-cli/src/output.rs` - Escritores de archivos de reportes
+- `crates/audd-cli/src/main.rs` - Integración de flujo CLI
+- `crates/audd-cli/src/config.rs` - Opciones de configuración
+- `crates/audd-cli/src/lib.rs` - Exportaciones de biblioteca
+- `crates/audd-cli/Cargo.toml` - Dependencias y objetivo lib
 
-## Key Metrics Implemented
+## Métricas Clave Implementadas
 
-1. **Compatibility Score** = (Matches / (Matches + Conflicts)) × 100%
-2. **Safe Addition Rate** = (Safe Exclusives / Total Exclusives) × 100%
-3. **Conflict Rate** = (Conflicts / (Matches + Conflicts)) × 100%
-4. **Risk Level** = f(conflict_rate, severity_distribution)
-   - Low: < 10% conflict rate, no high-severity issues
-   - Medium: 10-25% conflict rate OR has high-severity conflicts
-   - High: 25-50% conflict rate OR has critical-severity conflicts
-   - Critical: > 50% conflict rate OR multiple critical conflicts
+1. **Puntaje de Compatibilidad** = (Coincidencias / (Coincidencias + Conflictos)) × 100%
+2. **Tasa de Adición Segura** = (Exclusivos Seguros / Total de Exclusivos) × 100%
+3. **Tasa de Conflictos** = (Conflictos / (Coincidencias + Conflictos)) × 100%
+4. **Nivel de Riesgo** = f(tasa_de_conflictos, distribución_de_severidad)
+   - Bajo: < 10% tasa de conflictos, sin problemas de alta severidad
+   - Medio: 10-25% tasa de conflictos O tiene conflictos de alta severidad
+   - Alto: 25-50% tasa de conflictos O tiene conflictos de severidad crítica
+   - Crítico: > 50% tasa de conflictos O múltiples conflictos críticos
 
-## Visual Elements
+## Elementos Visuales
 
-- **Severity Icons**: 💀 Critical, 🔥 High, ⚠️ Medium, ℹ️ Low
-- **Status Icons**: ✅ Accepted, ❌ Rejected, 🔍 Review needed
-- **Markdown Tables**: Structured data presentation
-- **HTML Anchors**: Navigation within report (#conflict-1, etc.)
+- **Iconos de Severidad**: 💀 Crítico, 🔥 Alto, ⚠️ Medio, ℹ️ Bajo
+- **Iconos de Estado**: ✅ Aceptado, ❌ Rechazado, 🔍 Requiere revisión
+- **Tablas Markdown**: Presentación estructurada de datos
+- **Anchors HTML**: Navegación dentro del reporte (#conflict-1, etc.)
 
-## Configuration
+## Configuración
 
-Users can control report generation via `audd.toml`:
+Los usuarios pueden controlar la generación de reportes vía `audd.toml`:
 
 ```toml
 [output]
-generate_report = true         # Markdown report (default: true)
-generate_json_report = false   # JSON report (default: false)
+generate_report = true         # Reporte Markdown (predeterminado: true)
+generate_json_report = false   # Reporte JSON (predeterminado: false)
 ```
 
-## Generated Files
+## Archivos Generados
 
-When running a comparison, AUDD now generates:
+Al ejecutar una comparación, AUDD ahora genera:
 
-1. `unified_schema.json` - Merged schema (C = A ∪ B)
-2. `diff.json` - Raw comparison results
-3. `decision_log.json` - Resolution decisions
-4. **`report.md`** - Human-readable report (NEW)
-5. **`report.json`** - Machine-readable report (NEW, optional)
+1. `unified_schema.json` - Schema fusionado (C = A ∪ B)
+2. `diff.json` - Resultados de comparación en crudo
+3. `decision_log.json` - Decisiones de resolución
+4. **`report.md`** - Reporte legible por humanos (NUEVO)
+5. **`report.json`** - Reporte legible por máquinas (NUEVO, opcional)
 
-## Example Output
+## Ejemplo de Salida
 
-For `users.csv` vs `users.json` comparison:
+Para la comparación `users.csv` vs `users.json`:
 
-**Metrics:**
-- 6 matches (100% exact name)
-- 1 exclusive from B (100% safe to add)
-- 3 conflicts (all high-severity type incompatibilities)
-- 66.7% compatibility score
-- 33.3% conflict rate
-- Risk Level: **High** 🔥
+**Métricas:**
+- 6 coincidencias (100% nombre exacto)
+- 1 elemento exclusivo de B (100% seguro para agregar)
+- 3 conflictos (todos incompatibilidades de tipo de alta severidad)
+- 66.7% puntaje de compatibilidad
+- 33.3% tasa de conflictos
+- Nivel de Riesgo: **Alto** 🔥
 
-**Report Sizes:**
-- Markdown: ~5KB (215 lines)
-- JSON: ~6.6KB (structured data)
+**Tamaños de Reporte:**
+- Markdown: ~5KB (215 líneas)
+- JSON: ~6.6KB (datos estructurados)
 
-## Testing Coverage
+## Cobertura de Pruebas
 
-- **Total Tests**: 245 across all crates
-- **New Report Tests**: 5 integration tests
-- **Golden Files**: 1 (users comparison)
-- **All Tests**: ✅ Passing
+- **Total de Pruebas**: 245 en todos los crates
+- **Nuevas Pruebas de Reportes**: 5 pruebas de integración
+- **Golden Files**: 1 (comparación de usuarios)
+- **Todas las Pruebas**: ✅ Pasando
 
-## Documentation
+## Documentación
 
-1. `docs/reporting.md` - Complete report structure specification
-2. `crates/audd-cli/tests/README.md` - Testing guide
-3. `README.md` - Updated with JSON report feature
+1. `docs/reporting.md` - Especificación completa de estructura de reportes
+2. `crates/audd-cli/tests/README.md` - Guía de pruebas
+3. `README.md` - Actualizado con característica de reporte JSON
 
-## Value Delivered
+## Valor Entregado
 
-### For Users
-✅ Quick decision-making via executive summary  
-✅ Deep understanding via technical details  
-✅ Clear risk assessment and recommendations  
-✅ Both human (MD) and machine (JSON) consumption
+### Para Usuarios
+✅ Toma de decisiones rápida vía resumen ejecutivo  
+✅ Comprensión profunda vía detalles técnicos  
+✅ Evaluación de riesgos y recomendaciones claras  
+✅ Consumo tanto humano (MD) como de máquina (JSON)
 
-### For Thesis
-✅ Demonstrates "reporte legible" (readable report)  
-✅ Provides "detalle completo" (complete detail)  
-✅ Shows verificabilidad (verifiability) through evidence  
-✅ Enables auditable decision tracking
+### Para la Tesis
+✅ Demuestra "reporte legible" (readable report)  
+✅ Proporciona "detalle completo" (complete detail)  
+✅ Muestra verificabilidad (verifiability) a través de evidencia  
+✅ Habilita seguimiento de decisiones auditable
 
-### For Future Development
-✅ JSON reports enable dashboard/UI integration  
-✅ Versioned format (1.0.0) allows evolution  
-✅ Extensible structure for new metrics  
-✅ Foundation for programmatic consumption
+### Para Desarrollo Futuro
+✅ Los reportes JSON habilitan integración de dashboard/UI  
+✅ Formato versionado (1.0.0) permite evolución  
+✅ Estructura extensible para nuevas métricas  
+✅ Base para consumo programático
 
-## Acceptance Criteria
+## Criterios de Aceptación
 
-All DoD items from EPIC 08 met:
+Todos los elementos de DoD de EPIC 08 cumplidos:
 
-- ✅ Report MD is understandable without opening JSON
-- ✅ Technical report allows tracing each conflict to evidence
-- ✅ Indicators are calculated automatically
-- ✅ 100% of conflicts have evidence listed
-- ✅ User can identify top 3 conflicts in < 2 minutes
-- ✅ Format is stable and documented
-- ✅ Tests prevent regressions
+- ✅ El reporte MD es comprensible sin abrir el JSON
+- ✅ El reporte técnico permite rastrear cada conflicto a la evidencia
+- ✅ Los indicadores se calculan automáticamente
+- ✅ 100% de los conflictos tienen evidencia listada
+- ✅ El usuario puede identificar los 3 principales conflictos en < 2 minutos
+- ✅ El formato es estable y está documentado
+- ✅ Las pruebas previenen regresiones
 
-## Files Changed Summary
+## Resumen de Archivos Modificados
 
-**New Files:**
-- `crates/audd-cli/src/report.rs` (730+ lines)
-- `crates/audd-cli/src/lib.rs` (7 lines)
-- `crates/audd-cli/tests/report_tests.rs` (280+ lines)
-- `crates/audd-cli/tests/README.md` (60+ lines)
-- `crates/audd-cli/tests/golden/users_csv_vs_json.md` (214 lines)
-- `docs/reporting.md` (416 lines)
+**Nuevos Archivos:**
+- `crates/audd-cli/src/report.rs` (730+ líneas)
+- `crates/audd-cli/src/lib.rs` (7 líneas)
+- `crates/audd-cli/tests/report_tests.rs` (280+ líneas)
+- `crates/audd-cli/tests/README.md` (60+ líneas)
+- `crates/audd-cli/tests/golden/users_csv_vs_json.md` (214 líneas)
+- `docs/reporting.md` (416 líneas)
 
-**Modified Files:**
-- `crates/audd-cli/Cargo.toml` - Added lib target, chrono dependency
-- `crates/audd-cli/src/main.rs` - Integrated report generation
-- `crates/audd-cli/src/output.rs` - Added report writers
-- `crates/audd-cli/src/config.rs` - Added JSON report config
-- `README.md` - Documented JSON report feature
+**Archivos Modificados:**
+- `crates/audd-cli/Cargo.toml` - Se agregó objetivo lib, dependencia chrono
+- `crates/audd-cli/src/main.rs` - Integrada generación de reportes
+- `crates/audd-cli/src/output.rs` - Agregados escritores de reportes
+- `crates/audd-cli/src/config.rs` - Agregada configuración de reporte JSON
+- `README.md` - Documentada característica de reporte JSON
 
-**Total Lines Added:** ~2,200+  
-**Total Lines Modified:** ~50
+**Total de Líneas Agregadas:** ~2,200+  
+**Total de Líneas Modificadas:** ~50
 
-## Status
+## Estado
 
-🎉 **EPIC 08 COMPLETE** 🎉
+🎉 **EPIC 08 COMPLETO** 🎉
 
-All 6 sub-issues successfully implemented and tested:
-- ✅ 08.1: Report structure defined
-- ✅ 08.2: Markdown executive summary
-- ✅ 08.3: Technical section with evidence  
-- ✅ 08.4: Suggestions/decision log integration
-- ✅ 08.5: Golden file tests
-- ✅ 08.6: JSON export
+Todos los 6 sub-issues implementados y probados exitosamente:
+- ✅ 08.1: Estructura de reporte definida
+- ✅ 08.2: Resumen ejecutivo Markdown
+- ✅ 08.3: Sección técnica con evidencia  
+- ✅ 08.4: Integración de sugerencias/registro de decisiones
+- ✅ 08.5: Pruebas de golden files
+- ✅ 08.6: Exportación JSON
 
-No remaining work. All acceptance criteria met.
+Sin trabajo restante. Todos los criterios de aceptación cumplidos.

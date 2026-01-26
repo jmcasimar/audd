@@ -1,3 +1,3 @@
-# Documentation
+# Documentación
 
-This directory contains project documentation.
+Este directorio contiene la documentación del proyecto.

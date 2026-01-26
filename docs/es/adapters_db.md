@@ -1,20 +1,20 @@
-# Database Adapters Documentation
+# Documentación de Adapters de Base de Datos
 
-## Overview
+## Descripción General
 
-AUDD provides database adapters that allow you to extract schema metadata directly from databases and convert them to the AUDD Intermediate Representation (IR). This enables schema comparison between databases and other data sources.
+AUDD proporciona adapters de base de datos que le permiten extraer metadatos de schema directamente desde bases de datos y convertirlos a la Representación Intermedia (IR) de AUDD. Esto habilita la comparación de schemas entre bases de datos y otras fuentes de datos.
 
-## Supported Database Engines
+## Motores de Base de Datos Soportados
 
-### Current Support
+### Soporte Actual
 
-- **SQLite** - Full support for schema extraction including foreign keys, indexes, views, and triggers
-- **MySQL/MariaDB** - Full support for schema extraction including foreign keys, indexes, views, stored procedures, and triggers
-- **PostgreSQL** - Full support for schema extraction including foreign keys, indexes, views, stored procedures, and triggers
-- **MongoDB** - Full support with schema inference from document sampling, including indexes and views
-- **Microsoft SQL Server** - Full support for schema extraction including foreign keys, indexes, views, stored procedures, and triggers (optional feature flag)
+- **SQLite** - Soporte completo para extracción de schema incluyendo foreign keys, indexes, views y triggers
+- **MySQL/MariaDB** - Soporte completo para extracción de schema incluyendo foreign keys, indexes, views, stored procedures y triggers
+- **PostgreSQL** - Soporte completo para extracción de schema incluyendo foreign keys, indexes, views, stored procedures y triggers
+- **MongoDB** - Soporte completo con inferencia de schema desde muestreo de documentos, incluyendo indexes y views
+- **Microsoft SQL Server** - Soporte completo para extracción de schema incluyendo foreign keys, indexes, views, stored procedures y triggers (bandera de característica opcional)
 
-## Connection String Formats
+## Formatos de Connection String
 
 ### SQLite
 
@@ -23,15 +23,15 @@ sqlite:///absolute/path/to/database.db
 sqlite://relative/path/to/database.db
 ```
 
-**Examples:**
+**Ejemplos:**
 ```bash
-# Absolute path
+# Ruta absoluta
 sqlite:///var/lib/data/myapp.db
 
-# Relative path
+# Ruta relativa
 sqlite://data/myapp.db
 
-# Windows absolute path
+# Ruta absoluta en Windows
 sqlite:///C:/Data/myapp.db
 ```
 
@@ -42,22 +42,22 @@ mysql://user:password@host:port/database
 mysql://user:password@host/database  # Port defaults to 3306
 ```
 
-**Examples:**
+**Ejemplos:**
 ```bash
-# With explicit port
+# Con puerto explícito
 mysql://admin:secret@localhost:3306/myapp_db
 
-# Default port (3306)
+# Puerto por defecto (3306)
 mysql://admin:secret@localhost/myapp_db
 
-# Remote host
+# Host remoto
 mysql://user:pass@db.example.com/production_db
 
-# MariaDB (uses same connection format)
+# MariaDB (usa el mismo formato de conexión)
 mysql://user:pass@mariadb-server/myapp_db
 ```
 
-**Note:** MariaDB connection strings use the `mysql://` prefix as they are compatible.
+**Nota:** Los connection strings de MariaDB usan el prefijo `mysql://` ya que son compatibles.
 
 ### PostgreSQL
 
@@ -67,15 +67,15 @@ postgresql://user:password@host:port/database  # Alias
 postgres://user:password@host/database  # Port defaults to 5432
 ```
 
-**Examples:**
+**Ejemplos:**
 ```bash
-# With explicit port
+# Con puerto explícito
 postgres://admin:secret@localhost:5432/myapp_db
 
-# Default port (5432)
+# Puerto por defecto (5432)
 postgres://user:pass@localhost/myapp_db
 
-# Remote PostgreSQL server
+# Servidor PostgreSQL remoto
 postgres://dbuser:dbpass@pg.example.com/production_db
 ```
 
@@ -87,22 +87,22 @@ mongodb://user:password@host:port/database
 mongodb+srv://cluster/database  # MongoDB Atlas
 ```
 
-**Examples:**
+**Ejemplos:**
 ```bash
-# Local MongoDB
+# MongoDB local
 mongodb://localhost:27017/myapp_db
 
-# With authentication
+# Con autenticación
 mongodb://admin:secret@localhost:27017/myapp_db
 
-# MongoDB Atlas cluster
+# Cluster de MongoDB Atlas
 mongodb+srv://cluster0.mongodb.net/production_db
 
-# With connection options
+# Con opciones de conexión
 mongodb://localhost:27017/mydb?retryWrites=true&w=majority
 ```
 
-**Note:** MongoDB schema is inferred by sampling documents (default: 100 documents per collection).
+**Nota:** El schema de MongoDB se infiere mediante muestreo de documentos (por defecto: 100 documentos por colección).
 
 ### Microsoft SQL Server
 
@@ -112,146 +112,146 @@ mssql://user:password@host:port/database  # Alias (normalized to sqlserver)
 sqlserver://user:password@host/database  # Port defaults to 1433
 ```
 
-**Examples:**
+**Ejemplos:**
 ```bash
-# With explicit port
+# Con puerto explícito
 sqlserver://sa:YourPassword@localhost:1433/myapp_db
 
-# Default port (1433)
+# Puerto por defecto (1433)
 sqlserver://user:pass@localhost/myapp_db
 
-# Remote SQL Server
+# SQL Server remoto
 sqlserver://dbuser:dbpass@sqlserver.example.com/production_db
 
-# Using mssql prefix (normalized to sqlserver)
+# Usando el prefijo mssql (normalizado a sqlserver)
 mssql://sa:pass@localhost/myapp_db
 ```
 
-**Note:** SQL Server connector requires the `sqlserver` feature flag to be enabled. It is not included in the default features.
+**Nota:** El connector de SQL Server requiere que la bandera de característica `sqlserver` esté habilitada. No está incluida en las características por defecto.
 
-## CLI Usage
+## Uso del CLI
 
-### Load Schema from Database
+### Cargar Schema desde Base de Datos
 
-#### SQLite Example
+#### Ejemplo SQLite
 
 ```bash
-# Load schema from SQLite database
+# Cargar schema desde base de datos SQLite
 audd load --source "db:sqlite:///path/to/database.db"
 
-# Specify output format
+# Especificar formato de salida
 audd load --source "db:sqlite:///data/app.db" --format json
 ```
 
-#### MySQL Example
+#### Ejemplo MySQL
 
 ```bash
-# Load schema from MySQL database
+# Cargar schema desde base de datos MySQL
 audd load --source "db:mysql://user:password@localhost/mydb"
 
-# With explicit port
+# Con puerto explícito
 audd load --source "db:mysql://admin:secret@localhost:3306/myapp"
 ```
 
-#### PostgreSQL Example
+#### Ejemplo PostgreSQL
 
 ```bash
-# Load schema from PostgreSQL database
+# Cargar schema desde base de datos PostgreSQL
 audd load --source "db:postgres://user:password@localhost/mydb"
 
-# With explicit port
+# Con puerto explícito
 audd load --source "db:postgres://admin:secret@localhost:5432/myapp"
 ```
 
-#### MongoDB Example
+#### Ejemplo MongoDB
 
 ```bash
-# Load schema from MongoDB database
+# Cargar schema desde base de datos MongoDB
 audd load --source "db:mongodb://localhost:27017/mydb"
 
 # MongoDB Atlas
 audd load --source "db:mongodb+srv://cluster0.mongodb.net/production"
 ```
 
-#### SQL Server Example
+#### Ejemplo SQL Server
 
 ```bash
-# Load schema from SQL Server database
+# Cargar schema desde base de datos SQL Server
 audd load --source "db:sqlserver://sa:password@localhost/mydb"
 
-# With explicit port
+# Con puerto explícito
 audd load --source "db:sqlserver://user:pass@localhost:1433/myapp"
 
-# Using mssql prefix
+# Usando el prefijo mssql
 audd load --source "db:mssql://sa:password@server/mydb"
 ```
 
-**Note:** SQL Server support requires enabling the `sqlserver` feature flag when building AUDD.
+**Nota:** El soporte de SQL Server requiere habilitar la bandera de característica `sqlserver` al compilar AUDD.
 
-#### Legacy Format (with separate --conn flag)
+#### Formato Legacy (con bandera --conn separada)
 
 ```bash
-# SQLite with separate connection parameter
+# SQLite con parámetro de conexión separado
 audd load --source db:sqlite --conn /path/to/database.db
 
-# MySQL with separate connection parameter
+# MySQL con parámetro de conexión separado
 audd load --source db:mysql --conn user:password@localhost/mydb
 
-# PostgreSQL with separate connection parameter
+# PostgreSQL con parámetro de conexión separado
 audd load --source db:postgres --conn user:password@localhost:5432/mydb
 
-# MongoDB with separate connection parameter
+# MongoDB con parámetro de conexión separado
 audd load --source db:mongodb --conn localhost:27017/mydb
 ```
 
-### Compare Schemas from Different Sources
+### Comparar Schemas de Diferentes Fuentes
 
-You can compare schemas from different database engines or between databases and files:
+Puede comparar schemas de diferentes motores de base de datos o entre bases de datos y archivos:
 
 ```bash
-# Compare SQLite with PostgreSQL
+# Comparar SQLite con PostgreSQL
 audd compare \
   --source-a "db:sqlite:///local/app.db" \
   --source-b "db:postgres://user:pass@remote.com/prod_db"
 
-# Compare MongoDB with MySQL
+# Comparar MongoDB con MySQL
 audd compare \
   --source-a "db:mongodb://localhost:27017/development" \
   --source-b "db:mysql://user:pass@staging/myapp"
 
-# Compare database with CSV file
+# Comparar base de datos con archivo CSV
 audd compare \
   --source-a "db:postgres://user:pass@localhost/current" \
   --source-b "schema.csv"
 
-# Compare two PostgreSQL databases
+# Comparar dos bases de datos PostgreSQL
 audd compare \
   --source-a "db:postgres://user:pass@staging:5432/myapp" \
   --source-b "db:postgres://user:pass@production:5432/myapp"
 
-# Compare SQL Server with MySQL
+# Comparar SQL Server con MySQL
 audd compare \
   --source-a "db:sqlserver://sa:pass@localhost/devdb" \
   --source-b "db:mysql://user:pass@production/myapp"
 
-# Compare SQL Server development to production
+# Comparar SQL Server desarrollo con producción
 audd compare \
   --source-a "db:sqlserver://user:pass@dev-server/myapp" \
   --source-b "db:sqlserver://user:pass@prod-server/myapp"
 ```
 
-## Schema Extraction Details
+## Detalles de Extracción de Schema
 
 ### SQLite
 
-The SQLite adapter extracts the following metadata:
+El adapter de SQLite extrae los siguientes metadatos:
 
-- **Tables**: All user tables (excluding sqlite_* system tables)
-- **Columns**: Name, type, nullability
-- **Primary Keys**: Single and composite primary keys
-- **Unique Constraints**: Unique indexes (excluding auto-generated)
+- **Tables**: Todas las tablas de usuario (excluyendo tablas del sistema sqlite_*)
+- **Columns**: Nombre, tipo, nulabilidad
+- **Primary Keys**: Primary keys simples y compuestas
+- **Unique Constraints**: Indexes únicos (excluyendo los autogenerados)
 
-**Type Mapping:**
+**Mapeo de Tipos:**
 - INTEGER → Int64
 - TEXT, CLOB → Text
 - VARCHAR, CHAR → String
@@ -264,19 +264,19 @@ The SQLite adapter extracts the following metadata:
 
 ### MySQL/MariaDB
 
-The MySQL adapter extracts the following metadata:
+El adapter de MySQL extrae los siguientes metadatos:
 
-- **Tables**: All base tables in the specified database
-- **Columns**: Name, type, nullability, defaults
-- **Primary Keys**: Single and composite primary keys
-- **Unique Constraints**: Unique indexes
-- **Foreign Keys**: Foreign key relationships with referenced tables/columns
-- **Indexes**: Regular, full-text, and spatial indexes
-- **Views**: View names and SQL definitions
-- **Stored Procedures**: Procedures and functions with return types and definitions
-- **Triggers**: Database triggers with timing, events, table associations, and definitions
+- **Tables**: Todas las tablas base en la base de datos especificada
+- **Columns**: Nombre, tipo, nulabilidad, valores por defecto
+- **Primary Keys**: Primary keys simples y compuestas
+- **Unique Constraints**: Indexes únicos
+- **Foreign Keys**: Relaciones de foreign key con tablas/columnas referenciadas
+- **Indexes**: Indexes regulares, full-text y spatial
+- **Views**: Nombres de views y definiciones SQL
+- **Stored Procedures**: Procedimientos y funciones con tipos de retorno y definiciones
+- **Triggers**: Triggers de base de datos con timing, eventos, asociaciones de tablas y definiciones
 
-**Type Mapping:**
+**Mapeo de Tipos:**
 - TINYINT, SMALLINT, MEDIUMINT, INT → Int32
 - BIGINT → Int64
 - FLOAT → Float32
@@ -292,30 +292,30 @@ The MySQL adapter extracts the following metadata:
 - JSON → Json
 - TINYINT(1) → Boolean
 
-**Advanced Features:**
-- Foreign keys extracted from `INFORMATION_SCHEMA.KEY_COLUMN_USAGE`
-- Regular indexes (non-unique) from `INFORMATION_SCHEMA.STATISTICS`
-- Full-text indexes (FULLTEXT type)
-- Spatial indexes (SPATIAL type)
-- Views from `INFORMATION_SCHEMA.VIEWS`
-- Stored procedures and functions from `INFORMATION_SCHEMA.ROUTINES`
-- Triggers from `INFORMATION_SCHEMA.TRIGGERS`
+**Características Avanzadas:**
+- Foreign keys extraídas de `INFORMATION_SCHEMA.KEY_COLUMN_USAGE`
+- Indexes regulares (no únicos) de `INFORMATION_SCHEMA.STATISTICS`
+- Indexes full-text (tipo FULLTEXT)
+- Indexes spatial (tipo SPATIAL)
+- Views de `INFORMATION_SCHEMA.VIEWS`
+- Stored procedures y funciones de `INFORMATION_SCHEMA.ROUTINES`
+- Triggers de `INFORMATION_SCHEMA.TRIGGERS`
 
 ### PostgreSQL
 
-The PostgreSQL adapter extracts the following metadata:
+El adapter de PostgreSQL extrae los siguientes metadatos:
 
-- **Tables**: All base tables in the public schema
-- **Columns**: Name, type, nullability, precision/scale
-- **Primary Keys**: Single and composite primary keys
-- **Unique Constraints**: Unique constraints
-- **Foreign Keys**: Foreign key relationships with referenced tables/columns
-- **Indexes**: Regular, unique, partial (filtered), GIN, GIST indexes
-- **Views**: Regular views and materialized views with SQL definitions
-- **Stored Procedures**: Functions and procedures with return types and definitions
-- **Triggers**: Database triggers with timing, events, and definitions
+- **Tables**: Todas las tablas base en el schema público
+- **Columns**: Nombre, tipo, nulabilidad, precision/scale
+- **Primary Keys**: Primary keys simples y compuestas
+- **Unique Constraints**: Restricciones únicas
+- **Foreign Keys**: Relaciones de foreign key con tablas/columnas referenciadas
+- **Indexes**: Indexes regulares, únicos, parciales (filtrados), GIN, GIST
+- **Views**: Views regulares y views materializadas con definiciones SQL
+- **Stored Procedures**: Funciones y procedimientos con tipos de retorno y definiciones
+- **Triggers**: Triggers de base de datos con timing, eventos y definiciones
 
-**Type Mapping:**
+**Mapeo de Tipos:**
 - SMALLINT, INTEGER → Int32
 - BIGINT → Int64
 - SMALLSERIAL, SERIAL → Int32
@@ -337,29 +337,29 @@ The PostgreSQL adapter extracts the following metadata:
 - ARRAY → Unknown (preserves element type info)
 - User-defined types → Unknown (preserves original type name)
 
-**Advanced Features:**
-- Partial/filtered indexes with WHERE conditions
-- Materialized views (marked with `is_materialized` flag)
-- GIN and GIST indexes (mapped to FullText type)
-- Async operations using tokio runtime
+**Características Avanzadas:**
+- Indexes parciales/filtrados con condiciones WHERE
+- Views materializadas (marcadas con bandera `is_materialized`)
+- Indexes GIN y GIST (mapeados al tipo FullText)
+- Operaciones asíncronas usando tokio runtime
 
 ### MongoDB
 
-The MongoDB adapter infers schema by sampling documents:
+El adapter de MongoDB infiere el schema mediante muestreo de documentos:
 
-- **Collections**: All collections in the database
-- **Fields**: Detected from sampled documents (default: 100 per collection)
-- **Types**: Inferred from BSON types in documents
-- **Primary Key**: Automatic _id detection
-- **Nullable**: Inferred based on presence of null values
+- **Collections**: Todas las colecciones en la base de datos
+- **Fields**: Detectados desde documentos muestreados (por defecto: 100 por colección)
+- **Types**: Inferidos desde tipos BSON en documentos
+- **Primary Key**: Detección automática de _id
+- **Nullable**: Inferido basado en la presencia de valores null
 
-**Sampling Behavior:**
-- Default sample size: 100 documents per collection
-- Configurable via API
-- Fields present in < 100% of documents marked as nullable
-- Mixed types reported as Unknown with type list
+**Comportamiento de Muestreo:**
+- Tamaño de muestra por defecto: 100 documentos por colección
+- Configurable vía API
+- Fields presentes en < 100% de documentos marcados como nullable
+- Tipos mixtos reportados como Unknown con lista de tipos
 
-**Type Mapping:**
+**Mapeo de Tipos:**
 - Int32, Int64 → Int32, Int64
 - Double → Float64
 - Decimal128 → Decimal(34,0)
@@ -372,35 +372,35 @@ The MongoDB adapter infers schema by sampling documents:
 - Nested documents/arrays → Json
 - Mixed types → Unknown (with type list)
 
-**Advanced Features:**
-- Indexes extracted from `listIndexes()` command
-  - Single field and compound indexes
-  - Text indexes (full-text search)
-  - 2dsphere indexes (geospatial/spatial)
-  - Hashed indexes
-  - Unique indexes
-  - Partial/filtered indexes with filter expressions
-- Views extracted from `listCollections()` 
-  - Aggregation pipeline views
-  - View definitions as formatted pipelines
-- Async operations using tokio runtime
+**Características Avanzadas:**
+- Indexes extraídos del comando `listIndexes()`
+  - Indexes de campo simple y compuestos
+  - Indexes text (búsqueda full-text)
+  - Indexes 2dsphere (geoespaciales/spatial)
+  - Indexes hashed
+  - Indexes únicos
+  - Indexes parciales/filtrados con expresiones de filtro
+- Views extraídas de `listCollections()` 
+  - Views de pipeline de agregación
+  - Definiciones de views como pipelines formateados
+- Operaciones asíncronas usando tokio runtime
 
-**Note:** MongoDB validators (JSON Schema and query validators) are not currently extracted but could be added in a future enhancement.
+**Nota:** Los validadores de MongoDB (JSON Schema y validadores de query) no se extraen actualmente pero podrían agregarse en una mejora futura.
 
 ### Microsoft SQL Server
 
-The SQL Server adapter extracts the following metadata:
+El adapter de SQL Server extrae los siguientes metadatos:
 
-- **Tables**: All user tables from dbo schema
-- **Columns**: Name, type, nullability, defaults
-- **Primary Keys**: Single and composite primary keys
-- **Foreign Keys**: With referenced table and column information
-- **Indexes**: Regular, unique, full-text, spatial, and filtered indexes
-- **Views**: View definitions from INFORMATION_SCHEMA
-- **Stored Procedures**: Functions and procedures with definitions
-- **Triggers**: Timing, events, and SQL definitions
+- **Tables**: Todas las tablas de usuario del schema dbo
+- **Columns**: Nombre, tipo, nulabilidad, valores por defecto
+- **Primary Keys**: Primary keys simples y compuestas
+- **Foreign Keys**: Con información de tabla y columna referenciadas
+- **Indexes**: Indexes regulares, únicos, full-text, spatial y filtrados
+- **Views**: Definiciones de views desde INFORMATION_SCHEMA
+- **Stored Procedures**: Funciones y procedimientos con definiciones
+- **Triggers**: Timing, eventos y definiciones SQL
 
-**Type Mapping:**
+**Mapeo de Tipos:**
 - BIT → Boolean
 - TINYINT, SMALLINT, INT → Int32
 - BIGINT → Int64
@@ -418,55 +418,55 @@ The SQL Server adapter extracts the following metadata:
 - JSON, XML → Json
 - GEOGRAPHY, GEOMETRY → Unknown (with spatial type info)
 
-**Advanced Features:**
-- Foreign keys extracted from `sys.foreign_keys` and `sys.foreign_key_columns`
-  - Supports composite foreign keys
-  - Referenced table and column metadata
-- Indexes extracted from `sys.indexes` and `sys.index_columns`
-  - Regular (non-unique) indexes
-  - Unique indexes  
-  - Full-text indexes
-  - Spatial indexes
-  - Filtered indexes with filter definitions
-  - Excludes primary key and unique constraint indexes
-- Views extracted from `INFORMATION_SCHEMA.VIEWS`
-  - View names and SQL definitions
-- Stored procedures from `INFORMATION_SCHEMA.ROUTINES`
-  - Functions and procedures
-  - Routine types and return types
-  - SQL definitions
-- Triggers from `sys.triggers`
-  - BEFORE/AFTER/INSTEAD OF timing
-  - INSERT/UPDATE/DELETE events
-  - SQL definitions
-- Async operations using tiberius and tokio runtime
+**Características Avanzadas:**
+- Foreign keys extraídas de `sys.foreign_keys` y `sys.foreign_key_columns`
+  - Soporta foreign keys compuestas
+  - Metadatos de tabla y columna referenciadas
+- Indexes extraídos de `sys.indexes` y `sys.index_columns`
+  - Indexes regulares (no únicos)
+  - Indexes únicos  
+  - Indexes full-text
+  - Indexes spatial
+  - Indexes filtrados con definiciones de filtro
+  - Excluye indexes de primary key y unique constraint
+- Views extraídas de `INFORMATION_SCHEMA.VIEWS`
+  - Nombres de views y definiciones SQL
+- Stored procedures de `INFORMATION_SCHEMA.ROUTINES`
+  - Funciones y procedimientos
+  - Tipos de rutina y tipos de retorno
+  - Definiciones SQL
+- Triggers de `sys.triggers`
+  - Timing BEFORE/AFTER/INSTEAD OF
+  - Eventos INSERT/UPDATE/DELETE
+  - Definiciones SQL
+- Operaciones asíncronas usando tiberius y tokio runtime
 
-**Note:** SQL Server support requires enabling the `sqlserver` feature flag when building AUDD. Add `features = ["sqlserver"]` to your Cargo.toml or use `--features sqlserver` when building.
+**Nota:** El soporte de SQL Server requiere habilitar la bandera de característica `sqlserver` al compilar AUDD. Agregue `features = ["sqlserver"]` a su Cargo.toml o use `--features sqlserver` al compilar.
 
-## Error Handling
+## Manejo de Errores
 
-The database adapters provide clear error messages for common issues:
+Los adapters de base de datos proporcionan mensajes de error claros para problemas comunes:
 
-### Connection Errors
+### Errores de Conexión
 
 ```
 ❌ Error loading schema: Failed to create database connector: 
    Database connection error: Failed to open SQLite database: unable to open database file
 ```
 
-**Common causes:**
-- Database file doesn't exist (SQLite)
-- Incorrect credentials (MySQL, PostgreSQL, MongoDB)
-- Database server not running (MySQL, PostgreSQL, MongoDB)
-- Network issues (all network databases)
+**Causas comunes:**
+- El archivo de base de datos no existe (SQLite)
+- Credenciales incorrectas (MySQL, PostgreSQL, MongoDB)
+- Servidor de base de datos no está ejecutándose (MySQL, PostgreSQL, MongoDB)
+- Problemas de red (todas las bases de datos en red)
 
-**Solutions:**
-- Verify the database path/connection string
-- Check database permissions
-- Ensure database server is running
-- Verify network connectivity
+**Soluciones:**
+- Verifique la ruta/connection string de la base de datos
+- Revise los permisos de la base de datos
+- Asegúrese de que el servidor de base de datos esté ejecutándose
+- Verifique la conectividad de red
 
-### Invalid Connection String
+### Connection String Inválido
 
 ```
 ❌ Error loading schema: Failed to create database connector: 
@@ -475,190 +475,190 @@ The database adapters provide clear error messages for common issues:
    postgres://<user>:<pass>@<host>/<db>, or mongodb://<host>/<db>
 ```
 
-**Solution:** Check the connection string format matches the documented patterns.
+**Solución:** Verifique que el formato del connection string coincida con los patrones documentados.
 
-### Unsupported Engine
+### Motor No Soportado
 
 ```
 ❌ Error loading schema: Failed to create database connector: 
    Unsupported database engine: oracle (Supported: sqlite, mysql, postgres, mongodb, sqlserver)
 ```
 
-**Solution:** Use a supported database engine.
+**Solución:** Use un motor de base de datos soportado.
 
-## Features and Limitations
+## Características y Limitaciones
 
-### Current Features
+### Características Actuales
 
-✅ Extract table/collection schemas  
-✅ Column types, nullability  
-✅ Primary keys (single and composite)  
-✅ Unique constraints  
-✅ Type mapping to canonical IR types  
-✅ Error handling with helpful messages  
-✅ Schema inference for MongoDB  
-✅ PostgreSQL full support  
-✅ MongoDB document sampling  
+✅ Extraer schemas de tablas/colecciones  
+✅ Tipos de columnas, nulabilidad  
+✅ Primary keys (simples y compuestas)  
+✅ Restricciones únicas  
+✅ Mapeo de tipos a tipos canónicos IR  
+✅ Manejo de errores con mensajes útiles  
+✅ Inferencia de schema para MongoDB  
+✅ Soporte completo de PostgreSQL  
+✅ Muestreo de documentos MongoDB  
 
-### Limitations
+### Limitaciones
 
-❌ Foreign key relationships (planned)  
-❌ Indexes (non-unique)  
+❌ Relaciones de foreign key (planificado)  
+❌ Indexes (no únicos)  
 ❌ Views  
 ❌ Stored procedures  
 ❌ Triggers  
-❌ Complex constraints (CHECK, etc.)  
-❌ MongoDB validators and JSON schema  
+❌ Restricciones complejas (CHECK, etc.)  
+❌ Validadores y JSON schema de MongoDB  
 
-### Future Enhancements
+### Mejoras Futuras
 
-- Foreign key extraction
-- Index analysis
-- View metadata
-- Advanced constraint detection
-- Connection pooling for network databases
-- SSL/TLS connection options
-- MongoDB validation rules extraction
+- Extracción de foreign keys
+- Análisis de indexes
+- Metadatos de views
+- Detección avanzada de restricciones
+- Connection pooling para bases de datos en red
+- Opciones de conexión SSL/TLS
+- Extracción de reglas de validación de MongoDB
 
-## Performance
+## Rendimiento
 
-### Extraction Speed
+### Velocidad de Extracción
 
-The metadata extraction is optimized for speed:
+La extracción de metadatos está optimizada para velocidad:
 
-- **SQLite**: Uses efficient PRAGMA queries
-- **MySQL**: Uses INFORMATION_SCHEMA with indexed queries
-- **PostgreSQL**: Uses information_schema and pg_catalog
-- **MongoDB**: Configurable document sampling (default: 100 docs)
+- **SQLite**: Usa queries PRAGMA eficientes
+- **MySQL**: Usa INFORMATION_SCHEMA con queries indexadas
+- **PostgreSQL**: Usa information_schema y pg_catalog
+- **MongoDB**: Muestreo de documentos configurable (por defecto: 100 docs)
 
-**Target:** < 2 seconds for databases with up to 100 tables/collections
+**Objetivo:** < 2 segundos para bases de datos con hasta 100 tablas/colecciones
 
-### Best Practices
+### Mejores Prácticas
 
-1. **Use read-only database connections** when possible
-2. **Avoid querying during peak hours** for production databases
-3. **Consider database views** to limit exposed schema
-4. **Test connection strings** with a simple load command first
+1. **Use conexiones de base de datos de solo lectura** cuando sea posible
+2. **Evite consultar durante horas pico** para bases de datos de producción
+3. **Considere views de base de datos** para limitar el schema expuesto
+4. **Pruebe los connection strings** con un comando de carga simple primero
 
-## Examples
+## Ejemplos
 
-### Complete Workflow Example
+### Ejemplo de Flujo de Trabajo Completo
 
 ```bash
-# 1. Load schema from SQLite development database
+# 1. Cargar schema desde base de datos SQLite de desarrollo
 audd load --source "db:sqlite:///dev/app.db" > dev_schema.json
 
-# 2. Load schema from MySQL staging database
+# 2. Cargar schema desde base de datos MySQL de staging
 audd load --source "db:mysql://readonly:pass@staging.db/app" > staging_schema.json
 
-# 3. Compare schemas
+# 3. Comparar schemas
 audd compare \
   --source-a "db:sqlite:///dev/app.db" \
   --source-b "db:mysql://readonly:pass@staging.db/app"
 
-# 4. Export to JSON for version control
+# 4. Exportar a JSON para control de versiones
 audd load --source "db:sqlite:///dev/app.db" --format json > schema_v1.0.json
 ```
 
-### Integration with File Adapters
+### Integración con File Adapters
 
 ```bash
-# Extract schema from database and save as SQL DDL
+# Extraer schema desde base de datos y guardar como SQL DDL
 audd load --source "db:sqlite:///data/app.db" > current_schema.json
 
-# Compare with historical SQL schema
+# Comparar con schema SQL histórico
 audd compare \
   --source-a "db:sqlite:///data/app.db" \
   --source-b "migrations/v1.0_schema.sql"
 ```
 
-## Security Considerations
+## Consideraciones de Seguridad
 
-1. **Never hardcode passwords** in scripts or command history
-2. **Use environment variables** for sensitive credentials:
+1. **Nunca codifique contraseñas en duro** en scripts o historial de comandos
+2. **Use variables de entorno** para credenciales sensibles:
    ```bash
    export DB_USER="admin"
    export DB_PASS="secret"
    audd load --source "db:mysql://$DB_USER:$DB_PASS@localhost/mydb"
    ```
-3. **Use read-only database users** for schema extraction
-4. **Avoid logging connection strings** that contain passwords
-5. **Consider using SSH tunnels** for remote database connections
+3. **Use usuarios de base de datos de solo lectura** para extracción de schema
+4. **Evite registrar connection strings** que contengan contraseñas
+5. **Considere usar túneles SSH** para conexiones de base de datos remotas
 
-## Troubleshooting
+## Solución de Problemas
 
-### SQLite Issues
+### Problemas de SQLite
 
-**Problem:** "unable to open database file"
-- Check file path is correct
-- Verify file permissions
-- Ensure parent directory exists
+**Problema:** "unable to open database file"
+- Verifique que la ruta del archivo sea correcta
+- Verifique los permisos del archivo
+- Asegúrese de que el directorio padre exista
 
-**Problem:** "database is locked"
-- Close other connections to the database
-- Use WAL mode for SQLite if concurrent access is needed
+**Problema:** "database is locked"
+- Cierre otras conexiones a la base de datos
+- Use el modo WAL para SQLite si se necesita acceso concurrente
 
-### MySQL Issues
+### Problemas de MySQL
 
-**Problem:** "Access denied for user"
-- Verify username and password
-- Check user has SELECT permissions on INFORMATION_SCHEMA
-- Ensure user has access from your host
+**Problema:** "Access denied for user"
+- Verifique el nombre de usuario y contraseña
+- Revise que el usuario tenga permisos SELECT en INFORMATION_SCHEMA
+- Asegúrese de que el usuario tenga acceso desde su host
 
-**Problem:** "Can't connect to MySQL server"
-- Verify MySQL server is running
-- Check firewall rules
-- Verify host and port are correct
+**Problema:** "Can't connect to MySQL server"
+- Verifique que el servidor MySQL esté ejecutándose
+- Revise las reglas del firewall
+- Verifique que el host y puerto sean correctos
 
-**Problem:** "Unknown database"
-- Ensure database name is spelled correctly
-- Verify database exists
-- Check user has access to the database
+**Problema:** "Unknown database"
+- Asegúrese de que el nombre de la base de datos esté escrito correctamente
+- Verifique que la base de datos exista
+- Revise que el usuario tenga acceso a la base de datos
 
-### PostgreSQL Issues
+### Problemas de PostgreSQL
 
-**Problem:** "connection refused"
-- Verify PostgreSQL server is running
-- Check that PostgreSQL is listening on the correct host/port
-- Verify pg_hba.conf allows connections from your host
-- Check firewall rules
+**Problema:** "connection refused"
+- Verifique que el servidor PostgreSQL esté ejecutándose
+- Revise que PostgreSQL esté escuchando en el host/puerto correcto
+- Verifique que pg_hba.conf permita conexiones desde su host
+- Revise las reglas del firewall
 
-**Problem:** "authentication failed"
-- Verify username and password
-- Check PostgreSQL authentication method in pg_hba.conf
-- Ensure user has SELECT permissions on information_schema
+**Problema:** "authentication failed"
+- Verifique el nombre de usuario y contraseña
+- Revise el método de autenticación de PostgreSQL en pg_hba.conf
+- Asegúrese de que el usuario tenga permisos SELECT en information_schema
 
-**Problem:** "database does not exist"
-- Verify database name is spelled correctly
-- Check user has CONNECT privilege on the database
-- Ensure database exists using psql
+**Problema:** "database does not exist"
+- Verifique que el nombre de la base de datos esté escrito correctamente
+- Revise que el usuario tenga privilegio CONNECT en la base de datos
+- Asegúrese de que la base de datos exista usando psql
 
-### MongoDB Issues
+### Problemas de MongoDB
 
-**Problem:** "connection timed out"
-- Verify MongoDB server is running
-- Check MongoDB is listening on the correct host/port
-- Verify firewall rules allow connections
-- Check network connectivity
+**Problema:** "connection timed out"
+- Verifique que el servidor MongoDB esté ejecutándose
+- Revise que MongoDB esté escuchando en el host/puerto correcto
+- Verifique que las reglas del firewall permitan conexiones
+- Revise la conectividad de red
 
-**Problem:** "authentication failed"
-- Verify username and password
-- Check user has read permissions on the database
-- Ensure authentication database is correct
+**Problema:** "authentication failed"
+- Verifique el nombre de usuario y contraseña
+- Revise que el usuario tenga permisos de lectura en la base de datos
+- Asegúrese de que la base de datos de autenticación sea correcta
 
-**Problem:** "no collections found"
-- Verify database name is correct
-- Check that collections exist in the database
-- Ensure user has list_collections permission
+**Problema:** "no collections found"
+- Verifique que el nombre de la base de datos sea correcto
+- Revise que existan colecciones en la base de datos
+- Asegúrese de que el usuario tenga permiso list_collections
 
-**Problem:** "schema appears incomplete"
-- Increase sample size (MongoDB uses sampling)
-- Some fields may not appear in all documents
-- Consider sampling more documents for better coverage
+**Problema:** "schema appears incomplete"
+- Incremente el tamaño de la muestra (MongoDB usa muestreo)
+- Algunos fields pueden no aparecer en todos los documentos
+- Considere muestrear más documentos para mejor cobertura
 
-## API Usage
+## Uso de API
 
-For programmatic usage in Rust code:
+Para uso programático en código Rust:
 
 ```rust
 use audd_adapters_db::{create_connector, DbSchemaConnector};
@@ -680,17 +680,17 @@ let connector = create_connector("mongodb://localhost:27017/mydb")?;
 let schema = connector.load()?;
 ```
 
-See the crate documentation for more details on the API.
+Consulte la documentación del crate para más detalles sobre la API.
 
-## Support and Feedback
+## Soporte y Retroalimentación
 
-For issues, feature requests, or questions:
-- File an issue on GitHub
-- Check existing documentation
-- Review error messages carefully
+Para problemas, solicitudes de características o preguntas:
+- Registre un issue en GitHub
+- Revise la documentación existente
+- Revise los mensajes de error cuidadosamente
 
-## Version History
+## Historial de Versiones
 
-- **v0.1.0** - SQLite and MySQL/MariaDB support
-- **v0.2.0** - PostgreSQL and MongoDB support (schema inference)
-- Future: Foreign keys, views, advanced constraints
+- **v0.1.0** - Soporte de SQLite y MySQL/MariaDB
+- **v0.2.0** - Soporte de PostgreSQL y MongoDB (inferencia de schema)
+- Futuro: Foreign keys, views, restricciones avanzadas

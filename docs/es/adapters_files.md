@@ -1,34 +1,34 @@
-# File Adapters Documentation
+# Documentación de Adapters de Archivos
 
-**Version:** 1.0.0  
-**Last Updated:** 2026-01-25
+**Versión:** 1.0.0  
+**Última Actualización:** 2026-01-25
 
-## Overview
+## Descripción General
 
-The AUDD file adapters enable schema extraction from common file formats (CSV, JSON, XML, SQL/DDL) and conversion to the AUDD Intermediate Representation (IR). This provides immediate adoption without database connectors and enables reproducible fixtures for academic evaluation.
+Los adapters de archivos de AUDD permiten la extracción de schemas desde formatos de archivo comunes (CSV, JSON, XML, SQL/DDL) y la conversión a la Representación Intermedia (IR) de AUDD. Esto proporciona adopción inmediata sin conectores de base de datos y permite fixtures reproducibles para evaluación académica.
 
-## Supported Formats
+## Formatos Soportados
 
-### CSV Adapter
+### Adapter CSV
 
-**Extension:** `.csv`
+**Extensión:** `.csv`
 
-**Approach:**
-- Headers become field names
-- All fields default to `String` type (type inference optional in future iterations)
-- Entity name derived from filename
-- All fields marked as nullable by default
+**Enfoque:**
+- Los encabezados se convierten en nombres de fields
+- Todos los fields tienen como predeterminado el tipo `String` (inferencia de tipos opcional en iteraciones futuras)
+- El nombre de la entidad se deriva del nombre del archivo
+- Todos los fields se marcan como nullable por defecto
 
-**Example:**
+**Ejemplo:**
 
-Input file `users.csv`:
+Archivo de entrada `users.csv`:
 ```csv
 id,name,email,age
 1,Alice,alice@example.com,30
 2,Bob,bob@example.com,25
 ```
 
-Generated IR:
+IR generado:
 ```json
 {
   "source_name": "users",
@@ -48,33 +48,33 @@ Generated IR:
 }
 ```
 
-**CLI Usage:**
+**Uso del CLI:**
 ```bash
 audd load --source file:users.csv
 ```
 
-**Limitations:**
-- No type inference (all fields are String)
-- No multi-table support (one CSV = one entity)
-- Headers are required
-- No support for quoted fields with newlines (basic CSV only)
+**Limitaciones:**
+- Sin inferencia de tipos (todos los fields son String)
+- Sin soporte para múltiples tablas (un CSV = una entidad)
+- Los encabezados son requeridos
+- Sin soporte para fields entre comillas con saltos de línea (solo CSV básico)
 
 ---
 
-### JSON Adapter
+### Adapter JSON
 
-**Extensions:** `.json`
+**Extensiones:** `.json`
 
-**Approach:**
-- Supports single object or array of objects
-- Keys from (first) object become field names
-- Basic type inference: boolean, number (int/float), string, nested (JSON type)
-- Deeply nested structures treated as JSON type
-- Entity name derived from filename
+**Enfoque:**
+- Soporta un solo objeto o array de objetos
+- Las claves del (primer) objeto se convierten en nombres de fields
+- Inferencia de tipos básica: boolean, number (int/float), string, nested (tipo JSON)
+- Las estructuras profundamente anidadas se tratan como tipo JSON
+- El nombre de la entidad se deriva del nombre del archivo
 
-**Example 1: Single Object**
+**Ejemplo 1: Objeto Único**
 
-Input file `config.json`:
+Archivo de entrada `config.json`:
 ```json
 {
   "id": 1,
@@ -84,9 +84,9 @@ Input file `config.json`:
 }
 ```
 
-**Example 2: Array of Objects**
+**Ejemplo 2: Array de Objetos**
 
-Input file `users.json`:
+Archivo de entrada `users.json`:
 ```json
 [
   {"id": 1, "name": "Alice", "active": true},
@@ -94,38 +94,38 @@ Input file `users.json`:
 ]
 ```
 
-Generated IR:
+IR generado:
 - `id` → Int64
 - `name` → String
 - `active` → Boolean
 - `score` → Float64
 
-**CLI Usage:**
+**Uso del CLI:**
 ```bash
 audd load --source file:users.json
 ```
 
-**Limitations:**
-- Only flat or shallow objects supported (MVP)
-- Heterogeneous arrays not supported (schema inferred from first element)
-- No union types or complex nested schemas
-- Empty arrays produce an error
+**Limitaciones:**
+- Solo se soportan objetos planos o poco profundos (MVP)
+- Arrays heterogéneos no soportados (schema inferido del primer elemento)
+- Sin tipos de unión o schemas anidados complejos
+- Los arrays vacíos producen un error
 
 ---
 
-### XML Adapter (MVP)
+### Adapter XML (MVP)
 
-**Extension:** `.xml`
+**Extensión:** `.xml`
 
-**Approach:**
-- First-level child tags of `<record>`, `<item>`, or `<row>` become fields
-- All fields default to String type
-- Attributes become fields with `_attr` suffix
-- Assumes homogeneous structure across all records
+**Enfoque:**
+- Las etiquetas hijo de primer nivel de `<record>`, `<item>` o `<row>` se convierten en fields
+- Todos los fields tienen como predeterminado el tipo String
+- Los atributos se convierten en fields con sufijo `_attr`
+- Asume estructura homogénea en todos los registros
 
-**Example:**
+**Ejemplo:**
 
-Input file `users.xml`:
+Archivo de entrada `users.xml`:
 ```xml
 <?xml version="1.0"?>
 <users>
@@ -140,39 +140,39 @@ Input file `users.xml`:
 </users>
 ```
 
-Generated IR fields:
-- `id_attr` (from attribute)
+Fields del IR generados:
+- `id_attr` (del atributo)
 - `name`
 - `email`
 
-**CLI Usage:**
+**Uso del CLI:**
 ```bash
 audd load --source file:users.xml
 ```
 
-**Limitations:**
-- MVP: Basic structure only, no complex XPath or namespaces
-- No validation against XSD/DTD
-- All fields are String type
-- Assumes uniform record structure
-- Nested elements beyond depth 3 not extracted as separate fields
+**Limitaciones:**
+- MVP: Solo estructura básica, sin XPath complejo o namespaces
+- Sin validación contra XSD/DTD
+- Todos los fields son tipo String
+- Asume estructura de registro uniforme
+- Elementos anidados más allá de profundidad 3 no se extraen como fields separados
 
 ---
 
-### SQL/DDL Adapter
+### Adapter SQL/DDL
 
-**Extensions:** `.sql`, `.ddl`
+**Extensiones:** `.sql`, `.ddl`
 
-**Approach:**
-- Parses `CREATE TABLE` statements
-- Extracts column names and types
-- Maps SQL types to canonical types
-- Supports basic constraints: PRIMARY KEY, NOT NULL, UNIQUE
-- Multiple tables supported (one CREATE TABLE = one entity)
+**Enfoque:**
+- Analiza sentencias `CREATE TABLE`
+- Extrae nombres y tipos de columnas
+- Mapea tipos SQL a tipos canónicos
+- Soporta restricciones básicas: PRIMARY KEY, NOT NULL, UNIQUE
+- Se soportan múltiples tablas (un CREATE TABLE = una entidad)
 
-**Example:**
+**Ejemplo:**
 
-Input file `schema.sql`:
+Archivo de entrada `schema.sql`:
 ```sql
 CREATE TABLE users (
     id INT PRIMARY KEY,
@@ -189,21 +189,21 @@ CREATE TABLE posts (
 );
 ```
 
-Generated IR:
-- Two entities: `users` and `posts`
-- `id` fields: Int32, not nullable (PRIMARY KEY implies NOT NULL)
-- `name`: String, not nullable
-- `email`: String, nullable, with UNIQUE constraint
-- Type mappings applied (INT → Int32, VARCHAR → String, TIMESTAMP → Timestamp, etc.)
+IR generado:
+- Dos entidades: `users` y `posts`
+- Fields `id`: Int32, no nullable (PRIMARY KEY implica NOT NULL)
+- `name`: String, no nullable
+- `email`: String, nullable, con restricción UNIQUE
+- Mapeos de tipos aplicados (INT → Int32, VARCHAR → String, TIMESTAMP → Timestamp, etc.)
 
-**CLI Usage:**
+**Uso del CLI:**
 ```bash
 audd load --source file:schema.sql
 ```
 
-**Type Mappings:**
+**Mapeos de Tipos:**
 
-| SQL Type | Canonical Type |
+| Tipo SQL | Tipo Canónico |
 |----------|---------------|
 | INT, INTEGER, SMALLINT, MEDIUMINT | Int32 |
 | BIGINT, LONG | Int64 |
@@ -220,65 +220,65 @@ audd load --source file:schema.sql
 | JSON | Json |
 | UUID | Uuid |
 
-**Limitations:**
-- Subset of SQL DDL only (not a full SQL parser)
-- No support for:
+**Limitaciones:**
+- Solo un subconjunto de SQL DDL (no es un parser completo de SQL)
+- Sin soporte para:
   - ALTER TABLE
-  - Foreign key constraints (parsed but not represented in IR yet)
-  - CHECK constraints
-  - DEFAULT values (except in metadata)
-  - Complex SQL dialects (MySQL/PostgreSQL/SQLite-specific extensions)
+  - Restricciones de clave foránea (analizadas pero aún no representadas en IR)
+  - Restricciones CHECK
+  - Valores DEFAULT (excepto en metadata)
+  - Dialectos SQL complejos (extensiones específicas de MySQL/PostgreSQL/SQLite)
   - CREATE INDEX
-  - Views, triggers, stored procedures
-- Minimal support for `IF NOT EXISTS`, `CONSTRAINT` clauses
-- Comments and whitespace variations may affect parsing
+  - Vistas, triggers, procedimientos almacenados
+- Soporte mínimo para cláusulas `IF NOT EXISTS`, `CONSTRAINT`
+- Los comentarios y variaciones de espacios en blanco pueden afectar el análisis
 
 ---
 
-## Not Supported (Current Limitations)
+## No Soportado (Limitaciones Actuales)
 
-### All Formats
-- Semantic business logic extraction (e.g., detecting "email" vs. "phone" fields)
-- Relationship inference between entities
-- Data validation rules beyond basic constraints
+### Todos los Formatos
+- Extracción de lógica de negocio semántica (ej., detectar fields "email" vs. "phone")
+- Inferencia de relaciones entre entidades
+- Reglas de validación de datos más allá de restricciones básicas
 
 ### CSV
-- Type inference (planned for future iteration)
-- Multi-file aggregation
-- Column metadata (units, formats, etc.)
+- Inferencia de tipos (planeada para iteración futura)
+- Agregación de múltiples archivos
+- Metadata de columnas (unidades, formatos, etc.)
 
 ### JSON
-- Deeply nested or recursive structures
-- Polymorphic/heterogeneous arrays
-- JSON Schema validation
-- JSON-LD or semantic annotations
+- Estructuras profundamente anidadas o recursivas
+- Arrays polimórficos/heterogéneos
+- Validación de JSON Schema
+- JSON-LD o anotaciones semánticas
 
 ### XML
-- XPath queries
-- XML Schema (XSD) validation
+- Consultas XPath
+- Validación de XML Schema (XSD)
 - Namespaces
-- Mixed content (text + elements)
-- Complex element hierarchies
+- Contenido mixto (texto + elementos)
+- Jerarquías de elementos complejas
 
 ### SQL/DDL
-- Full SQL dialect support (MySQL, PostgreSQL, SQL Server, Oracle)
-- Foreign keys represented in IR
-- Indexes
-- Views and materialized views
-- Stored procedures and triggers
-- Advanced constraints (CHECK, exclusion)
+- Soporte completo de dialectos SQL (MySQL, PostgreSQL, SQL Server, Oracle)
+- Claves foráneas representadas en IR
+- Índices
+- Vistas y vistas materializadas
+- Procedimientos almacenados y triggers
+- Restricciones avanzadas (CHECK, exclusión)
 
 ---
 
-## API Usage
+## Uso de la API
 
-### Rust API
+### API de Rust
 
 ```rust
 use audd_adapters_file::load_schema_from_file;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // Auto-detect format from extension
+    // Auto-detectar formato desde la extensión
     let schema = load_schema_from_file("users.csv")?;
     
     println!("Source: {} ({})", schema.source_name, schema.source_type);
@@ -294,7 +294,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
-### Manual Adapter Selection
+### Selección Manual de Adapter
 
 ```rust
 use audd_adapters_file::{CsvAdapter, JsonAdapter, SqlAdapter, XmlAdapter, SchemaAdapter};
@@ -318,20 +318,20 @@ let schema = sql_adapter.load(Path::new("schema.sql"))?;
 
 ---
 
-## Error Handling
+## Manejo de Errores
 
-Adapters can return the following errors:
+Los adapters pueden devolver los siguientes errores:
 
-- **`IoError`**: File not found or cannot be read
-- **`CsvError`**: Invalid CSV format
-- **`JsonError`**: Invalid JSON syntax
-- **`XmlError`**: Malformed XML
-- **`SqlError`**: SQL parsing error
-- **`UnsupportedFormat`**: File extension not recognized
-- **`InvalidStructure`**: File structure doesn't match expected format
-- **`EmptyData`**: No data or fields found in file
+- **`IoError`**: Archivo no encontrado o no se puede leer
+- **`CsvError`**: Formato CSV inválido
+- **`JsonError`**: Sintaxis JSON inválida
+- **`XmlError`**: XML mal formado
+- **`SqlError`**: Error de análisis SQL
+- **`UnsupportedFormat`**: Extensión de archivo no reconocida
+- **`InvalidStructure`**: La estructura del archivo no coincide con el formato esperado
+- **`EmptyData`**: No se encontraron datos o fields en el archivo
 
-Example error handling:
+Ejemplo de manejo de errores:
 
 ```rust
 use audd_adapters_file::{load_schema_from_file, AdapterError};
@@ -352,48 +352,48 @@ match load_schema_from_file("data.csv") {
 
 ## Fixtures
 
-Sample fixtures are available in `/fixtures/adapters/`:
+Los fixtures de muestra están disponibles en `/fixtures/adapters/`:
 
-- `users.csv` - Sample CSV with multiple columns
-- `users.json` - Sample JSON array of objects
-- `users.xml` - Sample XML with records
-- `schema.sql` - Sample SQL DDL with multiple tables
+- `users.csv` - CSV de muestra con múltiples columnas
+- `users.json` - JSON de muestra con array de objetos
+- `users.xml` - XML de muestra con registros
+- `schema.sql` - SQL DDL de muestra con múltiples tablas
 
-These fixtures are used for testing and demonstration purposes.
-
----
-
-## Future Enhancements
-
-### Planned (Post-MVP)
-- CSV type inference (smart detection of integers, dates, booleans)
-- JSON: Better handling of nested structures
-- XML: XPath-based field extraction
-- SQL: More dialect-specific support (MySQL, PostgreSQL)
-- Configuration options (e.g., custom type mappings, null handling)
-
-### Under Consideration
-- Excel/XLSX adapter
-- Parquet adapter
-- YAML adapter
-- Avro adapter
-- Protobuf schema adapter
+Estos fixtures se utilizan para propósitos de prueba y demostración.
 
 ---
 
-## Contributing
+## Mejoras Futuras
 
-When adding a new adapter:
+### Planeadas (Post-MVP)
+- Inferencia de tipos CSV (detección inteligente de enteros, fechas, booleanos)
+- JSON: Mejor manejo de estructuras anidadas
+- XML: Extracción de fields basada en XPath
+- SQL: Más soporte específico de dialectos (MySQL, PostgreSQL)
+- Opciones de configuración (ej., mapeos de tipos personalizados, manejo de nulos)
 
-1. Implement the `SchemaAdapter` trait
-2. Add tests (unit + integration)
-3. Register in `factory.rs` for auto-detection
-4. Add fixture examples
-5. Update this documentation
-6. Ensure error messages are clear and actionable
+### En Consideración
+- Adapter Excel/XLSX
+- Adapter Parquet
+- Adapter YAML
+- Adapter Avro
+- Adapter de schema Protobuf
 
 ---
 
-## License
+## Contribuir
 
-See LICENSE file in the repository root.
+Al agregar un nuevo adapter:
+
+1. Implemente el trait `SchemaAdapter`
+2. Agregue pruebas (unitarias + integración)
+3. Regístrelo en `factory.rs` para auto-detección
+4. Agregue ejemplos de fixtures
+5. Actualice esta documentación
+6. Asegúrese de que los mensajes de error sean claros y accionables
+
+---
+
+## Licencia
+
+Consulte el archivo LICENSE en la raíz del repositorio.

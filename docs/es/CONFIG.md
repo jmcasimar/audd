@@ -1,106 +1,106 @@
-# Configuration File Support
+# Soporte de Archivos de Configuración
 
-AUDD CLI supports configuration files to customize behavior without needing to pass flags every time.
+AUDD CLI soporta archivos de configuración para personalizar el comportamiento sin necesidad de pasar banderas cada vez.
 
-## Configuration File Locations
+## Ubicaciones de Archivos de Configuración
 
-AUDD will automatically search for configuration files in the following locations (in order):
+AUDD buscará automáticamente archivos de configuración en las siguientes ubicaciones (en orden):
 
-1. `./audd.toml` - Current directory
-2. `~/.audd.toml` - Home directory
-3. `~/.config/audd/config.toml` - XDG config directory
+1. `./audd.toml` - Directorio actual
+2. `~/.audd.toml` - Directorio home
+3. `~/.config/audd/config.toml` - Directorio de configuración XDG
 
-Alternatively, you can specify a custom config file path:
+Alternativamente, puede especificar una ruta personalizada del archivo de configuración:
 
 ```bash
-audd --config /path/to/custom/config.toml compare ...
+audd --config /ruta/a/config/personalizado.toml compare ...
 ```
 
-## Generating a Sample Configuration
+## Generar una Configuración de Muestra
 
-To generate a sample configuration file:
+Para generar un archivo de configuración de muestra:
 
 ```bash
-# Generate in current directory
+# Generar en el directorio actual
 audd generate-config
 
-# Generate to a custom location
+# Generar en una ubicación personalizada
 audd generate-config --out ~/.audd.toml
 ```
 
-This creates a TOML file with all available options and their default values.
+Esto crea un archivo TOML con todas las opciones disponibles y sus valores por defecto.
 
-## Configuration Options
+## Opciones de Configuración
 
-### [compare] Section
+### Sección [compare]
 
 ```toml
 [compare]
-# Similarity threshold for matching entities/fields (0.0 to 1.0)
+# Umbral de similitud para emparejar entidades/fields (0.0 a 1.0)
 similarity_threshold = 0.8
 
-# Default output directory for comparison results
+# Directorio de salida por defecto para resultados de comparación
 default_output_dir = "output"
 ```
 
-### [resolution] Section
+### Sección [resolution]
 
 ```toml
 [resolution]
-# Confidence threshold for auto-accepting suggestions (0.0 to 1.0)
-# Only suggestions with confidence >= this value will be auto-accepted
+# Umbral de confianza para auto-aceptar sugerencias (0.0 a 1.0)
+# Solo las sugerencias con confianza >= a este valor serán auto-aceptadas
 confidence_threshold = 0.9
 
-# Prefix for decision IDs (useful for tracking different runs)
+# Prefijo para IDs de decisión (útil para rastrear diferentes ejecuciones)
 decision_id_prefix = "auto_dec"
 
-# Whether to allow risky suggestions (e.g., lossy type casts)
+# Si se permiten sugerencias riesgosas (ej., conversiones de tipo con pérdida)
 allow_risky_suggestions = false
 ```
 
-### [output] Section
+### Sección [output]
 
 ```toml
 [output]
-# Control which output files are generated
+# Controlar qué archivos de salida se generan
 generate_unified_schema = true
 generate_diff = true
 generate_decision_log = true
 generate_report = true
 ```
 
-## Precedence Rules
+## Reglas de Precedencia
 
-When the same setting is specified in multiple places, the following precedence applies:
+Cuando la misma configuración se especifica en múltiples lugares, se aplica la siguiente precedencia:
 
-1. **CLI flags** (highest priority)
-2. **Configuration file** (specified with `--config` or auto-loaded)
-3. **Default values** (lowest priority)
+1. **Banderas CLI** (prioridad más alta)
+2. **Archivo de configuración** (especificado con `--config` o auto-cargado)
+3. **Valores por defecto** (prioridad más baja)
 
-### Example
+### Ejemplo
 
-If you have a config file with:
+Si tiene un archivo de configuración con:
 ```toml
 [resolution]
 confidence_threshold = 0.85
 ```
 
-And run:
+Y ejecuta:
 ```bash
 audd compare --confidence-threshold 0.95 ...
 ```
 
-The CLI flag value `0.95` will be used, overriding the config file value.
+Se usará el valor de la bandera CLI `0.95`, sobrescribiendo el valor del archivo de configuración.
 
-## Complete Example
+## Ejemplo Completo
 
-### 1. Generate configuration file
+### 1. Generar archivo de configuración
 
 ```bash
 audd generate-config --out ~/.audd.toml
 ```
 
-### 2. Edit the configuration
+### 2. Editar la configuración
 
 ```toml
 [compare]
@@ -118,72 +118,72 @@ generate_decision_log = true
 generate_report = true
 ```
 
-### 3. Use the configuration
+### 3. Usar la configuración
 
 ```bash
-# Config is loaded automatically from ~/.audd.toml
+# La configuración se carga automáticamente desde ~/.audd.toml
 audd compare --source-a data1.csv --source-b data2.json
 
-# Output goes to /var/audd/output (from config)
-# Decisions use "prod_dec_*" IDs (from config)
-# Confidence threshold is 0.85 (from config)
+# La salida va a /var/audd/output (de la configuración)
+# Las decisiones usan IDs "prod_dec_*" (de la configuración)
+# El umbral de confianza es 0.85 (de la configuración)
 ```
 
-### 4. Override specific settings
+### 4. Sobrescribir configuraciones específicas
 
 ```bash
-# Use different confidence threshold for this run
+# Usar un umbral de confianza diferente para esta ejecución
 audd compare \
   --source-a data1.csv \
   --source-b data2.json \
   --confidence-threshold 0.95
 
-# Override output directory for this run
+# Sobrescribir directorio de salida para esta ejecución
 audd compare \
   --source-a data1.csv \
   --source-b data2.json \
   --out /tmp/comparison
 ```
 
-## Use Cases
+## Casos de Uso
 
-### Development vs Production
+### Desarrollo vs Producción
 
-**Development config** (`audd-dev.toml`):
+**Configuración de desarrollo** (`audd-dev.toml`):
 ```toml
 [resolution]
-confidence_threshold = 0.75  # More aggressive
+confidence_threshold = 0.75  # Más agresivo
 allow_risky_suggestions = true
 
 [output]
-generate_report = false  # Skip reports in dev
+generate_report = false  # Omitir reportes en desarrollo
 ```
 
-**Production config** (`audd-prod.toml`):
+**Configuración de producción** (`audd-prod.toml`):
 ```toml
 [resolution]
-confidence_threshold = 0.9  # Conservative
+confidence_threshold = 0.9  # Conservador
 allow_risky_suggestions = false
 
 [output]
-generate_report = true  # Always generate reports
+generate_report = true  # Siempre generar reportes
 ```
 
-Usage:
+Uso:
 ```bash
-# Development
+# Desarrollo
 audd --config audd-dev.toml compare ...
 
-# Production
+# Producción
 audd --config audd-prod.toml compare ...
 ```
 
-### Team Standardization
+### Estandarización del Equipo
 
-Place a shared `audd.toml` in your project repository:
+Coloque un `audd.toml` compartido en su repositorio del proyecto:
 
 ```toml
-# Project standard settings
+# Configuración estándar del proyecto
 [compare]
 default_output_dir = "schema_comparison"
 
@@ -192,41 +192,41 @@ confidence_threshold = 0.88
 decision_id_prefix = "team_dec"
 ```
 
-Everyone on the team gets consistent behavior without memorizing flags.
+Todos en el equipo obtienen un comportamiento consistente sin memorizar banderas.
 
-## Troubleshooting
+## Solución de Problemas
 
-### Config file not being loaded
+### Archivo de configuración no se está cargando
 
-Check that:
-1. The file exists in one of the search locations
-2. The file has valid TOML syntax
-3. File permissions allow reading
+Verifique que:
+1. El archivo existe en una de las ubicaciones de búsqueda
+2. El archivo tiene sintaxis TOML válida
+3. Los permisos del archivo permiten lectura
 
-To verify which config is being used, you can check the behavior:
+Para verificar qué configuración se está usando, puede revisar el comportamiento:
 ```bash
-# Without config: uses default output directory "output"
-# With config: uses configured output directory
+# Sin configuración: usa el directorio de salida por defecto "output"
+# Con configuración: usa el directorio de salida configurado
 audd compare --source-a a.csv --source-b b.json
 ```
 
-### Invalid configuration
+### Configuración inválida
 
-If the config file has invalid TOML syntax, you'll see an error:
+Si el archivo de configuración tiene sintaxis TOML inválida, verá un error:
 ```
 ❌ Error loading config file: Failed to parse configuration file: ...
 ```
 
-Fix the syntax error and try again.
+Corrija el error de sintaxis e intente nuevamente.
 
-### Testing configuration
+### Probar configuración
 
-Use the `generate-config` command to see the correct format:
+Use el comando `generate-config` para ver el formato correcto:
 ```bash
 audd generate-config --out /tmp/reference.toml
 cat /tmp/reference.toml
 ```
 
-## Schema Reference
+## Referencia de Schema
 
-For the complete TOML schema, see the generated sample configuration file or the source code in `crates/audd-cli/src/config.rs`.
+Para el schema TOML completo, vea el archivo de configuración de muestra generado o el código fuente en `crates/audd-cli/src/config.rs`.

@@ -1,33 +1,33 @@
-# AUDD Intermediate Representation (IR) Specification
+# Especificación de Representación Intermedia (IR) de AUDD
 
-**Version:** 1.0.0  
-**Last Updated:** 2026-01-25
+**Versión:** 1.0.0  
+**Última actualización:** 2026-01-25
 
-## Overview
+## Descripción general
 
-The AUDD Intermediate Representation (IR) is a canonical schema model designed to enable comparison and unification of heterogeneous data sources. The IR serves as an internal contract that normalizes schemas from different sources (databases, files, APIs) into a uniform structure.
+La Representación Intermedia (IR) de AUDD es un modelo de schema canónico diseñado para permitir la comparación y unificación de fuentes de datos heterogéneas. El IR sirve como un contrato interno que normaliza schemas de diferentes fuentes (bases de datos, archivos, APIs) en una estructura uniforme.
 
-## Design Principles
+## Principios de diseño
 
-1. **Compatibility First**: The IR prioritizes structural compatibility over semantic perfection
-2. **Extensibility**: Uses metadata fields for future extensions without breaking changes
-3. **Normalization**: Identifiers and types are normalized for consistent comparison
-4. **Versioning**: Explicit versioning allows evolution while maintaining backward compatibility
+1. **Compatibilidad primero**: El IR prioriza la compatibilidad estructural sobre la perfección semántica
+2. **Extensibilidad**: Utiliza campos de metadata para extensiones futuras sin cambios incompatibles
+3. **Normalización**: Los identificadores y tipos se normalizan para una comparación consistente
+4. **Versionado**: El versionado explícito permite la evolución mientras se mantiene la compatibilidad hacia atrás
 
-## Core Structures
+## Estructuras principales
 
 ### SourceSchema
 
-Represents a complete data source schema (database, file, collection).
+Representa un schema completo de fuente de datos (base de datos, archivo, colección).
 
-**Fields:**
-- `source_name` (String): Normalized name of the data source
-- `source_type` (String): Type of source (e.g., "mysql", "postgresql", "csv", "json")
-- `entities` (Vec<EntitySchema>): List of entities (tables/collections) in this source
-- `ir_version` (String): Version of the IR specification (e.g., "1.0.0")
-- `metadata` (HashMap<String, Value>): Extensible metadata for source-specific information
+**Campos:**
+- `source_name` (String): Nombre normalizado de la fuente de datos
+- `source_type` (String): Tipo de fuente (ej., "mysql", "postgresql", "csv", "json")
+- `entities` (Vec<EntitySchema>): Lista de entidades (tablas/colecciones) en esta fuente
+- `ir_version` (String): Versión de la especificación IR (ej., "1.0.0")
+- `metadata` (HashMap<String, Value>): Metadata extensible para información específica de la fuente
 
-**Example:**
+**Ejemplo:**
 ```json
 {
   "source_name": "customers_db",
@@ -40,16 +40,16 @@ Represents a complete data source schema (database, file, collection).
 
 ### EntitySchema
 
-Represents a table, collection, or equivalent structure within a source.
+Representa una tabla, colección o estructura equivalente dentro de una fuente.
 
-**Fields:**
-- `entity_name` (String): Normalized name of the entity
-- `entity_type` (String): Type of entity ("table", "collection", "sheet", etc.)
-- `fields` (Vec<FieldSchema>): List of fields/columns in this entity
-- `keys` (Vec<Key>): Primary and unique keys (MVP: basic support)
-- `metadata` (HashMap<String, Value>): Entity-specific metadata
+**Campos:**
+- `entity_name` (String): Nombre normalizado de la entidad
+- `entity_type` (String): Tipo de entidad ("table", "collection", "sheet", etc.)
+- `fields` (Vec<FieldSchema>): Lista de campos/columnas en esta entidad
+- `keys` (Vec<Key>): Claves primarias y únicas (MVP: soporte básico)
+- `metadata` (HashMap<String, Value>): Metadata específica de la entidad
 
-**Example:**
+**Ejemplo:**
 ```json
 {
   "entity_name": "users",
@@ -67,16 +67,16 @@ Represents a table, collection, or equivalent structure within a source.
 
 ### FieldSchema
 
-Represents a field/column within an entity.
+Representa un campo/columna dentro de una entidad.
 
-**Fields:**
-- `field_name` (String): Normalized field name
-- `canonical_type` (CanonicalType): Canonical data type
-- `nullable` (bool): Whether the field accepts null values
-- `constraints` (Vec<Constraint>): Additional constraints on the field
-- `metadata` (HashMap<String, Value>): Field-specific metadata (e.g., original_name, original_type)
+**Campos:**
+- `field_name` (String): Nombre normalizado del campo
+- `canonical_type` (CanonicalType): Tipo de dato canónico
+- `nullable` (bool): Si el campo acepta valores nulos
+- `constraints` (Vec<Constraint>): Restricciones adicionales en el campo
+- `metadata` (HashMap<String, Value>): Metadata específica del campo (ej., original_name, original_type)
 
-**Example:**
+**Ejemplo:**
 ```json
 {
   "field_name": "email",
@@ -97,43 +97,43 @@ Represents a field/column within an entity.
 
 ### CanonicalType
 
-Enumeration of canonical data types that abstract over source-specific types.
+Enumeración de tipos de datos canónicos que abstraen los tipos específicos de cada fuente.
 
-**Types (MVP Subset):**
-- `Boolean`: True/false values
-- `Int32`: 32-bit signed integer
-- `Int64`: 64-bit signed integer
-- `Float32`: 32-bit floating point
-- `Float64`: 64-bit floating point
-- `Decimal`: Arbitrary precision decimal with (precision, scale)
-- `String`: Variable-length text
-- `Text`: Large text (CLOB, TEXT, etc.)
-- `Binary`: Binary data (BLOB)
-- `Date`: Date without time
-- `Time`: Time without date
-- `DateTime`: Date and time
-- `Timestamp`: Timestamp with timezone
-- `Json`: JSON data
+**Tipos (Subconjunto MVP):**
+- `Boolean`: Valores verdadero/falso
+- `Int32`: Entero con signo de 32 bits
+- `Int64`: Entero con signo de 64 bits
+- `Float32`: Punto flotante de 32 bits
+- `Float64`: Punto flotante de 64 bits
+- `Decimal`: Decimal de precisión arbitraria con (precision, scale)
+- `String`: Texto de longitud variable
+- `Text`: Texto grande (CLOB, TEXT, etc.)
+- `Binary`: Datos binarios (BLOB)
+- `Date`: Fecha sin hora
+- `Time`: Hora sin fecha
+- `DateTime`: Fecha y hora
+- `Timestamp`: Timestamp con zona horaria
+- `Json`: Datos JSON
 - `Uuid`: UUID/GUID
-- `Unknown`: Fallback for unmapped types
+- `Unknown`: Alternativa para tipos no mapeados
 
-**Type Parameters:**
-- `Decimal { precision: u16, scale: u16 }`: For precise decimal numbers
-- `String` with MaxLength constraint: For VARCHAR equivalents
+**Parámetros de tipo:**
+- `Decimal { precision: u16, scale: u16 }`: Para números decimales precisos
+- `String` con restricción MaxLength: Para equivalentes de VARCHAR
 
 ### Constraint
 
-Represents constraints and validation rules on fields.
+Representa restricciones y reglas de validación en los campos.
 
-**Types (MVP Subset):**
-- `MaxLength(usize)`: Maximum string length
-- `MinLength(usize)`: Minimum string length
-- `Precision(u16, u16)`: Decimal precision and scale
-- `Unique`: Unique constraint
-- `DefaultValue(Value)`: Default value
-- `Check(String)`: Check expression (stored as string for MVP)
+**Tipos (Subconjunto MVP):**
+- `MaxLength(usize)`: Longitud máxima de cadena
+- `MinLength(usize)`: Longitud mínima de cadena
+- `Precision(u16, u16)`: Precisión y escala decimal
+- `Unique`: Restricción de unicidad
+- `DefaultValue(Value)`: Valor predeterminado
+- `Check(String)`: Expresión de verificación (almacenada como cadena para MVP)
 
-**Example:**
+**Ejemplo:**
 ```json
 [
   { "constraint_type": "MaxLength", "value": 100 },
@@ -143,14 +143,14 @@ Represents constraints and validation rules on fields.
 
 ### Key
 
-Represents primary keys, foreign keys, and unique constraints.
+Representa claves primarias, claves foráneas y restricciones únicas.
 
-**Fields (MVP Subset):**
-- `key_type` (String): "primary", "unique", "foreign" (foreign support limited in MVP)
-- `field_names` (Vec<String>): Fields comprising the key
-- `metadata` (HashMap<String, Value>): Additional key information
+**Campos (Subconjunto MVP):**
+- `key_type` (String): "primary", "unique", "foreign" (soporte limitado de foreign en MVP)
+- `field_names` (Vec<String>): Campos que componen la clave
+- `metadata` (HashMap<String, Value>): Información adicional de la clave
 
-**Example:**
+**Ejemplo:**
 ```json
 {
   "key_type": "primary",
@@ -158,13 +158,13 @@ Represents primary keys, foreign keys, and unique constraints.
 }
 ```
 
-## Type Mapping Table
+## Tabla de mapeo de tipos
 
 ### MySQL → CanonicalType
 
-| MySQL Type | Canonical Type | Notes |
+| Tipo MySQL | Canonical Type | Notas |
 |------------|---------------|-------|
-| TINYINT(1) | Boolean | When length is 1 |
+| TINYINT(1) | Boolean | Cuando la longitud es 1 |
 | TINYINT | Int32 | |
 | SMALLINT | Int32 | |
 | MEDIUMINT | Int32 | |
@@ -173,8 +173,8 @@ Represents primary keys, foreign keys, and unique constraints.
 | FLOAT | Float32 | |
 | DOUBLE | Float64 | |
 | DECIMAL(p,s) | Decimal(p,s) | |
-| CHAR(n) | String | With MaxLength(n) |
-| VARCHAR(n) | String | With MaxLength(n) |
+| CHAR(n) | String | Con MaxLength(n) |
+| VARCHAR(n) | String | Con MaxLength(n) |
 | TEXT | Text | |
 | TINYTEXT | Text | |
 | MEDIUMTEXT | Text | |
@@ -190,7 +190,7 @@ Represents primary keys, foreign keys, and unique constraints.
 
 ### PostgreSQL → CanonicalType
 
-| PostgreSQL Type | Canonical Type | Notes |
+| Tipo PostgreSQL | Canonical Type | Notas |
 |----------------|---------------|-------|
 | boolean | Boolean | |
 | smallint | Int32 | |
@@ -200,8 +200,8 @@ Represents primary keys, foreign keys, and unique constraints.
 | double precision | Float64 | |
 | numeric(p,s) | Decimal(p,s) | |
 | decimal(p,s) | Decimal(p,s) | |
-| char(n) | String | With MaxLength(n) |
-| varchar(n) | String | With MaxLength(n) |
+| char(n) | String | Con MaxLength(n) |
+| varchar(n) | String | Con MaxLength(n) |
 | text | Text | |
 | bytea | Binary | |
 | date | Date | |
@@ -214,162 +214,162 @@ Represents primary keys, foreign keys, and unique constraints.
 
 ### SQLite → CanonicalType
 
-| SQLite Type | Canonical Type | Notes |
+| Tipo SQLite | Canonical Type | Notas |
 |------------|---------------|-------|
-| INTEGER | Int64 | SQLite uses 64-bit |
+| INTEGER | Int64 | SQLite usa 64 bits |
 | REAL | Float64 | |
 | TEXT | Text | |
 | BLOB | Binary | |
-| NUMERIC | Decimal(38,10) | Default precision |
+| NUMERIC | Decimal(38,10) | Precisión predeterminada |
 
-## Normalization Rules
+## Reglas de normalización
 
-### Identifier Normalization
+### Normalización de identificadores
 
-The `normalize_identifier()` function applies the following transformations:
+La función `normalize_identifier()` aplica las siguientes transformaciones:
 
-1. **Trim whitespace**: Remove leading/trailing spaces
-2. **Lowercase**: Convert to lowercase
-3. **Collapse spaces**: Replace multiple spaces with single underscore
-4. **Snake case**: Convert camelCase/PascalCase to snake_case
-5. **Remove accents**: Convert accented characters to ASCII equivalents (optional, configurable)
+1. **Trim whitespace**: Eliminar espacios al inicio/final
+2. **Lowercase**: Convertir a minúsculas
+3. **Collapse spaces**: Reemplazar múltiples espacios con un guion bajo
+4. **Snake case**: Convertir camelCase/PascalCase a snake_case
+5. **Remove accents**: Convertir caracteres acentuados a equivalentes ASCII (opcional, configurable)
 
-**Examples:**
+**Ejemplos:**
 - `"UserEmail"` → `"user_email"`
 - `"  Product Name  "` → `"product_name"`
 - `"firstName"` → `"first_name"`
 - `"Customer ID"` → `"customer_id"`
 
-### Type Normalization
+### Normalización de tipos
 
-Source-specific type names are mapped to canonical types using the tables above. Original type information is preserved in the `metadata` field.
+Los nombres de tipos específicos de la fuente se mapean a tipos canónicos utilizando las tablas anteriores. La información del tipo original se preserva en el campo `metadata`.
 
-## Versioning Strategy
+## Estrategia de versionado
 
-### IR Version Format
+### Formato de versión IR
 
-The IR uses semantic versioning: `MAJOR.MINOR.PATCH`
+El IR utiliza versionado semántico: `MAJOR.MINOR.PATCH`
 
-- **MAJOR**: Incompatible changes to core structures
-- **MINOR**: Backward-compatible additions (new fields, new types)
-- **PATCH**: Bug fixes, documentation updates
+- **MAJOR**: Cambios incompatibles en las estructuras principales
+- **MINOR**: Adiciones compatibles hacia atrás (nuevos campos, nuevos tipos)
+- **PATCH**: Correcciones de errores, actualizaciones de documentación
 
-### Backward Compatibility
+### Compatibilidad hacia atrás
 
-- New optional fields can be added in MINOR versions
-- The `metadata` HashMap allows extensions without version bumps
-- Parsers should ignore unknown fields gracefully
+- Los nuevos campos opcionales pueden agregarse en versiones MINOR
+- El HashMap `metadata` permite extensiones sin incrementos de versión
+- Los analizadores deben ignorar campos desconocidos de manera elegante
 
-### Version Checks
+### Verificaciones de versión
 
-When loading IR from JSON:
-1. Parse the `ir_version` field
-2. Check MAJOR version compatibility
-3. Warn on MINOR/PATCH version mismatches
-4. Proceed if compatible, fail if not
+Al cargar IR desde JSON:
+1. Analizar el campo `ir_version`
+2. Verificar compatibilidad de versión MAJOR
+3. Advertir sobre discrepancias en versiones MINOR/PATCH
+4. Continuar si es compatible, fallar si no lo es
 
-## Metadata Usage
+## Uso de metadata
 
-The `metadata` field in all structures is a `HashMap<String, Value>` that stores:
+El campo `metadata` en todas las estructuras es un `HashMap<String, Value>` que almacena:
 
-1. **Original information**: Source-specific details (original names, types)
-2. **Source-specific attributes**: Indexes, collations, constraints not in MVP
-3. **Extensions**: Future features without schema changes
-4. **Annotations**: User or tool annotations
+1. **Información original**: Detalles específicos de la fuente (nombres originales, tipos)
+2. **Atributos específicos de la fuente**: Índices, colaciones, restricciones no incluidas en MVP
+3. **Extensiones**: Características futuras sin cambios en el schema
+4. **Anotaciones**: Anotaciones de usuario o herramientas
 
-**Common metadata keys:**
-- `original_name`: Original identifier before normalization
-- `original_type`: Source-specific type string
-- `collation`: Database collation (MySQL, PostgreSQL)
-- `charset`: Character set
-- `auto_increment`: Auto-increment/sequence info
-- `comment`: Field/table comments
+**Claves de metadata comunes:**
+- `original_name`: Identificador original antes de la normalización
+- `original_type`: Cadena de tipo específica de la fuente
+- `collation`: Colación de la base de datos (MySQL, PostgreSQL)
+- `charset`: Conjunto de caracteres
+- `auto_increment`: Información de auto-incremento/secuencia
+- `comment`: Comentarios de campo/tabla
 
-## Serialization Format
+## Formato de serialización
 
-The IR is serialized to JSON for:
-- Debugging and inspection
-- Testing with fixtures
-- Persistence and caching
-- Inter-process communication
+El IR se serializa a JSON para:
+- Depuración e inspección
+- Pruebas con fixtures
+- Persistencia y almacenamiento en caché
+- Comunicación entre procesos
 
-**JSON Schema considerations:**
-- Field order should be deterministic for snapshot testing
-- Pretty-print for human readability in fixtures
-- Compact format for production use
+**Consideraciones del schema JSON:**
+- El orden de los campos debe ser determinístico para pruebas de instantáneas
+- Pretty-print para legibilidad humana en fixtures
+- Formato compacto para uso en producción
 
-## Extension Points
+## Puntos de extensión
 
-### Future Additions (Post-MVP)
+### Adiciones futuras (Post-MVP)
 
-1. **Relations**: Foreign key mappings, cardinality
-2. **Indexes**: Index definitions and types
-3. **Views**: Virtual entities and their definitions
-4. **Partitioning**: Partition information
-5. **Triggers/Procedures**: Stored logic representation
-6. **Statistics**: Row counts, cardinality estimates
-7. **Semantic annotations**: Business glossary mappings
+1. **Relations**: Mapeos de claves foráneas, cardinalidad
+2. **Indexes**: Definiciones y tipos de índices
+3. **Views**: Entidades virtuales y sus definiciones
+4. **Partitioning**: Información de particionamiento
+5. **Triggers/Procedures**: Representación de lógica almacenada
+6. **Statistics**: Recuentos de filas, estimaciones de cardinalidad
+7. **Semantic annotations**: Mapeos de glosario de negocios
 
-### Adding New Canonical Types
+### Agregar nuevos tipos canónicos
 
-To add a new canonical type:
-1. Add enum variant to `CanonicalType`
-2. Update type mapping tables
-3. Add tests for the new type
-4. Document in this specification
-5. Bump MINOR version
+Para agregar un nuevo tipo canónico:
+1. Agregar variante enum a `CanonicalType`
+2. Actualizar tablas de mapeo de tipos
+3. Agregar pruebas para el nuevo tipo
+4. Documentar en esta especificación
+5. Incrementar versión MINOR
 
-## Implementation Guidelines
+## Guías de implementación
 
-### For Adapter Authors
+### Para autores de adaptadores
 
-When creating an adapter to convert a source schema to IR:
+Al crear un adaptador para convertir un schema de fuente a IR:
 
-1. Extract schema information using source-specific APIs
-2. Normalize entity and field names using `normalize_identifier()`
-3. Map source types to canonical types using mapping tables
-4. Preserve original information in `metadata` fields
-5. Set appropriate `nullable` and `constraints` values
-6. Validate the resulting IR structure
+1. Extraer información de schema usando APIs específicas de la fuente
+2. Normalizar nombres de entidades y campos usando `normalize_identifier()`
+3. Mapear tipos de fuente a tipos canónicos usando tablas de mapeo
+4. Preservar información original en campos `metadata`
+5. Establecer valores apropiados de `nullable` y `constraints`
+6. Validar la estructura IR resultante
 
-### For Comparison Engine Authors
+### Para autores de motores de comparación
 
-When comparing two IR schemas:
+Al comparar dos schemas IR:
 
-1. Match entities by normalized names
-2. Match fields within entities by normalized names
-3. Compare canonical types for compatibility
-4. Check nullability and constraints
-5. Use metadata for tie-breaking and reporting
-6. Handle type compatibility rules (e.g., Int32 ↔ Int64)
+1. Emparejar entidades por nombres normalizados
+2. Emparejar campos dentro de entidades por nombres normalizados
+3. Comparar tipos canónicos para compatibilidad
+4. Verificar nullability y restricciones
+5. Usar metadata para desempate y reportes
+6. Manejar reglas de compatibilidad de tipos (ej., Int32 ↔ Int64)
 
-## Testing Strategy
+## Estrategia de pruebas
 
-### Unit Tests
+### Pruebas unitarias
 
-- Normalization of identifiers (20+ test cases)
-- Type mapping for each supported database
-- IR construction and validation
-- Serialization round-trips (IR → JSON → IR)
+- Normalización de identificadores (más de 20 casos de prueba)
+- Mapeo de tipos para cada base de datos soportada
+- Construcción y validación de IR
+- Ciclos completos de serialización (IR → JSON → IR)
 
-### Integration Tests
+### Pruebas de integración
 
-- Load fixtures and validate structure
-- Compare known-compatible schemas
-- Compare known-incompatible schemas
-- Verify metadata preservation
+- Cargar fixtures y validar estructura
+- Comparar schemas conocidos como compatibles
+- Comparar schemas conocidos como incompatibles
+- Verificar preservación de metadata
 
 ### Fixtures
 
-Located in `/fixtures/ir/`:
-- `simple_a.json`: Basic schema with common types
-- `simple_b.json`: Compatible schema with slight variations
+Ubicados en `/fixtures/ir/`:
+- `simple_a.json`: Schema básico con tipos comunes
+- `simple_b.json`: Schema compatible con ligeras variaciones
 
-## Examples
+## Ejemplos
 
-### Complete Example: Simple Users Table
+### Ejemplo completo: Tabla simple de usuarios
 
-**MySQL Source:**
+**Fuente MySQL:**
 ```sql
 CREATE TABLE Users (
   id INT PRIMARY KEY AUTO_INCREMENT,
@@ -378,7 +378,7 @@ CREATE TABLE Users (
 );
 ```
 
-**IR Representation:**
+**Representación IR:**
 ```json
 {
   "source_name": "myapp_db",
@@ -438,13 +438,13 @@ CREATE TABLE Users (
 }
 ```
 
-## References
+## Referencias
 
 - [EPIC 02: Canonical Schema IR](../README.md)
-- [Serde Documentation](https://serde.rs/)
-- [JSON Schema Specification](https://json-schema.org/)
+- [Documentación de Serde](https://serde.rs/)
+- [Especificación de JSON Schema](https://json-schema.org/)
 
 ---
 
-**Document Status:** Complete (v1.0.0)  
-**Next Review:** After EPIC 02 completion
+**Estado del documento:** Completo (v1.0.0)  
+**Próxima revisión:** Después de completar EPIC 02

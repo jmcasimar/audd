@@ -1,164 +1,164 @@
-# AUDD Report Structure
+# Estructura de Reportes de AUDD
 
-**Version:** 1.0.0  
-**Status:** Stable
+**Versión:** 1.0.0  
+**Estado:** Estable
 
-## Overview
+## Descripción General
 
-This document defines the structure and format of AUDD comparison reports. Reports are generated in Markdown format (with optional JSON export) and consist of two main sections:
+Este documento define la estructura y formato de los reportes de comparación de AUDD. Los reportes se generan en formato Markdown (con exportación opcional a JSON) y consisten en dos secciones principales:
 
-1. **Executive Report** - High-level summary for quick decision-making
-2. **Technical Report** - Detailed evidence and traceability for auditing
+1. **Reporte Ejecutivo** - Resumen de alto nivel para toma de decisiones rápida
+2. **Reporte Técnico** - Evidencia detallada y trazabilidad para auditoría
 
-## Report Sections
+## Secciones del Reporte
 
-### 1. Executive Summary
+### 1. Resumen Ejecutivo
 
-Quick overview of the comparison results with key metrics and indicators.
+Vista general rápida de los resultados de comparación con métricas e indicadores clave.
 
-#### 1.1 Header
-- Report title
-- Generation timestamp
-- Schema identifiers (A and B)
-- Report version
+#### 1.1 Encabezado
+- Título del reporte
+- Marca de tiempo de generación
+- Identificadores de schema (A y B)
+- Versión del reporte
 
-#### 1.2 Compatibility Overview
-High-level metrics:
-- **Total Matches**: Number of compatible fields/entities
-- **Safe Exclusives**: Fields that can be safely added to unified schema
-- **Total Conflicts**: Number of incompatibilities requiring resolution
-- **Compatibility Score**: Percentage of successful matches
+#### 1.2 Panorama de Compatibilidad
+Métricas de alto nivel:
+- **Total de Coincidencias**: Número de fields/entities compatibles
+- **Exclusivos Seguros**: Fields que pueden agregarse de manera segura al schema unificado
+- **Total de Conflictos**: Número de incompatibilidades que requieren resolución
+- **Puntuación de Compatibilidad**: Porcentaje de coincidencias exitosas
 
-**Formula:**
+**Fórmula:**
 ```
 Compatibility Score = (Matches / (Matches + Conflicts)) × 100%
 Safe Addition Rate = (Safe Exclusives / Total Exclusives) × 100%
 Conflict Rate = (Conflicts / (Matches + Conflicts)) × 100%
 ```
 
-#### 1.3 Risk Assessment
-- **Overall Risk Level**: Low | Medium | High | Critical
-  - Low: < 10% conflict rate, no critical severity conflicts
-  - Medium: 10-25% conflict rate OR has high severity conflicts
-  - High: 25-50% conflict rate OR has critical severity conflicts
-  - Critical: > 50% conflict rate OR multiple critical conflicts
+#### 1.3 Evaluación de Riesgos
+- **Nivel de Riesgo General**: Low | Medium | High | Critical
+  - Low: < 10% conflict rate, sin conflictos de severidad critical
+  - Medium: 10-25% conflict rate O tiene conflictos de severidad high
+  - High: 25-50% conflict rate O tiene conflictos de severidad critical
+  - Critical: > 50% conflict rate O múltiples conflictos critical
 
-#### 1.4 Top Conflicts by Entity
-Table showing entities with most conflicts (top 5 or all if fewer):
-- Entity name
-- Number of conflicts
-- Highest severity level
-- Resolution status (if suggestions exist)
+#### 1.4 Principales Conflictos por Entity
+Tabla mostrando entities con más conflictos (top 5 o todos si son menos):
+- Nombre del entity
+- Número de conflictos
+- Nivel de severidad más alto
+- Estado de resolución (si existen sugerencias)
 
-### 2. Detailed Breakdown
+### 2. Desglose Detallado
 
-Statistics broken down by category.
+Estadísticas desglosadas por categoría.
 
-#### 2.1 Matches
-- Total count
-- Breakdown by match reason (exact, normalized, similarity)
-- Average match confidence score
+#### 2.1 Coincidencias
+- Conteo total
+- Desglose por razón de coincidencia (exact, normalized, similarity)
+- Puntuación promedio de confianza de coincidencias
 
-#### 2.2 Exclusives
-- Total count from Schema A
-- Total count from Schema B
-- Count marked as safe to add
-- Count requiring review
+#### 2.2 Exclusivos
+- Conteo total del Schema A
+- Conteo total del Schema B
+- Conteo marcados como seguros para agregar
+- Conteo que requiere revisión
 
-#### 2.3 Conflicts
-- Total count
-- Breakdown by conflict type (type_incompatible, nullability_mismatch, etc.)
-- Breakdown by severity (low, medium, high, critical)
+#### 2.3 Conflictos
+- Conteo total
+- Desglose por tipo de conflicto (type_incompatible, nullability_mismatch, etc.)
+- Desglose por severidad (low, medium, high, critical)
 
-### 3. Technical Details
+### 3. Detalles Técnicos
 
-Complete listing for audit trail and traceability.
+Listado completo para pista de auditoría y trazabilidad.
 
-#### 3.1 Matches Listing
-Table format:
+#### 3.1 Listado de Coincidencias
+Formato de tabla:
 | Entity | Field | Match Type | Score | Index A | Index B |
 |--------|-------|------------|-------|---------|---------|
 
-#### 3.2 Exclusives Listing
-Table format:
+#### 3.2 Listado de Exclusivos
+Formato de tabla:
 | Entity | Field | Side | Safe to Add | Index |
 |--------|-------|------|-------------|-------|
 
-#### 3.3 Conflicts Listing
-For each conflict:
-- **Conflict ID**: Sequential number for reference
-- **Entity**: Entity name
-- **Field**: Field name (if applicable)
-- **Type**: Conflict type
-- **Severity**: Severity level
+#### 3.3 Listado de Conflictos
+Para cada conflicto:
+- **Conflict ID**: Número secuencial para referencia
+- **Entity**: Nombre del entity
+- **Field**: Nombre del field (si aplica)
+- **Type**: Tipo de conflicto
+- **Severity**: Nivel de severidad
 - **Evidence**:
-  - From Schema A: Description
-  - From Schema B: Description
-  - Rule: Rule that was violated
-- **Indexes**: Location in schemas (A, B)
+  - From Schema A: Descripción
+  - From Schema B: Descripción
+  - Rule: Regla que fue violada
+- **Indexes**: Ubicación en los schemas (A, B)
 
-### 4. Resolution Suggestions (if available)
+### 4. Sugerencias de Resolución (si están disponibles)
 
-For each conflict with suggestions:
+Para cada conflicto con sugerencias:
 
-#### 4.1 Suggestions Table
+#### 4.1 Tabla de Sugerencias
 | Conflict ID | Suggestion | Confidence | Impact | Status |
 |-------------|------------|------------|--------|--------|
 
-#### 4.2 Detailed Suggestions
-For each suggestion:
-- **Suggestion ID**: Unique identifier
-- **For Conflict**: Reference to conflict ID
-- **Kind**: Type of suggestion (cast_safe, cast_risky, rename_field, etc.)
-- **Confidence**: Score (0.0-1.0)
+#### 4.2 Sugerencias Detalladas
+Para cada sugerencia:
+- **Suggestion ID**: Identificador único
+- **For Conflict**: Referencia al conflict ID
+- **Kind**: Tipo de sugerencia (cast_safe, cast_risky, rename_field, etc.)
+- **Confidence**: Puntuación (0.0-1.0)
 - **Impact**: Minimal | Low | Medium | High | Critical
-- **Explanation**: Human-readable description
-- **Evidence**: Supporting facts
+- **Explanation**: Descripción legible para humanos
+- **Evidence**: Hechos de respaldo
 
-### 5. Decision Log (if available)
+### 5. Registro de Decisiones (si está disponible)
 
-Summary of resolution decisions:
-- **Total Decisions**: Count
-- **Accepted**: Count and percentage
-- **Rejected**: Count and percentage
-- **Auto-accepted**: Decisions made by system (high confidence)
-- **Manual**: Decisions made by users
+Resumen de decisiones de resolución:
+- **Total Decisions**: Conteo
+- **Accepted**: Conteo y porcentaje
+- **Rejected**: Conteo y porcentaje
+- **Auto-accepted**: Decisiones tomadas por el sistema (alta confianza)
+- **Manual**: Decisiones tomadas por usuarios
 
-For each decision:
-- **Decision ID**: Unique identifier
-- **Suggestion**: Reference to suggestion
+Para cada decisión:
+- **Decision ID**: Identificador único
+- **Suggestion**: Referencia a sugerencia
 - **Status**: Accepted/Rejected
-- **Source**: System or User
-- **Rationale**: Reason for decision
-- **Timestamp**: When decision was made
+- **Source**: System o User
+- **Rationale**: Razón de la decisión
+- **Timestamp**: Cuándo se tomó la decisión
 
-### 6. Recommendations
+### 6. Recomendaciones
 
-Actionable next steps based on analysis:
-- If conflicts exist: Suggest reviewing high-severity conflicts first
-- If many exclusives: Recommend reviewing safe_to_add flags
-- If low compatibility: Suggest manual schema alignment
-- Reference to decision_log.json for programmatic access
+Próximos pasos accionables basados en el análisis:
+- Si existen conflictos: Sugerir revisar conflictos de alta severidad primero
+- Si hay muchos exclusivos: Recomendar revisar flags safe_to_add
+- Si la compatibilidad es baja: Sugerir alineación manual de schema
+- Referencia a decision_log.json para acceso programático
 
-## Output Formats
+## Formatos de Salida
 
-### Markdown (Primary)
-- File: `report.md`
-- Human-readable with tables and formatting
-- Includes internal anchors for navigation
-- Self-contained (understandable without JSON files)
+### Markdown (Primario)
+- Archivo: `report.md`
+- Legible para humanos con tablas y formato
+- Incluye anclas internas para navegación
+- Autocontenido (entendible sin archivos JSON)
 
-### JSON (Optional)
-- File: `report.json`
-- Structured data for programmatic consumption
-- Same sections as Markdown
-- Includes all raw data
+### JSON (Opcional)
+- Archivo: `report.json`
+- Datos estructurados para consumo programático
+- Mismas secciones que Markdown
+- Incluye todos los datos crudos
 
-## Conventions
+## Convenciones
 
-### Formatting
-- Use tables for structured data
-- Use badges/emojis for status indicators:
+### Formato
+- Usar tablas para datos estructurados
+- Usar badges/emojis para indicadores de estado:
   - ✅ Success/Accepted
   - ⚠️ Warning/Medium severity
   - ❌ Error/Rejected
@@ -166,81 +166,81 @@ Actionable next steps based on analysis:
   - ⚡ High priority
   - 🔥 Critical
 
-### Naming
-- Section headers use title case
-- Field names use snake_case in technical sections
-- Entity names preserve original casing
+### Nomenclatura
+- Encabezados de sección usan title case
+- Nombres de field usan snake_case en secciones técnicas
+- Nombres de entity preservan capitalización original
 
-### Anchors
-- Each major section has an anchor: `#executive-summary`, `#technical-details`, etc.
-- Conflicts have anchors: `#conflict-1`, `#conflict-2`, etc.
+### Anclas
+- Cada sección principal tiene un ancla: `#executive-summary`, `#technical-details`, etc.
+- Los conflictos tienen anclas: `#conflict-1`, `#conflict-2`, etc.
 
-## Example Output Mock
+## Ejemplo de Salida
 
 ```markdown
-# AUDD Comparison Report
+# Reporte de Comparación de AUDD
 
-**Generated:** 2024-01-15 14:30:00 UTC  
+**Generado:** 2024-01-15 14:30:00 UTC  
 **Schema A:** users.csv  
 **Schema B:** users.json  
-**Report Version:** 1.0.0
+**Versión del Reporte:** 1.0.0
 
 ---
 
-## Executive Summary
+## Resumen Ejecutivo
 
-### Compatibility Overview
+### Panorama de Compatibilidad
 
 - **Matches**: 6
-- **Exclusives**: 4 (3 from A, 1 from B)
+- **Exclusives**: 4 (3 de A, 1 de B)
 - **Conflicts**: 3
 - **Compatibility Score**: 66.7%
 - **Safe Addition Rate**: 75.0%
 - **Conflict Rate**: 33.3%
 
-### Risk Assessment
+### Evaluación de Riesgos
 
-**Overall Risk Level**: ⚠️ **Medium**
+**Nivel de Riesgo General**: ⚠️ **Medium**
 
-- Conflict rate is 33.3% (above 25% threshold)
-- 1 high-severity conflict detected
-- 2 medium-severity conflicts detected
+- Conflict rate es 33.3% (sobre el umbral del 25%)
+- 1 conflicto de severidad high detectado
+- 2 conflictos de severidad medium detectados
 
-### Top Conflicts by Entity
+### Principales Conflictos por Entity
 
 | Entity | Conflicts | Highest Severity | Status |
 |--------|-----------|------------------|--------|
-| users  | 3         | High             | 2 suggestions available |
+| users  | 3         | High             | 2 sugerencias disponibles |
 
 ---
 
-## Detailed Breakdown
+## Desglose Detallado
 
-### Matches
+### Coincidencias
 - **Total**: 6
-- **Exact name matches**: 5
-- **Normalized matches**: 1
-- **Average confidence**: 0.95
+- **Coincidencias de nombre exacto**: 5
+- **Coincidencias normalizadas**: 1
+- **Confianza promedio**: 0.95
 
-### Exclusives
-- **From Schema A**: 3 (2 safe to add)
-- **From Schema B**: 1 (1 safe to add)
+### Exclusivos
+- **Del Schema A**: 3 (2 seguros para agregar)
+- **Del Schema B**: 1 (1 seguro para agregar)
 - **Safe Addition Rate**: 75.0%
 
-### Conflicts
+### Conflictos
 - **Total**: 3
-- **By Type**:
+- **Por Tipo**:
   - Type incompatible: 2
   - Nullability mismatch: 1
-- **By Severity**:
+- **Por Severidad**:
   - High: 1
   - Medium: 2
 
 ---
 
-## Technical Details
+## Detalles Técnicos
 
-### Matches
+### Coincidencias
 
 | Entity | Field | Match Type | Score | Index A | Index B |
 |--------|-------|------------|-------|---------|---------|
@@ -248,14 +248,14 @@ Actionable next steps based on analysis:
 | users  | name  | exact_name | 1.00  | 1       | 1       |
 ...
 
-### Exclusives
+### Exclusivos
 
 | Entity | Field    | Side | Safe to Add | Index |
 |--------|----------|------|-------------|-------|
 | users  | password | A    | ✅ Yes      | 5     |
 ...
 
-### Conflicts
+### Conflictos
 
 #### Conflict #1
 
@@ -273,21 +273,21 @@ Actionable next steps based on analysis:
 
 ---
 
-## Resolution Suggestions
+## Sugerencias de Resolución
 
-### Summary
+### Resumen
 - **Total Suggestions**: 2
 - **High Confidence**: 1
 - **Medium Confidence**: 1
 - **Auto-accepted**: 1
 
-### Conflict #1 - Suggestions
+### Conflict #1 - Sugerencias
 
 #### Suggestion: sug_001
 - **Kind**: prefer_type
 - **Confidence**: 0.90 (High)
 - **Impact**: Medium
-- **Explanation**: Prefer Int32 type, cast String values during migration
+- **Explanation**: Preferir tipo Int32, convertir valores String durante migración
 - **Evidence**:
   - Preferred type: Int32
   - Alternative type: String
@@ -298,66 +298,66 @@ Actionable next steps based on analysis:
 
 ---
 
-## Decision Log
+## Registro de Decisiones
 
-### Summary
+### Resumen
 - **Total Decisions**: 1
 - **Accepted**: 1 (100%)
 - **Rejected**: 0 (0%)
-- **By Source**:
+- **Por Fuente**:
   - System (auto): 1
   - User (manual): 0
 
-### Decisions
+### Decisiones
 
 #### Decision: dec_001
 - **Suggestion**: sug_001 (Conflict #1)
 - **Status**: ✅ Accepted
 - **Source**: System (high_confidence_auto_accept)
-- **Rationale**: Confidence 0.90 exceeds threshold 0.85
+- **Rationale**: Confidence 0.90 excede el umbral 0.85
 - **Timestamp**: 2024-01-15 14:30:05 UTC
 
 ---
 
-## Recommendations
+## Recomendaciones
 
-- 🔍 Review remaining 2 conflicts without auto-accepted suggestions
-- ⚠️ High-severity conflict in users.age requires manual review
-- ✅ Most fields are compatible (66.7% compatibility)
-- 📄 See decision_log.json for complete decision history
+- 🔍 Revisar los 2 conflictos restantes sin sugerencias auto-aceptadas
+- ⚠️ Conflicto de alta severidad en users.age requiere revisión manual
+- ✅ La mayoría de los fields son compatibles (compatibilidad del 66.7%)
+- 📄 Consulte decision_log.json para historial completo de decisiones
 
 ---
 
-*Report generated by AUDD v0.1.0*
+*Reporte generado por AUDD v0.1.0*
 ```
 
-## Metrics and Indicators
+## Métricas e Indicadores
 
-### Core Metrics
-1. **Compatibility Score**: Success rate of field matching
-2. **Conflict Rate**: Percentage of fields with conflicts
-3. **Safe Addition Rate**: Percentage of exclusives safe to add
-4. **Resolution Rate**: Percentage of conflicts with accepted suggestions
+### Métricas Principales
+1. **Compatibility Score**: Tasa de éxito de coincidencia de fields
+2. **Conflict Rate**: Porcentaje de fields con conflictos
+3. **Safe Addition Rate**: Porcentaje de exclusivos seguros para agregar
+4. **Resolution Rate**: Porcentaje de conflictos con sugerencias aceptadas
 
-### Quality Indicators
-1. **Average Match Confidence**: Mean confidence of all matches
-2. **Suggestion Coverage**: Percentage of conflicts with suggestions
-3. **Auto-acceptance Rate**: Percentage of suggestions auto-accepted
+### Indicadores de Calidad
+1. **Average Match Confidence**: Confianza promedio de todas las coincidencias
+2. **Suggestion Coverage**: Porcentaje de conflictos con sugerencias
+3. **Auto-acceptance Rate**: Porcentaje de sugerencias auto-aceptadas
 
-### Risk Indicators
-1. **Critical Conflict Count**: Number of critical severity conflicts
-2. **High Severity Rate**: Percentage of high/critical conflicts
-3. **Unresolved Conflict Count**: Conflicts without accepted suggestions
+### Indicadores de Riesgo
+1. **Critical Conflict Count**: Número de conflictos de severidad critical
+2. **High Severity Rate**: Porcentaje de conflictos high/critical
+3. **Unresolved Conflict Count**: Conflictos sin sugerencias aceptadas
 
-## Maintenance
+## Mantenimiento
 
-This structure is versioned and should remain stable. Changes require:
-1. Version increment
-2. Backward compatibility considerations
-3. Update to golden test files
-4. Documentation of migration path
+Esta estructura está versionada y debe permanecer estable. Los cambios requieren:
+1. Incremento de versión
+2. Consideraciones de compatibilidad hacia atrás
+3. Actualización de archivos de prueba golden
+4. Documentación de ruta de migración
 
-## References
+## Referencias
 
 - EPIC 03: Comparison engine
 - EPIC 04: Suggestions and resolution
