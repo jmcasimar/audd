@@ -366,19 +366,9 @@ mod tests {
             "client".to_string(),
             "user".to_string(),
         ]];
-        config.explain = true;  // Enable explanations
 
         let pipeline = SemanticMatchPipeline::new(config);
         let result = pipeline.compare("customer", "user");
-
-        // Print reasons for debugging
-        if let Some(reasons) = &result.reasons {
-            eprintln!("Reasons:");
-            for r in reasons {
-                eprintln!("  - {}: {}", r.strategy, r.score);
-            }
-        }
-        eprintln!("Final score: {}", result.final_score);
 
         // Synonyms should provide a strong signal
         assert!(result.final_score > 0.4, "Expected score > 0.4, got {}", result.final_score);

@@ -135,9 +135,9 @@ fn to_singular_es(word: &str) -> String {
         return word.to_string();
     }
 
-    // -es -> remove "es" if the word ends in consonant + "es"
-    // (e.g., naciones -> nación would need accent handling, but for simple cases)
-    // For now, we'll just handle the most common case which is removing final "s"
+    // Basic Spanish pluralization: most words just add -s or -es
+    // Note: This is a simplified implementation. Complex cases like
+    // accent changes (nación/naciones) are not handled.
     
     // -s -> remove (e.g., usuarios -> usuario, clientes -> cliente)
     if word.ends_with('s') && word.len() > 1 {
