@@ -2,6 +2,7 @@ mod config;
 mod error;
 mod loader;
 mod output;
+mod report;
 
 use clap::{Parser, Subcommand};
 use std::path::PathBuf;
