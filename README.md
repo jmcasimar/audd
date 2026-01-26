@@ -1,111 +1,110 @@
 # AUDD - Algoritmo de Unificación Dinámica de Datos
 
-**Dynamic Data Unification Algorithm**
+**Algoritmo de Unificación Dinámica de Datos**
 
 ---
 
-**🌐 Language / Idioma:**  
-📘 [Español (Base)](docs/es/README_PRINCIPAL.md) | 📗 [English](README.md)
+**🌐 Idioma / Language:**  
+📘 **Español (Base)** | 📗 [English](docs/en/README.md)
 
-> **Note:** Spanish is the base language for this project. Documentation is maintained in both Spanish and English.  
-> **Nota:** El español es el idioma base de este proyecto. La documentación se mantiene en español e inglés.
+> **Nota:** El español es el idioma base de este proyecto. La documentación se mantiene sincronizada en español e inglés conforme evoluciona el proyecto.
 
 ---
 
-A Rust-based tool for intelligent data comparison and unification across heterogeneous sources.
+Una herramienta basada en Rust para la comparación y unificación inteligente de datos entre fuentes heterogéneas.
 
-## 🎯 Purpose
+## 🎯 Propósito
 
-AUDD provides automated data reconciliation and schema mapping for datasets from different sources, enabling efficient data integration workflows.
+AUDD proporciona reconciliación automatizada de datos y mapeo de esquemas para conjuntos de datos de diferentes fuentes, permitiendo flujos de trabajo eficientes de integración de datos.
 
-## ✨ Features
+## ✨ Características
 
-- **File Adapters**: Load schemas from CSV, JSON, XML, and SQL/DDL files
-- **Database Adapters**: Connect to SQLite, MySQL, PostgreSQL, MongoDB, SQL Server, and Firebird
-- **Intermediate Representation (IR)**: Canonical schema model for heterogeneous sources
-- **Auto-detection**: Automatic format detection from file extensions
-- **Type Inference**: Smart type detection for JSON and SQL sources
-- **Conflict Detection**: Advanced schema comparison and conflict identification
-- **Resolution Engine**: Automated and manual conflict resolution strategies
-- **Unified Schema Generation**: Automatic creation of unified schema (C) from sources A and B
-- **Auditable Decisions**: Track and document all schema unification decisions
-- **Multiple Output Formats**: JSON schemas, diff reports, decision logs, and Markdown reports
-- **CLI and Library**: Use as command-line tool or Rust library
+- **Adaptadores de Archivo**: Carga esquemas desde archivos CSV, JSON, XML y SQL/DDL
+- **Adaptadores de Base de Datos**: Conecta con SQLite, MySQL, PostgreSQL, MongoDB, SQL Server y Firebird
+- **Representación Intermedia (IR)**: Modelo de schema canónico para fuentes heterogéneas
+- **Auto-detección**: Detección automática de formato desde extensiones de archivo
+- **Inferencia de Tipos**: Detección inteligente de tipos para fuentes JSON y SQL
+- **Detección de Conflictos**: Comparación avanzada de esquemas e identificación de conflictos
+- **Motor de Resolución**: Estrategias automatizadas y manuales de resolución de conflictos
+- **Generación de Schema Unificado**: Creación automática de schema unificado (C) desde fuentes A y B
+- **Decisiones Auditables**: Rastrea y documenta todas las decisiones de unificación de esquemas
+- **Múltiples Formatos de Salida**: Esquemas JSON, reportes de diferencias, logs de decisiones y reportes Markdown
+- **CLI y Biblioteca**: Úsalo como herramienta de línea de comandos o biblioteca Rust
 
-## 🚀 Quick Start
+## 🚀 Inicio Rápido
 
-### Installation
+### Instalación
 
-**From source:**
+**Desde código fuente:**
 ```bash
 git clone https://github.com/jmcasimar/AUDD.git
 cd AUDD
 cargo build --release
 ```
 
-Binary available at: `target/release/audd`
+Binario disponible en: `target/release/audd`
 
-### Usage
+### Uso
 
-**Generate configuration file:**
+**Generar archivo de configuración:**
 ```bash
-# Create a config file with default settings
+# Crear un archivo de configuración con valores predeterminados
 audd generate-config
 
-# Customize behavior (optional)
-# Edit audd.toml to set confidence thresholds, output options, etc.
+# Personalizar comportamiento (opcional)
+# Editar audd.toml para establecer umbrales de confianza, opciones de salida, etc.
 ```
 
-**Inspect a schema (IR export):**
+**Inspeccionar un schema (exportación IR):**
 ```bash
-# Print to stdout
+# Imprimir a stdout
 audd inspect --source users.csv
 
-# Save to file
+# Guardar a archivo
 audd inspect --source schema.sql --out ir.json
 ```
 
-**Load and display schema:**
+**Cargar y mostrar schema:**
 ```bash
 audd load --source users.csv
 audd load --source schema.sql
 audd load --source data.json
 ```
 
-**Compare two data sources:**
+**Comparar dos fuentes de datos:**
 ```bash
 audd compare \
   --source-a data1.csv \
   --source-b data2.json \
   --out output
 
-# Generates:
-# - output/unified_schema.json  (Unified schema C)
-# - output/diff.json             (Comparison results)
-# - output/decision_log.json     (Resolution decisions)
-# - output/report.md             (Human-readable report)
-# - output/report.json           (Structured report, optional)
+# Genera:
+# - output/unified_schema.json  (Schema unificado C)
+# - output/diff.json             (Resultados de comparación)
+# - output/decision_log.json     (Decisiones de resolución)
+# - output/report.md             (Reporte legible)
+# - output/report.json           (Reporte estructurado, opcional)
 
-# Use custom config file
+# Usar archivo de configuración personalizado
 audd --config team-config.toml compare --source-a a.csv --source-b b.json
 
-# Override confidence threshold
+# Sobrescribir umbral de confianza
 audd compare --source-a a.csv --source-b b.json --confidence-threshold 0.95
 ```
 
-**Work with databases:**
+**Trabajar con bases de datos:**
 ```bash
-# Inspect a database
+# Inspeccionar una base de datos
 audd inspect --source "db:sqlite:///path/to/db.sqlite"
 
-# Compare file vs database
+# Comparar archivo vs base de datos
 audd compare \
   --source-a users.csv \
   --source-b "db:mysql://user:pass@host/db" \
   --out comparison_output
 ```
 
-**Get help:**
+**Obtener ayuda:**
 ```bash
 audd --help
 audd compare --help
@@ -113,16 +112,16 @@ audd inspect --help
 audd generate-config --help
 ```
 
-### Example
+### Ejemplo
 
 ```bash
-# Compare CSV and JSON schemas
+# Comparar esquemas CSV y JSON
 audd compare \
   --source-a fixtures/adapters/users.csv \
   --source-b fixtures/adapters/users.json \
   --out output
 
-# Output:
+# Salida:
 # 🔍 AUDD Compare
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # Loading schema A from fixtures/adapters/users.csv...
@@ -140,9 +139,9 @@ audd compare \
 # Output files written to: output
 ```
 
-For more examples, see [`examples/cli/README.md`](examples/cli/README.md).
+Para más ejemplos, ver [`examples/cli/README.md`](../../examples/cli/README.md).
 
-## 🏗️ Architecture
+## 🏗️ Arquitectura
 
 ```
 ┌─────────────┐
@@ -172,66 +171,54 @@ For more examples, see [`examples/cli/README.md`](examples/cli/README.md).
 
 ## 📋 Roadmap (MVP)
 
-- **Sprint 1:** Core data parsing and schema detection
-- **Sprint 2:** Comparison algorithm and field matching
-- **Sprint 3:** Unification engine and conflict resolution
-- **Sprint 4:** Multi-format support and optimizations
-- **Sprint 5:** Documentation and performance tuning
+- **Sprint 1:** Análisis central de datos y detección de esquemas
+- **Sprint 2:** Algoritmo de comparación y coincidencia de campos
+- **Sprint 3:** Motor de unificación y resolución de conflictos
+- **Sprint 4:** Soporte multi-formato y optimizaciones
+- **Sprint 5:** Documentación y ajuste de rendimiento
 
-## 🛠️ Development
+## 🛠️ Desarrollo
 
-### Prerequisites
+### Prerequisitos
 - Rust 1.70+
 - Cargo
 
-### Build
+### Compilar
 ```bash
 cargo build
 ```
 
-### Test
+### Probar
 ```bash
 cargo test
 ```
 
-### Format & Lint
+### Formatear y Lint
 ```bash
 cargo fmt
 cargo clippy
 ```
 
-## 📚 Documentation
+## 📝 Contribuir
 
-**Complete documentation is available in both languages:**
+Ver [CONTRIBUTING.md](../../CONTRIBUTING.md) para lineamientos.
 
-- 📘 **Spanish (Base):** [docs/es/](docs/es/)
-- 📗 **English:** [docs/en/](docs/en/)
+## 🔒 Seguridad
 
-For detailed guides, see:
-- [Configuration Guide](docs/en/CONFIG.md) | [Guía de Configuración](docs/es/CONFIG.md)
-- [IR Specification](docs/en/ir.md) | [Especificación IR](docs/es/ir.md)
-- [CLI Examples](examples/cli/README.md) | [Ejemplos CLI](examples/cli/README_ES.md)
+Ver [SECURITY.md](../../SECURITY.md) para procedimientos de reporte.
 
-## 📝 Contributing
+## 📄 Licencia
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) | [Contribuciones](docs/es/CONTRIBUTING.md) for guidelines.
+Licenciado bajo la Licencia MIT. Ver [LICENSE](../../LICENSE) para detalles.
 
-## 🔒 Security
+## 👥 Autores
 
-See [SECURITY.md](SECURITY.md) | [Seguridad](docs/es/SECURITY.md) for reporting procedures.
+Contribuidores de AUDD - Ver repositorio del proyecto para detalles.
 
-## 📄 License
+## 🙏 Agradecimientos
 
-Licensed under the MIT License. See [LICENSE](LICENSE) for details.
-
-## 👥 Authors
-
-AUDD Contributors - See project repository for details.
-
-## 🙏 Acknowledgments
-
-This project is part of academic research on data integration and open-source transfer strategies.
+Este proyecto es parte de investigación académica sobre integración de datos y estrategias de transferencia de código abierto.
 
 ---
 
-**Status:** Early development (v0.1.0) - Core implementation in progress
+**Estado:** Desarrollo temprano (v0.1.0) - Implementación central en progreso
