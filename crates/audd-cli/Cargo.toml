@@ -16,4 +16,8 @@ clap.workspace = true
 audd_ir = { path = "../audd_ir" }
 audd_adapters_file = { path = "../audd_adapters_file" }
 audd_adapters_db = { path = "../audd_adapters_db" }
+audd_compare = { path = "../audd_compare" }
+audd_resolution = { path = "../audd_resolution" }
 serde_json.workspace = true
+anyhow.workspace = true
+thiserror.workspace = true
