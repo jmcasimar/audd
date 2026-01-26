@@ -9,7 +9,7 @@
 
 For complete AUDD configuration documentation, see:
 
-## 📖 [CONFIG.md](CONFIG.md)
+## 📖 [CONFIG.md](../CONFIG.md)
 
 The configuration documentation includes:
 
