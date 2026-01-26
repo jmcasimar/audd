@@ -2,7 +2,7 @@
 
 **Version:** 1.0  
 **Date:** 2026-01-26  
-**Scope:** Database connectors, File adapters, Remote adapter, IR extensions
+**Scope:** Database connectors (SQLite, MySQL/MariaDB, PostgreSQL, MongoDB, SQL Server, Firebird), File adapters, Remote adapter, IR extensions
 
 ---
 

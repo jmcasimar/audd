@@ -14,7 +14,7 @@ audd generate-config
 audd generate-config --out ~/.audd.toml
 ```
 
-See [CONFIG.md](../../docs/CONFIG.md) for detailed configuration documentation.
+See [CONFIG.md](../../docs/en/CONFIG.md) for detailed configuration documentation.
 
 ### Inspect a single data source
 
@@ -287,4 +287,4 @@ audd --config team-config.toml compare \
   --confidence-threshold 0.95
 ```
 
-For detailed configuration options and examples, see the [Configuration Documentation](../../docs/CONFIG.md).
+For detailed configuration options and examples, see the [Configuration Documentation](../../docs/en/CONFIG.md).
