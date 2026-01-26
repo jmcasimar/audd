@@ -6,6 +6,12 @@ use clap::{Parser, Subcommand};
 use std::path::PathBuf;
 use error::CliResult;
 
+/// Confidence threshold for auto-accepting suggestions
+const HIGH_CONFIDENCE_THRESHOLD: f64 = 0.9;
+
+/// Prefix for decision IDs
+const DECISION_ID_PREFIX: &str = "auto_dec";
+
 #[derive(Parser)]
 #[command(name = "audd")]
 #[command(about = "AUDD - Dynamic Data Unification Algorithm", long_about = None)]
@@ -204,12 +210,12 @@ fn handle_compare(
     let mut decision_counter = 0;
     for conflict in &comparison_result.conflicts {
         let suggestions = suggestion_engine.suggest(conflict);
-        // Auto-accept safe suggestions for MVP
+        // Auto-accept high-confidence suggestions (>= HIGH_CONFIDENCE_THRESHOLD)
         for suggestion in suggestions {
-            if suggestion.confidence.value() >= 0.9 {
+            if suggestion.confidence.value() >= HIGH_CONFIDENCE_THRESHOLD {
                 decision_counter += 1;
                 let decision = audd_resolution::Decision::by_system(
-                    format!("dec_{}", decision_counter),
+                    format!("{}_{}", DECISION_ID_PREFIX, decision_counter),
                     suggestion,
                     true,
                     "high_confidence_auto_accept".to_string(),
