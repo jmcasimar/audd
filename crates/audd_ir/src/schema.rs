@@ -180,9 +180,21 @@ impl SourceSchemaBuilder {
         self
     }
 
+    /// Add multiple stored procedures
+    pub fn stored_procedures(mut self, procs: Vec<StoredProcedure>) -> Self {
+        self.stored_procedures = procs;
+        self
+    }
+
     /// Add a trigger
     pub fn add_trigger(mut self, trigger: Trigger) -> Self {
         self.triggers.push(trigger);
+        self
+    }
+
+    /// Add multiple triggers
+    pub fn triggers(mut self, triggers: Vec<Trigger>) -> Self {
+        self.triggers = triggers;
         self
     }
 

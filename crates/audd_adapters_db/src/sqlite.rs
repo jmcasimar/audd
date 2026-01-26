@@ -3,9 +3,10 @@
 #[cfg(feature = "sqlite")]
 use rusqlite::{Connection, Result as SqliteResult};
 
-use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, SourceSchema};
+use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, Index, IndexType, View, Trigger, SourceSchema};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
+use serde_json::Value;
 
 /// SQLite schema connector
 ///
@@ -83,12 +84,14 @@ impl SqliteConnector {
     fn extract_table_schema(&self, table_name: &str) -> DbResult<EntitySchema> {
         let fields = self.extract_fields(table_name)?;
         let keys = self.extract_keys(table_name)?;
+        let indexes = self.extract_indexes(table_name)?;
 
         Ok(EntitySchema::builder()
             .entity_name(table_name.to_string())
             .entity_type("table")
             .fields(fields)
             .keys(keys)
+            .indexes(indexes)
             .build())
     }
 
@@ -135,7 +138,7 @@ impl SqliteConnector {
         Ok(fields)
     }
 
-    /// Extract keys (primary and unique) for a table
+    /// Extract keys (primary, unique, and foreign) for a table
     fn extract_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
         let mut keys = Vec::new();
 
@@ -145,9 +148,13 @@ impl SqliteConnector {
             keys.push(Key::primary(pk_fields));
         }
 
-        // Extract unique indexes
+        // Extract unique indexes (as unique keys)
         let unique_keys = self.extract_unique_indexes(table_name)?;
         keys.extend(unique_keys);
+
+        // Extract foreign keys
+        let foreign_keys = self.extract_foreign_keys(table_name)?;
+        keys.extend(foreign_keys);
 
         Ok(keys)
     }
@@ -240,6 +247,176 @@ impl SqliteConnector {
 
         Ok(columns)
     }
+
+    /// Extract foreign keys for a table
+    fn extract_foreign_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
+        let query = format!("PRAGMA foreign_key_list('{}')", table_name);
+        let mut stmt = self
+            .connection
+            .prepare(&query)
+            .map_err(|e| DbError::QueryError(format!("Failed to get foreign keys: {}", e)))?;
+
+        let mut foreign_keys = Vec::new();
+        
+        let rows = stmt
+            .query_map([], |row| {
+                Ok((
+                    row.get::<_, String>(2)?,   // table (referenced table)
+                    row.get::<_, String>(3)?,   // from (column in this table)
+                    row.get::<_, String>(4)?,   // to (column in referenced table)
+                ))
+            })
+            .map_err(|e| DbError::QueryError(format!("Failed to query foreign keys: {}", e)))?;
+
+        for row_result in rows {
+            let (ref_table, from_col, to_col) = row_result.map_err(|e| {
+                DbError::ExtractionError(format!("Failed to extract foreign key: {}", e))
+            })?;
+
+            let fk = Key::foreign(vec![from_col.clone()])
+                .with_metadata("referenced_table".to_string(), Value::String(ref_table))
+                .with_metadata("referenced_column".to_string(), Value::String(to_col))
+                .with_metadata("from_column".to_string(), Value::String(from_col));
+            
+            foreign_keys.push(fk);
+        }
+
+        Ok(foreign_keys)
+    }
+
+    /// Extract all indexes (including non-unique) for a table
+    fn extract_indexes(&self, table_name: &str) -> DbResult<Vec<Index>> {
+        let query = format!("PRAGMA index_list('{}')", table_name);
+        let mut stmt = self
+            .connection
+            .prepare(&query)
+            .map_err(|e| DbError::QueryError(format!("Failed to get index list: {}", e)))?;
+
+        let mut indexes = Vec::new();
+
+        let index_rows = stmt
+            .query_map([], |row| {
+                Ok((
+                    row.get::<_, String>(1)?,   // name
+                    row.get::<_, i32>(2)?,      // unique
+                    row.get::<_, String>(3)?,   // origin (c=CREATE INDEX, u=UNIQUE constraint, pk=PRIMARY KEY)
+                ))
+            })
+            .map_err(|e| DbError::QueryError(format!("Failed to query indexes: {}", e)))?;
+
+        for index_result in index_rows {
+            let (index_name, is_unique, origin) = index_result.map_err(|e| {
+                DbError::ExtractionError(format!("Failed to extract index: {}", e))
+            })?;
+
+            // Skip auto-generated indexes for primary keys
+            if index_name.starts_with("sqlite_autoindex_") {
+                continue;
+            }
+
+            // Skip primary key indexes (already handled in keys)
+            if origin == "pk" {
+                continue;
+            }
+
+            let index_fields = self.extract_index_columns(table_name, &index_name)?;
+            if !index_fields.is_empty() {
+                let index_type = if is_unique == 1 {
+                    IndexType::Unique
+                } else {
+                    IndexType::Regular
+                };
+
+                indexes.push(Index::new(index_name, index_type, index_fields));
+            }
+        }
+
+        Ok(indexes)
+    }
+
+    /// Extract views from the database
+    fn extract_views(&self) -> DbResult<Vec<View>> {
+        let mut stmt = self
+            .connection
+            .prepare(
+                "SELECT name, sql FROM sqlite_master 
+                 WHERE type='view'
+                 ORDER BY name",
+            )
+            .map_err(|e| DbError::QueryError(format!("Failed to query views: {}", e)))?;
+
+        let mut views = Vec::new();
+
+        let rows = stmt
+            .query_map([], |row| {
+                Ok((
+                    row.get::<_, String>(0)?,           // name
+                    row.get::<_, Option<String>>(1)?,   // sql
+                ))
+            })
+            .map_err(|e| DbError::QueryError(format!("Failed to fetch views: {}", e)))?;
+
+        for row_result in rows {
+            let (name, sql) = row_result.map_err(|e| {
+                DbError::ExtractionError(format!("Failed to extract view: {}", e))
+            })?;
+
+            let mut view = View::new(name);
+            if let Some(definition) = sql {
+                view = view.with_definition(definition);
+            }
+
+            views.push(view);
+        }
+
+        Ok(views)
+    }
+
+    /// Extract triggers from the database
+    fn extract_triggers(&self) -> DbResult<Vec<Trigger>> {
+        let mut stmt = self
+            .connection
+            .prepare(
+                "SELECT name, tbl_name, sql FROM sqlite_master 
+                 WHERE type='trigger'
+                 ORDER BY name",
+            )
+            .map_err(|e| DbError::QueryError(format!("Failed to query triggers: {}", e)))?;
+
+        let mut triggers = Vec::new();
+
+        let rows = stmt
+            .query_map([], |row| {
+                Ok((
+                    row.get::<_, String>(0)?,           // name
+                    row.get::<_, String>(1)?,           // tbl_name
+                    row.get::<_, Option<String>>(2)?,   // sql
+                ))
+            })
+            .map_err(|e| DbError::QueryError(format!("Failed to fetch triggers: {}", e)))?;
+
+        for row_result in rows {
+            let (name, table_name, sql) = row_result.map_err(|e| {
+                DbError::ExtractionError(format!("Failed to extract trigger: {}", e))
+            })?;
+
+            // Parse timing and event from SQL (simplified)
+            let (timing, event) = if let Some(ref sql_def) = sql {
+                parse_trigger_info(sql_def)
+            } else {
+                ("UNKNOWN".to_string(), "UNKNOWN".to_string())
+            };
+
+            let mut trigger = Trigger::new(name, table_name, timing, event);
+            if let Some(definition) = sql {
+                trigger = trigger.with_definition(definition);
+            }
+
+            triggers.push(trigger);
+        }
+
+        Ok(triggers)
+    }
 }
 
 #[cfg(feature = "sqlite")]
@@ -253,10 +430,18 @@ impl DbSchemaConnector for SqliteConnector {
             entities.push(entity);
         }
 
+        // Extract views
+        let views = self.extract_views()?;
+
+        // Extract triggers
+        let triggers = self.extract_triggers()?;
+
         Ok(SourceSchema::builder()
             .source_name(self.db_name.clone())
             .source_type("sqlite")
             .entities(entities)
+            .views(views)
+            .triggers(triggers)
             .build())
     }
 }
@@ -304,6 +489,36 @@ fn map_sqlite_type(sqlite_type: &str) -> CanonicalType {
             original_type: sqlite_type.to_string(),
         }
     }
+}
+
+/// Parse trigger timing and event from SQL definition
+#[cfg(feature = "sqlite")]
+fn parse_trigger_info(sql: &str) -> (String, String) {
+    let sql_upper = sql.to_uppercase();
+    
+    // Determine timing
+    let timing = if sql_upper.contains("BEFORE") {
+        "BEFORE"
+    } else if sql_upper.contains("AFTER") {
+        "AFTER"
+    } else if sql_upper.contains("INSTEAD OF") {
+        "INSTEAD OF"
+    } else {
+        "UNKNOWN"
+    }.to_string();
+
+    // Determine event
+    let event = if sql_upper.contains("INSERT") {
+        "INSERT"
+    } else if sql_upper.contains("UPDATE") {
+        "UPDATE"
+    } else if sql_upper.contains("DELETE") {
+        "DELETE"
+    } else {
+        "UNKNOWN"
+    }.to_string();
+
+    (timing, event)
 }
 
 // Stub implementation when feature is not enabled

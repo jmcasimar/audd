@@ -3,9 +3,10 @@
 #[cfg(feature = "postgres")]
 use tokio_postgres::{Client, NoTls};
 
-use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, SourceSchema};
+use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, Index, IndexType, View, StoredProcedure, Trigger, SourceSchema};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
+use serde_json::Value;
 
 /// PostgreSQL schema connector
 ///
