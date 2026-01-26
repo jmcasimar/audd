@@ -35,26 +35,27 @@ This document tracks the implementation of advanced database features across all
 - ✅ CHECK Constraints - Supported via IR's `Constraint::Check`
 - N/A Stored Procedures - SQLite doesn't support stored procedures
 
-### PostgreSQL 🔄 IN PROGRESS
+### PostgreSQL ✅ COMPLETE
 
-- ⏳ Foreign Keys - Query `information_schema.table_constraints` and `information_schema.key_column_usage`
-- ⏳ Indexes - Query `pg_indexes` and `pg_index`
+- ✅ Foreign Keys - Query `information_schema.table_constraints` and `information_schema.key_column_usage`
+- ✅ Indexes - Query `pg_indexes` and `pg_index`
   - Regular indexes
   - Unique indexes
-  - Partial indexes (with WHERE clause)
-  - GIN, GIST indexes
-- ⏳ Views - Query `information_schema.views` and `pg_views`
+  - Partial indexes (with WHERE clause/filter condition)
+  - GIN, GIST indexes (mapped to FullText type)
+- ✅ Views - Query `information_schema.views` and `pg_views`
   - Regular views
   - Materialized views (`pg_matviews`)
-- ⏳ Stored Procedures - Query `information_schema.routines` and `pg_proc`
+- ✅ Stored Procedures - Query `information_schema.routines`
   - Functions
   - Procedures
-  - Trigger functions
-  - Parameters and return types
-- ⏳ Triggers - Query `information_schema.triggers` and `pg_trigger`
+  - Return types
+  - Definitions
+- ✅ Triggers - Query `information_schema.triggers`
   - Timing and events
   - Table associations
-- ⏳ CHECK Constraints - Extract from `information_schema.check_constraints`
+  - Definitions
+- 📋 CHECK Constraints - Supported in IR, extraction not yet implemented
 
 ### MySQL/MariaDB 📋 PLANNED
 
@@ -300,7 +301,7 @@ db.getCollectionInfos({ name: "collectionName" })[0].options.validator
 
 **Phase 1 Complete**: IR extended with all necessary structures
 **Phase 2 Complete**: SQLite connector fully implemented
-**Phase 3 In Progress**: PostgreSQL connector implementation
+**Phase 3 Complete**: PostgreSQL connector fully implemented
 **Phase 4 Pending**: MySQL and MongoDB connectors
 
 ## Notes

@@ -108,12 +108,14 @@ impl PostgresConnector {
     async fn extract_table_schema(&self, table_name: &str) -> DbResult<EntitySchema> {
         let fields = self.extract_fields(table_name).await?;
         let keys = self.extract_keys(table_name).await?;
+        let indexes = self.extract_indexes(table_name).await?;
 
         Ok(EntitySchema::builder()
             .entity_name(table_name.to_string())
             .entity_type("table")
             .fields(fields)
             .keys(keys)
+            .indexes(indexes)
             .build())
     }
 
@@ -174,7 +176,7 @@ impl PostgresConnector {
         Ok(fields)
     }
 
-    /// Extract keys (primary and unique) for a table
+    /// Extract keys (primary, unique, and foreign) for a table
     async fn extract_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
         let mut keys = Vec::new();
 
@@ -187,6 +189,10 @@ impl PostgresConnector {
         // Extract unique constraints
         let unique_keys = self.extract_unique_constraints(table_name).await?;
         keys.extend(unique_keys);
+
+        // Extract foreign keys
+        let foreign_keys = self.extract_foreign_keys(table_name).await?;
+        keys.extend(foreign_keys);
 
         Ok(keys)
     }
@@ -251,6 +257,307 @@ impl PostgresConnector {
 
         Ok(unique_keys)
     }
+
+    /// Extract foreign keys for a table
+    async fn extract_foreign_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
+        let query = "
+            SELECT
+                tc.constraint_name,
+                kcu.column_name,
+                ccu.table_name AS foreign_table_name,
+                ccu.column_name AS foreign_column_name
+            FROM information_schema.table_constraints AS tc
+            JOIN information_schema.key_column_usage AS kcu
+                ON tc.constraint_name = kcu.constraint_name
+                AND tc.table_schema = kcu.table_schema
+            JOIN information_schema.constraint_column_usage AS ccu
+                ON ccu.constraint_name = tc.constraint_name
+                AND ccu.table_schema = tc.table_schema
+            WHERE tc.constraint_type = 'FOREIGN KEY'
+                AND tc.table_schema = 'public'
+                AND tc.table_name = $1
+        ";
+
+        let rows = self
+            .client
+            .query(query, &[&table_name])
+            .await
+            .map_err(|e| {
+                DbError::QueryError(format!("Failed to query foreign keys: {}", e))
+            })?;
+
+        let mut foreign_keys = Vec::new();
+
+        for row in rows {
+            let _constraint_name: String = row.get(0);
+            let column_name: String = row.get(1);
+            let foreign_table_name: String = row.get(2);
+            let foreign_column_name: String = row.get(3);
+
+            let fk = Key::foreign(vec![column_name.clone()])
+                .with_metadata("referenced_table".to_string(), Value::String(foreign_table_name))
+                .with_metadata("referenced_column".to_string(), Value::String(foreign_column_name))
+                .with_metadata("from_column".to_string(), Value::String(column_name));
+
+            foreign_keys.push(fk);
+        }
+
+        Ok(foreign_keys)
+    }
+
+    /// Extract indexes for a table
+    async fn extract_indexes(&self, table_name: &str) -> DbResult<Vec<Index>> {
+        let query = "
+            SELECT DISTINCT
+                i.relname AS index_name,
+                ix.indisunique AS is_unique,
+                pg_get_expr(ix.indpred, ix.indrelid) AS filter_condition,
+                am.amname AS index_type
+            FROM pg_class t
+            JOIN pg_index ix ON t.oid = ix.indrelid
+            JOIN pg_class i ON i.oid = ix.indexrelid
+            JOIN pg_am am ON i.relam = am.oid
+            WHERE t.relkind = 'r'
+                AND t.relname = $1
+                AND NOT ix.indisprimary
+            ORDER BY i.relname
+        ";
+
+        let rows = self
+            .client
+            .query(query, &[&table_name])
+            .await
+            .map_err(|e| DbError::QueryError(format!("Failed to query indexes: {}", e)))?;
+
+        let mut indexes = Vec::new();
+
+        for row in rows {
+            let index_name: String = row.get(0);
+            let is_unique: bool = row.get(1);
+            let filter_condition: Option<String> = row.get(2);
+            let index_type_str: String = row.get(3);
+
+            // Get columns for this index
+            let columns = self.extract_index_columns(table_name, &index_name).await?;
+
+            if !columns.is_empty() {
+                let index_type = if is_unique {
+                    IndexType::Unique
+                } else {
+                    match index_type_str.as_str() {
+                        "gin" | "gist" => IndexType::FullText,
+                        "brin" => IndexType::Regular,
+                        _ => IndexType::Regular,
+                    }
+                };
+
+                let mut index = Index::new(index_name, index_type, columns);
+                if let Some(filter) = filter_condition {
+                    index = index.with_filter(filter);
+                }
+
+                indexes.push(index);
+            }
+        }
+
+        Ok(indexes)
+    }
+
+    /// Extract column names for an index
+    async fn extract_index_columns(&self, table_name: &str, index_name: &str) -> DbResult<Vec<String>> {
+        let query = "
+            SELECT a.attname
+            FROM pg_class t
+            JOIN pg_index ix ON t.oid = ix.indrelid
+            JOIN pg_class i ON i.oid = ix.indexrelid
+            JOIN pg_attribute a ON a.attrelid = t.oid AND a.attnum = ANY(ix.indkey)
+            WHERE t.relname = $1
+                AND i.relname = $2
+            ORDER BY array_position(ix.indkey, a.attnum)
+        ";
+
+        let rows = self
+            .client
+            .query(query, &[&table_name, &index_name])
+            .await
+            .map_err(|e| DbError::QueryError(format!("Failed to query index columns: {}", e)))?;
+
+        let columns: Vec<String> = rows.iter().map(|row| row.get(0)).collect();
+
+        Ok(columns)
+    }
+
+    /// Extract views from the database
+    async fn extract_views(&self) -> DbResult<Vec<View>> {
+        // Extract regular views
+        let regular_views_query = "
+            SELECT
+                table_name AS view_name,
+                view_definition
+            FROM information_schema.views
+            WHERE table_schema = 'public'
+        ";
+
+        let rows = self
+            .client
+            .query(regular_views_query, &[])
+            .await
+            .map_err(|e| DbError::QueryError(format!("Failed to query views: {}", e)))?;
+
+        let mut views = Vec::new();
+
+        for row in rows {
+            let view_name: String = row.get(0);
+            let definition: String = row.get(1);
+
+            let view = View::new(view_name).with_definition(definition);
+            views.push(view);
+        }
+
+        // Extract materialized views
+        let mat_views_query = "
+            SELECT
+                matviewname,
+                definition
+            FROM pg_matviews
+            WHERE schemaname = 'public'
+        ";
+
+        let mat_rows = self
+            .client
+            .query(mat_views_query, &[])
+            .await
+            .map_err(|e| DbError::QueryError(format!("Failed to query materialized views: {}", e)))?;
+
+        for row in mat_rows {
+            let view_name: String = row.get(0);
+            let definition: String = row.get(1);
+
+            let view = View::new(view_name)
+                .with_definition(definition)
+                .materialized();
+            views.push(view);
+        }
+
+        Ok(views)
+    }
+
+    /// Extract stored procedures and functions
+    async fn extract_stored_procedures(&self) -> DbResult<Vec<StoredProcedure>> {
+        let query = "
+            SELECT
+                routine_name,
+                routine_type,
+                data_type AS return_type,
+                routine_definition
+            FROM information_schema.routines
+            WHERE routine_schema = 'public'
+            ORDER BY routine_name
+        ";
+
+        let rows = self
+            .client
+            .query(query, &[])
+            .await
+            .map_err(|e| DbError::QueryError(format!("Failed to query routines: {}", e)))?;
+
+        let mut procedures = Vec::new();
+
+        for row in rows {
+            let name: String = row.get(0);
+            let routine_type: String = row.get(1);
+            let return_type: Option<String> = row.get(2);
+            let definition: Option<String> = row.get(3);
+
+            let mut proc = StoredProcedure::new(name, routine_type);
+            
+            if let Some(ret_type) = return_type {
+                proc = proc.with_return_type(ret_type);
+            }
+            
+            if let Some(def) = definition {
+                proc = proc.with_definition(def);
+            }
+
+            procedures.push(proc);
+        }
+
+        Ok(procedures)
+    }
+
+    /// Extract triggers for a table
+    async fn extract_table_triggers(&self, table_name: &str) -> DbResult<Vec<Trigger>> {
+        let query = "
+            SELECT
+                trigger_name,
+                event_manipulation AS event,
+                action_timing AS timing,
+                action_statement AS definition
+            FROM information_schema.triggers
+            WHERE event_object_table = $1
+                AND event_object_schema = 'public'
+        ";
+
+        let rows = self
+            .client
+            .query(query, &[&table_name])
+            .await
+            .map_err(|e| DbError::QueryError(format!("Failed to query triggers: {}", e)))?;
+
+        let mut triggers = Vec::new();
+
+        for row in rows {
+            let trigger_name: String = row.get(0);
+            let event: String = row.get(1);
+            let timing: String = row.get(2);
+            let definition: String = row.get(3);
+
+            let trigger = Trigger::new(trigger_name, table_name.to_string(), timing, event)
+                .with_definition(definition);
+
+            triggers.push(trigger);
+        }
+
+        Ok(triggers)
+    }
+
+    /// Extract all triggers from the database
+    async fn extract_all_triggers(&self) -> DbResult<Vec<Trigger>> {
+        let query = "
+            SELECT DISTINCT
+                trigger_name,
+                event_object_table,
+                event_manipulation AS event,
+                action_timing AS timing,
+                action_statement AS definition
+            FROM information_schema.triggers
+            WHERE event_object_schema = 'public'
+            ORDER BY trigger_name
+        ";
+
+        let rows = self
+            .client
+            .query(query, &[])
+            .await
+            .map_err(|e| DbError::QueryError(format!("Failed to query all triggers: {}", e)))?;
+
+        let mut triggers = Vec::new();
+
+        for row in rows {
+            let trigger_name: String = row.get(0);
+            let table_name: String = row.get(1);
+            let event: String = row.get(2);
+            let timing: String = row.get(3);
+            let definition: String = row.get(4);
+
+            let trigger = Trigger::new(trigger_name, table_name, timing, event)
+                .with_definition(definition);
+
+            triggers.push(trigger);
+        }
+
+        Ok(triggers)
+    }
 }
 
 #[cfg(feature = "postgres")]
@@ -269,10 +576,22 @@ impl DbSchemaConnector for PostgresConnector {
                 entities.push(entity);
             }
 
+            // Extract views (regular and materialized)
+            let views = self.extract_views().await?;
+
+            // Extract stored procedures and functions
+            let stored_procedures = self.extract_stored_procedures().await?;
+
+            // Extract all triggers
+            let triggers = self.extract_all_triggers().await?;
+
             Ok(SourceSchema::builder()
                 .source_name(self.database_name.clone())
                 .source_type("postgres")
                 .entities(entities)
+                .views(views)
+                .stored_procedures(stored_procedures)
+                .triggers(triggers)
                 .build())
         })
     }

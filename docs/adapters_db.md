@@ -244,6 +244,11 @@ The PostgreSQL adapter extracts the following metadata:
 - **Columns**: Name, type, nullability, precision/scale
 - **Primary Keys**: Single and composite primary keys
 - **Unique Constraints**: Unique constraints
+- **Foreign Keys**: Foreign key relationships with referenced tables/columns
+- **Indexes**: Regular, unique, partial (filtered), GIN, GIST indexes
+- **Views**: Regular views and materialized views with SQL definitions
+- **Stored Procedures**: Functions and procedures with return types and definitions
+- **Triggers**: Database triggers with timing, events, and definitions
 
 **Type Mapping:**
 - SMALLINT, INTEGER → Int32
@@ -266,6 +271,12 @@ The PostgreSQL adapter extracts the following metadata:
 - UUID → Uuid
 - ARRAY → Unknown (preserves element type info)
 - User-defined types → Unknown (preserves original type name)
+
+**Advanced Features:**
+- Partial/filtered indexes with WHERE conditions
+- Materialized views (marked with `is_materialized` flag)
+- GIN and GIST indexes (mapped to FullText type)
+- Async operations using tokio runtime
 
 ### MongoDB
 
