@@ -14,7 +14,7 @@ audd generate-config
 audd generate-config --out ~/.audd.toml
 ```
 
-Ver [CONFIG.md](../../docs/CONFIG.md) para documentación detallada de configuración.
+Ver [CONFIG.md](../../docs/es/CONFIG.md) para documentación detallada de configuración.
 
 ### Inspeccionar una única fuente de datos
 
@@ -235,7 +235,7 @@ $ audd inspect --source "db:mysql://invalid"
 
 ## Archivos de Configuración
 
-AUDD soporta archivos de configuración para ajustes persistentes. Ver [CONFIG.md](../../docs/CONFIG.md) para documentación completa.
+AUDD soporta archivos de configuración para ajustes persistentes. Ver [CONFIG.md](../../docs/es/CONFIG.md) para documentación completa.
 
 ### Inicio Rápido con Archivos de Configuración
 
@@ -287,4 +287,4 @@ audd --config team-config.toml compare \
   --confidence-threshold 0.95
 ```
 
-Para opciones de configuración detalladas y ejemplos, ver la [Documentación de Configuración](../../docs/CONFIG.md).
+Para opciones de configuración detalladas y ejemplos, ver la [Documentación de Configuración](../../docs/es/CONFIG.md).
