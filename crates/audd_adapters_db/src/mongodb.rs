@@ -3,9 +3,9 @@
 #[cfg(feature = "mongodb")]
 use mongodb::{Client, options::ClientOptions};
 #[cfg(feature = "mongodb")]
-use mongodb::bson::{Bson, Document};
+use mongodb::bson::{Bson, Document, doc};
 
-use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, SourceSchema};
+use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, SourceSchema, Index, IndexType, View};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
 
@@ -105,8 +105,6 @@ impl MongoDbConnector {
 
     /// Extract schema for a specific collection by sampling documents
     async fn extract_collection_schema(&self, collection_name: &str) -> DbResult<EntitySchema> {
-        use mongodb::bson::doc;
-
         let db = self.client.database(&self.database_name);
         let collection = db.collection::<Document>(collection_name);
 
@@ -186,12 +184,183 @@ impl MongoDbConnector {
             vec![]
         };
 
+        // Extract indexes for this collection
+        let indexes = self.extract_collection_indexes(collection_name).await?;
+
         Ok(EntitySchema::builder()
             .entity_name(collection_name.to_string())
             .entity_type("collection")
             .fields(fields)
             .keys(keys)
+            .indexes(indexes)
             .build())
+    }
+
+    /// Extract indexes for a specific collection
+    async fn extract_collection_indexes(&self, collection_name: &str) -> DbResult<Vec<Index>> {
+        use mongodb::IndexModel;
+        use futures::stream::TryStreamExt;
+
+        let db = self.client.database(&self.database_name);
+        let collection = db.collection::<Document>(collection_name);
+
+        // List indexes using the listIndexes command
+        let cursor = collection
+            .list_indexes()
+            .await
+            .map_err(|e| {
+                DbError::QueryError(format!("Failed to list indexes for collection {}: {}", collection_name, e))
+            })?;
+
+        let mut indexes = Vec::new();
+
+        // Collect all index models
+        let index_models: Vec<IndexModel> = cursor
+            .try_collect()
+            .await
+            .map_err(|e| DbError::ExtractionError(format!("Failed to collect indexes: {}", e)))?;
+
+        // Process each index
+        for index_model in index_models {
+            // Get the index options as BSON Document
+            let index_doc = mongodb::bson::to_document(&index_model)
+                .map_err(|e| DbError::ExtractionError(format!("Failed to convert index to document: {}", e)))?;
+
+            // Skip the _id index (it's the primary key)
+            if let Some(name) = index_doc.get_str("name").ok() {
+                if name == "_id_" {
+                    continue;
+                }
+            }
+
+            // Parse index information
+            if let Some(index) = self.parse_index_document(&index_doc)? {
+                indexes.push(index);
+            }
+        }
+
+        Ok(indexes)
+    }
+
+    /// Parse a MongoDB index document into an Index structure
+    fn parse_index_document(&self, index_doc: &Document) -> DbResult<Option<Index>> {
+        let index_name = index_doc
+            .get_str("name")
+            .map_err(|_| DbError::ExtractionError("Index missing name field".to_string()))?
+            .to_string();
+
+        // Get the key specification
+        let key_doc = index_doc
+            .get_document("key")
+            .map_err(|_| DbError::ExtractionError(format!("Index {} missing key field", index_name)))?;
+
+        // Extract column names from key
+        let field_names: Vec<String> = key_doc.keys().map(|k| k.to_string()).collect();
+
+        if field_names.is_empty() {
+            return Ok(None);
+        }
+
+        // Determine index type
+        let index_type = if let Ok(text_index_version) = index_doc.get_i32("textIndexVersion") {
+            // Text index
+            if text_index_version > 0 {
+                IndexType::FullText
+            } else {
+                IndexType::Regular
+            }
+        } else if let Ok(sphere_version) = index_doc.get_i32("2dsphereIndexVersion") {
+            // 2dsphere (spatial) index
+            if sphere_version > 0 {
+                IndexType::Spatial
+            } else {
+                IndexType::Regular
+            }
+        } else {
+            // Check if it's a unique index
+            let is_unique = index_doc.get_bool("unique").unwrap_or(false);
+            if is_unique {
+                IndexType::Unique
+            } else {
+                // Check for hashed index
+                if let Some(Bson::String(ref val)) = key_doc.values().next() {
+                    if val == "hashed" {
+                        IndexType::Regular // Hashed indexes are just regular indexes
+                    } else {
+                        IndexType::Regular
+                    }
+                } else {
+                    IndexType::Regular
+                }
+            }
+        };
+
+        // Check for partial filter expression
+        let filter_condition = index_doc
+            .get_document("partialFilterExpression")
+            .ok()
+            .map(|doc| format!("{:?}", doc));
+
+        Ok(Some(Index {
+            index_name,
+            index_type,
+            field_names,
+            filter_condition,
+            metadata: std::collections::HashMap::new(),
+        }))
+    }
+
+    /// Extract views from the database
+    async fn extract_views(&self) -> DbResult<Vec<View>> {
+        use futures::stream::TryStreamExt;
+
+        let db = self.client.database(&self.database_name);
+
+        // List collections and filter for views
+        let cursor = db
+            .list_collections()
+            .await
+            .map_err(|e| DbError::QueryError(format!("Failed to list collections: {}", e)))?;
+
+        let mut views = Vec::new();
+
+        // Collect all collection specifications
+        let coll_specs: Vec<mongodb::results::CollectionSpecification> = cursor
+            .try_collect()
+            .await
+            .map_err(|e| DbError::ExtractionError(format!("Failed to collect collections: {}", e)))?;
+
+        // Process each collection specification
+        for coll_spec in coll_specs {
+            // Check if this is a view based on collection_type field
+            // CollectionType::View is the enum variant for views
+            if matches!(coll_spec.collection_type, mongodb::results::CollectionType::View) {
+                let view_name = coll_spec.name.clone();
+
+                // Extract view options if available
+                // options is a CreateCollectionOptions struct, not an Option
+                let definition = {
+                    // Convert options to document to access pipeline
+                    mongodb::bson::to_document(&coll_spec.options)
+                        .ok()
+                        .and_then(|doc| {
+                            doc.get_array("pipeline")
+                                .ok()
+                                .map(|pipeline| format!("{:?}", pipeline))
+                        })
+                };
+
+                views.push(View {
+                    view_name,
+                    definition,
+                    field_names: Vec::new(), // We don't infer fields for views
+                    is_materialized: false, // MongoDB doesn't have materialized views
+                    metadata: std::collections::HashMap::new(),
+                });
+            }
+        }
+
+        Ok(views)
     }
 }
 
@@ -211,10 +380,14 @@ impl DbSchemaConnector for MongoDbConnector {
                 entities.push(entity);
             }
 
+            // Extract views
+            let views = self.extract_views().await?;
+
             Ok(SourceSchema::builder()
                 .source_name(self.database_name.clone())
                 .source_type("mongodb")
                 .entities(entities)
+                .views(views)
                 .build())
         })
     }

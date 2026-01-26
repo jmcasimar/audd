@@ -321,6 +321,21 @@ The MongoDB adapter infers schema by sampling documents:
 - Nested documents/arrays → Json
 - Mixed types → Unknown (with type list)
 
+**Advanced Features:**
+- Indexes extracted from `listIndexes()` command
+  - Single field and compound indexes
+  - Text indexes (full-text search)
+  - 2dsphere indexes (geospatial/spatial)
+  - Hashed indexes
+  - Unique indexes
+  - Partial/filtered indexes with filter expressions
+- Views extracted from `listCollections()` 
+  - Aggregation pipeline views
+  - View definitions as formatted pipelines
+- Async operations using tokio runtime
+
+**Note:** MongoDB validators (JSON Schema and query validators) are not currently extracted but could be added in a future enhancement.
+
 ## Error Handling
 
 The database adapters provide clear error messages for common issues:
