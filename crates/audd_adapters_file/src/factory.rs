@@ -1,9 +1,10 @@
-//! Factory for auto-detecting and loading schemas from files
+//! Factory for auto-detecting and loading schemas from files and URLs
 
 use crate::adapter::SchemaAdapter;
 use crate::csv_adapter::CsvAdapter;
 use crate::error::{AdapterError, AdapterResult};
 use crate::json_adapter::JsonAdapter;
+use crate::remote_adapter::RemoteAdapter;
 use crate::sql_adapter::SqlAdapter;
 use crate::xml_adapter::XmlAdapter;
 use audd_ir::SourceSchema;
@@ -96,6 +97,78 @@ pub fn get_adapter_for_file<P: AsRef<Path>>(
             extension
         ))),
     }
+}
+
+/// Load a schema from a URL (HTTP/HTTPS or Google Sheets)
+///
+/// Supports:
+/// - HTTP/HTTPS URLs with file extensions (.csv, .json, .xml, .sql, .ddl)
+/// - Google Sheets public URLs (automatically exported as CSV)
+///
+/// # Arguments
+///
+/// * `url` - The URL to fetch the schema from
+///
+/// # Returns
+///
+/// A `SourceSchema` representing the remote file's structure
+///
+/// # Errors
+///
+/// Returns an error if:
+/// - The URL cannot be fetched
+/// - The format cannot be detected
+/// - The content is invalid
+///
+/// # Example
+///
+/// ```no_run
+/// use audd_adapters_file::load_schema_from_url;
+///
+/// # fn main() -> Result<(), Box<dyn std::error::Error>> {
+/// // Load from HTTP URL
+/// let schema = load_schema_from_url("https://example.com/data.csv")?;
+/// println!("Loaded schema: {}", schema.source_name);
+///
+/// // Load from Google Sheets (public)
+/// let sheet_url = "https://docs.google.com/spreadsheets/d/SHEET_ID/edit";
+/// let schema = load_schema_from_url(sheet_url)?;
+/// println!("Loaded schema: {}", schema.source_name);
+/// # Ok(())
+/// # }
+/// ```
+pub fn load_schema_from_url(url: &str) -> AdapterResult<SourceSchema> {
+    RemoteAdapter::new(url).load_schema()
+}
+
+/// Load a schema from a URL with an explicit format hint
+///
+/// This is useful when the URL doesn't have a clear file extension
+///
+/// # Arguments
+///
+/// * `url` - The URL to fetch the schema from
+/// * `format` - The format hint (csv, json, xml, sql)
+///
+/// # Returns
+///
+/// A `SourceSchema` representing the remote file's structure
+///
+/// # Example
+///
+/// ```no_run
+/// use audd_adapters_file::load_schema_from_url_with_format;
+///
+/// # fn main() -> Result<(), Box<dyn std::error::Error>> {
+/// let schema = load_schema_from_url_with_format(
+///     "https://api.example.com/data",
+///     "json"
+/// )?;
+/// # Ok(())
+/// # }
+/// ```
+pub fn load_schema_from_url_with_format(url: &str, format: &str) -> AdapterResult<SourceSchema> {
+    RemoteAdapter::with_format(url, format).load_schema()
 }
 
 #[cfg(test)]

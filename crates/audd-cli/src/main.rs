@@ -11,12 +11,15 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Load and display schema from a source (file or database)
+    /// Load and display schema from a source (file, database, or remote URL)
     Load {
         /// Source identifier
         /// - File: path/to/file.csv or file:path/to/file.csv
         /// - Database: db:sqlite://path, db:mysql://user:pass@host/db, 
-        ///   db:postgres://user:pass@host/db, or db:mongodb://host/db
+        ///   db:postgres://user:pass@host/db, db:mongodb://host/db,
+        ///   db:sqlserver://user:pass@host/db, or db:firebird://user:pass@host:/db.fdb
+        /// - Remote URL: https://example.com/data.csv
+        /// - Google Sheets: https://docs.google.com/spreadsheets/d/SHEET_ID/edit
         #[arg(short, long)]
         source: String,
 
@@ -106,9 +109,9 @@ fn main() {
     }
 }
 
-/// Load schema from either a file or database source
+/// Load schema from either a file, database, or remote URL source
 fn load_schema(source: &str, conn: Option<&str>) -> Result<audd_ir::SourceSchema, String> {
-    use audd_adapters_file::load_schema_from_file;
+    use audd_adapters_file::{load_schema_from_file, load_schema_from_url};
     use audd_adapters_db::create_connector;
 
     // Determine source type
@@ -128,6 +131,10 @@ fn load_schema(source: &str, conn: Option<&str>) -> Result<audd_ir::SourceSchema
         
         connector.load()
             .map_err(|e| format!("Failed to load database schema: {}", e))
+    } else if source.starts_with("http://") || source.starts_with("https://") {
+        // Remote URL source
+        load_schema_from_url(source)
+            .map_err(|e| format!("Failed to load remote schema: {}", e))
     } else {
         // File source
         let path = source.strip_prefix("file:").unwrap_or(source);
