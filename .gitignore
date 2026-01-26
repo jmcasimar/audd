@@ -27,3 +27,9 @@ Thumbs.db
 *.db
 *.sqlite
 *.sqlite3
+
+# CLI output directories
+/output
+/output_*
+ir.json
+ir_*.json
