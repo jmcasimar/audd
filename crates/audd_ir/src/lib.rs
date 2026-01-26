@@ -11,6 +11,11 @@
 //! - `FieldSchema`: Schema for individual fields/columns
 //! - `CanonicalType`: Normalized type system
 //! - `Constraint`: Field constraints and validations
+//! - `Key`: Primary, unique, and foreign keys
+//! - `Index`: Database indexes (regular, unique, full-text, spatial)
+//! - `View`: Database views and materialized views
+//! - `StoredProcedure`: Stored procedures and functions
+//! - `Trigger`: Database triggers
 //!
 //! # Example
 //!
@@ -38,12 +43,16 @@
 
 mod constraint;
 mod key;
+mod index;
+mod view;
 mod normalization;
 mod schema;
 mod types;
 
 pub use constraint::Constraint;
 pub use key::{Key, KeyType};
+pub use index::{Index, IndexType};
+pub use view::{View, StoredProcedure, Trigger};
 pub use normalization::{map_type_to_canonical, normalize_identifier};
 pub use schema::{EntitySchema, FieldSchema, SourceSchema};
 pub use types::CanonicalType;

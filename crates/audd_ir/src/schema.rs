@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
-use crate::{CanonicalType, Constraint, Key, IR_VERSION};
+use crate::{CanonicalType, Constraint, Key, Index, View, Trigger, StoredProcedure, IR_VERSION};
 
 /// Complete schema for a data source
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -17,6 +17,18 @@ pub struct SourceSchema {
 
     /// Entities (tables/collections) in this source
     pub entities: Vec<EntitySchema>,
+
+    /// Views in this source
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub views: Vec<View>,
+
+    /// Stored procedures and functions
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub stored_procedures: Vec<StoredProcedure>,
+
+    /// Triggers
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub triggers: Vec<Trigger>,
 
     /// Version of the IR specification
     pub ir_version: String,
@@ -63,6 +75,10 @@ pub struct EntitySchema {
     /// Keys (primary, unique, foreign)
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub keys: Vec<Key>,
+
+    /// Indexes on this entity
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub indexes: Vec<Index>,
 
     /// Entity-specific metadata
     #[serde(default, skip_serializing_if = "HashMap::is_empty")]
@@ -115,6 +131,9 @@ pub struct SourceSchemaBuilder {
     source_name: Option<String>,
     source_type: Option<String>,
     entities: Vec<EntitySchema>,
+    views: Vec<View>,
+    stored_procedures: Vec<StoredProcedure>,
+    triggers: Vec<Trigger>,
     metadata: HashMap<String, Value>,
 }
 
@@ -143,6 +162,30 @@ impl SourceSchemaBuilder {
         self
     }
 
+    /// Add a view
+    pub fn add_view(mut self, view: View) -> Self {
+        self.views.push(view);
+        self
+    }
+
+    /// Add multiple views
+    pub fn views(mut self, views: Vec<View>) -> Self {
+        self.views = views;
+        self
+    }
+
+    /// Add a stored procedure
+    pub fn add_stored_procedure(mut self, proc: StoredProcedure) -> Self {
+        self.stored_procedures.push(proc);
+        self
+    }
+
+    /// Add a trigger
+    pub fn add_trigger(mut self, trigger: Trigger) -> Self {
+        self.triggers.push(trigger);
+        self
+    }
+
     /// Add metadata
     pub fn metadata(mut self, key: String, value: Value) -> Self {
         self.metadata.insert(key, value);
@@ -155,6 +198,9 @@ impl SourceSchemaBuilder {
             source_name: self.source_name.expect("source_name is required"),
             source_type: self.source_type.expect("source_type is required"),
             entities: self.entities,
+            views: self.views,
+            stored_procedures: self.stored_procedures,
+            triggers: self.triggers,
             ir_version: IR_VERSION.to_string(),
             metadata: self.metadata,
         }
@@ -168,6 +214,7 @@ pub struct EntitySchemaBuilder {
     entity_type: Option<String>,
     fields: Vec<FieldSchema>,
     keys: Vec<Key>,
+    indexes: Vec<Index>,
     metadata: HashMap<String, Value>,
 }
 
@@ -208,6 +255,18 @@ impl EntitySchemaBuilder {
         self
     }
 
+    /// Add an index
+    pub fn add_index(mut self, index: Index) -> Self {
+        self.indexes.push(index);
+        self
+    }
+
+    /// Add multiple indexes
+    pub fn indexes(mut self, indexes: Vec<Index>) -> Self {
+        self.indexes = indexes;
+        self
+    }
+
     /// Add metadata
     pub fn metadata(mut self, key: String, value: Value) -> Self {
         self.metadata.insert(key, value);
@@ -221,6 +280,7 @@ impl EntitySchemaBuilder {
             entity_type: self.entity_type.unwrap_or_else(|| "table".to_string()),
             fields: self.fields,
             keys: self.keys,
+            indexes: self.indexes,
             metadata: self.metadata,
         }
     }
