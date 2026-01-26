@@ -9,7 +9,8 @@
 //! - **MySQL/MariaDB** - via the `mysql` feature (enabled by default)
 //! - **PostgreSQL** - via the `postgres` feature (enabled by default)
 //! - **MongoDB** - via the `mongodb` feature (enabled by default)
-//! - **Microsoft SQL Server** - via the `sqlserver` feature (enabled by default)
+//! - **Microsoft SQL Server** - via the `sqlserver` feature (optional)
+//! - **Firebird** - via the `firebird` feature (optional)
 //!
 //! # Examples
 //!
@@ -60,6 +61,7 @@
 //! - **PostgreSQL**: `postgres://user:password@host:port/database`
 //! - **MongoDB**: `mongodb://host:port/database` or `mongodb+srv://host/database`
 //! - **SQL Server**: `sqlserver://user:password@host:port/database` or `mssql://user:password@host:port/database`
+//! - **Firebird**: `firebird://host:/path/to/database.fdb` or `firebird:///path/to/database.fdb`
 //!
 //! # Features
 //!
@@ -67,7 +69,8 @@
 //! - `mysql` - Enable MySQL/MariaDB support (default)
 //! - `postgres` - Enable PostgreSQL support (default)
 //! - `mongodb` - Enable MongoDB support (default)
-//! - `sqlserver` - Enable Microsoft SQL Server support (default)
+//! - `sqlserver` - Enable Microsoft SQL Server support (optional)
+//! - `firebird` - Enable Firebird support (optional)
 
 mod connector;
 mod error;
@@ -87,6 +90,9 @@ pub mod mongodb;
 
 #[cfg(feature = "sqlserver")]
 pub mod sqlserver;
+
+#[cfg(feature = "firebird")]
+pub mod firebird;
 
 pub use connector::{parse_connection_string, DbSchemaConnector};
 pub use error::{DbError, DbResult};

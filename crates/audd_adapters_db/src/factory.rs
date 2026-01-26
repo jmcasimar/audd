@@ -18,6 +18,9 @@ use crate::mongodb::MongoDbConnector;
 #[cfg(feature = "sqlserver")]
 use crate::sqlserver::SqlServerConnector;
 
+#[cfg(feature = "firebird")]
+use crate::firebird::FirebirdConnector;
+
 /// Create a database connector from a connection string
 ///
 /// # Arguments
@@ -28,6 +31,7 @@ use crate::sqlserver::SqlServerConnector;
 ///   - PostgreSQL: `postgres://user:password@host:port/database`
 ///   - MongoDB: `mongodb://host:port/database`
 ///   - SQL Server: `sqlserver://user:password@host:port/database`
+///   - Firebird: `firebird://host:/path/to/database.fdb` (note: username and password are separate parameters)
 ///
 /// # Examples
 ///
@@ -134,6 +138,36 @@ pub fn create_connector(conn_str: &str) -> DbResult<Box<dyn DbSchemaConnector>> 
             {
                 Err(DbError::FeatureNotEnabled(
                     "sqlserver - enable the 'sqlserver' feature".to_string(),
+                ))
+            }
+        }
+        "firebird" => {
+            #[cfg(feature = "firebird")]
+            {
+                // For Firebird, we need to extract username and password from the connection string
+                // Format: firebird://username:password@host:/path/to/db.fdb
+                // OR: firebird://username:password@/path/to/db.fdb (for embedded)
+                
+                // Parse format: username:password@database_path
+                if let Some((credentials, db_path)) = conn_details.split_once('@') {
+                    if let Some((username, password)) = credentials.split_once(':') {
+                        let connector = FirebirdConnector::new(db_path, username, password)?;
+                        Ok(Box::new(connector))
+                    } else {
+                        Err(DbError::InvalidConnectionString(
+                            "Firebird connection string must include username:password (format: firebird://user:pass@host:/path/to/db.fdb)".to_string(),
+                        ))
+                    }
+                } else {
+                    Err(DbError::InvalidConnectionString(
+                        "Firebird connection string must include username:password (format: firebird://user:pass@host:/path/to/db.fdb)".to_string(),
+                    ))
+                }
+            }
+            #[cfg(not(feature = "firebird"))]
+            {
+                Err(DbError::FeatureNotEnabled(
+                    "firebird - enable the 'firebird' feature".to_string(),
                 ))
             }
         }

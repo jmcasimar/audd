@@ -47,6 +47,7 @@ pub trait DbSchemaConnector {
 /// - PostgreSQL: `postgres://user:password@host:port/database` or `postgresql://...`
 /// - MongoDB: `mongodb://user:password@host:port/database` or `mongodb+srv://...`
 /// - SQL Server: `sqlserver://user:password@host:port/database` or `mssql://...`
+/// - Firebird: `firebird://host:/path/to/database.fdb` or `firebird:///path/to/database.fdb`
 ///
 /// # Examples
 ///
@@ -131,6 +132,10 @@ pub fn parse_connection_string(conn_str: &str) -> DbResult<(String, String)> {
             // Normalize mssql to sqlserver
             let normalized_engine = "sqlserver".to_string();
             Ok((normalized_engine, conn_details.to_string()))
+        }
+        "firebird" => {
+            // Firebird format: firebird://host:/path/to/db.fdb or firebird:///path/to/db.fdb
+            Ok((engine, conn_details.to_string()))
         }
         _ => Err(DbError::UnsupportedEngine(engine)),
     }
