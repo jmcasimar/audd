@@ -2,6 +2,16 @@
 
 **Dynamic Data Unification Algorithm**
 
+---
+
+**🌐 Language / Idioma:**  
+📘 [Español (Base)](docs/es/README_PRINCIPAL.md) | 📗 [English](README.md)
+
+> **Note:** Spanish is the base language for this project. Documentation is maintained in both Spanish and English.  
+> **Nota:** El español es el idioma base de este proyecto. La documentación se mantiene en español e inglés.
+
+---
+
 A Rust-based tool for intelligent data comparison and unification across heterogeneous sources.
 
 ## 🎯 Purpose
@@ -190,13 +200,25 @@ cargo fmt
 cargo clippy
 ```
 
+## 📚 Documentation
+
+**Complete documentation is available in both languages:**
+
+- 📘 **Spanish (Base):** [docs/es/](docs/es/)
+- 📗 **English:** [docs/en/](docs/en/)
+
+For detailed guides, see:
+- [Configuration Guide](docs/en/CONFIG.md) | [Guía de Configuración](docs/es/CONFIG.md)
+- [IR Specification](docs/en/ir.md) | [Especificación IR](docs/es/ir.md)
+- [CLI Examples](examples/cli/README.md) | [Ejemplos CLI](examples/cli/README_ES.md)
+
 ## 📝 Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+See [CONTRIBUTING.md](CONTRIBUTING.md) | [Contribuciones](docs/es/CONTRIBUTING.md) for guidelines.
 
 ## 🔒 Security
 
-See [SECURITY.md](SECURITY.md) for reporting procedures.
+See [SECURITY.md](SECURITY.md) | [Seguridad](docs/es/SECURITY.md) for reporting procedures.
 
 ## 📄 License
 

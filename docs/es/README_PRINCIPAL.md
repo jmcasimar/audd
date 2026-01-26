@@ -2,6 +2,15 @@
 
 **Algoritmo de Unificación Dinámica de Datos**
 
+---
+
+**🌐 Idioma / Language:**  
+📘 **Español (Base)** | 📗 [English](../../README.md)
+
+> **Nota:** El español es el idioma base de este proyecto. La documentación se mantiene sincronizada en español e inglés conforme evoluciona el proyecto.
+
+---
+
 Una herramienta basada en Rust para la comparación y unificación inteligente de datos entre fuentes heterogéneas.
 
 ## 🎯 Propósito
