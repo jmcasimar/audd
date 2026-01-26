@@ -8,10 +8,11 @@ AUDD provides database adapters that allow you to extract schema metadata direct
 
 ### Current Support
 
-- **SQLite** - Full support for schema extraction
-- **MySQL/MariaDB** - Full support for schema extraction
-- **PostgreSQL** - Full support for schema extraction
-- **MongoDB** - Full support with schema inference from document sampling
+- **SQLite** - Full support for schema extraction including foreign keys, indexes, views, and triggers
+- **MySQL/MariaDB** - Full support for schema extraction including foreign keys, indexes, views, stored procedures, and triggers
+- **PostgreSQL** - Full support for schema extraction including foreign keys, indexes, views, stored procedures, and triggers
+- **MongoDB** - Full support with schema inference from document sampling, including indexes and views
+- **Microsoft SQL Server** - Full support for schema extraction including foreign keys, indexes, views, stored procedures, and triggers (optional feature flag)
 
 ## Connection String Formats
 
@@ -103,6 +104,31 @@ mongodb://localhost:27017/mydb?retryWrites=true&w=majority
 
 **Note:** MongoDB schema is inferred by sampling documents (default: 100 documents per collection).
 
+### Microsoft SQL Server
+
+```
+sqlserver://user:password@host:port/database
+mssql://user:password@host:port/database  # Alias (normalized to sqlserver)
+sqlserver://user:password@host/database  # Port defaults to 1433
+```
+
+**Examples:**
+```bash
+# With explicit port
+sqlserver://sa:YourPassword@localhost:1433/myapp_db
+
+# Default port (1433)
+sqlserver://user:pass@localhost/myapp_db
+
+# Remote SQL Server
+sqlserver://dbuser:dbpass@sqlserver.example.com/production_db
+
+# Using mssql prefix (normalized to sqlserver)
+mssql://sa:pass@localhost/myapp_db
+```
+
+**Note:** SQL Server connector requires the `sqlserver` feature flag to be enabled. It is not included in the default features.
+
 ## CLI Usage
 
 ### Load Schema from Database
@@ -147,6 +173,21 @@ audd load --source "db:mongodb://localhost:27017/mydb"
 audd load --source "db:mongodb+srv://cluster0.mongodb.net/production"
 ```
 
+#### SQL Server Example
+
+```bash
+# Load schema from SQL Server database
+audd load --source "db:sqlserver://sa:password@localhost/mydb"
+
+# With explicit port
+audd load --source "db:sqlserver://user:pass@localhost:1433/myapp"
+
+# Using mssql prefix
+audd load --source "db:mssql://sa:password@server/mydb"
+```
+
+**Note:** SQL Server support requires enabling the `sqlserver` feature flag when building AUDD.
+
 #### Legacy Format (with separate --conn flag)
 
 ```bash
@@ -187,6 +228,16 @@ audd compare \
 audd compare \
   --source-a "db:postgres://user:pass@staging:5432/myapp" \
   --source-b "db:postgres://user:pass@production:5432/myapp"
+
+# Compare SQL Server with MySQL
+audd compare \
+  --source-a "db:sqlserver://sa:pass@localhost/devdb" \
+  --source-b "db:mysql://user:pass@production/myapp"
+
+# Compare SQL Server development to production
+audd compare \
+  --source-a "db:sqlserver://user:pass@dev-server/myapp" \
+  --source-b "db:sqlserver://user:pass@prod-server/myapp"
 ```
 
 ## Schema Extraction Details
@@ -336,6 +387,62 @@ The MongoDB adapter infers schema by sampling documents:
 
 **Note:** MongoDB validators (JSON Schema and query validators) are not currently extracted but could be added in a future enhancement.
 
+### Microsoft SQL Server
+
+The SQL Server adapter extracts the following metadata:
+
+- **Tables**: All user tables from dbo schema
+- **Columns**: Name, type, nullability, defaults
+- **Primary Keys**: Single and composite primary keys
+- **Foreign Keys**: With referenced table and column information
+- **Indexes**: Regular, unique, full-text, spatial, and filtered indexes
+- **Views**: View definitions from INFORMATION_SCHEMA
+- **Stored Procedures**: Functions and procedures with definitions
+- **Triggers**: Timing, events, and SQL definitions
+
+**Type Mapping:**
+- BIT → Boolean
+- TINYINT, SMALLINT, INT → Int32
+- BIGINT → Int64
+- DECIMAL(p,s), NUMERIC(p,s) → Decimal{p,s}
+- MONEY, SMALLMONEY → Decimal{19,4}
+- REAL → Float32
+- FLOAT → Float64
+- CHAR, VARCHAR, NCHAR, NVARCHAR → String
+- VARCHAR(MAX), TEXT, NTEXT → Text
+- BINARY, VARBINARY, IMAGE → Binary
+- DATE → Date
+- TIME → Time
+- DATETIME, DATETIME2, SMALLDATETIME, DATETIMEOFFSET → DateTime
+- UNIQUEIDENTIFIER → Uuid
+- JSON, XML → Json
+- GEOGRAPHY, GEOMETRY → Unknown (with spatial type info)
+
+**Advanced Features:**
+- Foreign keys extracted from `sys.foreign_keys` and `sys.foreign_key_columns`
+  - Supports composite foreign keys
+  - Referenced table and column metadata
+- Indexes extracted from `sys.indexes` and `sys.index_columns`
+  - Regular (non-unique) indexes
+  - Unique indexes  
+  - Full-text indexes
+  - Spatial indexes
+  - Filtered indexes with filter definitions
+  - Excludes primary key and unique constraint indexes
+- Views extracted from `INFORMATION_SCHEMA.VIEWS`
+  - View names and SQL definitions
+- Stored procedures from `INFORMATION_SCHEMA.ROUTINES`
+  - Functions and procedures
+  - Routine types and return types
+  - SQL definitions
+- Triggers from `sys.triggers`
+  - BEFORE/AFTER/INSTEAD OF timing
+  - INSERT/UPDATE/DELETE events
+  - SQL definitions
+- Async operations using tiberius and tokio runtime
+
+**Note:** SQL Server support requires enabling the `sqlserver` feature flag when building AUDD. Add `features = ["sqlserver"]` to your Cargo.toml or use `--features sqlserver` when building.
+
 ## Error Handling
 
 The database adapters provide clear error messages for common issues:
@@ -374,7 +481,7 @@ The database adapters provide clear error messages for common issues:
 
 ```
 ❌ Error loading schema: Failed to create database connector: 
-   Unsupported database engine: oracle (Supported: sqlite, mysql, postgres, mongodb)
+   Unsupported database engine: oracle (Supported: sqlite, mysql, postgres, mongodb, sqlserver)
 ```
 
 **Solution:** Use a supported database engine.
