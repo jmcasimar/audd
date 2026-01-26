@@ -21,3 +21,6 @@ audd_resolution = { path = "../audd_resolution" }
 serde_json.workspace = true
 anyhow.workspace = true
 thiserror.workspace = true
+
+[dev-dependencies]
+tempfile = "3.8"

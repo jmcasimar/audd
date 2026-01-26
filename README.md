@@ -11,12 +11,15 @@ AUDD provides automated data reconciliation and schema mapping for datasets from
 ## ✨ Features
 
 - **File Adapters**: Load schemas from CSV, JSON, XML, and SQL/DDL files
+- **Database Adapters**: Connect to SQLite, MySQL, PostgreSQL, MongoDB, SQL Server, and Firebird
 - **Intermediate Representation (IR)**: Canonical schema model for heterogeneous sources
 - **Auto-detection**: Automatic format detection from file extensions
 - **Type Inference**: Smart type detection for JSON and SQL sources
 - **Conflict Detection**: Advanced schema comparison and conflict identification
 - **Resolution Engine**: Automated and manual conflict resolution strategies
+- **Unified Schema Generation**: Automatic creation of unified schema (C) from sources A and B
 - **Auditable Decisions**: Track and document all schema unification decisions
+- **Multiple Output Formats**: JSON schemas, diff reports, decision logs, and Markdown reports
 - **CLI and Library**: Use as command-line tool or Rust library
 
 ## 🚀 Quick Start
@@ -34,47 +37,83 @@ Binary available at: `target/release/audd`
 
 ### Usage
 
-**Load schema from a file:**
+**Inspect a schema (IR export):**
+```bash
+# Print to stdout
+audd inspect --source users.csv
+
+# Save to file
+audd inspect --source schema.sql --out ir.json
+```
+
+**Load and display schema:**
 ```bash
 audd load --source users.csv
 audd load --source schema.sql
 audd load --source data.json
 ```
 
-**Compare two data sources (stub):**
+**Compare two data sources:**
 ```bash
-audd compare --source1 data1.csv --source2 data2.json
+audd compare \
+  --source-a data1.csv \
+  --source-b data2.json \
+  --out output
+
+# Generates:
+# - output/unified_schema.json  (Unified schema C)
+# - output/diff.json             (Comparison results)
+# - output/decision_log.json     (Resolution decisions)
+# - output/report.md             (Human-readable report)
+```
+
+**Work with databases:**
+```bash
+# Inspect a database
+audd inspect --source "db:sqlite:///path/to/db.sqlite"
+
+# Compare file vs database
+audd compare \
+  --source-a users.csv \
+  --source-b "db:postgres://user:pass@host/db" \
+  --out comparison_output
 ```
 
 **Get help:**
 ```bash
 audd --help
-audd load --help
+audd compare --help
+audd inspect --help
 ```
 
 ### Example
 
 ```bash
-# Load and inspect a CSV schema
-audd load --source fixtures/adapters/users.csv
+# Compare CSV and JSON schemas
+audd compare \
+  --source-a fixtures/adapters/users.csv \
+  --source-b fixtures/adapters/users.json \
+  --out output
 
-# Load SQL DDL with multiple tables
-audd load --source fixtures/adapters/schema.sql --format json
+# Output:
+# 🔍 AUDD Compare
+# ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+# Loading schema A from fixtures/adapters/users.csv...
+# ✓ Schema A loaded: users (1 entities)
+# Loading schema B from fixtures/adapters/users.json...
+# ✓ Schema B loaded: users (1 entities)
+#
+# Comparing schemas...
+# ✓ Comparison complete!
+#   - Matches: 6
+#   - Exclusives: 1
+#   - Conflicts: 3
+#
+# ✅ Comparison completed successfully!
+# Output files written to: output
 ```
 
-**Output (stub):**
-```
-🔍 AUDD Compare (Stub Implementation)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Source 1: crm_export.csv
-Source 2: erp_data.json
-Format:   json
-
-✓ Comparison completed successfully!
-
-Note: This is a stub implementation.
-Full comparison logic will be implemented in upcoming sprints.
-```
+For more examples, see [`examples/cli/README.md`](examples/cli/README.md).
 
 ## 🏗️ Architecture
 
