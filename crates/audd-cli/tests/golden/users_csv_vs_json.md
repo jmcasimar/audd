@@ -38,7 +38,7 @@
 ### Matches
 
 - **Total**: 6
-- **Exact name matches**: 6
+- **Exact name matches**: 0
 - **Average confidence**: 1.00
 
 ### Exclusives
@@ -63,12 +63,12 @@
 
 | Entity | Field | Match Type | Score | Index A | Index B |
 |--------|-------|------------|-------|---------|---------|
-| users | (entity) | exact_name | 1.00 | 0 | 0 |
-| users | id | exact_name | 1.00 | 0 | 0 |
-| users | name | exact_name | 1.00 | 1 | 1 |
-| users | email | exact_name | 1.00 | 2 | 2 |
-| users | age | exact_name | 1.00 | 3 | 3 |
-| users | active | exact_name | 1.00 | 4 | 4 |
+| users | (entity) | semantic_match | 1.00 | 0 | 0 |
+| users | id | semantic_match | 1.00 | 0 | 0 |
+| users | name | semantic_match | 1.00 | 1 | 1 |
+| users | email | semantic_match | 1.00 | 2 | 2 |
+| users | age | semantic_match | 1.00 | 3 | 3 |
+| users | active | semantic_match | 1.00 | 4 | 4 |
 
 ### Exclusives
 

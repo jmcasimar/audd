@@ -174,7 +174,7 @@ pub struct StemmingConfig {
 
 impl Default for StemmingConfig {
     fn default() -> Self {
-        Self { enabled: true }
+        Self { enabled: false }  // Disable by default for entity names
     }
 }
 
@@ -287,12 +287,12 @@ pub struct ScoringWeights {
 impl Default for ScoringWeights {
     fn default() -> Self {
         Self {
-            exact_normalized: 0.50,  // If exact match after normalization, strong signal
-            plural_stem: 0.45,        // If same after plural/stem, very strong signal
-            synonyms: 0.50,           // Synonyms are controlled equivalences, strong signal
-            token_similarity: 0.30,   // Token overlap is good indicator
-            fuzzy_chars: 0.20,        // Fuzzy can help with typos
-            ngrams: 0.15,             // N-grams provide additional signal
+            exact_normalized: 0.60,  // If exact match after normalization, strong signal
+            plural_stem: 0.55,        // If same after plural/stem, very strong signal
+            synonyms: 0.70,           // Synonyms are controlled equivalences, strongest signal
+            token_similarity: 0.25,   // Token overlap is good indicator
+            fuzzy_chars: 0.15,        // Fuzzy can help with typos
+            ngrams: 0.10,             // N-grams provide additional signal
         }
     }
 }

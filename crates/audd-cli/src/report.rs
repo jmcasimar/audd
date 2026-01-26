@@ -381,6 +381,7 @@ fn generate_technical_details(md: &mut String, result: &ComparisonResult) {
                 MatchReason::ExactName => "exact_name".to_string(),
                 MatchReason::NormalizedName { .. } => "normalized".to_string(),
                 MatchReason::Similarity { .. } => "similarity".to_string(),
+                MatchReason::Semantic { decision, .. } => format!("semantic_{}", decision),
             };
             md.push_str(&format!("| {} | {} | {} | {:.2} | {} | {} |\n",
                 m.entity_name, field_name, match_type, m.score, m.index_a, m.index_b));
@@ -1117,14 +1118,15 @@ fn build_json_technical_details(result: &ComparisonResult) -> JsonTechnicalDetai
     let matches = result.matches.iter()
         .map(|m| {
             let match_type = match &m.reason {
-                MatchReason::ExactName => "exact_name",
-                MatchReason::NormalizedName { .. } => "normalized",
-                MatchReason::Similarity { .. } => "similarity",
+                MatchReason::ExactName => "exact_name".to_string(),
+                MatchReason::NormalizedName { .. } => "normalized".to_string(),
+                MatchReason::Similarity { .. } => "similarity".to_string(),
+                MatchReason::Semantic { decision, .. } => format!("semantic_{}", decision),
             };
             JsonMatch {
                 entity: m.entity_name.clone(),
                 field: m.field_name.clone(),
-                match_type: match_type.to_string(),
+                match_type,
                 score: m.score,
                 index_a: m.index_a,
                 index_b: m.index_b,
