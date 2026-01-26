@@ -219,6 +219,11 @@ The MySQL adapter extracts the following metadata:
 - **Columns**: Name, type, nullability, defaults
 - **Primary Keys**: Single and composite primary keys
 - **Unique Constraints**: Unique indexes
+- **Foreign Keys**: Foreign key relationships with referenced tables/columns
+- **Indexes**: Regular, full-text, and spatial indexes
+- **Views**: View names and SQL definitions
+- **Stored Procedures**: Procedures and functions with return types and definitions
+- **Triggers**: Database triggers with timing, events, table associations, and definitions
 
 **Type Mapping:**
 - TINYINT, SMALLINT, MEDIUMINT, INT → Int32
@@ -235,6 +240,15 @@ The MySQL adapter extracts the following metadata:
 - TIMESTAMP → Timestamp
 - JSON → Json
 - TINYINT(1) → Boolean
+
+**Advanced Features:**
+- Foreign keys extracted from `INFORMATION_SCHEMA.KEY_COLUMN_USAGE`
+- Regular indexes (non-unique) from `INFORMATION_SCHEMA.STATISTICS`
+- Full-text indexes (FULLTEXT type)
+- Spatial indexes (SPATIAL type)
+- Views from `INFORMATION_SCHEMA.VIEWS`
+- Stored procedures and functions from `INFORMATION_SCHEMA.ROUTINES`
+- Triggers from `INFORMATION_SCHEMA.TRIGGERS`
 
 ### PostgreSQL
 

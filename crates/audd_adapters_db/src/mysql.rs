@@ -2,8 +2,13 @@
 
 #[cfg(feature = "mysql")]
 use mysql::{Pool, PooledConn, prelude::Queryable};
+#[cfg(feature = "mysql")]
+use serde_json::Value;
 
-use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, SourceSchema};
+use audd_ir::{
+    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, KeyType, SourceSchema,
+    StoredProcedure, Trigger, View,
+};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
 
@@ -95,12 +100,14 @@ impl MysqlConnector {
     fn extract_table_schema(&self, table_name: &str) -> DbResult<EntitySchema> {
         let fields = self.extract_fields(table_name)?;
         let keys = self.extract_keys(table_name)?;
+        let indexes = self.extract_indexes(table_name)?;
 
         Ok(EntitySchema::builder()
             .entity_name(table_name.to_string())
             .entity_type("table")
             .fields(fields)
             .keys(keys)
+            .indexes(indexes)
             .build())
     }
 
@@ -143,7 +150,7 @@ impl MysqlConnector {
         Ok(fields)
     }
 
-    /// Extract keys (primary and unique) for a table
+    /// Extract keys (primary, foreign, and unique) for a table
     fn extract_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
         let mut keys = Vec::new();
 
@@ -152,6 +159,10 @@ impl MysqlConnector {
         if !pk_fields.is_empty() {
             keys.push(Key::primary(pk_fields));
         }
+
+        // Extract foreign keys
+        let foreign_keys = self.extract_foreign_keys(table_name)?;
+        keys.extend(foreign_keys);
 
         // Extract unique indexes
         let unique_keys = self.extract_unique_indexes(table_name)?;
@@ -235,6 +246,248 @@ impl MysqlConnector {
 
         Ok(columns)
     }
+
+    /// Extract foreign keys for a table
+    fn extract_foreign_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                CONSTRAINT_NAME,
+                COLUMN_NAME,
+                REFERENCED_TABLE_NAME,
+                REFERENCED_COLUMN_NAME
+             FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+             WHERE TABLE_SCHEMA = '{}'
+               AND TABLE_NAME = '{}'
+               AND REFERENCED_TABLE_NAME IS NOT NULL
+             ORDER BY CONSTRAINT_NAME, ORDINAL_POSITION",
+            self.database_name, table_name
+        );
+
+        let rows: Vec<(String, String, String, String)> = conn
+            .query_map(
+                query,
+                |(constraint_name, column_name, ref_table, ref_column)| {
+                    (constraint_name, column_name, ref_table, ref_column)
+                },
+            )
+            .map_err(|e| DbError::QueryError(format!("Failed to query foreign keys: {}", e)))?;
+
+        // Group by constraint name to handle composite foreign keys
+        let mut fk_map: std::collections::HashMap<String, (Vec<String>, String, String)> =
+            std::collections::HashMap::new();
+
+        for (constraint_name, column_name, ref_table, ref_column) in rows {
+            fk_map
+                .entry(constraint_name)
+                .or_insert_with(|| (Vec::new(), ref_table.clone(), ref_column.clone()))
+                .0
+                .push(column_name);
+        }
+
+        let mut foreign_keys = Vec::new();
+        for (_constraint_name, (columns, ref_table, ref_column)) in fk_map {
+            let fk = Key::foreign(columns).with_metadata(
+                "referenced_table".to_string(),
+                Value::String(format!("{}({})", ref_table, ref_column)),
+            );
+            foreign_keys.push(fk);
+        }
+
+        Ok(foreign_keys)
+    }
+
+    /// Extract regular indexes (non-unique, non-primary) for a table
+    fn extract_indexes(&self, table_name: &str) -> DbResult<Vec<Index>> {
+        let mut conn = self.get_conn()?;
+
+        // Get all indexes (excluding primary key)
+        let query = format!(
+            "SELECT DISTINCT 
+                INDEX_NAME,
+                NON_UNIQUE,
+                INDEX_TYPE
+             FROM INFORMATION_SCHEMA.STATISTICS
+             WHERE TABLE_SCHEMA = '{}'
+               AND TABLE_NAME = '{}'
+               AND INDEX_NAME != 'PRIMARY'
+             ORDER BY INDEX_NAME",
+            self.database_name, table_name
+        );
+
+        let rows: Vec<(String, i32, String)> = conn
+            .query_map(query, |(index_name, non_unique, index_type)| {
+                (index_name, non_unique, index_type)
+            })
+            .map_err(|e| DbError::QueryError(format!("Failed to query indexes: {}", e)))?;
+
+        let mut indexes = Vec::new();
+
+        for (index_name, non_unique, index_type) in rows {
+            // Skip unique indexes (they're handled as keys)
+            if non_unique == 0 {
+                continue;
+            }
+
+            let columns = self.extract_index_columns(table_name, &index_name)?;
+            if !columns.is_empty() {
+                let idx_type = match index_type.to_uppercase().as_str() {
+                    "FULLTEXT" => IndexType::FullText,
+                    "SPATIAL" => IndexType::Spatial,
+                    _ => IndexType::Regular,
+                };
+
+                let index = match idx_type {
+                    IndexType::FullText => Index::new(index_name, IndexType::FullText, columns),
+                    IndexType::Spatial => Index::new(index_name, IndexType::Spatial, columns),
+                    _ => Index::regular(index_name, columns),
+                };
+
+                indexes.push(index);
+            }
+        }
+
+        Ok(indexes)
+    }
+
+    /// Extract all views from the database
+    fn extract_views(&self) -> DbResult<Vec<View>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                TABLE_NAME,
+                VIEW_DEFINITION
+             FROM INFORMATION_SCHEMA.VIEWS
+             WHERE TABLE_SCHEMA = '{}'
+             ORDER BY TABLE_NAME",
+            self.database_name
+        );
+
+        let rows: Vec<(String, String)> = conn
+            .query_map(query, |(view_name, definition)| (view_name, definition))
+            .map_err(|e| DbError::QueryError(format!("Failed to query views: {}", e)))?;
+
+        let mut views = Vec::new();
+        for (view_name, definition) in rows {
+            views.push(View::new(view_name).with_definition(definition));
+        }
+
+        Ok(views)
+    }
+
+    /// Extract all stored procedures and functions from the database
+    fn extract_stored_procedures(&self) -> DbResult<Vec<StoredProcedure>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                ROUTINE_NAME,
+                ROUTINE_TYPE,
+                DTD_IDENTIFIER,
+                ROUTINE_DEFINITION
+             FROM INFORMATION_SCHEMA.ROUTINES
+             WHERE ROUTINE_SCHEMA = '{}'
+             ORDER BY ROUTINE_NAME",
+            self.database_name
+        );
+
+        let rows: Vec<(String, String, Option<String>, Option<String>)> = conn
+            .query_map(
+                query,
+                |(name, routine_type, return_type, definition)| {
+                    (name, routine_type, return_type, definition)
+                },
+            )
+            .map_err(|e| {
+                DbError::QueryError(format!("Failed to query stored procedures: {}", e))
+            })?;
+
+        let mut procedures = Vec::new();
+        for (name, routine_type, return_type, definition) in rows {
+            let mut proc = StoredProcedure::new(name, routine_type);
+            if let Some(ret_type) = return_type {
+                proc = proc.with_return_type(ret_type);
+            }
+            if let Some(def) = definition {
+                proc = proc.with_definition(def);
+            }
+            procedures.push(proc);
+        }
+
+        Ok(procedures)
+    }
+
+    /// Extract all triggers for a specific table
+    fn extract_table_triggers(&self, table_name: &str) -> DbResult<Vec<Trigger>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                TRIGGER_NAME,
+                ACTION_TIMING,
+                EVENT_MANIPULATION,
+                ACTION_STATEMENT
+             FROM INFORMATION_SCHEMA.TRIGGERS
+             WHERE EVENT_OBJECT_TABLE = '{}'
+               AND TRIGGER_SCHEMA = '{}'
+             ORDER BY TRIGGER_NAME",
+            table_name, self.database_name
+        );
+
+        let rows: Vec<(String, String, String, String)> = conn
+            .query_map(query, |(name, timing, event, definition)| {
+                (name, timing, event, definition)
+            })
+            .map_err(|e| DbError::QueryError(format!("Failed to query triggers: {}", e)))?;
+
+        let mut triggers = Vec::new();
+        for (name, timing_str, event_str, definition) in rows {
+            triggers.push(
+                Trigger::new(name, table_name.to_string(), timing_str, event_str)
+                    .with_definition(definition),
+            );
+        }
+
+        Ok(triggers)
+    }
+
+    /// Extract all triggers from the database
+    fn extract_all_triggers(&self) -> DbResult<Vec<Trigger>> {
+        let mut conn = self.get_conn()?;
+
+        let query = format!(
+            "SELECT 
+                TRIGGER_NAME,
+                EVENT_OBJECT_TABLE,
+                ACTION_TIMING,
+                EVENT_MANIPULATION,
+                ACTION_STATEMENT
+             FROM INFORMATION_SCHEMA.TRIGGERS
+             WHERE TRIGGER_SCHEMA = '{}'
+             ORDER BY TRIGGER_NAME",
+            self.database_name
+        );
+
+        let rows: Vec<(String, String, String, String, String)> = conn
+            .query_map(
+                query,
+                |(name, table_name, timing, event, definition)| {
+                    (name, table_name, timing, event, definition)
+                },
+            )
+            .map_err(|e| DbError::QueryError(format!("Failed to query all triggers: {}", e)))?;
+
+        let mut triggers = Vec::new();
+        for (name, table_name, timing_str, event_str, definition) in rows {
+            triggers.push(
+                Trigger::new(name, table_name, timing_str, event_str).with_definition(definition),
+            );
+        }
+
+        Ok(triggers)
+    }
 }
 
 #[cfg(feature = "mysql")]
@@ -248,10 +501,22 @@ impl DbSchemaConnector for MysqlConnector {
             entities.push(entity);
         }
 
+        // Extract views
+        let views = self.extract_views()?;
+
+        // Extract stored procedures
+        let stored_procedures = self.extract_stored_procedures()?;
+
+        // Extract all triggers
+        let triggers = self.extract_all_triggers()?;
+
         Ok(SourceSchema::builder()
             .source_name(self.database_name.clone())
             .source_type("mysql")
             .entities(entities)
+            .views(views)
+            .stored_procedures(stored_procedures)
+            .triggers(triggers)
             .build())
     }
 }

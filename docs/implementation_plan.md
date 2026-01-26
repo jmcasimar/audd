@@ -57,25 +57,30 @@ This document tracks the implementation of advanced database features across all
   - Definitions
 - 📋 CHECK Constraints - Supported in IR, extraction not yet implemented
 
-### MySQL/MariaDB 📋 PLANNED
+### MySQL/MariaDB ✅ COMPLETE
 
-- 📋 Foreign Keys - Query `INFORMATION_SCHEMA.KEY_COLUMN_USAGE` and `REFERENTIAL_CONSTRAINTS`
-- 📋 Indexes - Query `INFORMATION_SCHEMA.STATISTICS`
+- ✅ Foreign Keys - Query `INFORMATION_SCHEMA.KEY_COLUMN_USAGE` with REFERENCED_TABLE_NAME
+  - Referenced table and column metadata stored
+  - Support for composite foreign keys
+- ✅ Indexes - Query `INFORMATION_SCHEMA.STATISTICS`
   - Regular indexes
-  - Unique indexes
-  - Full-text indexes
-  - Spatial indexes
-- 📋 Views - Query `INFORMATION_SCHEMA.VIEWS`
+  - Unique indexes (handled as Keys)
+  - Full-text indexes (FULLTEXT type)
+  - Spatial indexes (SPATIAL type)
+- ✅ Views - Query `INFORMATION_SCHEMA.VIEWS`
   - View definitions
-  - Updatable views metadata
-- 📋 Stored Procedures - Query `INFORMATION_SCHEMA.ROUTINES`
+  - View names
+- ✅ Stored Procedures - Query `INFORMATION_SCHEMA.ROUTINES`
   - Procedures
   - Functions
-  - Parameters
-- 📋 Triggers - Query `INFORMATION_SCHEMA.TRIGGERS`
-  - Timing and events
+  - Return types
   - Definitions
-- 📋 CHECK Constraints - Query `INFORMATION_SCHEMA.CHECK_CONSTRAINTS` (MySQL 8.0.16+)
+- ✅ Triggers - Query `INFORMATION_SCHEMA.TRIGGERS`
+  - Timing (BEFORE/AFTER)
+  - Events (INSERT/UPDATE/DELETE)
+  - Table associations
+  - Definitions
+- 📋 CHECK Constraints - Supported in IR, Query `INFORMATION_SCHEMA.CHECK_CONSTRAINTS` (MySQL 8.0.16+) not yet implemented
 
 ### MongoDB 📋 PLANNED
 
@@ -289,13 +294,15 @@ db.getCollectionInfos({ name: "collectionName" })[0].options.validator
 ## Estimated Effort
 
 - SQLite: ✅ Complete (~4 hours)
-- PostgreSQL: 🔄 ~6-8 hours
-- MySQL/MariaDB: 📋 ~6-8 hours
+- PostgreSQL: ✅ Complete (~6-8 hours)
+- MySQL/MariaDB: ✅ Complete (~6-8 hours)
 - MongoDB: 📋 ~4-6 hours
-- Testing: 📋 ~4-6 hours
+- Testing: 📋 ~4-6 hours (additional for MongoDB)
 - Documentation: 📋 ~2-3 hours
 
 **Total**: ~26-35 hours of focused development work
+**Completed**: ~16-20 hours (SQLite, PostgreSQL, MySQL/MariaDB)
+**Remaining**: ~10-15 hours (MongoDB + additional testing + documentation)
 
 ## Current Status
 
