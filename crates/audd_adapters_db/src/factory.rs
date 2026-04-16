@@ -85,16 +85,9 @@ pub fn create_connector(conn_str: &str) -> DbResult<Box<dyn DbSchemaConnector>> 
         "postgres" => {
             #[cfg(feature = "postgres")]
             {
-                // PostgreSQL connector is async, so we need to create it in a runtime
-                let runtime = tokio::runtime::Runtime::new()
-                    .map_err(|e| DbError::Other(format!("Failed to create tokio runtime: {}", e)))?;
-                
-                let connector = runtime.block_on(async {
+                let connector = crate::runtime::block_on(async {
                     PostgresConnector::new(&conn_details).await
                 })?;
-                
-                // P1 Fix (H5): Explicit runtime cleanup to prevent resource leaks
-                runtime.shutdown_background();
                 Ok(Box::new(connector))
             }
             #[cfg(not(feature = "postgres"))]
@@ -107,18 +100,10 @@ pub fn create_connector(conn_str: &str) -> DbResult<Box<dyn DbSchemaConnector>> 
         "mongodb" | "mongodb+srv" => {
             #[cfg(feature = "mongodb")]
             {
-                // MongoDB connector is async, so we need to create it in a runtime
-                let runtime = tokio::runtime::Runtime::new()
-                    .map_err(|e| DbError::Other(format!("Failed to create tokio runtime: {}", e)))?;
-                
-                // Reconstruct full connection string for MongoDB
                 let full_conn_str = format!("{}://{}", engine, conn_details);
-                let connector = runtime.block_on(async {
+                let connector = crate::runtime::block_on(async {
                     MongoDbConnector::new(&full_conn_str).await
                 })?;
-                
-                // P1 Fix (H5): Explicit runtime cleanup to prevent resource leaks
-                runtime.shutdown_background();
                 Ok(Box::new(connector))
             }
             #[cfg(not(feature = "mongodb"))]
@@ -131,16 +116,9 @@ pub fn create_connector(conn_str: &str) -> DbResult<Box<dyn DbSchemaConnector>> 
         "sqlserver" => {
             #[cfg(feature = "sqlserver")]
             {
-                // SQL Server connector is async, so we need to create it in a runtime
-                let runtime = tokio::runtime::Runtime::new()
-                    .map_err(|e| DbError::Other(format!("Failed to create tokio runtime: {}", e)))?;
-                
-                let connector = runtime.block_on(async {
+                let connector = crate::runtime::block_on(async {
                     SqlServerConnector::new(&conn_details).await
                 })?;
-                
-                // P1 Fix (H5): Explicit runtime cleanup to prevent resource leaks
-                runtime.shutdown_background();
                 Ok(Box::new(connector))
             }
             #[cfg(not(feature = "sqlserver"))]

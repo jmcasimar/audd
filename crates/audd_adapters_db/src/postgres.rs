@@ -566,11 +566,7 @@ impl PostgresConnector {
 #[cfg(feature = "postgres")]
 impl DbSchemaConnector for PostgresConnector {
     fn load(&self) -> DbResult<SourceSchema> {
-        // Use tokio runtime to execute async operations
-        let runtime = tokio::runtime::Runtime::new()
-            .map_err(|e| DbError::Other(format!("Failed to create tokio runtime: {}", e)))?;
-
-        runtime.block_on(async {
+        crate::runtime::block_on(async {
             let table_names = self.get_table_names().await?;
             let mut entities = Vec::new();
 

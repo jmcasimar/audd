@@ -75,6 +75,8 @@
 mod connector;
 mod error;
 mod factory;
+#[cfg(any(feature = "postgres", feature = "mongodb", feature = "sqlserver"))]
+mod runtime;
 
 #[cfg(feature = "sqlite")]
 pub mod sqlite;

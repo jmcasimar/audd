@@ -617,11 +617,7 @@ impl SqlServerConnector {
 #[cfg(feature = "sqlserver")]
 impl DbSchemaConnector for SqlServerConnector {
     fn load(&self) -> DbResult<SourceSchema> {
-        // Create a tokio runtime for async operations
-        let runtime = tokio::runtime::Runtime::new()
-            .map_err(|e| DbError::Other(format!("Failed to create runtime: {}", e)))?;
-
-        runtime.block_on(async {
+        crate::runtime::block_on(async {
             // We need mutable access to client for queries
             // Since load() takes &self, we need to create a new connection
             // This is a limitation of the current design

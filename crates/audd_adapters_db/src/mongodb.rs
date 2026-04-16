@@ -378,11 +378,7 @@ impl MongoDbConnector {
 #[cfg(feature = "mongodb")]
 impl DbSchemaConnector for MongoDbConnector {
     fn load(&self) -> DbResult<SourceSchema> {
-        // Use tokio runtime to execute async operations
-        let runtime = tokio::runtime::Runtime::new()
-            .map_err(|e| DbError::Other(format!("Failed to create tokio runtime: {}", e)))?;
-
-        runtime.block_on(async {
+        crate::runtime::block_on(async {
             let collection_names = self.get_collection_names().await?;
             let mut entities = Vec::new();
 
