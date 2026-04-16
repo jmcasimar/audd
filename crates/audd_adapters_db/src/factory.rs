@@ -10,7 +10,7 @@ use crate::sqlite::SqliteConnector;
 use crate::mysql::MysqlConnector;
 
 #[cfg(feature = "postgres")]
-use crate::postgresql::PostgresConnector;
+use crate::postgres::PostgresConnector;
 
 #[cfg(feature = "mongodb")]
 use crate::mongodb::MongoDbConnector;

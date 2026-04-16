@@ -1,7 +1,7 @@
 //! PostgreSQL database schema connector
 
 #[cfg(feature = "postgres")]
-use tokio_postgresql::{Client, NoTls};
+use tokio_postgres::{Client, NoTls};
 
 use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, Index, IndexType, View, StoredProcedure, Trigger, SourceSchema};
 use crate::connector::DbSchemaConnector;
@@ -61,7 +61,7 @@ impl PostgresConnector {
         let postgres_url = format!("postgresql://{}/{}", credentials_host, database);
 
         // Connect to PostgreSQL
-        let (client, connection) = tokio_postgresql::connect(&postgres_url, NoTls)
+        let (client, connection) = tokio_postgres::connect(&postgres_url, NoTls)
             .await
             .map_err(|e| {
                 DbError::ConnectionError(format!("Failed to connect to PostgreSQL: {}", e))
@@ -205,7 +205,7 @@ impl PostgresConnector {
             SELECT a.attname
             FROM pg_index i
             JOIN pg_attribute a ON a.attrelid = i.indrelid AND a.attnum = ANY(i.indkey)
-            WHERE i.indrelid = $1::regclass
+            WHERE i.indrelid = to_regclass($1)
               AND i.indisprimary
             ORDER BY array_position(i.indkey, a.attnum)
         ";
