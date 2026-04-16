@@ -34,7 +34,7 @@
 //! use audd_adapters_db::{create_connector, DbSchemaConnector};
 //!
 //! # fn example() -> Result<(), Box<dyn std::error::Error>> {
-//! let connector = create_connector("postgres://user:password@localhost:5432/mydb")?;
+//! let connector = create_connector("postgresql://user:password@localhost:5432/mydb")?;
 //! let schema = connector.load()?;
 //! println!("Database: {}", schema.source_name);
 //! # Ok(())
@@ -58,7 +58,7 @@
 //!
 //! - **SQLite**: `sqlite:///absolute/path/to/db.sqlite` or `sqlite://relative/path/to/db.sqlite`
 //! - **MySQL**: `mysql://user:password@host:port/database` (port defaults to 3306 if omitted)
-//! - **PostgreSQL**: `postgres://user:password@host:port/database`
+//! - **PostgreSQL**: `postgresql://user:password@host:port/database`
 //! - **MongoDB**: `mongodb://host:port/database` or `mongodb+srv://host/database`
 //! - **SQL Server**: `sqlserver://user:password@host:port/database` or `mssql://user:password@host:port/database`
 //! - **Firebird**: `firebird://host:/path/to/database.fdb` or `firebird:///path/to/database.fdb`

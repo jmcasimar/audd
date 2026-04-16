@@ -303,7 +303,7 @@ El esquema unificado marca el origen de cada campo:
 
 - **SQLite:** `db:sqlite:///ruta/absoluta/archivo.db`
 - **MySQL:** `db:mysql://usuario:password@host:puerto/base`
-- **PostgreSQL:** `db:postgres://usuario:password@host:puerto/base`
+- **PostgreSQL:** `db:postgresql://usuario:password@host:puerto/base`
 - **MongoDB:** `db:mongodb://usuario:password@host:puerto/base`
 - **SQL Server:** `db:sqlserver://usuario:password@host:puerto/base`
 - **Firebird:** `db:firebird://usuario:password@host:puerto/ruta/base.fdb`

@@ -28,7 +28,7 @@ enum Commands {
         /// Source identifier
         /// - File: path/to/file.csv or file:path/to/file.csv
         /// - Database: db:sqlite://path, db:mysql://user:pass@host/db, 
-        ///   db:postgres://user:pass@host/db, db:mongodb://host/db,
+        ///   db:postgresql://user:pass@host/db, db:mongodb://host/db,
         ///   db:sqlserver://user:pass@host/db, or db:firebird://user:pass@host:/db.fdb
         /// - Remote URL: https://example.com/data.csv
         /// - Google Sheets: https://docs.google.com/spreadsheets/d/SHEET_ID/edit

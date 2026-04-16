@@ -1,7 +1,7 @@
 //! PostgreSQL database schema connector
 
 #[cfg(feature = "postgres")]
-use tokio_postgres::{Client, NoTls};
+use tokio_postgresql::{Client, NoTls};
 
 use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, Index, IndexType, View, StoredProcedure, Trigger, SourceSchema};
 use crate::connector::DbSchemaConnector;
@@ -18,7 +18,7 @@ use serde_json::Value;
 /// ```no_run
 /// # #[cfg(feature = "postgres")]
 /// # {
-/// use audd_adapters_db::postgres::PostgresConnector;
+/// use audd_adapters_db::postgresql::PostgresConnector;
 /// use audd_adapters_db::DbSchemaConnector;
 ///
 /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
@@ -61,7 +61,7 @@ impl PostgresConnector {
         let postgres_url = format!("postgresql://{}/{}", credentials_host, database);
 
         // Connect to PostgreSQL
-        let (client, connection) = tokio_postgres::connect(&postgres_url, NoTls)
+        let (client, connection) = tokio_postgresql::connect(&postgres_url, NoTls)
             .await
             .map_err(|e| {
                 DbError::ConnectionError(format!("Failed to connect to PostgreSQL: {}", e))

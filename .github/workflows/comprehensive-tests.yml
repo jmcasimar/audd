@@ -128,8 +128,8 @@ jobs:
           --health-timeout=5s
           --health-retries=3
       
-      postgres:
-        image: postgres:16
+      postgresql:
+        image: postgresql:16
         env:
           POSTGRES_PASSWORD: test_password
           POSTGRES_DB: test_db
@@ -176,7 +176,7 @@ jobs:
         run: cargo test --test integration_test || echo "Integration tests not yet implemented"
         env:
           TEST_MYSQL_URL: mysql://root:test_password@localhost:3306/test_db
-          TEST_POSTGRES_URL: postgres://postgres:test_password@localhost:5432/test_db
+          TEST_POSTGRES_URL: postgresql://postgresql:test_password@localhost:5432/test_db
           TEST_MONGODB_URL: mongodb://localhost:27017/test_db
       
       - name: Run connector-specific integration tests

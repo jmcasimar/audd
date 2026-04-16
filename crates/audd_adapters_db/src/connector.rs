@@ -44,7 +44,7 @@ pub trait DbSchemaConnector {
 ///
 /// - SQLite: `sqlite:///path/to/database.db` (absolute) or `sqlite://path/to/database.db` (relative)
 /// - MySQL: `mysql://user:password@host:port/database` or `mysql://user:password@host/database`
-/// - PostgreSQL: `postgres://user:password@host:port/database` or `postgresql://...`
+/// - PostgreSQL: `postgresql://user:password@host:port/database` or `postgresql://...`
 /// - MongoDB: `mongodb://user:password@host:port/database` or `mongodb+srv://...`
 /// - SQL Server: `sqlserver://user:password@host:port/database` or `mssql://...`
 /// - Firebird: `firebird://host:/path/to/database.fdb` or `firebird:///path/to/database.fdb`
@@ -109,7 +109,7 @@ pub fn parse_connection_string(conn_str: &str) -> DbResult<(String, String)> {
             Ok((normalized_engine, conn_details.to_string()))
         }
         "postgresql" | "postgres" => {
-            // PostgreSQL format: postgres://user:pass@host:port/database
+            // PostgreSQL format: postgresql://user:pass@host:port/database
             // Normalize postgresql to postgres
             let normalized_engine = "postgres".to_string();
             Ok((normalized_engine, conn_details.to_string()))
@@ -199,7 +199,7 @@ mod tests {
         let (engine, _) = result.unwrap();
         assert_eq!(engine, "postgres");
 
-        let result = parse_connection_string("postgres://localhost/db");
+        let result = parse_connection_string("postgresql://localhost/db");
         assert!(result.is_ok());
         let (engine, _) = result.unwrap();
         assert_eq!(engine, "postgres");

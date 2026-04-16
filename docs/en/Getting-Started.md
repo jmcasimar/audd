@@ -303,7 +303,7 @@ The unified schema marks the origin of each field:
 
 - **SQLite:** `db:sqlite:///absolute/path/to/file.db`
 - **MySQL:** `db:mysql://user:password@host:port/database`
-- **PostgreSQL:** `db:postgres://user:password@host:port/database`
+- **PostgreSQL:** `db:postgresql://user:password@host:port/database`
 - **MongoDB:** `db:mongodb://user:password@host:port/database`
 - **SQL Server:** `db:sqlserver://user:password@host:port/database`
 - **Firebird:** `db:firebird://user:password@host:port/path/database.fdb`

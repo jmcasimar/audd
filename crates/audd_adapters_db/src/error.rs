@@ -42,7 +42,7 @@ impl fmt::Display for DbError {
                 write!(f, "Invalid connection string: {}. ", msg)?;
                 write!(
                     f,
-                    "Expected format: sqlite://<path>, mysql://<user>:<pass>@<host>/<db>, postgres://<user>:<pass>@<host>/<db>, mongodb://<host>/<db>, sqlserver://<user>:<pass>@<host>/<db>, or firebird://<user>:<pass>@<host>:/<path>/db.fdb"
+                    "Expected format: sqlite://<path>, mysql://<user>:<pass>@<host>/<db>, postgresql://<user>:<pass>@<host>/<db>, mongodb://<host>/<db>, sqlserver://<user>:<pass>@<host>/<db>, or firebird://<user>:<pass>@<host>:/<path>/db.fdb"
                 )
             }
             Self::UnsupportedEngine(engine) => {

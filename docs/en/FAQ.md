@@ -133,7 +133,7 @@ audd inspect --source "db:sqlite:///home/user/data.db"
 audd inspect --source "db:mysql://root:password@localhost:3306/my_db"
 
 # PostgreSQL
-audd inspect --source "db:postgres://user:pass@localhost:5432/my_db"
+audd inspect --source "db:postgresql://user:pass@localhost:5432/my_db"
 
 # MongoDB
 audd inspect --source "db:mongodb://user:pass@localhost:27017/my_db"
@@ -512,7 +512,7 @@ audd compare --source-a subset.sql --source-b data.json
 ```bash
 # Export schemas first
 audd inspect --source "db:mysql://..." --out schema_a.json
-audd inspect --source "db:postgres://..." --out schema_b.json
+audd inspect --source "db:postgresql://..." --out schema_b.json
 
 # Compare IR files
 # (requires external tool or manual loading)

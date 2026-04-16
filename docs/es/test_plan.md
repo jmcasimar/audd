@@ -293,7 +293,7 @@ fn test_invalid_connection_strings() {
         "db:unknown://host/db",
         "db:sqlite",  // Missing path
         "db:mysql://",  // Missing auth and database
-        "db:postgres://user@/db",  // Missing host
+        "db:postgresql://user@/db",  // Missing host
         "db:mongodb://:27017/db",  // Missing host
     ];
     
@@ -411,7 +411,7 @@ fn test_remote_file_to_database_comparison() {
     // Compararlos
     
     let csv_url = "https://example.com/schema.csv";
-    let db_conn = "db:postgres://localhost/test";
+    let db_conn = "db:postgresql://localhost/test";
     
     let csv_schema = load_schema_from_url(csv_url).unwrap();
     let db_schema = load_schema_from_db(db_conn).unwrap();
@@ -726,8 +726,8 @@ jobs:
         ports:
           - 3306:3306
       
-      postgres:
-        image: postgres:16
+      postgresql:
+        image: postgresql:16
         env:
           POSTGRES_PASSWORD: test
           POSTGRES_DB: test_db
@@ -752,7 +752,7 @@ jobs:
         run: cargo test --test integration
         env:
           TEST_MYSQL_URL: mysql://root:test@localhost/test_db
-          TEST_POSTGRES_URL: postgres://postgres:test@localhost/test_db
+          TEST_POSTGRES_URL: postgresql://postgresql:test@localhost/test_db
           TEST_MONGODB_URL: mongodb://localhost:27017/test_db
 
   coverage:

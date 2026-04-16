@@ -62,21 +62,21 @@ mysql://user:pass@mariadb-server/myapp_db
 ### PostgreSQL
 
 ```
-postgres://user:password@host:port/database
+postgresql://user:password@host:port/database
 postgresql://user:password@host:port/database  # Alias
-postgres://user:password@host/database  # Port defaults to 5432
+postgresql://user:password@host/database  # Port defaults to 5432
 ```
 
 **Examples:**
 ```bash
 # With explicit port
-postgres://admin:secret@localhost:5432/myapp_db
+postgresql://admin:secret@localhost:5432/myapp_db
 
 # Default port (5432)
-postgres://user:pass@localhost/myapp_db
+postgresql://user:pass@localhost/myapp_db
 
 # Remote PostgreSQL server
-postgres://dbuser:dbpass@pg.example.com/production_db
+postgresql://dbuser:dbpass@pg.example.com/production_db
 ```
 
 ### MongoDB
@@ -157,10 +157,10 @@ audd load --source "db:mysql://admin:secret@localhost:3306/myapp"
 
 ```bash
 # Load schema from PostgreSQL database
-audd load --source "db:postgres://user:password@localhost/mydb"
+audd load --source "db:postgresql://user:password@localhost/mydb"
 
 # With explicit port
-audd load --source "db:postgres://admin:secret@localhost:5432/myapp"
+audd load --source "db:postgresql://admin:secret@localhost:5432/myapp"
 ```
 
 #### MongoDB Example
@@ -212,7 +212,7 @@ You can compare schemas from different database engines or between databases and
 # Compare SQLite with PostgreSQL
 audd compare \
   --source-a "db:sqlite:///local/app.db" \
-  --source-b "db:postgres://user:pass@remote.com/prod_db"
+  --source-b "db:postgresql://user:pass@remote.com/prod_db"
 
 # Compare MongoDB with MySQL
 audd compare \
@@ -221,13 +221,13 @@ audd compare \
 
 # Compare database with CSV file
 audd compare \
-  --source-a "db:postgres://user:pass@localhost/current" \
+  --source-a "db:postgresql://user:pass@localhost/current" \
   --source-b "schema.csv"
 
 # Compare two PostgreSQL databases
 audd compare \
-  --source-a "db:postgres://user:pass@staging:5432/myapp" \
-  --source-b "db:postgres://user:pass@production:5432/myapp"
+  --source-a "db:postgresql://user:pass@staging:5432/myapp" \
+  --source-b "db:postgresql://user:pass@production:5432/myapp"
 
 # Compare SQL Server with MySQL
 audd compare \
@@ -472,7 +472,7 @@ The database adapters provide clear error messages for common issues:
 ❌ Error loading schema: Failed to create database connector: 
    Invalid connection string: Missing database name. 
    Expected format: sqlite://<path>, mysql://<user>:<pass>@<host>/<db>, 
-   postgres://<user>:<pass>@<host>/<db>, or mongodb://<host>/<db>
+   postgresql://<user>:<pass>@<host>/<db>, or mongodb://<host>/<db>
 ```
 
 **Solution:** Check the connection string format matches the documented patterns.
@@ -672,7 +672,7 @@ let connector = create_connector("mysql://user:pass@localhost/mydb")?;
 let schema = connector.load()?;
 
 // PostgreSQL
-let connector = create_connector("postgres://user:pass@localhost:5432/mydb")?;
+let connector = create_connector("postgresql://user:pass@localhost:5432/mydb")?;
 let schema = connector.load()?;
 
 // MongoDB

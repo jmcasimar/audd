@@ -176,16 +176,16 @@ audd inspect \
 
 ```bash
 # Inspeccionar PostgreSQL
-audd inspect --source "db:postgres://user:pass@localhost:5432/dbname"
+audd inspect --source "db:postgresql://user:pass@localhost:5432/dbname"
 
 # Comparar PostgreSQL staging vs producción
 audd compare \
-  --source-a "db:postgres://user:pass@staging.example.com/app" \
-  --source-b "db:postgres://user:pass@prod.example.com/app" \
+  --source-a "db:postgresql://user:pass@staging.example.com/app" \
+  --source-b "db:postgresql://user:pass@prod.example.com/app" \
   --out staging_vs_prod
 
 # Comparar con puerto personalizado
-audd inspect --source "db:postgres://user:pass@localhost:5433/custom_db"
+audd inspect --source "db:postgresql://user:pass@localhost:5433/custom_db"
 ```
 
 ### MongoDB
@@ -213,7 +213,7 @@ audd compare \
 # JSON API export vs PostgreSQL
 audd compare \
   --source-a api_schema.json \
-  --source-b "db:postgres://user:pass@db.example.com/api_db" \
+  --source-b "db:postgresql://user:pass@db.example.com/api_db" \
   --out api_validation
 
 # SQL DDL vs Base de Datos en vivo
@@ -269,14 +269,14 @@ cat migration/customers_analysis/decision_log.json
 ```bash
 # Comparar ambientes
 audd compare \
-  --source-a "db:postgres://dev:pass@dev.company.com/app_db" \
-  --source-b "db:postgres://readonly:pass@prod.company.com/app_db" \
+  --source-a "db:postgresql://dev:pass@dev.company.com/app_db" \
+  --source-b "db:postgresql://readonly:pass@prod.company.com/app_db" \
   --out audit/dev_prod_$(date +%Y%m%d)
 
 # Usar configuración conservadora
 audd --config audit-config.toml compare \
-  --source-a "db:postgres://dev:pass@dev.company.com/app_db" \
-  --source-b "db:postgres://readonly:pass@prod.company.com/app_db" \
+  --source-a "db:postgresql://dev:pass@dev.company.com/app_db" \
+  --source-b "db:postgresql://readonly:pass@prod.company.com/app_db" \
   --confidence-threshold 0.95 \
   --out audit/critical_check
 ```
@@ -312,7 +312,7 @@ audd inspect \
   --out sources/crm_schema.json
 
 audd inspect \
-  --source "db:postgres://user:pass@erp.company.com/erp" \
+  --source "db:postgresql://user:pass@erp.company.com/erp" \
   --out sources/erp_schema.json
 
 audd inspect \
@@ -322,7 +322,7 @@ audd inspect \
 # Paso 2: Comparar CRM vs ERP
 audd compare \
   --source-a "db:mysql://user:pass@crm.company.com/crm" \
-  --source-b "db:postgres://user:pass@erp.company.com/erp" \
+  --source-b "db:postgresql://user:pass@erp.company.com/erp" \
   --out comparisons/crm_vs_erp
 
 # Paso 3: Comparar CRM vs E-commerce
@@ -350,7 +350,7 @@ cp comparisons/crm_vs_erp/unified_schema.json master_customer_schema.json
 # Comparar fuente de datos (CSV exportado) con destino (Data Warehouse)
 audd compare \
   --source-a extracts/sales_data_2024.csv \
-  --source-b "db:postgres://etl:pass@warehouse.company.com/dwh" \
+  --source-b "db:postgresql://etl:pass@warehouse.company.com/dwh" \
   --out etl_planning/sales_transformation
 
 # Revisar transformaciones necesarias
@@ -363,7 +363,7 @@ audd generate-config --out etl-config.toml
 # Re-ejecutar con configuración de ETL
 audd --config etl-config.toml compare \
   --source-a extracts/sales_data_2024.csv \
-  --source-b "db:postgres://etl:pass@warehouse.company.com/dwh" \
+  --source-b "db:postgresql://etl:pass@warehouse.company.com/dwh" \
   --out etl_planning/sales_transformation_strict
 ```
 
@@ -492,7 +492,7 @@ audd --config prod-team-config.toml compare ...
 # Usar config de equipo pero override threshold para este caso
 audd --config team-config.toml compare \
   --source-a critical_data.csv \
-  --source-b "db:postgres://user:pass@prod/db" \
+  --source-b "db:postgresql://user:pass@prod/db" \
   --confidence-threshold 0.98 \
   --out critical_comparison
 
@@ -520,7 +520,7 @@ echo "🔍 Validating schema before deployment..."
 # Comparar esquema nuevo con producción
 audd compare \
   --source-a deployment/new_schema.sql \
-  --source-b "db:postgres://readonly:pass@prod.db.company.com/app" \
+  --source-b "db:postgresql://readonly:pass@prod.db.company.com/app" \
   --confidence-threshold 0.95 \
   --out validation/pre_deployment_check
 
@@ -603,8 +603,8 @@ echo "🔍 Running weekly schema audit - $TIMESTAMP"
 
 # Lista de comparaciones a realizar
 declare -A COMPARISONS=(
-  ["dev_vs_staging"]="db:postgres://dev:pass@dev.db/app|db:postgres://staging:pass@staging.db/app"
-  ["staging_vs_prod"]="db:postgres://staging:pass@staging.db/app|db:postgres://readonly:pass@prod.db/app"
+  ["dev_vs_staging"]="db:postgresql://dev:pass@dev.db/app|db:postgresql://staging:pass@staging.db/app"
+  ["staging_vs_prod"]="db:postgresql://staging:pass@staging.db/app|db:postgresql://readonly:pass@prod.db/app"
 )
 
 for name in "${!COMPARISONS[@]}"; do
@@ -641,7 +641,7 @@ echo "📧 Audit complete. Report saved to: $AUDIT_DIR/consolidated_report.md"
 # schema_drift_monitor.sh - Detectar drift entre ambientes
 
 BASELINE="baseline/production_schema.json"
-CURRENT="db:postgres://readonly:pass@prod.db.company.com/app"
+CURRENT="db:postgresql://readonly:pass@prod.db.company.com/app"
 
 # Primera vez: establecer baseline
 if [ ! -f "$BASELINE" ]; then
@@ -866,7 +866,7 @@ Configurar auditorías automáticas (cron, CI/CD) para detectar drift temprano.
 
 ```bash
 # Crear snapshot de esquema actual
-audd inspect --source "db:postgres://user:pass@prod/db" \
+audd inspect --source "db:postgresql://user:pass@prod/db" \
   --out schema_snapshots/v1.2.0_$(date +%Y%m%d).json
 ```
 

@@ -10,7 +10,7 @@ use crate::sqlite::SqliteConnector;
 use crate::mysql::MysqlConnector;
 
 #[cfg(feature = "postgres")]
-use crate::postgres::PostgresConnector;
+use crate::postgresql::PostgresConnector;
 
 #[cfg(feature = "mongodb")]
 use crate::mongodb::MongoDbConnector;
@@ -28,7 +28,7 @@ use crate::firebird::FirebirdConnector;
 /// * `conn_str` - Full connection string with engine prefix
 ///   - SQLite: `sqlite:///path/to/database.db`
 ///   - MySQL: `mysql://user:password@host:port/database`
-///   - PostgreSQL: `postgres://user:password@host:port/database`
+///   - PostgreSQL: `postgresql://user:password@host:port/database`
 ///   - MongoDB: `mongodb://host:port/database`
 ///   - SQL Server: `sqlserver://user:password@host:port/database`
 ///   - Firebird: `firebird://host:/path/to/database.fdb` (note: username and password are separate parameters)
@@ -203,7 +203,7 @@ mod tests {
     #[test]
     fn test_parse_and_create_postgres() {
         // Test parsing works (connection will fail)
-        let result = create_connector("postgres://user:pass@localhost/testdb");
+        let result = create_connector("postgresql://user:pass@localhost/testdb");
         
         #[cfg(feature = "postgres")]
         {

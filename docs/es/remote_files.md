@@ -264,7 +264,7 @@ audd load --source "https://data.gov/catalog/dataset.csv"
 # El equipo utiliza Google Sheets para documentación de schema
 audd compare \
   --source-a "https://docs.google.com/spreadsheets/d/PROD_SHEET/edit" \
-  --source-b "db:postgres://localhost/production"
+  --source-b "db:postgresql://localhost/production"
 ```
 
 #### Exportación de Schema de API

@@ -86,7 +86,7 @@ audd inspect --source "db:mysql://user:password@localhost/dbname"
 # Comparar MySQL y PostgreSQL
 audd compare \
   --source-a "db:mysql://user:pass@localhost/db1" \
-  --source-b "db:postgres://user:pass@localhost/db2" \
+  --source-b "db:postgresql://user:pass@localhost/db2" \
   --out output
 ```
 
@@ -211,7 +211,7 @@ audd compare \
 ```bash
 # Comparar base de datos de producción actual con nuevo schema
 audd compare \
-  --source-a "db:postgres://user:pass@prod.example.com/db" \
+  --source-a "db:postgresql://user:pass@prod.example.com/db" \
   --source-b new_schema.sql \
   --out migration_analysis
 
