@@ -6,6 +6,9 @@
 # Type rules match `from` against schema A and `to` against schema B; `symmetric = true`
 # also matches them swapped. `|` separates alternative type names.
 
+# Catalog version reported in decision_log.json and report.md (K06)
+version = "1.0.0"
+
 [[rule]]
 id = "R-TYPE-001"
 conflict_type = "TypeIncompatible"

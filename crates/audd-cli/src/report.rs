@@ -167,7 +167,7 @@ pub fn generate_report(
     let metrics = ReportMetrics::from_comparison(result);
 
     // Header
-    generate_header(&mut md, schema_a_name, schema_b_name);
+    generate_header(&mut md, schema_a_name, schema_b_name, decision_log);
 
     // Executive Summary
     generate_executive_summary(&mut md, &metrics, result);
@@ -194,7 +194,12 @@ pub fn generate_report(
     md
 }
 
-fn generate_header(md: &mut String, schema_a_name: &str, schema_b_name: &str) {
+fn generate_header(
+    md: &mut String,
+    schema_a_name: &str,
+    schema_b_name: &str,
+    decision_log: Option<&DecisionLog>,
+) {
     md.push_str("# AUDD Comparison Report\n\n");
 
     // Get current timestamp (respects deterministic mode)
@@ -205,8 +210,30 @@ fn generate_header(md: &mut String, schema_a_name: &str, schema_b_name: &str) {
     ));
     md.push_str(&format!("**Schema A:** {}  \n", schema_a_name));
     md.push_str(&format!("**Schema B:** {}  \n", schema_b_name));
+    if let Some(line) = decision_log.and_then(catalog_line) {
+        md.push_str(&line);
+    }
     md.push_str("**Report Version:** 1.0.0\n\n");
     md.push_str("---\n\n");
+}
+
+/// Catalog used for the suggestions (K06), from the decision log metadata
+fn catalog_line(log: &DecisionLog) -> Option<String> {
+    let custom = log.metadata.custom.as_ref()?;
+    let catalog = custom.get("catalog")?;
+    let rules = catalog.get("rules")?.as_u64()?;
+    if rules == 0 {
+        return Some("**Catalog:** none (engine defaults)  \n".to_string());
+    }
+    let version = catalog
+        .get("version")
+        .and_then(|v| v.as_str())
+        .unwrap_or("unversioned");
+    let mut line = format!("**Catalog:** version {} ({} rules)", version, rules);
+    if let Some(domain) = custom.get("domain").and_then(|d| d.as_str()) {
+        line.push_str(&format!(", domain `{}`", domain));
+    }
+    Some(line + "  \n")
 }
 
 fn generate_executive_summary(md: &mut String, metrics: &ReportMetrics, result: &ComparisonResult) {

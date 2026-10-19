@@ -82,6 +82,10 @@ enum Commands {
         #[arg(long = "domain")]
         domain: Option<String>,
 
+        /// Continue without catalog if it cannot be loaded (prints a warning)
+        #[arg(long = "catalog-optional")]
+        catalog_optional: bool,
+
         /// Output format (legacy, not used with --out)
         #[arg(short, long, default_value = "json")]
         format: String,
@@ -102,10 +106,30 @@ enum Commands {
         out: Option<PathBuf>,
     },
 
+    /// Work with the resolution catalog
+    Catalog {
+        #[command(subcommand)]
+        action: CatalogCommand,
+    },
+
     /// Generate a sample configuration file
     GenerateConfig {
         /// Output path for the configuration file
         #[arg(short, long, default_value = "audd.toml")]
+        out: PathBuf,
+    },
+}
+
+#[derive(Subcommand)]
+enum CatalogCommand {
+    /// Turn accepted decisions into candidate rules (source = "learned") for review
+    Learn {
+        /// decision_log.json produced by `audd compare`
+        #[arg(long = "from")]
+        from: PathBuf,
+
+        /// Output TOML file with the candidate rules (never merged automatically)
+        #[arg(long = "out")]
         out: PathBuf,
     },
 }
@@ -144,6 +168,7 @@ fn main() {
             deterministic,
             catalog,
             domain,
+            catalog_optional,
             format: _,
         }) => {
             let out_dir = out
@@ -160,8 +185,12 @@ fn main() {
                 *deterministic,
                 catalog.as_deref(),
                 domain.as_deref(),
+                *catalog_optional,
             )
         }
+        Some(Commands::Catalog {
+            action: CatalogCommand::Learn { from, out },
+        }) => handle_catalog_learn(from, out),
         Some(Commands::Inspect { source, conn, out }) => {
             handle_inspect(source, conn.as_deref(), out.as_ref())
         }
@@ -258,6 +287,7 @@ fn handle_compare(
     deterministic: bool,
     catalog_dir: Option<&std::path::Path>,
     domain: Option<&str>,
+    catalog_optional: bool,
 ) -> CliResult<()> {
     if deterministic {
         audd_resolution::time::enable_deterministic_mode();
@@ -284,12 +314,25 @@ fn handle_compare(
         schema_b.entities.len()
     );
 
-    // Load resolution catalog
-    let catalog = if let Some(dir) = catalog_dir {
-        audd_resolution::ResolutionCatalog::load_from_dir(dir)
-            .map_err(|e| error::CliError::CatalogError(e.to_string()))?
-    } else {
-        audd_resolution::ResolutionCatalog::load_default()
+    // Load resolution catalog: --catalog <dir>, or ./catalog if it exists (K01)
+    let default_dir = std::path::Path::new("catalog");
+    let dir = catalog_dir.or_else(|| default_dir.is_dir().then_some(default_dir));
+    let catalog = match dir.map(audd_resolution::ResolutionCatalog::load_from_dir) {
+        None => audd_resolution::ResolutionCatalog::new(),
+        Some(Ok(catalog)) => catalog,
+        Some(Err(e)) if catalog_optional => {
+            eprintln!(
+                "⚠️  Could not load the resolution catalog: {} (continuing without it)",
+                e
+            );
+            audd_resolution::ResolutionCatalog::new()
+        }
+        Some(Err(e)) => {
+            return Err(error::CliError::CatalogError(format!(
+                "{} (use --catalog-optional to continue without it)",
+                e
+            )))
+        }
     };
 
     if !catalog.rules.is_empty() || !catalog.domains.is_empty() {
@@ -334,9 +377,15 @@ fn handle_compare(
     // Generate suggestions for conflicts
     println!();
     println!("Generating resolution suggestions...");
+    // Which catalog produced the suggestions (K06)
+    let catalog_summary = catalog.summary();
     let suggestion_engine = audd_resolution::SuggestionEngine::new().with_catalog(catalog);
     let mut decision_log = audd_resolution::DecisionLog::new()
-        .with_schema_ids(schema_a.source_name.clone(), schema_b.source_name.clone());
+        .with_schema_ids(schema_a.source_name.clone(), schema_b.source_name.clone())
+        .with_custom_metadata(serde_json::json!({
+            "catalog": catalog_summary,
+            "domain": domain,
+        }));
 
     // Get confidence threshold from precedence: CLI flag > config > default
     let confidence_threshold = config.get_confidence_threshold(confidence_threshold_override);
@@ -347,22 +396,32 @@ fn handle_compare(
     for (conflict_index, conflict) in comparison_result.conflicts.iter().enumerate() {
         let suggestions = suggestion_engine.suggest(conflict);
         // Record every suggestion (gap B01); only auto-accept high-confidence ones
-        for suggestion in &suggestions {
+        for mut suggestion in suggestions {
+            // Trace the origin in every output (K03)
+            let origin = audd_resolution::suggestion_origin(&suggestion);
+            if !suggestion.evidence.contains(&origin) {
+                suggestion.evidence.push(origin.clone());
+            }
             let accepted_auto = suggestion.confidence.value() >= confidence_threshold;
             all_suggestions.push(output::SuggestionEntry::new(
                 conflict_index,
                 conflict,
-                suggestion,
+                &suggestion,
                 accepted_auto,
             ));
             if accepted_auto {
                 decision_counter += 1;
                 let decision = audd_resolution::Decision::by_system(
                     format!("{}_{}", decision_id_prefix, decision_counter),
-                    suggestion.clone(),
+                    suggestion,
                     true,
                     "high_confidence_auto_accept".to_string(),
-                );
+                )
+                .with_metadata(serde_json::json!({
+                    "conflict_index": conflict_index,
+                    "conflict_type": format!("{:?}", conflict.conflict_type),
+                    "origin": origin,
+                }));
                 decision_log.add_decision(decision);
             }
         }
@@ -423,6 +482,30 @@ fn handle_compare(
     println!("✅ Comparison completed successfully!");
     println!("Output files written to: {}", out_dir.display());
 
+    Ok(())
+}
+
+fn handle_catalog_learn(from: &std::path::Path, out: &std::path::Path) -> CliResult<()> {
+    let log = audd_resolution::DecisionLog::from_json_file(from)
+        .map_err(|e| error::CliError::CatalogError(format!("{}: {}", from.display(), e)))?;
+    let rules = audd_resolution::learn_rules(&log);
+    let toml = audd_resolution::rules_to_toml(&rules)
+        .map_err(|e| error::CliError::CatalogError(e.to_string()))?;
+    let header = format!(
+        "# Candidate rules learned from {} (source = \"learned\").\n\
+         # Review them before copying any into catalog/resolutions.toml.\n\n",
+        from.display()
+    );
+    std::fs::write(out, header + &toml).map_err(|e| error::CliError::OutputWrite {
+        path: out.display().to_string(),
+        details: e,
+    })?;
+    println!(
+        "✓ {} candidate rules from {} accepted decisions written to {}",
+        rules.len(),
+        log.get_decisions().iter().filter(|d| d.accepted).count(),
+        out.display()
+    );
     Ok(())
 }
 

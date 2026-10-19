@@ -19,6 +19,8 @@ pub struct SuggestionEntry {
     pub confidence: f64,
     pub accepted_auto: bool,
     pub explanation: String,
+    /// `catalog:<rule id>` or `engine:default` (K03)
+    pub origin: String,
 }
 
 impl SuggestionEntry {
@@ -38,6 +40,7 @@ impl SuggestionEntry {
             confidence: suggestion.confidence.value(),
             accepted_auto,
             explanation: suggestion.explanation.clone(),
+            origin: audd_resolution::suggestion_origin(suggestion),
         }
     }
 }

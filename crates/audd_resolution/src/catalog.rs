@@ -2,9 +2,10 @@
 
 use audd_compare::{Conflict, ConflictType};
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::path::{Path, PathBuf};
 
+use crate::decision_log::DecisionLog;
 use crate::suggestion::{Confidence, Impact, Suggestion, SuggestionKind};
 
 /// A single resolution rule.
@@ -13,13 +14,13 @@ pub struct ResolutionRule {
     pub id: String,
     pub conflict_type: String,
     #[serde(default)]
-    pub when: HashMap<String, String>,
+    pub when: BTreeMap<String, String>,
     /// `from`/`to` also match with A and B swapped (e.g. "Int32 vs Int64")
     #[serde(default)]
     pub symmetric: bool,
     pub suggestion: String,
     #[serde(default)]
-    pub params: HashMap<String, String>,
+    pub params: BTreeMap<String, String>,
     pub confidence: f64,
     pub rationale: String,
     #[serde(default = "default_source")]
@@ -58,15 +59,19 @@ pub struct DomainHeader {
     pub description: String,
 }
 
-/// Wrapper for parsing `resolutions.toml` with `[[rule]]` arrays.
+/// Wrapper for parsing `resolutions.toml`: an optional catalog `version` and `[[rule]]` arrays.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 struct ResolutionFile {
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    version: Option<String>,
     rule: Vec<ResolutionRule>,
 }
 
 /// Loaded catalog: rules plus optional domain equivalences.
 #[derive(Debug, Clone, Default, PartialEq)]
 pub struct ResolutionCatalog {
+    /// Catalog version declared in `resolutions.toml` (K06)
+    pub version: Option<String>,
     pub rules: Vec<ResolutionRule>,
     pub domains: HashMap<String, DomainCatalog>,
     pub path: Option<PathBuf>,
@@ -91,7 +96,9 @@ impl ResolutionCatalog {
         let resolutions_path = dir.join("resolutions.toml");
         if resolutions_path.exists() {
             let content = std::fs::read_to_string(&resolutions_path)?;
-            let file: ResolutionFile = toml::from_str(&content)?;
+            let file: ResolutionFile = toml::from_str(&content)
+                .map_err(|e| format!("{}: {}", resolutions_path.display(), e))?;
+            catalog.version = file.version;
             catalog.rules = file.rule;
         }
 
@@ -102,7 +109,8 @@ impl ResolutionCatalog {
                 let path = entry.path();
                 if path.extension().and_then(|e| e.to_str()) == Some("toml") {
                     let content = std::fs::read_to_string(&path)?;
-                    let domain: DomainCatalog = toml::from_str(&content)?;
+                    let domain: DomainCatalog = toml::from_str(&content)
+                        .map_err(|e| format!("{}: {}", path.display(), e))?;
                     catalog.domains.insert(domain.domain.name.clone(), domain);
                 }
             }
@@ -114,6 +122,22 @@ impl ResolutionCatalog {
     /// Load the default catalog from `./catalog` if it exists.
     pub fn load_default() -> Self {
         Self::load_from_dir("catalog").unwrap_or_default()
+    }
+
+    /// Summary used to trace which catalog produced the suggestions (K06):
+    /// location, declared version and the version of every rule.
+    pub fn summary(&self) -> serde_json::Value {
+        let rule_versions: std::collections::BTreeMap<_, _> = self
+            .rules
+            .iter()
+            .map(|r| (r.id.clone(), r.version))
+            .collect();
+        serde_json::json!({
+            "path": self.path.as_ref().map(|p| p.display().to_string()),
+            "version": self.version,
+            "rules": self.rules.len(),
+            "rule_versions": rule_versions,
+        })
     }
 
     /// Return aliases for a given active domain, mapped to their canonical form.
@@ -139,6 +163,112 @@ impl ResolutionCatalog {
         let rule = self.find_rule(conflict)?;
         Some(rule_to_suggestion(rule, conflict, suggestion_id))
     }
+}
+
+/// Origin of a suggestion (K03): `catalog:<rule id>` or `engine:default`.
+pub fn suggestion_origin(suggestion: &Suggestion) -> String {
+    suggestion
+        .evidence
+        .iter()
+        .find(|e| e.starts_with("catalog:"))
+        .cloned()
+        .unwrap_or_else(|| "engine:default".to_string())
+}
+
+/// Candidate rules learned from the accepted decisions of a decision log (K05).
+///
+/// Each decision must carry `metadata.conflict_type` (written by `audd compare`).
+/// Rules get `source = "learned"` and are meant for human review: they are never
+/// added to the catalog automatically. Identical rules are merged.
+pub fn learn_rules(log: &DecisionLog) -> Vec<ResolutionRule> {
+    let mut rules: Vec<ResolutionRule> = Vec::new();
+    for decision in log.get_decisions().iter().filter(|d| d.accepted) {
+        let Some(conflict_type) = decision
+            .metadata
+            .as_ref()
+            .and_then(|m| m.get("conflict_type"))
+            .and_then(|v| v.as_str())
+        else {
+            continue;
+        };
+        let s = &decision.suggestion;
+        let mut when = BTreeMap::new();
+        let mut params = BTreeMap::new();
+        let suggestion = match &s.kind {
+            SuggestionKind::CastSafe { from_type, to_type } => {
+                when.insert("from".to_string(), base_type(from_type));
+                when.insert("to".to_string(), base_type(to_type));
+                params.insert("target".to_string(), to_type.clone());
+                "CastSafe"
+            }
+            SuggestionKind::CastRisky {
+                from_type,
+                to_type,
+                warning,
+            } => {
+                when.insert("from".to_string(), base_type(from_type));
+                when.insert("to".to_string(), base_type(to_type));
+                params.insert("target".to_string(), to_type.clone());
+                params.insert("warning".to_string(), warning.clone());
+                "CastRisky"
+            }
+            SuggestionKind::PreferType {
+                preferred_type,
+                alternative_type,
+                ..
+            } => {
+                params.insert("preferred".to_string(), preferred_type.clone());
+                params.insert("alternative".to_string(), alternative_type.clone());
+                "PreferType"
+            }
+            SuggestionKind::RenameField { .. } => "RenameField",
+            _ => continue,
+        };
+        let candidate = ResolutionRule {
+            id: format!("L-{:03}", rules.len() + 1),
+            conflict_type: conflict_type.to_string(),
+            when,
+            symmetric: false,
+            suggestion: suggestion.to_string(),
+            params,
+            confidence: s.confidence.value(),
+            rationale: format!(
+                "Aprendida de la decisión {} ({}{}): {}",
+                decision.id,
+                s.entity_name,
+                s.field_name
+                    .as_ref()
+                    .map(|f| format!(".{}", f))
+                    .unwrap_or_default(),
+                decision.rationale
+            ),
+            source: "learned".to_string(),
+            version: 1,
+        };
+        let duplicate = rules.iter().any(|r| {
+            r.conflict_type == candidate.conflict_type
+                && r.when == candidate.when
+                && r.suggestion == candidate.suggestion
+                && r.params == candidate.params
+        });
+        if !duplicate {
+            rules.push(candidate);
+        }
+    }
+    rules
+}
+
+/// Serialize rules in the `resolutions.toml` format.
+pub fn rules_to_toml(rules: &[ResolutionRule]) -> Result<String, toml::ser::Error> {
+    toml::to_string(&ResolutionFile {
+        version: None,
+        rule: rules.to_vec(),
+    })
+}
+
+/// `Decimal(10, 2)` -> `Decimal`
+fn base_type(ty: &str) -> String {
+    ty.split('(').next().unwrap_or(ty).trim().to_string()
 }
 
 fn rule_matches(rule: &ResolutionRule, conflict: &Conflict) -> bool {
@@ -340,7 +470,7 @@ mod tests {
         let rule = ResolutionRule {
             id: "R-TYPE-001".to_string(),
             conflict_type: "TypeIncompatible".to_string(),
-            when: HashMap::new(),
+            when: BTreeMap::new(),
             symmetric: false,
             suggestion: "CastSafe".to_string(),
             params: [("target".to_string(), "Int64".to_string())].into(),
@@ -366,7 +496,7 @@ mod tests {
             .into(),
             symmetric,
             suggestion: "CastSafe".to_string(),
-            params: HashMap::new(),
+            params: BTreeMap::new(),
             confidence: 0.9,
             rationale: "test".to_string(),
             source: "default".to_string(),

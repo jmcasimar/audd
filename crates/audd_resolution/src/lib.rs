@@ -47,7 +47,10 @@ mod engine;
 mod suggestion;
 pub mod time;
 
-pub use catalog::{DomainCatalog, Equivalence, ResolutionCatalog, ResolutionRule};
+pub use catalog::{
+    learn_rules, rules_to_toml, suggestion_origin, DomainCatalog, Equivalence, ResolutionCatalog,
+    ResolutionRule,
+};
 pub use config::{LengthPolicy, NullabilityPolicy, ResolutionConfig, TypePreferencePolicy};
 pub use decision::{Decision, DecisionSource, DecisionStatus};
 pub use decision_log::DecisionLog;
