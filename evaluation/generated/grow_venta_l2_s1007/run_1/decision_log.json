@@ -1,0 +1,45 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "1970-01-01T00:00:00Z",
+    "updated_at": "1970-01-01T00:00:00Z",
+    "total_decisions": 1,
+    "accepted_decisions": 1,
+    "rejected_decisions": 0,
+    "schema_a_id": "a",
+    "schema_b_id": "b"
+  },
+  "decisions": [
+    {
+      "id": "auto_dec_1",
+      "suggestion": {
+        "id": "sug_0",
+        "entity_name": "producto",
+        "field_name": "nombre",
+        "kind": {
+          "prefer_type": {
+            "preferred_type": "Nullable",
+            "alternative_type": "alternative",
+            "rule": "R-NULL-001"
+          }
+        },
+        "confidence": 0.9,
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "impact": "medium",
+        "conflict_index": null
+      },
+      "accepted": true,
+      "rationale": "Automated by rule: high_confidence_auto_accept",
+      "source": {
+        "system": {
+          "rule": "high_confidence_auto_accept"
+        }
+      },
+      "status": "pending",
+      "timestamp": "1970-01-01T00:00:00Z"
+    }
+  ]
+}

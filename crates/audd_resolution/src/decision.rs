@@ -4,6 +4,7 @@ use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 use crate::suggestion::Suggestion;
+use crate::time;
 
 /// Source of a decision (human or automated)
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
@@ -80,7 +81,7 @@ impl Decision {
             rationale,
             source,
             status: DecisionStatus::Pending,
-            timestamp: Utc::now(),
+            timestamp: time::now(),
             metadata: None,
         }
     }
@@ -106,20 +107,13 @@ impl Decision {
     }
 
     /// Create an automated decision by system
-    pub fn by_system(
-        id: String,
-        suggestion: Suggestion,
-        accepted: bool,
-        rule: String,
-    ) -> Self {
+    pub fn by_system(id: String, suggestion: Suggestion, accepted: bool, rule: String) -> Self {
         Self::new(
             id,
             suggestion,
             accepted,
             format!("Automated by rule: {}", rule),
-            DecisionSource::System {
-                rule: rule.clone(),
-            },
+            DecisionSource::System { rule: rule.clone() },
         )
     }
 
@@ -325,7 +319,7 @@ mod tests {
 
         let json = serde_json::to_string(&decision).unwrap();
         let deserialized: Decision = serde_json::from_str(&json).unwrap();
-        
+
         // Compare fields individually since DateTime might have slight differences
         assert_eq!(decision.id, deserialized.id);
         assert_eq!(decision.accepted, deserialized.accepted);

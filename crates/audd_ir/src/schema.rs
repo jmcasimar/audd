@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 
-use crate::{CanonicalType, Constraint, Key, Index, View, Trigger, StoredProcedure, IR_VERSION};
+use crate::{CanonicalType, Constraint, Index, Key, StoredProcedure, Trigger, View, IR_VERSION};
 
 /// Complete schema for a data source
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]

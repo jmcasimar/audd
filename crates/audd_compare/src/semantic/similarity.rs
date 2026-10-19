@@ -2,7 +2,9 @@
 
 use std::collections::HashSet;
 
-use crate::config::{FuzzyAlgorithm, FuzzyConfig, NgramConfig, SimilarityMetric, TokenSimilarityConfig};
+use crate::config::{
+    FuzzyAlgorithm, FuzzyConfig, NgramConfig, SimilarityMetric, TokenSimilarityConfig,
+};
 
 /// Token overlap information
 #[derive(Debug, Clone, PartialEq)]
@@ -19,11 +21,14 @@ pub fn calculate_token_similarity(
     config: &TokenSimilarityConfig,
 ) -> (f64, TokenOverlap) {
     if !config.enabled {
-        return (0.0, TokenOverlap {
-            intersection: vec![],
-            only_a: tokens_a.to_vec(),
-            only_b: tokens_b.to_vec(),
-        });
+        return (
+            0.0,
+            TokenOverlap {
+                intersection: vec![],
+                only_a: tokens_a.to_vec(),
+                only_b: tokens_b.to_vec(),
+            },
+        );
     }
 
     let set_a: HashSet<&String> = tokens_a.iter().collect();
@@ -52,19 +57,18 @@ pub fn calculate_token_similarity(
         }
     };
 
-    (score, TokenOverlap {
-        intersection,
-        only_a,
-        only_b,
-    })
+    (
+        score,
+        TokenOverlap {
+            intersection,
+            only_a,
+            only_b,
+        },
+    )
 }
 
 /// Calculate fuzzy character similarity
-pub fn calculate_fuzzy_similarity(
-    text_a: &str,
-    text_b: &str,
-    config: &FuzzyConfig,
-) -> f64 {
+pub fn calculate_fuzzy_similarity(text_a: &str, text_b: &str, config: &FuzzyConfig) -> f64 {
     if !config.enabled || text_a.is_empty() || text_b.is_empty() {
         return 0.0;
     }
@@ -110,11 +114,7 @@ pub fn generate_ngrams(text: &str, n: usize) -> HashSet<String> {
 }
 
 /// Calculate n-gram similarity
-pub fn calculate_ngram_similarity(
-    text_a: &str,
-    text_b: &str,
-    config: &NgramConfig,
-) -> f64 {
+pub fn calculate_ngram_similarity(text_a: &str, text_b: &str, config: &NgramConfig) -> f64 {
     if !config.enabled || text_a.is_empty() || text_b.is_empty() {
         return 0.0;
     }

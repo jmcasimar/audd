@@ -7,9 +7,7 @@
 //! 4. Export the decision log
 
 use audd_compare::Conflict;
-use audd_resolution::{
-    Decision, DecisionLog, DecisionSource, ResolutionConfig, SuggestionEngine,
-};
+use audd_resolution::{Decision, DecisionLog, DecisionSource, ResolutionConfig, SuggestionEngine};
 
 fn main() {
     println!("=== AUDD Resolution Example ===\n");
@@ -37,8 +35,11 @@ fn main() {
         })
         .collect();
 
-    println!("Generated {} suggestions for {} conflicts\n", 
-             all_suggestions.len(), conflicts.len());
+    println!(
+        "Generated {} suggestions for {} conflicts\n",
+        all_suggestions.len(),
+        conflicts.len()
+    );
 
     // Step 4: Display suggestions
     for (idx, suggestion) in all_suggestions.iter().enumerate() {
@@ -55,8 +56,8 @@ fn main() {
     }
 
     // Step 5: Create a decision log
-    let mut log = DecisionLog::new()
-        .with_schema_ids("schema_a".to_string(), "schema_b".to_string());
+    let mut log =
+        DecisionLog::new().with_schema_ids("schema_a".to_string(), "schema_b".to_string());
 
     // Step 6: Make decisions on suggestions
     println!("Making decisions...\n");
@@ -115,12 +116,16 @@ fn main() {
     println!("=== Custom Configuration Example ===");
     let conservative_config = ResolutionConfig::conservative();
     let conservative_engine = SuggestionEngine::with_config(conservative_config);
-    
+
     println!("Conservative engine created (safe suggestions only)");
-    println!("Risky suggestions allowed: {}", 
-             conservative_engine.config().allow_risky_suggestions);
-    println!("Min confidence: {}", 
-             conservative_engine.config().min_confidence);
+    println!(
+        "Risky suggestions allowed: {}",
+        conservative_engine.config().allow_risky_suggestions
+    );
+    println!(
+        "Min confidence: {}",
+        conservative_engine.config().min_confidence
+    );
 }
 
 fn create_sample_conflicts() -> Vec<Conflict> {

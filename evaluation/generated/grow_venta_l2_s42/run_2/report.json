@@ -1,0 +1,496 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "a",
+    "schema_b": "b",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 43,
+      "total_exclusives": 4,
+      "total_conflicts": 1,
+      "exclusives_from_a": 2,
+      "exclusives_from_b": 2,
+      "compatibility_score": 97.72727272727273,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 2.272727272727273
+    },
+    "risk_assessment": {
+      "risk_level": "Low",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 0,
+      "reasons": [
+        "Low conflict rate and no high-severity issues"
+      ]
+    },
+    "top_conflicts": [
+      {
+        "entity_name": "producto",
+        "conflict_count": 1,
+        "highest_severity": "Medium"
+      }
+    ]
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 43,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 1.0
+    },
+    "exclusives": {
+      "from_schema_a": 2,
+      "from_schema_b": 2,
+      "safe_from_a": 2,
+      "safe_from_b": 2,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 1,
+      "by_type": {
+        "NullabilityMismatch": 1
+      },
+      "by_severity": {
+        "Medium": 1
+      }
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "categoria",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "categoria",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "categoria",
+        "field": "nombre",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "categoria",
+        "field": "descripcion",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "cliente",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "cliente",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "cliente",
+        "field": "codigo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "cliente",
+        "field": "nombre",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "cliente",
+        "field": "telefono",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "cliente",
+        "field": "correo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "cliente",
+        "field": "rfc",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "cliente",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "pago",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "pago",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "pago",
+        "field": "venta_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "pago",
+        "field": "forma_pago",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "pago",
+        "field": "monto",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "pago",
+        "field": "referencia",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "producto",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "producto",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "producto",
+        "field": "codigo_barras",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "producto",
+        "field": "nombre",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "producto",
+        "field": "descripcion",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "producto",
+        "field": "precio",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "producto",
+        "field": "existencia",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "producto",
+        "field": "categoria_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "producto",
+        "field": "activo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "producto",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "venta",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "venta",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "venta",
+        "field": "folio",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "venta",
+        "field": "cliente_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "venta",
+        "field": "subtotal",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "venta",
+        "field": "impuesto",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "venta",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "venta",
+        "field": "estatus",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "venta_detalle",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "venta_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "producto_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "cantidad",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "precio_unitario",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "importe",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "pago",
+        "field": "fecha",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "pago",
+        "field": "date",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "venta",
+        "field": "fecha",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "venta",
+        "field": "date",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      }
+    ],
+    "conflicts": [
+      {
+        "id": 1,
+        "entity": "producto",
+        "field": "created_at",
+        "conflict_type": "NullabilityMismatch",
+        "severity": "Medium",
+        "evidence_a": "Nullable: false",
+        "evidence_b": "Nullable: true",
+        "rule": "Nullability must match or be compatible",
+        "index_a": 8,
+        "index_b": 8
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 1,
+      "high_confidence": 1,
+      "medium_confidence": 0,
+      "auto_accepted": 1,
+      "total_decisions": 1,
+      "accepted_decisions": 1,
+      "rejected_decisions": 0,
+      "system_decisions": 1,
+      "user_decisions": 0
+    },
+    "suggestions": [
+      {
+        "id": "sug_0",
+        "conflict_id": 1,
+        "entity": "producto",
+        "field": "created_at",
+        "kind": "PreferType { preferred_type: \"Nullable\", alternative_type: \"alternative\", rule: \"R-NULL-001\" }",
+        "confidence": 0.9,
+        "impact": "Medium",
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "status": "accepted"
+      }
+    ],
+    "decisions": [
+      {
+        "id": "auto_dec_1",
+        "suggestion_id": "sug_0",
+        "accepted": true,
+        "source": "system:high_confidence_auto_accept",
+        "rationale": "Automated by rule: high_confidence_auto_accept",
+        "timestamp": "1970-01-01T00:00:00+00:00"
+      }
+    ]
+  },
+  "recommendations": [
+    "Low risk detected - schemas are mostly compatible",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

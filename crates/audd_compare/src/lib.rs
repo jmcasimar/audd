@@ -31,20 +31,19 @@ mod conflict;
 mod engine;
 mod matcher;
 mod result;
+mod semantic;
 mod types;
 mod unified;
-mod semantic;
 
 pub use config::CompareConfig;
 pub use config::{
-    SemanticMatchConfig, MatchLocale, UnicodeNormalization, SimilarityMetric, 
-    FuzzyAlgorithm, NormalizationConfig, PluralizationConfig, StemmingConfig,
-    SynonymConfig, TokenSimilarityConfig, FuzzyConfig, NgramConfig,
-    ScoringWeights, MatchThresholds,
+    FuzzyAlgorithm, FuzzyConfig, MatchLocale, MatchThresholds, NgramConfig, NormalizationConfig,
+    PluralizationConfig, ScoringWeights, SemanticMatchConfig, SimilarityMetric, StemmingConfig,
+    SynonymConfig, TokenSimilarityConfig, UnicodeNormalization,
 };
 pub use conflict::{Conflict, ConflictEvidence, ConflictSeverity, ConflictType};
 pub use engine::compare;
 pub use result::{ComparisonResult, Exclusive, ExclusiveSide, Match, MatchReason};
+pub use semantic::{SemanticMatchDecision, SemanticMatchPipeline, SemanticMatchResult};
 pub use types::{compare_types, TypeCompatibility};
 pub use unified::{FieldOrigin, FieldState, UnifiedEntity, UnifiedField, UnifiedSchema};
-pub use semantic::{SemanticMatchDecision, SemanticMatchPipeline, SemanticMatchResult};

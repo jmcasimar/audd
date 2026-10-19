@@ -83,7 +83,10 @@ fn main() {
     println!("Entities: {}", unified.entities.len());
 
     for entity in &unified.entities {
-        println!("\n  Entity: {} (origin: {:?})", entity.entity_name, entity.origin);
+        println!(
+            "\n  Entity: {} (origin: {:?})",
+            entity.entity_name, entity.origin
+        );
         for field in &entity.fields {
             println!(
                 "    - {} [{:?}] (state: {:?}, origin: {:?})",
@@ -234,6 +237,10 @@ fn print_schema_summary(schema: &SourceSchema) {
     println!("  Source: {} ({})", schema.source_name, schema.source_type);
     println!("  Entities: {}", schema.entities.len());
     for entity in &schema.entities {
-        println!("    - {} ({} fields)", entity.entity_name, entity.fields.len());
+        println!(
+            "    - {} ({} fields)",
+            entity.entity_name,
+            entity.fields.len()
+        );
     }
 }

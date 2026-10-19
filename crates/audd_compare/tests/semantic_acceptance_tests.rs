@@ -1,8 +1,7 @@
 //! Integration tests for semantic matching feature
 
 use audd_compare::{
-    CompareConfig, SemanticMatchConfig, SemanticMatchPipeline,
-    SemanticMatchDecision,
+    CompareConfig, SemanticMatchConfig, SemanticMatchDecision, SemanticMatchPipeline,
 };
 
 #[test]

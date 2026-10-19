@@ -1,0 +1,2366 @@
+{
+  "matches": [
+    {
+      "entity_name": "Album",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "album"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Album",
+      "field_name": "AlbumId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "album",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Album",
+      "field_name": "Title",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "title"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Album",
+      "field_name": "ArtistId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "artist",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Artist",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "artist"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Artist",
+      "field_name": "ArtistId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "artist",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Artist",
+      "field_name": "Name",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "customer"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "CustomerId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "customer",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "FirstName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name",
+                "first"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "LastName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "last",
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "Company",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "company"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "Address",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "address"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "City",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "city"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "State",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "state"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "Country",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "country"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "PostalCode",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "code",
+                "postal"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 8
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "Phone",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "phone"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 9,
+      "index_b": 9
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "Fax",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "fax"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 10,
+      "index_b": 10
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "Email",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "email"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 11,
+      "index_b": 11
+    },
+    {
+      "entity_name": "Customer",
+      "field_name": "SupportRepId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "rep",
+                "support"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 12,
+      "index_b": 12
+    },
+    {
+      "entity_name": "Genre",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "genre"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Genre",
+      "field_name": "GenreId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "genre",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Genre",
+      "field_name": "Name",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "invoice"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "InvoiceId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "invoice"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "CustomerId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "customer"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "InvoiceDate",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "invoice",
+                "date"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "BillingAddress",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "billing",
+                "address"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "BillingCity",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "city",
+                "billing"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "BillingState",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "state",
+                "billing"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "BillingCountry",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "country",
+                "billing"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "BillingPostalCode",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "code",
+                "postal",
+                "billing"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "Invoice",
+      "field_name": "Total",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "total"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 8
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "invoice",
+                "line"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "field_name": "InvoiceLineId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "invoice",
+                "line",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "field_name": "InvoiceId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "invoice"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "field_name": "TrackId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "track",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "field_name": "UnitPrice",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "unit",
+                "price"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "field_name": "Quantity",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "quantity"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "MediaType",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "type",
+                "media"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "MediaType",
+      "field_name": "MediaTypeId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "media",
+                "id",
+                "type"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "MediaType",
+      "field_name": "Name",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Playlist",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "playlist"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "Playlist",
+      "field_name": "PlaylistId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "playlist"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Playlist",
+      "field_name": "Name",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Track",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "track"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 9,
+      "index_b": 9
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "TrackId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "track"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "Name",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "AlbumId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "album"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "MediaTypeId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "media",
+                "type",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "GenreId",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "genre"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "Composer",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "composer"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "Milliseconds",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "millisecond"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "Bytes",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "byte"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "Track",
+      "field_name": "UnitPrice",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "unit",
+                "price"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 8
+    }
+  ],
+  "exclusives": [
+    {
+      "entity_name": "Album",
+      "field_name": "extra_field_6306",
+      "side": "B",
+      "index": 3,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "PlaylistTrack",
+      "field_name": null,
+      "side": "A",
+      "index": 8,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "tbl_5922",
+      "field_name": null,
+      "side": "B",
+      "index": 8,
+      "safe_to_add": true
+    }
+  ],
+  "conflicts": [],
+  "summary": {
+    "total_matches": 56,
+    "total_exclusives": 3,
+    "total_conflicts": 0,
+    "exclusives_a": 1,
+    "exclusives_b": 2
+  }
+}

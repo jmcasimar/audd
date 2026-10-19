@@ -159,10 +159,7 @@ mod tests {
     fn test_default_config() {
         let config = ResolutionConfig::default();
         assert_eq!(config.type_preference, TypePreferencePolicy::PreferLarger);
-        assert_eq!(
-            config.nullability_policy,
-            NullabilityPolicy::AlwaysNullable
-        );
+        assert_eq!(config.nullability_policy, NullabilityPolicy::AlwaysNullable);
         assert!(config.allow_risky_suggestions);
     }
 
@@ -177,10 +174,7 @@ mod tests {
     #[test]
     fn test_prefer_schema_a_config() {
         let config = ResolutionConfig::prefer_schema_a();
-        assert_eq!(
-            config.type_preference,
-            TypePreferencePolicy::PreferSchemaA
-        );
+        assert_eq!(config.type_preference, TypePreferencePolicy::PreferSchemaA);
         assert_eq!(config.nullability_policy, NullabilityPolicy::PreferSchemaA);
         assert_eq!(config.length_policy, LengthPolicy::PreferSchemaA);
     }
@@ -188,10 +182,7 @@ mod tests {
     #[test]
     fn test_prefer_schema_b_config() {
         let config = ResolutionConfig::prefer_schema_b();
-        assert_eq!(
-            config.type_preference,
-            TypePreferencePolicy::PreferSchemaB
-        );
+        assert_eq!(config.type_preference, TypePreferencePolicy::PreferSchemaB);
         assert_eq!(config.nullability_policy, NullabilityPolicy::PreferSchemaB);
         assert_eq!(config.length_policy, LengthPolicy::PreferSchemaB);
     }

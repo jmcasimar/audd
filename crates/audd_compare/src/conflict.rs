@@ -175,6 +175,30 @@ impl Conflict {
         )
     }
 
+    /// Create a length/precision mismatch conflict
+    pub fn length_mismatch(
+        entity_name: String,
+        field_name: String,
+        length_a: String,
+        length_b: String,
+        index_a: usize,
+        index_b: usize,
+    ) -> Self {
+        Self::new(
+            entity_name,
+            Some(field_name),
+            ConflictType::LengthMismatch,
+            ConflictSeverity::Medium,
+            ConflictEvidence::new(
+                length_a,
+                length_b,
+                "Length/precision must be compatible".to_string(),
+            ),
+            index_a,
+            index_b,
+        )
+    }
+
     /// Create a normalization collision conflict
     pub fn normalization_collision(
         entity_name: String,

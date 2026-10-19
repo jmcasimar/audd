@@ -1,0 +1,159 @@
+# Default resolution catalog for AUDD
+#
+# This file contains rules that map a conflict type and optional conditions
+# to a concrete suggestion, its confidence and a human-readable rationale.
+# Rules are evaluated in order; the first matching rule wins.
+
+[[rule]]
+id = "R-TYPE-001"
+conflict_type = "TypeIncompatible"
+when = { from = "Int32", to = "Int64" }
+suggestion = "CastSafe"
+params = { target = "Int64" }
+confidence = 0.95
+rationale = "Ampliación de entero sin pérdida de información"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-TYPE-002"
+conflict_type = "TypeIncompatible"
+when = { from = "Int32", to = "Decimal" }
+suggestion = "CastSafe"
+params = { target = "Decimal" }
+confidence = 0.90
+rationale = "Sin pérdida si la escala lo permite"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-TYPE-003"
+conflict_type = "TypeIncompatible"
+when = { from = "Float64", to = "Decimal" }
+suggestion = "CastRisky"
+params = { target = "Decimal" }
+confidence = 0.70
+rationale = "Posible redondeo"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-TYPE-004"
+conflict_type = "TypeIncompatible"
+when = { from = "Int32", to = "String" }
+suggestion = "CastSafe"
+params = { target = "String" }
+confidence = 0.85
+rationale = "La representación textual no pierde información"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-TYPE-005"
+conflict_type = "TypeIncompatible"
+when = { from = "String", to = "Int32" }
+suggestion = "CastRisky"
+params = { target = "Int32" }
+confidence = 0.60
+rationale = "Requiere validar que todos los valores se puedan convertir"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-TYPE-006"
+conflict_type = "TypeIncompatible"
+when = { from = "Boolean", to = "Int32" }
+suggestion = "CastSafe"
+params = { target = "Int32" }
+confidence = 0.85
+rationale = "Convención habitual (0/1)"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-TYPE-007"
+conflict_type = "TypeIncompatible"
+when = { from = "Date", to = "Timestamp" }
+suggestion = "CastSafe"
+params = { target = "Timestamp" }
+confidence = 0.90
+rationale = "Se agrega la hora 00:00"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-TYPE-008"
+conflict_type = "TypeIncompatible"
+when = { from = "Timestamp", to = "Date" }
+suggestion = "CastRisky"
+params = { target = "Date" }
+confidence = 0.65
+rationale = "Se pierde la hora"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-LEN-001"
+conflict_type = "LengthMismatch"
+when = { kind = "MaxLength" }
+suggestion = "PreferType"
+params = { preferred = "Larger length" }
+confidence = 0.95
+rationale = "Evita truncar datos"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-NULL-001"
+conflict_type = "NullabilityMismatch"
+when = { preferred = "Nullable" }
+suggestion = "PreferType"
+params = { preferred = "Nullable" }
+confidence = 0.90
+rationale = "Acepta los datos de ambas fuentes"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-CONS-001"
+conflict_type = "ConstraintMismatch"
+when = { kind = "Unique" }
+suggestion = "PreferType"
+params = { preferred = "Keep unique after duplicate validation" }
+confidence = 0.50
+rationale = "Conservar UNIQUE solo tras validar duplicados; si no, eliminarla"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-CONS-002"
+conflict_type = "ConstraintMismatch"
+when = { kind = "Check" }
+suggestion = "PreferType"
+params = { preferred = "Most permissive condition" }
+confidence = 0.60
+rationale = "Evita rechazar datos válidos de una fuente"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-CONS-003"
+conflict_type = "ConstraintMismatch"
+when = { kind = "PrimaryKey" }
+suggestion = "NoSuggestion"
+params = {}
+confidence = 0.50
+rationale = "Decisión de modelado; revisión manual"
+source = "default"
+version = 1
+
+[[rule]]
+id = "R-NORM-001"
+conflict_type = "NormalizationCollision"
+when = {}
+suggestion = "RenameField"
+params = { suffix = "_a_or_b" }
+confidence = 0.80
+rationale = "Elimina la ambigüedad con sufijo de origen"
+source = "default"
+version = 1

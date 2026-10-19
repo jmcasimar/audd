@@ -1,0 +1,13 @@
+[
+  {
+    "conflict_index": 0,
+    "entity_name": "producto",
+    "field_name": "nombre",
+    "conflict_type": "NullabilityMismatch",
+    "suggestion_id": "sug_0",
+    "suggestion_kind": "PreferType",
+    "confidence": 0.9,
+    "accepted_auto": true,
+    "explanation": "Acepta los datos de ambas fuentes"
+  }
+]

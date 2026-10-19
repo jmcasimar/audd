@@ -20,21 +20,34 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("   Loading CSV file...");
     let csv_path = workspace_root.join("fixtures/adapters/users.csv");
     let schema = load_schema_from_file(&csv_path)?;
-    println!("   ✓ Loaded: {} ({})", schema.source_name, schema.source_type);
+    println!(
+        "   ✓ Loaded: {} ({})",
+        schema.source_name, schema.source_type
+    );
     println!("   Entities: {}", schema.entities.len());
-    println!("   Fields in first entity: {}\n", schema.entities[0].fields.len());
+    println!(
+        "   Fields in first entity: {}\n",
+        schema.entities[0].fields.len()
+    );
 
     // Example 2: Explicit adapter - JSON
     println!("2. Using explicit JSON adapter:");
     let json_path = workspace_root.join("fixtures/adapters/users.json");
     let json_adapter = JsonAdapter::new();
     let schema = json_adapter.load(&json_path)?;
-    println!("   ✓ Loaded: {} ({})", schema.source_name, schema.source_type);
-    
+    println!(
+        "   ✓ Loaded: {} ({})",
+        schema.source_name, schema.source_type
+    );
+
     // Show type inference
     println!("   Type inference examples:");
     for field in &schema.entities[0].fields {
-        println!("     - {}: {}", field.field_name, field.canonical_type.type_name());
+        println!(
+            "     - {}: {}",
+            field.field_name,
+            field.canonical_type.type_name()
+        );
     }
     println!();
 
@@ -44,8 +57,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let schema = load_schema_from_file(&sql_path)?;
     println!("   ✓ Loaded: {} tables", schema.entities.len());
     for entity in &schema.entities {
-        println!("     - {} ({} fields, {} keys)", 
-            entity.entity_name, 
+        println!(
+            "     - {} ({} fields, {} keys)",
+            entity.entity_name,
             entity.fields.len(),
             entity.keys.len()
         );

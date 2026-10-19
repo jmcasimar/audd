@@ -18,7 +18,7 @@ path = "src/main.rs"
 [dependencies]
 clap.workspace = true
 audd_ir = { path = "../audd_ir" }
-audd_adapters_file = { path = "../audd_adapters_file" }
+audd_adapters_file = { path = "../audd_adapters_file", default-features = false }
 audd_adapters_db = { path = "../audd_adapters_db" }
 audd_compare = { path = "../audd_compare" }
 audd_resolution = { path = "../audd_resolution" }
@@ -29,5 +29,11 @@ toml.workspace = true
 serde.workspace = true
 chrono = "0.4"
 
+[features]
+default = []
+# Enable remote URL loading (HTTP/HTTPS, Google Sheets). Adds networking dependencies.
+remote = ["audd_adapters_file/remote"]
+
 [dev-dependencies]
 tempfile = "3.8"
+rusqlite = { version = "0.32", features = ["bundled"] }

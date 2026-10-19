@@ -4,9 +4,9 @@ mod loader;
 mod output;
 
 use clap::{Parser, Subcommand};
-use std::path::PathBuf;
-use error::CliResult;
 use config::Config;
+use error::CliResult;
+use std::path::PathBuf;
 
 #[derive(Parser)]
 #[command(name = "audd")]
@@ -27,11 +27,11 @@ enum Commands {
     Load {
         /// Source identifier
         /// - File: path/to/file.csv or file:path/to/file.csv
-        /// - Database: db:sqlite://path, db:mysql://user:pass@host/db, 
+        /// - Database: db:sqlite://path, db:mysql://user:pass@host/db,
         ///   db:postgresql://user:pass@host/db, db:mongodb://host/db,
         ///   db:sqlserver://user:pass@host/db, or db:firebird://user:pass@host:/db.fdb
-        /// - Remote URL: https://example.com/data.csv
-        /// - Google Sheets: https://docs.google.com/spreadsheets/d/SHEET_ID/edit
+        /// - Remote URL (requires --features remote): https://example.com/data.csv
+        /// - Google Sheets (requires --features remote): https://docs.google.com/spreadsheets/d/SHEET_ID/edit
         #[arg(short, long)]
         source: String,
 
@@ -69,6 +69,18 @@ enum Commands {
         /// Confidence threshold for auto-accepting suggestions (0.0 to 1.0)
         #[arg(long = "confidence-threshold")]
         confidence_threshold: Option<f64>,
+
+        /// Use a fixed timestamp to make outputs reproducible byte-for-byte
+        #[arg(long = "deterministic")]
+        deterministic: bool,
+
+        /// Path to a resolution catalog directory (default: ./catalog)
+        #[arg(long = "catalog")]
+        catalog: Option<PathBuf>,
+
+        /// Activate a domain catalog (e.g., pos)
+        #[arg(long = "domain")]
+        domain: Option<String>,
 
         /// Output format (legacy, not used with --out)
         #[arg(short, long, default_value = "json")]
@@ -117,9 +129,11 @@ fn main() {
     };
 
     let result = match &cli.command {
-        Some(Commands::Load { source, conn, format }) => {
-            handle_load(source, conn.as_deref(), format)
-        }
+        Some(Commands::Load {
+            source,
+            conn,
+            format,
+        }) => handle_load(source, conn.as_deref(), format),
         Some(Commands::Compare {
             source_a,
             conn_a,
@@ -127,17 +141,31 @@ fn main() {
             conn_b,
             out,
             confidence_threshold,
+            deterministic,
+            catalog,
+            domain,
             format: _,
         }) => {
-            let out_dir = out.clone().unwrap_or_else(|| PathBuf::from(config.get_default_output_dir()));
-            handle_compare(source_a, conn_a.as_deref(), source_b, conn_b.as_deref(), &out_dir, &config, *confidence_threshold)
+            let out_dir = out
+                .clone()
+                .unwrap_or_else(|| PathBuf::from(config.get_default_output_dir()));
+            handle_compare(
+                source_a,
+                conn_a.as_deref(),
+                source_b,
+                conn_b.as_deref(),
+                &out_dir,
+                &config,
+                *confidence_threshold,
+                *deterministic,
+                catalog.as_deref(),
+                domain.as_deref(),
+            )
         }
         Some(Commands::Inspect { source, conn, out }) => {
             handle_inspect(source, conn.as_deref(), out.as_ref())
         }
-        Some(Commands::GenerateConfig { out }) => {
-            handle_generate_config(out)
-        }
+        Some(Commands::GenerateConfig { out }) => handle_generate_config(out),
         None => {
             println!("AUDD - Dynamic Data Unification Algorithm");
             println!("Use --help to see available commands");
@@ -151,6 +179,24 @@ fn main() {
     }
 }
 
+/// Replace entity and field names with their canonical form from an active domain.
+fn apply_domain_aliases(
+    mut schema: audd_ir::SourceSchema,
+    aliases: &std::collections::HashMap<String, String>,
+) -> audd_ir::SourceSchema {
+    for entity in &mut schema.entities {
+        if let Some(canonical) = aliases.get(&entity.entity_name.to_lowercase()) {
+            entity.entity_name.clone_from(canonical);
+        }
+        for field in &mut entity.fields {
+            if let Some(canonical) = aliases.get(&field.field_name.to_lowercase()) {
+                field.field_name.clone_from(canonical);
+            }
+        }
+    }
+    schema
+}
+
 fn handle_load(source: &str, conn: Option<&str>, format: &str) -> CliResult<()> {
     println!("📁 AUDD Load Schema");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -161,7 +207,7 @@ fn handle_load(source: &str, conn: Option<&str>, format: &str) -> CliResult<()> 
     println!();
 
     let schema = loader::load_schema(source, conn)?;
-    
+
     println!("✓ Schema loaded successfully!");
     println!();
     println!("Source Name: {}", schema.source_name);
@@ -208,26 +254,77 @@ fn handle_compare(
     out_dir: &PathBuf,
     config: &Config,
     confidence_threshold_override: Option<f64>,
+    deterministic: bool,
+    catalog_dir: Option<&std::path::Path>,
+    domain: Option<&str>,
 ) -> CliResult<()> {
+    if deterministic {
+        audd_resolution::time::enable_deterministic_mode();
+    }
+
     println!("🔍 AUDD Compare");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-    
+
     // Load schema A
     println!("Loading schema A from {}...", source_a);
     let schema_a = loader::load_schema(source_a, conn_a)?;
-    println!("✓ Schema A loaded: {} ({} entities)", schema_a.source_name, schema_a.entities.len());
+    println!(
+        "✓ Schema A loaded: {} ({} entities)",
+        schema_a.source_name,
+        schema_a.entities.len()
+    );
 
     // Load schema B
     println!("Loading schema B from {}...", source_b);
     let schema_b = loader::load_schema(source_b, conn_b)?;
-    println!("✓ Schema B loaded: {} ({} entities)", schema_b.source_name, schema_b.entities.len());
+    println!(
+        "✓ Schema B loaded: {} ({} entities)",
+        schema_b.source_name,
+        schema_b.entities.len()
+    );
+
+    // Load resolution catalog
+    let catalog = if let Some(dir) = catalog_dir {
+        audd_resolution::ResolutionCatalog::load_from_dir(dir)
+            .map_err(|e| error::CliError::CatalogError(e.to_string()))?
+    } else {
+        audd_resolution::ResolutionCatalog::load_default()
+    };
+
+    if !catalog.rules.is_empty() || !catalog.domains.is_empty() {
+        println!(
+            "✓ Loaded resolution catalog ({} rules, {} domains)",
+            catalog.rules.len(),
+            catalog.domains.len()
+        );
+    }
+
+    // Apply domain aliases if requested
+    let (schema_a, schema_b) = if let Some(domain_name) = domain {
+        let aliases = catalog.domain_aliases(domain_name);
+        if aliases.is_empty() {
+            eprintln!("⚠️  Domain '{}' not found in catalog", domain_name);
+        } else {
+            println!(
+                "✓ Applied domain '{}' ({} aliases)",
+                domain_name,
+                aliases.len()
+            );
+        }
+        (
+            apply_domain_aliases(schema_a, &aliases),
+            apply_domain_aliases(schema_b, &aliases),
+        )
+    } else {
+        (schema_a, schema_b)
+    };
 
     // Compare schemas
     println!();
     println!("Comparing schemas...");
     let compare_config = audd_compare::CompareConfig::default();
     let comparison_result = audd_compare::compare(&schema_a, &schema_b, &compare_config);
-    
+
     println!("✓ Comparison complete!");
     println!("  - Matches: {}", comparison_result.matches.len());
     println!("  - Exclusives: {}", comparison_result.exclusives.len());
@@ -236,7 +333,7 @@ fn handle_compare(
     // Generate suggestions for conflicts
     println!();
     println!("Generating resolution suggestions...");
-    let suggestion_engine = audd_resolution::SuggestionEngine::new();
+    let suggestion_engine = audd_resolution::SuggestionEngine::new().with_catalog(catalog);
     let mut decision_log = audd_resolution::DecisionLog::new()
         .with_schema_ids(schema_a.source_name.clone(), schema_b.source_name.clone());
 
@@ -245,15 +342,23 @@ fn handle_compare(
     let decision_id_prefix = config.get_decision_id_prefix(None);
 
     let mut decision_counter = 0;
-    for conflict in &comparison_result.conflicts {
+    let mut all_suggestions: Vec<output::SuggestionEntry> = Vec::new();
+    for (conflict_index, conflict) in comparison_result.conflicts.iter().enumerate() {
         let suggestions = suggestion_engine.suggest(conflict);
-        // Auto-accept high-confidence suggestions (>= threshold)
-        for suggestion in suggestions {
-            if suggestion.confidence.value() >= confidence_threshold {
+        // Record every suggestion (gap B01); only auto-accept high-confidence ones
+        for suggestion in &suggestions {
+            let accepted_auto = suggestion.confidence.value() >= confidence_threshold;
+            all_suggestions.push(output::SuggestionEntry::new(
+                conflict_index,
+                conflict,
+                suggestion,
+                accepted_auto,
+            ));
+            if accepted_auto {
                 decision_counter += 1;
                 let decision = audd_resolution::Decision::by_system(
                     format!("{}_{}", decision_id_prefix, decision_counter),
-                    suggestion,
+                    suggestion.clone(),
                     true,
                     "high_confidence_auto_accept".to_string(),
                 );
@@ -262,13 +367,20 @@ fn handle_compare(
         }
     }
 
-    println!("✓ Generated {} suggestions", decision_log.get_decisions().len());
+    println!(
+        "✓ Generated {} suggestions",
+        decision_log.get_decisions().len()
+    );
 
     // Generate unified schema
     println!();
     println!("Building unified schema...");
-    let unified_schema = audd_compare::UnifiedSchema::from_comparison(&schema_a, &schema_b, &comparison_result);
-    println!("✓ Unified schema created with {} entities", unified_schema.entities.len());
+    let unified_schema =
+        audd_compare::UnifiedSchema::from_comparison(&schema_a, &schema_b, &comparison_result);
+    println!(
+        "✓ Unified schema created with {} entities",
+        unified_schema.entities.len()
+    );
 
     // Write outputs
     println!();
@@ -296,8 +408,14 @@ fn handle_compare(
     }
 
     if config.should_generate_json_report() {
-        let json_report_path = output::write_json_report(out_dir, &decision_log, &comparison_result)?;
+        let json_report_path =
+            output::write_json_report(out_dir, &decision_log, &comparison_result)?;
         println!("✓ Wrote {}", json_report_path.display());
+    }
+
+    if config.should_generate_suggestions() {
+        let suggestions_path = output::write_suggestions(out_dir, &all_suggestions)?;
+        println!("✓ Wrote {}", suggestions_path.display());
     }
 
     println!();
@@ -318,20 +436,24 @@ fn handle_inspect(source: &str, conn: Option<&str>, out_path: Option<&PathBuf>) 
 
     println!("Loading schema...");
     let schema = loader::load_schema(source, conn)?;
-    println!("✓ Schema loaded: {} ({} entities)", schema.source_name, schema.entities.len());
+    println!(
+        "✓ Schema loaded: {} ({} entities)",
+        schema.source_name,
+        schema.entities.len()
+    );
     println!();
 
     if let Some(path) = out_path {
         // Write to file
         let parent = path.parent().unwrap_or_else(|| std::path::Path::new("."));
         output::ensure_output_dir(parent)?;
-        
+
         let json = schema.to_json()?;
         std::fs::write(path, json).map_err(|e| error::CliError::OutputWrite {
             path: path.display().to_string(),
             details: e,
         })?;
-        
+
         println!("✓ IR exported to: {}", path.display());
     } else {
         // Print to stdout
@@ -346,14 +468,14 @@ fn handle_inspect(source: &str, conn: Option<&str>, out_path: Option<&PathBuf>) 
 
 fn handle_generate_config(out_path: &PathBuf) -> CliResult<()> {
     println!("📝 Generating sample configuration file...");
-    
+
     let sample = Config::sample();
-    
+
     std::fs::write(out_path, sample).map_err(|e| error::CliError::OutputWrite {
         path: out_path.display().to_string(),
         details: e,
     })?;
-    
+
     println!("✓ Sample configuration written to: {}", out_path.display());
     println!();
     println!("You can customize this file and use it with:");
@@ -363,7 +485,6 @@ fn handle_generate_config(out_path: &PathBuf) -> CliResult<()> {
     println!("  - ./audd.toml");
     println!("  - ~/.audd.toml");
     println!("  - ~/.config/audd/config.toml");
-    
+
     Ok(())
 }
-

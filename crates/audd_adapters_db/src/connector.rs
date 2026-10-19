@@ -1,10 +1,10 @@
 //! Core trait for database schema connectors
 
-use audd_ir::SourceSchema;
 use crate::error::DbResult;
+use audd_ir::SourceSchema;
 
 /// Trait for extracting schema metadata from database engines
-/// 
+///
 /// Each database engine implements this trait to provide a unified
 /// interface for schema extraction.
 ///
@@ -35,7 +35,7 @@ pub trait DbSchemaConnector {
     /// - Connection to the database fails
     /// - Schema metadata cannot be extracted
     /// - Type mapping fails
-    fn load(&self) -> DbResult<SourceSchema>;
+    fn load(&mut self) -> DbResult<SourceSchema>;
 }
 
 /// Parse a database connection string into engine type and connection details
@@ -71,7 +71,7 @@ pub fn parse_connection_string(conn_str: &str) -> DbResult<(String, String)> {
 
     // Split on :// to get engine and rest
     let parts: Vec<&str> = conn_str.splitn(2, "://").collect();
-    
+
     if parts.len() != 2 {
         return Err(DbError::InvalidConnectionString(
             "Missing '://' separator".to_string(),
@@ -87,7 +87,7 @@ pub fn parse_connection_string(conn_str: &str) -> DbResult<(String, String)> {
             // SQLite format: sqlite:///path or sqlite://path
             // After split on "://", conn_details will be:
             // - For sqlite:///absolute/path: "/absolute/path" (two slashes stripped)
-            // - For sqlite://relative/path: "relative/path" 
+            // - For sqlite://relative/path: "relative/path"
             // We need to restore the leading slash for absolute paths
             let path = if conn_details.starts_with('/') {
                 // Already absolute path from sqlite:///

@@ -1,0 +1,441 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "a",
+    "schema_b": "b",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 44,
+      "total_exclusives": 2,
+      "total_conflicts": 0,
+      "exclusives_from_a": 1,
+      "exclusives_from_b": 1,
+      "compatibility_score": 100.0,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 0.0
+    },
+    "risk_assessment": {
+      "risk_level": "Low",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 0,
+      "reasons": [
+        "Low conflict rate and no high-severity issues"
+      ]
+    }
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 44,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 1.0
+    },
+    "exclusives": {
+      "from_schema_a": 1,
+      "from_schema_b": 1,
+      "safe_from_a": 1,
+      "safe_from_b": 1,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 0,
+      "by_type": {},
+      "by_severity": {}
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "categoria",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 1
+      },
+      {
+        "entity": "categoria",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "categoria",
+        "field": "nombre",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "categoria",
+        "field": "descripcion",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "cliente",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 2
+      },
+      {
+        "entity": "cliente",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "cliente",
+        "field": "codigo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "cliente",
+        "field": "nombre",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "cliente",
+        "field": "telefono",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "cliente",
+        "field": "correo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "cliente",
+        "field": "rfc",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "cliente",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "pago",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 0
+      },
+      {
+        "entity": "pago",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "pago",
+        "field": "venta_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "pago",
+        "field": "forma_pago",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "pago",
+        "field": "monto",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "pago",
+        "field": "referencia",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "pago",
+        "field": "fecha",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "producto",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "producto",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "producto",
+        "field": "codigo_barras",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "producto",
+        "field": "nombre",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "producto",
+        "field": "descripcion",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "producto",
+        "field": "precio",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "producto",
+        "field": "existencia",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "producto",
+        "field": "categoria_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "producto",
+        "field": "activo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "producto",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "venta",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "venta",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "venta",
+        "field": "folio",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "venta",
+        "field": "cliente_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "venta",
+        "field": "fecha",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "venta",
+        "field": "subtotal",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "venta",
+        "field": "impuesto",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "venta",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "venta",
+        "field": "estatus",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "venta_detalle",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "venta_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "producto_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "precio_unitario",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "importe",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "venta_detalle",
+        "field": "cantidad",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "venta_detalle",
+        "field": "quantity",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 0,
+      "high_confidence": 0,
+      "medium_confidence": 0,
+      "auto_accepted": 0,
+      "total_decisions": 0,
+      "accepted_decisions": 0,
+      "rejected_decisions": 0,
+      "system_decisions": 0,
+      "user_decisions": 0
+    },
+    "suggestions": [],
+    "decisions": []
+  },
+  "recommendations": [
+    "Low risk detected - schemas are mostly compatible",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

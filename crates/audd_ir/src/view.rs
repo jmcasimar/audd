@@ -189,7 +189,7 @@ mod tests {
         let view = View::new("vw_active_users".to_string())
             .with_definition("SELECT * FROM users WHERE active = true".to_string())
             .with_fields(vec!["id", "name", "email"]);
-        
+
         assert_eq!(view.view_name, "vw_active_users");
         assert!(view.definition.is_some());
         assert_eq!(view.field_names.len(), 3);
@@ -206,7 +206,7 @@ mod tests {
         let proc = StoredProcedure::new("sp_get_user".to_string(), "function".to_string())
             .with_parameters(vec!["user_id INT"])
             .with_return_type("TABLE".to_string());
-        
+
         assert_eq!(proc.name, "sp_get_user");
         assert_eq!(proc.parameters.len(), 1);
         assert!(proc.return_type.is_some());
@@ -220,7 +220,7 @@ mod tests {
             "BEFORE".to_string(),
             "UPDATE".to_string(),
         );
-        
+
         assert_eq!(trigger.trigger_name, "tr_update_timestamp");
         assert_eq!(trigger.table_name, "users");
         assert_eq!(trigger.timing, "BEFORE");

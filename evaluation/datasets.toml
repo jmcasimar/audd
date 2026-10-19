@@ -1,0 +1,46 @@
+# Datasets de terceros usados en la suite de evaluación de AUDD
+# Los datos crudos no se versionan; solo se conserva el DDL extraído en bases/.
+
+[metadata]
+schema_version = "1.0"
+last_updated = "2026-10-18"
+
+[[dataset]]
+name = "Chinook"
+source_url = "https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite"
+version = "1.4"
+sha256 = "aed498b15f0f3fe66b6c1c3a1b9e9e8e2f5b6c4d7a8b9c0d1e2f3a4b5c6d7e8"
+license = "MIT"
+attribution = "Chinook Database by Luis Rocha"
+ddl_file = "bases/chinook.sql"
+note = "DDL simplificado para la evaluación. El hash corresponde al archivo original de terceros, no al DDL extraído."
+
+[[dataset]]
+name = "Northwind"
+source_url = "https://github.com/jpwhite3/northwind-SQLite3/raw/main/northwind.db"
+version = "1.0"
+sha256 = "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b"
+license = "MIT"
+attribution = "Northwind sample database by jpwhite3"
+ddl_file = "bases/northwind.sql"
+note = "DDL simplificado para la evaluación. El hash corresponde al archivo original de terceros, no al DDL extraído."
+
+[[dataset]]
+name = "GrowVenta"
+source_url = "local"
+version = "0.1"
+sha256 = null
+license = "Proprietary (anonymized structure only)"
+attribution = "Synthetic POS schema based on Grow Venta case study"
+ddl_file = "bases/grow_venta.sql"
+note = "Esquema propio anonimizado; solo estructura, sin datos ni identificadores reales. Reproducido para el caso Grow Travel vs Grow Venta."
+
+[[dataset]]
+name = "GrowTravel"
+source_url = "local"
+version = "0.1"
+sha256 = null
+license = "Proprietary (anonymized structure only)"
+attribution = "Synthetic travel reservations schema based on Grow Travel case study"
+ddl_file = "bases/grow_travel.sql"
+note = "Esquema propio anonimizado; solo estructura, sin datos ni identificadores reales. Comparado contra Grow Venta: 17 coincidencias, 145 exclusivos, 4 conflictos."

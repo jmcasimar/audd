@@ -266,7 +266,7 @@ fn test_case_constraint_conflicts() {
     let config = CompareConfig::default();
     let result = compare(&schema_a, &schema_b, &config);
 
-    // Should have constraint conflicts
+    // Should have constraint conflicts (UNIQUE mismatches)
     let constraint_conflicts: Vec<_> = result
         .conflicts
         .iter()
@@ -276,8 +276,19 @@ fn test_case_constraint_conflicts() {
         })
         .collect();
 
-    // Should have at least 2 conflicts: unique on email, max_length on email, unique on username
-    assert!(constraint_conflicts.len() >= 2);
+    // Should have 2 constraint mismatches: unique on email, unique on username
+    assert_eq!(constraint_conflicts.len(), 2);
+
+    // Should have 1 length mismatch: max_length on email
+    let length_conflicts: Vec<_> = result
+        .conflicts
+        .iter()
+        .filter(|c| {
+            use audd_compare::ConflictType;
+            c.conflict_type == ConflictType::LengthMismatch
+        })
+        .collect();
+    assert_eq!(length_conflicts.len(), 1);
 }
 
 #[test]
@@ -314,7 +325,7 @@ fn test_case_collision_normalization() {
     // These should match by normalized name, creating a type conflict
     // NOT a normalization collision (since they successfully matched)
     assert_eq!(result.summary.total_matches, 3); // entity + id + firstName/first_name
-    
+
     // Should have a type conflict
     let type_conflicts: Vec<_> = result
         .conflicts
@@ -325,7 +336,7 @@ fn test_case_collision_normalization() {
         })
         .collect();
     assert_eq!(type_conflicts.len(), 1);
-    
+
     // No normalization collisions (they matched)
     let collision_conflicts: Vec<_> = result
         .conflicts
@@ -514,6 +525,8 @@ fn test_unified_schema_generation() {
     assert_eq!(unified.entities[0].fields.len(), 4);
 
     // Verify JSON serialization works
-    let json = unified.to_json().expect("Failed to serialize unified schema");
+    let json = unified
+        .to_json()
+        .expect("Failed to serialize unified schema");
     assert!(json.contains("users"));
 }

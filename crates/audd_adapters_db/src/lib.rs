@@ -20,7 +20,7 @@
 //! use audd_adapters_db::{create_connector, DbSchemaConnector};
 //!
 //! # fn example() -> Result<(), Box<dyn std::error::Error>> {
-//! let connector = create_connector("sqlite:///path/to/database.db")?;
+//! let mut connector = create_connector("sqlite:///path/to/database.db")?;
 //! let schema = connector.load()?;
 //! println!("Database: {}", schema.source_name);
 //! println!("Tables: {}", schema.entities.len());
@@ -34,7 +34,7 @@
 //! use audd_adapters_db::{create_connector, DbSchemaConnector};
 //!
 //! # fn example() -> Result<(), Box<dyn std::error::Error>> {
-//! let connector = create_connector("postgresql://user:password@localhost:5432/mydb")?;
+//! let mut connector = create_connector("postgresql://user:password@localhost:5432/mydb")?;
 //! let schema = connector.load()?;
 //! println!("Database: {}", schema.source_name);
 //! # Ok(())
@@ -47,7 +47,7 @@
 //! use audd_adapters_db::{create_connector, DbSchemaConnector};
 //!
 //! # fn example() -> Result<(), Box<dyn std::error::Error>> {
-//! let connector = create_connector("mongodb://localhost:27017/mydb")?;
+//! let mut connector = create_connector("mongodb://localhost:27017/mydb")?;
 //! let schema = connector.load()?;
 //! println!("Database: {}", schema.source_name);
 //! # Ok(())

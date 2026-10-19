@@ -86,12 +86,8 @@ pub fn compare_types(type_a: &CanonicalType, type_b: &CanonicalType) -> TypeComp
         (Decimal { .. }, Float32) | (Decimal { .. }, Float64) => TypeCompatibility::RequiresCast,
 
         // Integer to Float conversions
-        (Int32, Float32) | (Int32, Float64) | (Int64, Float64) => {
-            TypeCompatibility::RequiresCast
-        }
-        (Float32, Int32) | (Float64, Int32) | (Float64, Int64) => {
-            TypeCompatibility::RequiresCast
-        }
+        (Int32, Float32) | (Int32, Float64) | (Int64, Float64) => TypeCompatibility::RequiresCast,
+        (Float32, Int32) | (Float64, Int32) | (Float64, Int64) => TypeCompatibility::RequiresCast,
 
         // Boolean conversions
         (Boolean, Int32) | (Int32, Boolean) => TypeCompatibility::RequiresCast,
@@ -196,14 +192,8 @@ mod tests {
             scale: 3,
         };
 
-        assert_eq!(
-            compare_types(&dec1, &dec2),
-            TypeCompatibility::Identical
-        );
-        assert_eq!(
-            compare_types(&dec1, &dec3),
-            TypeCompatibility::WideningSafe
-        );
+        assert_eq!(compare_types(&dec1, &dec2), TypeCompatibility::Identical);
+        assert_eq!(compare_types(&dec1, &dec3), TypeCompatibility::WideningSafe);
     }
 
     #[test]

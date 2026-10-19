@@ -11,7 +11,7 @@ use crate::json_adapter::JsonAdapter;
 use crate::sql_adapter::SqlAdapter;
 use crate::xml_adapter::XmlAdapter;
 use audd_ir::SourceSchema;
-use std::io::{Write, Read};
+use std::io::{Read, Write};
 use std::path::Path;
 use tempfile::NamedTempFile;
 
@@ -21,29 +21,41 @@ const MAX_FILE_SIZE: u64 = 50 * 1024 * 1024;
 /// Validate URL for security concerns
 fn validate_url_safety(url: &str) -> Result<(), Box<dyn std::error::Error>> {
     let parsed = url::Url::parse(url)?;
-    
+
     // Block localhost and private IPs
     if let Some(host) = parsed.host_str() {
-        if host == "localhost" || host == "127.0.0.1" || host.starts_with("192.168.") 
-            || host.starts_with("10.") || host.starts_with("172.16.") 
-            || host.starts_with("172.17.") || host.starts_with("172.18.")
-            || host.starts_with("172.19.") || host.starts_with("172.20.")
-            || host.starts_with("172.21.") || host.starts_with("172.22.")
-            || host.starts_with("172.23.") || host.starts_with("172.24.")
-            || host.starts_with("172.25.") || host.starts_with("172.26.")
-            || host.starts_with("172.27.") || host.starts_with("172.28.")
-            || host.starts_with("172.29.") || host.starts_with("172.30.")
-            || host.starts_with("172.31.") || host == "::1" 
-            || host.starts_with("169.254.") {
+        if host == "localhost"
+            || host == "127.0.0.1"
+            || host.starts_with("192.168.")
+            || host.starts_with("10.")
+            || host.starts_with("172.16.")
+            || host.starts_with("172.17.")
+            || host.starts_with("172.18.")
+            || host.starts_with("172.19.")
+            || host.starts_with("172.20.")
+            || host.starts_with("172.21.")
+            || host.starts_with("172.22.")
+            || host.starts_with("172.23.")
+            || host.starts_with("172.24.")
+            || host.starts_with("172.25.")
+            || host.starts_with("172.26.")
+            || host.starts_with("172.27.")
+            || host.starts_with("172.28.")
+            || host.starts_with("172.29.")
+            || host.starts_with("172.30.")
+            || host.starts_with("172.31.")
+            || host == "::1"
+            || host.starts_with("169.254.")
+        {
             return Err("Private/localhost URLs not allowed".into());
         }
     }
-    
+
     // Only allow HTTP/HTTPS
     if parsed.scheme() != "http" && parsed.scheme() != "https" {
         return Err("Only HTTP/HTTPS URLs allowed".into());
     }
-    
+
     Ok(())
 }
 
@@ -183,18 +195,22 @@ impl RemoteAdapter {
         })?;
 
         // Use ureq for HTTP requests (synchronous, simple)
-        let response = ureq::get(&url)
-            .call()
-            .map_err(|e| AdapterError::IoError(std::io::Error::new(
+        let response = ureq::get(&url).call().map_err(|e| {
+            AdapterError::IoError(std::io::Error::new(
                 std::io::ErrorKind::Other,
                 format!("Failed to fetch URL {}: {}", url, e),
-            )))?;
+            ))
+        })?;
 
         // Check status code
         if response.status() != 200 {
             return Err(AdapterError::IoError(std::io::Error::new(
                 std::io::ErrorKind::Other,
-                format!("HTTP error {}: {}", response.status(), response.status_text()),
+                format!(
+                    "HTTP error {}: {}",
+                    response.status(),
+                    response.status_text()
+                ),
             )));
         }
 
@@ -204,7 +220,10 @@ impl RemoteAdapter {
                 if size > MAX_FILE_SIZE {
                     return Err(AdapterError::IoError(std::io::Error::new(
                         std::io::ErrorKind::Other,
-                        format!("File too large: {} bytes (max: {} bytes)", size, MAX_FILE_SIZE),
+                        format!(
+                            "File too large: {} bytes (max: {} bytes)",
+                            size, MAX_FILE_SIZE
+                        ),
                     )));
                 }
             }
@@ -237,15 +256,13 @@ impl RemoteAdapter {
 
         // Create a temporary file with the appropriate extension
         let suffix = format!(".{}", format);
-        let mut temp_file = NamedTempFile::with_suffix(&suffix)
-            .map_err(|e| AdapterError::IoError(e))?;
-        
+        let mut temp_file =
+            NamedTempFile::with_suffix(&suffix).map_err(|e| AdapterError::IoError(e))?;
+
         temp_file
             .write_all(&content)
             .map_err(|e| AdapterError::IoError(e))?;
-        temp_file
-            .flush()
-            .map_err(|e| AdapterError::IoError(e))?;
+        temp_file.flush().map_err(|e| AdapterError::IoError(e))?;
 
         // Use the appropriate adapter based on format
         let mut schema = match format.as_str() {
@@ -297,9 +314,8 @@ mod tests {
 
     #[test]
     fn test_google_sheets_url_conversion() {
-        let adapter = RemoteAdapter::new(
-            "https://docs.google.com/spreadsheets/d/SHEET_ID/edit#gid=0"
-        );
+        let adapter =
+            RemoteAdapter::new("https://docs.google.com/spreadsheets/d/SHEET_ID/edit#gid=0");
         assert_eq!(
             adapter.convert_google_sheets_url(),
             "https://docs.google.com/spreadsheets/d/SHEET_ID/export?format=csv"

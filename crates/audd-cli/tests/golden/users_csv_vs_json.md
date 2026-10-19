@@ -121,44 +121,50 @@
 ### Summary
 
 - **Total Suggestions**: 3
-- **High Confidence** (≥0.85): 3
-- **Medium Confidence** (0.60-0.84): 0
+- **High Confidence** (≥0.85): 0
+- **Medium Confidence** (0.60-0.84): 3
 - **Auto-accepted**: 3
 
 ### Conflict #1 - Suggestions
 
 #### Suggestion: sug_0
 
-- **Kind**: NoSuggestion { reason: "Type incompatibility between String and Int64 cannot be automatically resolved" }
-- **Confidence**: 0.90 (High)
-- **Impact**: Critical
-- **Explanation**: No automatic suggestion available - manual resolution required
+- **Kind**: CastRisky { from_type: "String", to_type: "Int64", warning: "Requires validating that all values can be parsed" }
+- **Confidence**: 0.75 (Medium)
+- **Impact**: High
+- **Explanation**: Narrowing or lossy cast from String to Int64 - Requires validating that all values can be parsed
 - **Evidence**:
-  - Reason: Type incompatibility between String and Int64 cannot be automatically resolved
+  - Source type: String
+  - Target type: Int64
+  - Warning: Requires validating that all values can be parsed
 - **Status**: ✅ Accepted
 
 ### Conflict #2 - Suggestions
 
 #### Suggestion: sug_1
 
-- **Kind**: NoSuggestion { reason: "Type incompatibility between String and Int64 cannot be automatically resolved" }
-- **Confidence**: 0.90 (High)
-- **Impact**: Critical
-- **Explanation**: No automatic suggestion available - manual resolution required
+- **Kind**: CastRisky { from_type: "String", to_type: "Int64", warning: "Requires validating that all values can be parsed" }
+- **Confidence**: 0.75 (Medium)
+- **Impact**: High
+- **Explanation**: Narrowing or lossy cast from String to Int64 - Requires validating that all values can be parsed
 - **Evidence**:
-  - Reason: Type incompatibility between String and Int64 cannot be automatically resolved
+  - Source type: String
+  - Target type: Int64
+  - Warning: Requires validating that all values can be parsed
 - **Status**: ✅ Accepted
 
 ### Conflict #3 - Suggestions
 
 #### Suggestion: sug_2
 
-- **Kind**: NoSuggestion { reason: "Type incompatibility between String and Boolean cannot be automatically resolved" }
-- **Confidence**: 0.90 (High)
-- **Impact**: Critical
-- **Explanation**: No automatic suggestion available - manual resolution required
+- **Kind**: CastRisky { from_type: "String", to_type: "Boolean", warning: "Requires validating that all values can be parsed" }
+- **Confidence**: 0.75 (Medium)
+- **Impact**: High
+- **Explanation**: Narrowing or lossy cast from String to Boolean - Requires validating that all values can be parsed
 - **Evidence**:
-  - Reason: Type incompatibility between String and Boolean cannot be automatically resolved
+  - Source type: String
+  - Target type: Boolean
+  - Warning: Requires validating that all values can be parsed
 - **Status**: ✅ Accepted
 
 ---

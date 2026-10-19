@@ -3,9 +3,11 @@
 #[cfg(feature = "sqlite")]
 use rusqlite::{Connection, Result as SqliteResult};
 
-use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, Index, IndexType, View, Trigger, SourceSchema};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
+use audd_ir::{
+    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, SourceSchema, Trigger, View,
+};
 use serde_json::Value;
 
 /// SQLite schema connector
@@ -21,7 +23,7 @@ use serde_json::Value;
 /// use audd_adapters_db::sqlite::SqliteConnector;
 /// use audd_adapters_db::DbSchemaConnector;
 ///
-/// let connector = SqliteConnector::new("/path/to/database.db").unwrap();
+/// let mut connector = SqliteConnector::new("/path/to/database.db").unwrap();
 /// let schema = connector.load().unwrap();
 /// # }
 /// ```
@@ -34,13 +36,25 @@ pub struct SqliteConnector {
 #[cfg(feature = "sqlite")]
 fn validate_sql_identifier(name: &str) -> DbResult<()> {
     if name.is_empty() || name.len() > 64 {
-        return Err(DbError::ExtractionError(format!("Invalid identifier length: {}", name)));
+        return Err(DbError::ExtractionError(format!(
+            "Invalid identifier length: {}",
+            name
+        )));
     }
-    if !name.chars().all(|c| c.is_alphanumeric() || c == '_' || c == '$') {
-        return Err(DbError::ExtractionError(format!("Invalid identifier characters: {}", name)));
+    if !name
+        .chars()
+        .all(|c| c.is_alphanumeric() || c == '_' || c == '$')
+    {
+        return Err(DbError::ExtractionError(format!(
+            "Invalid identifier characters: {}",
+            name
+        )));
     }
     if name.starts_with(char::is_numeric) {
-        return Err(DbError::ExtractionError(format!("Identifier cannot start with number: {}", name)));
+        return Err(DbError::ExtractionError(format!(
+            "Identifier cannot start with number: {}",
+            name
+        )));
     }
     Ok(())
 }
@@ -124,12 +138,12 @@ impl SqliteConnector {
         let rows = stmt
             .query_map([], |row| {
                 Ok((
-                    row.get::<_, i32>(0)?,      // cid
-                    row.get::<_, String>(1)?,   // name
-                    row.get::<_, String>(2)?,   // type
-                    row.get::<_, i32>(3)?,      // notnull
+                    row.get::<_, i32>(0)?,            // cid
+                    row.get::<_, String>(1)?,         // name
+                    row.get::<_, String>(2)?,         // type
+                    row.get::<_, i32>(3)?,            // notnull
                     row.get::<_, Option<String>>(4)?, // dflt_value
-                    row.get::<_, i32>(5)?,      // pk
+                    row.get::<_, i32>(5)?,            // pk
                 ))
             })
             .map_err(|e| DbError::QueryError(format!("Failed to query table info: {}", e)))?;
@@ -189,8 +203,8 @@ impl SqliteConnector {
         let rows = stmt
             .query_map([], |row| {
                 Ok((
-                    row.get::<_, String>(1)?,   // name
-                    row.get::<_, i32>(5)?,      // pk (position in pk, 0 if not pk)
+                    row.get::<_, String>(1)?, // name
+                    row.get::<_, i32>(5)?,    // pk (position in pk, 0 if not pk)
                 ))
             })
             .map_err(|e| DbError::QueryError(format!("Failed to query primary key: {}", e)))?;
@@ -224,16 +238,15 @@ impl SqliteConnector {
         let indexes = stmt
             .query_map([], |row| {
                 Ok((
-                    row.get::<_, String>(1)?,   // name
-                    row.get::<_, i32>(2)?,      // unique
+                    row.get::<_, String>(1)?, // name
+                    row.get::<_, i32>(2)?,    // unique
                 ))
             })
             .map_err(|e| DbError::QueryError(format!("Failed to query indexes: {}", e)))?;
 
         for index_result in indexes {
-            let (index_name, is_unique) = index_result.map_err(|e| {
-                DbError::ExtractionError(format!("Failed to extract index: {}", e))
-            })?;
+            let (index_name, is_unique) = index_result
+                .map_err(|e| DbError::ExtractionError(format!("Failed to extract index: {}", e)))?;
 
             // Only process unique indexes (excluding primary key auto-indexes)
             if is_unique == 1 && !index_name.starts_with("sqlite_autoindex_") {
@@ -277,13 +290,13 @@ impl SqliteConnector {
             .map_err(|e| DbError::QueryError(format!("Failed to get foreign keys: {}", e)))?;
 
         let mut foreign_keys = Vec::new();
-        
+
         let rows = stmt
             .query_map([], |row| {
                 Ok((
-                    row.get::<_, String>(2)?,   // table (referenced table)
-                    row.get::<_, String>(3)?,   // from (column in this table)
-                    row.get::<_, String>(4)?,   // to (column in referenced table)
+                    row.get::<_, String>(2)?, // table (referenced table)
+                    row.get::<_, String>(3)?, // from (column in this table)
+                    row.get::<_, String>(4)?, // to (column in referenced table)
                 ))
             })
             .map_err(|e| DbError::QueryError(format!("Failed to query foreign keys: {}", e)))?;
@@ -297,7 +310,7 @@ impl SqliteConnector {
                 .with_metadata("referenced_table".to_string(), Value::String(ref_table))
                 .with_metadata("referenced_column".to_string(), Value::String(to_col))
                 .with_metadata("from_column".to_string(), Value::String(from_col));
-            
+
             foreign_keys.push(fk);
         }
 
@@ -318,17 +331,16 @@ impl SqliteConnector {
         let index_rows = stmt
             .query_map([], |row| {
                 Ok((
-                    row.get::<_, String>(1)?,   // name
-                    row.get::<_, i32>(2)?,      // unique
-                    row.get::<_, String>(3)?,   // origin (c=CREATE INDEX, u=UNIQUE constraint, pk=PRIMARY KEY)
+                    row.get::<_, String>(1)?, // name
+                    row.get::<_, i32>(2)?,    // unique
+                    row.get::<_, String>(3)?, // origin (c=CREATE INDEX, u=UNIQUE constraint, pk=PRIMARY KEY)
                 ))
             })
             .map_err(|e| DbError::QueryError(format!("Failed to query indexes: {}", e)))?;
 
         for index_result in index_rows {
-            let (index_name, is_unique, origin) = index_result.map_err(|e| {
-                DbError::ExtractionError(format!("Failed to extract index: {}", e))
-            })?;
+            let (index_name, is_unique, origin) = index_result
+                .map_err(|e| DbError::ExtractionError(format!("Failed to extract index: {}", e)))?;
 
             // Skip auto-generated indexes for primary keys
             if index_name.starts_with("sqlite_autoindex_") {
@@ -371,16 +383,15 @@ impl SqliteConnector {
         let rows = stmt
             .query_map([], |row| {
                 Ok((
-                    row.get::<_, String>(0)?,           // name
-                    row.get::<_, Option<String>>(1)?,   // sql
+                    row.get::<_, String>(0)?,         // name
+                    row.get::<_, Option<String>>(1)?, // sql
                 ))
             })
             .map_err(|e| DbError::QueryError(format!("Failed to fetch views: {}", e)))?;
 
         for row_result in rows {
-            let (name, sql) = row_result.map_err(|e| {
-                DbError::ExtractionError(format!("Failed to extract view: {}", e))
-            })?;
+            let (name, sql) = row_result
+                .map_err(|e| DbError::ExtractionError(format!("Failed to extract view: {}", e)))?;
 
             let mut view = View::new(name);
             if let Some(definition) = sql {
@@ -409,9 +420,9 @@ impl SqliteConnector {
         let rows = stmt
             .query_map([], |row| {
                 Ok((
-                    row.get::<_, String>(0)?,           // name
-                    row.get::<_, String>(1)?,           // tbl_name
-                    row.get::<_, Option<String>>(2)?,   // sql
+                    row.get::<_, String>(0)?,         // name
+                    row.get::<_, String>(1)?,         // tbl_name
+                    row.get::<_, Option<String>>(2)?, // sql
                 ))
             })
             .map_err(|e| DbError::QueryError(format!("Failed to fetch triggers: {}", e)))?;
@@ -442,7 +453,7 @@ impl SqliteConnector {
 
 #[cfg(feature = "sqlite")]
 impl DbSchemaConnector for SqliteConnector {
-    fn load(&self) -> DbResult<SourceSchema> {
+    fn load(&mut self) -> DbResult<SourceSchema> {
         let table_names = self.get_table_names()?;
         let mut entities = Vec::new();
 
@@ -483,12 +494,12 @@ fn map_sqlite_type(sqlite_type: &str) -> CanonicalType {
         CanonicalType::String
     } else if type_upper.contains("BLOB") {
         CanonicalType::Binary
-    } else if type_upper.contains("REAL") 
-        || type_upper.contains("FLOA") 
-        || type_upper.contains("DOUB") {
+    } else if type_upper.contains("REAL")
+        || type_upper.contains("FLOA")
+        || type_upper.contains("DOUB")
+    {
         CanonicalType::Float64
-    } else if type_upper.contains("NUMERIC") 
-        || type_upper.contains("DECIMAL") {
+    } else if type_upper.contains("NUMERIC") || type_upper.contains("DECIMAL") {
         // Default decimal precision for SQLite
         CanonicalType::Decimal {
             precision: 10,
@@ -516,7 +527,7 @@ fn map_sqlite_type(sqlite_type: &str) -> CanonicalType {
 #[cfg(feature = "sqlite")]
 fn parse_trigger_info(sql: &str) -> (String, String) {
     let sql_upper = sql.to_uppercase();
-    
+
     // Determine timing
     let timing = if sql_upper.contains("BEFORE") {
         "BEFORE"
@@ -526,7 +537,8 @@ fn parse_trigger_info(sql: &str) -> (String, String) {
         "INSTEAD OF"
     } else {
         "UNKNOWN"
-    }.to_string();
+    }
+    .to_string();
 
     // Determine event
     let event = if sql_upper.contains("INSERT") {
@@ -537,7 +549,8 @@ fn parse_trigger_info(sql: &str) -> (String, String) {
         "DELETE"
     } else {
         "UNKNOWN"
-    }.to_string();
+    }
+    .to_string();
 
     (timing, event)
 }
@@ -568,7 +581,7 @@ mod tests {
         assert_eq!(map_sqlite_type("BOOLEAN"), CanonicalType::Boolean);
         assert_eq!(map_sqlite_type("DATE"), CanonicalType::Date);
         assert_eq!(map_sqlite_type("DATETIME"), CanonicalType::DateTime);
-        
+
         match map_sqlite_type("CUSTOM_TYPE") {
             CanonicalType::Unknown { original_type } => {
                 assert_eq!(original_type, "CUSTOM_TYPE");
@@ -597,14 +610,11 @@ mod tests {
         )
         .unwrap();
 
-        conn.execute(
-            "CREATE UNIQUE INDEX idx_username ON users(username)",
-            [],
-        )
-        .unwrap();
+        conn.execute("CREATE UNIQUE INDEX idx_username ON users(username)", [])
+            .unwrap();
 
         // Test connector
-        let connector = SqliteConnector::new(db_path).unwrap();
+        let mut connector = SqliteConnector::new(db_path).unwrap();
         let schema = connector.load().unwrap();
 
         assert_eq!(schema.source_type, "sqlite");
@@ -615,30 +625,50 @@ mod tests {
         assert_eq!(users_table.fields.len(), 4);
 
         // Check fields
-        let id_field = users_table.fields.iter().find(|f| f.field_name == "id").unwrap();
+        let id_field = users_table
+            .fields
+            .iter()
+            .find(|f| f.field_name == "id")
+            .unwrap();
         assert_eq!(id_field.canonical_type, CanonicalType::Int64);
         assert!(!id_field.nullable);
 
-        let username_field = users_table.fields.iter().find(|f| f.field_name == "username").unwrap();
+        let username_field = users_table
+            .fields
+            .iter()
+            .find(|f| f.field_name == "username")
+            .unwrap();
         assert_eq!(username_field.canonical_type, CanonicalType::Text);
         assert!(!username_field.nullable);
 
-        let email_field = users_table.fields.iter().find(|f| f.field_name == "email").unwrap();
+        let email_field = users_table
+            .fields
+            .iter()
+            .find(|f| f.field_name == "email")
+            .unwrap();
         assert_eq!(email_field.canonical_type, CanonicalType::String);
         assert!(email_field.nullable);
 
         // Check primary key
         assert!(!users_table.keys.is_empty());
         use audd_ir::KeyType;
-        let pk = users_table.keys.iter().find(|k| matches!(k.key_type, KeyType::Primary)).unwrap();
+        let pk = users_table
+            .keys
+            .iter()
+            .find(|k| matches!(k.key_type, KeyType::Primary))
+            .unwrap();
         assert_eq!(pk.field_names, vec!["id"]);
 
         // Check unique index
-        let unique_keys: Vec<_> = users_table.keys.iter()
+        let unique_keys: Vec<_> = users_table
+            .keys
+            .iter()
             .filter(|k| matches!(k.key_type, KeyType::Unique))
             .collect();
         assert!(!unique_keys.is_empty());
-        assert!(unique_keys.iter().any(|k| k.field_names.contains(&"username".to_string())));
+        assert!(unique_keys
+            .iter()
+            .any(|k| k.field_names.contains(&"username".to_string())));
     }
 
     #[test]
@@ -654,7 +684,7 @@ mod tests {
         conn.execute("CREATE TABLE table2 (id INTEGER PRIMARY KEY)", [])
             .unwrap();
 
-        let connector = SqliteConnector::new(db_path).unwrap();
+        let mut connector = SqliteConnector::new(db_path).unwrap();
         let schema = connector.load().unwrap();
 
         assert_eq!(schema.entities.len(), 2);

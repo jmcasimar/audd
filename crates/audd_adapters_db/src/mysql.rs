@@ -1,16 +1,16 @@
 //! MySQL/MariaDB database schema connector
 
 #[cfg(feature = "mysql")]
-use mysql::{Pool, PooledConn, prelude::Queryable};
+use mysql::{prelude::Queryable, Pool, PooledConn};
 #[cfg(feature = "mysql")]
 use serde_json::Value;
 
-use audd_ir::{
-    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, SourceSchema,
-    StoredProcedure, Trigger, View,
-};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
+use audd_ir::{
+    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, SourceSchema, StoredProcedure,
+    Trigger, View,
+};
 
 /// MySQL/MariaDB schema connector
 ///
@@ -24,7 +24,7 @@ use crate::error::{DbError, DbResult};
 /// use audd_adapters_db::mysql::MysqlConnector;
 /// use audd_adapters_db::DbSchemaConnector;
 ///
-/// let connector = MysqlConnector::new("user:password@localhost:3306/mydb").unwrap();
+/// let mut connector = MysqlConnector::new("user:password@localhost:3306/mydb").unwrap();
 /// let schema = connector.load().unwrap();
 /// # }
 /// ```
@@ -37,13 +37,25 @@ pub struct MysqlConnector {
 #[cfg(feature = "mysql")]
 fn validate_sql_identifier(name: &str) -> DbResult<()> {
     if name.is_empty() || name.len() > 64 {
-        return Err(DbError::ExtractionError(format!("Invalid identifier length: {}", name)));
+        return Err(DbError::ExtractionError(format!(
+            "Invalid identifier length: {}",
+            name
+        )));
     }
-    if !name.chars().all(|c| c.is_alphanumeric() || c == '_' || c == '$') {
-        return Err(DbError::ExtractionError(format!("Invalid identifier characters: {}", name)));
+    if !name
+        .chars()
+        .all(|c| c.is_alphanumeric() || c == '_' || c == '$')
+    {
+        return Err(DbError::ExtractionError(format!(
+            "Invalid identifier characters: {}",
+            name
+        )));
     }
     if name.starts_with(char::is_numeric) {
-        return Err(DbError::ExtractionError(format!("Identifier cannot start with number: {}", name)));
+        return Err(DbError::ExtractionError(format!(
+            "Identifier cannot start with number: {}",
+            name
+        )));
     }
     Ok(())
 }
@@ -62,22 +74,19 @@ impl MysqlConnector {
     /// Returns an error if the connection cannot be established
     pub fn new(conn_str: &str) -> DbResult<Self> {
         // Parse connection string: user:password@host:port/database
-        let (credentials_host, database) = conn_str
-            .rsplit_once('/')
-            .ok_or_else(|| {
-                DbError::InvalidConnectionString(
-                    "Missing database name (format: user:pass@host/database)".to_string(),
-                )
-            })?;
+        let (credentials_host, database) = conn_str.rsplit_once('/').ok_or_else(|| {
+            DbError::InvalidConnectionString(
+                "Missing database name (format: user:pass@host/database)".to_string(),
+            )
+        })?;
 
         let database_name = database.to_string();
 
         // Build MySQL connection URL
         let mysql_url = format!("mysql://{}/{}", credentials_host, database);
 
-        let pool = Pool::new(mysql_url.as_str()).map_err(|e| {
-            DbError::ConnectionError(format!("Failed to connect to MySQL: {}", e))
-        })?;
+        let pool = Pool::new(mysql_url.as_str())
+            .map_err(|e| DbError::ConnectionError(format!("Failed to connect to MySQL: {}", e)))?;
 
         Ok(Self {
             pool,
@@ -260,9 +269,7 @@ impl MysqlConnector {
 
         let columns: Vec<String> = conn
             .query_map(query, |col_name: String| col_name)
-            .map_err(|e| {
-                DbError::QueryError(format!("Failed to query index columns: {}", e))
-            })?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query index columns: {}", e)))?;
 
         Ok(columns)
     }
@@ -416,12 +423,9 @@ impl MysqlConnector {
         );
 
         let rows: Vec<(String, String, Option<String>, Option<String>)> = conn
-            .query_map(
-                query,
-                |(name, routine_type, return_type, definition)| {
-                    (name, routine_type, return_type, definition)
-                },
-            )
+            .query_map(query, |(name, routine_type, return_type, definition)| {
+                (name, routine_type, return_type, definition)
+            })
             .map_err(|e| {
                 DbError::QueryError(format!("Failed to query stored procedures: {}", e))
             })?;
@@ -495,12 +499,9 @@ impl MysqlConnector {
         );
 
         let rows: Vec<(String, String, String, String, String)> = conn
-            .query_map(
-                query,
-                |(name, table_name, timing, event, definition)| {
-                    (name, table_name, timing, event, definition)
-                },
-            )
+            .query_map(query, |(name, table_name, timing, event, definition)| {
+                (name, table_name, timing, event, definition)
+            })
             .map_err(|e| DbError::QueryError(format!("Failed to query all triggers: {}", e)))?;
 
         let mut triggers = Vec::new();
@@ -516,7 +517,7 @@ impl MysqlConnector {
 
 #[cfg(feature = "mysql")]
 impl DbSchemaConnector for MysqlConnector {
-    fn load(&self) -> DbResult<SourceSchema> {
+    fn load(&mut self) -> DbResult<SourceSchema> {
         let table_names = self.get_table_names()?;
         let mut entities = Vec::new();
 
@@ -671,24 +672,45 @@ mod tests {
     fn test_mysql_type_mapping() {
         assert_eq!(map_mysql_type("int", "int(11)"), CanonicalType::Int32);
         assert_eq!(map_mysql_type("bigint", "bigint(20)"), CanonicalType::Int64);
-        assert_eq!(map_mysql_type("varchar", "varchar(255)"), CanonicalType::String);
+        assert_eq!(
+            map_mysql_type("varchar", "varchar(255)"),
+            CanonicalType::String
+        );
         assert_eq!(map_mysql_type("text", "text"), CanonicalType::Text);
         assert_eq!(map_mysql_type("float", "float"), CanonicalType::Float32);
         assert_eq!(map_mysql_type("double", "double"), CanonicalType::Float64);
         assert_eq!(map_mysql_type("date", "date"), CanonicalType::Date);
-        assert_eq!(map_mysql_type("datetime", "datetime"), CanonicalType::DateTime);
-        assert_eq!(map_mysql_type("timestamp", "timestamp"), CanonicalType::Timestamp);
+        assert_eq!(
+            map_mysql_type("datetime", "datetime"),
+            CanonicalType::DateTime
+        );
+        assert_eq!(
+            map_mysql_type("timestamp", "timestamp"),
+            CanonicalType::Timestamp
+        );
         assert_eq!(map_mysql_type("json", "json"), CanonicalType::Json);
         assert_eq!(map_mysql_type("blob", "blob"), CanonicalType::Binary);
 
         // TINYINT(1) as boolean - lowercase
-        assert_eq!(map_mysql_type("tinyint", "tinyint(1)"), CanonicalType::Boolean);
+        assert_eq!(
+            map_mysql_type("tinyint", "tinyint(1)"),
+            CanonicalType::Boolean
+        );
         // TINYINT(1) as boolean - uppercase
-        assert_eq!(map_mysql_type("TINYINT", "TINYINT(1)"), CanonicalType::Boolean);
+        assert_eq!(
+            map_mysql_type("TINYINT", "TINYINT(1)"),
+            CanonicalType::Boolean
+        );
         // TINYINT(1) as boolean - mixed case
-        assert_eq!(map_mysql_type("TinyInt", "TinyInt(1)"), CanonicalType::Boolean);
+        assert_eq!(
+            map_mysql_type("TinyInt", "TinyInt(1)"),
+            CanonicalType::Boolean
+        );
         // Other TINYINT as Int32
-        assert_eq!(map_mysql_type("tinyint", "tinyint(4)"), CanonicalType::Int32);
+        assert_eq!(
+            map_mysql_type("tinyint", "tinyint(4)"),
+            CanonicalType::Int32
+        );
     }
 
     #[test]

@@ -1,0 +1,264 @@
+{
+  "pair_id": "chinook_l2_s1005",
+  "level": 2,
+  "seed": 1005,
+  "matches": [
+    {
+      "a": "Artist",
+      "b": "Artist",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Artist.ArtistId",
+      "b": "Artist.ArtistId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Artist.Name",
+      "b": "Artist.Name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Album",
+      "b": "Album",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Album.AlbumId",
+      "b": "Album.AlbumId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Album.Title",
+      "b": "Album.Title",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Album.ArtistId",
+      "b": "Album.ArtistId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "MediaType",
+      "b": "MediaType",
+      "reason": "ExactName"
+    },
+    {
+      "a": "MediaType.MediaTypeId",
+      "b": "MediaType.MediaTypeId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "MediaType.Name",
+      "b": "MediaType.Name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Genre",
+      "b": "Genre",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Genre.GenreId",
+      "b": "Genre.GenreId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Genre.Name",
+      "b": "Genre.Name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer",
+      "b": "Customer",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.CustomerId",
+      "b": "Customer.CustomerId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.FirstName",
+      "b": "Customer.FirstName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.LastName",
+      "b": "Customer.LastName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.Company",
+      "b": "Customer.Company",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.Address",
+      "b": "Customer.Address",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.City",
+      "b": "Customer.City",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.State",
+      "b": "Customer.State",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.Country",
+      "b": "Customer.Country",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.PostalCode",
+      "b": "Customer.PostalCode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.Phone",
+      "b": "Customer.Phone",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.Fax",
+      "b": "Customer.Fax",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.Email",
+      "b": "Customer.Email",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.SupportRepId",
+      "b": "Customer.SupportRepId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice",
+      "b": "Invoice",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.InvoiceId",
+      "b": "Invoice.InvoiceId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.CustomerId",
+      "b": "Invoice.CustomerId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.InvoiceDate",
+      "b": "Invoice.InvoiceDate",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.BillingAddress",
+      "b": "Invoice.BillingAddress",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.BillingCity",
+      "b": "Invoice.BillingCity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.BillingState",
+      "b": "Invoice.BillingState",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.BillingCountry",
+      "b": "Invoice.BillingCountry",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.BillingPostalCode",
+      "b": "Invoice.BillingPostalCode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Invoice.Total",
+      "b": "Invoice.Total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InvoiceLine",
+      "b": "InvoiceLine",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InvoiceLine.InvoiceLineId",
+      "b": "InvoiceLine.InvoiceLineId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InvoiceLine.InvoiceId",
+      "b": "InvoiceLine.InvoiceId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InvoiceLine.TrackId",
+      "b": "InvoiceLine.TrackId",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InvoiceLine.UnitPrice",
+      "b": "InvoiceLine.UnitPrice",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InvoiceLine.Quantity",
+      "b": "InvoiceLine.Quantity",
+      "reason": "ExactName"
+    }
+  ],
+  "exclusives": [
+    {
+      "side": "a",
+      "entity": "Track"
+    },
+    {
+      "side": "a",
+      "entity": "Playlist"
+    },
+    {
+      "side": "a",
+      "entity": "PlaylistTrack"
+    },
+    {
+      "side": "b",
+      "entity": "track"
+    },
+    {
+      "side": "b",
+      "entity": "playlist"
+    },
+    {
+      "side": "b",
+      "entity": "tbl_5922"
+    }
+  ],
+  "conflicts": [
+    {
+      "entity": "Genre",
+      "field": "GenreId",
+      "type": "ConstraintMismatch",
+      "side": "b",
+      "expected_suggestion": "NoSuggestion"
+    },
+    {
+      "entity": "Invoice",
+      "field": "InvoiceDate",
+      "type": "ConstraintMismatch",
+      "side": "b",
+      "expected_suggestion": "NoSuggestion"
+    }
+  ]
+}

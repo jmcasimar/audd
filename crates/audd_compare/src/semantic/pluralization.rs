@@ -117,10 +117,7 @@ fn to_singular_en(word: &str) -> String {
     // -s (simple plural, most common)
     if word.ends_with('s') && word.len() > 1 {
         // Avoid removing 's' from words like "class", "bass", "less", "status", "analysis"
-        if !word.ends_with("ss")
-            && !word.ends_with("us")
-            && !word.ends_with("is")
-        {
+        if !word.ends_with("ss") && !word.ends_with("us") && !word.ends_with("is") {
             let without_s = &word[..word.len() - 1];
             return without_s.to_string();
         }
@@ -138,7 +135,7 @@ fn to_singular_es(word: &str) -> String {
     // Basic Spanish pluralization: most words just add -s or -es
     // Note: This is a simplified implementation. Complex cases like
     // accent changes (nación/naciones) are not handled.
-    
+
     // -s -> remove (e.g., usuarios -> usuario, clientes -> cliente)
     if word.ends_with('s') && word.len() > 1 {
         let without_s = &word[..word.len() - 1];
@@ -240,7 +237,7 @@ mod tests {
     #[test]
     fn test_to_singular_already_singular() {
         assert_eq!(to_singular_en("user"), "user");
-        assert_eq!(to_singular_en("class"), "class");  // should not remove 's' from 'class'
+        assert_eq!(to_singular_en("class"), "class"); // should not remove 's' from 'class'
         assert_eq!(to_singular_en("status"), "status");
     }
 

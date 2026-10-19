@@ -1,0 +1,42 @@
+{
+  "date": "",
+  "coverage": {
+    "RF1": [
+      "crates\\audd-cli\\tests\\acceptance_rf1.rs::acceptance_rf1_csv_vs_sqlite",
+      "crates\\audd-cli\\tests\\acceptance_rf1.rs::acceptance_rf1_sql_ddl_vs_json"
+    ],
+    "RF2": [
+      "crates\\audd-cli\\tests\\acceptance_rf1.rs::acceptance_rf2_sqlite_foreign_key"
+    ],
+    "RF3": [
+      "crates\\audd_resolution\\tests\\acceptance_rf3.rs::acceptance_rf3_type_incompatible",
+      "crates\\audd_resolution\\tests\\acceptance_rf3.rs::acceptance_rf3_nullability_mismatch",
+      "crates\\audd_resolution\\tests\\acceptance_rf3.rs::acceptance_rf3_length_mismatch",
+      "crates\\audd_resolution\\tests\\acceptance_rf3.rs::acceptance_rf3_normalization_collision",
+      "crates\\audd_resolution\\tests\\acceptance_rf3.rs::acceptance_rf3_constraint_mismatch_with_catalog"
+    ],
+    "RF4": [],
+    "RF5": [],
+    "RNF1": [],
+    "RNF2": [],
+    "RNF3": [],
+    "RNF4": []
+  },
+  "summary": {
+    "functional": {
+      "covered": 3,
+      "total": 5,
+      "percentage": 60.0
+    },
+    "non_functional": {
+      "covered": 0,
+      "total": 4,
+      "percentage": 0.0
+    },
+    "total": {
+      "covered": 3,
+      "total": 9,
+      "percentage": 33.33
+    }
+  }
+}

@@ -10,25 +10,25 @@ pub type DbResult<T> = Result<T, DbError>;
 pub enum DbError {
     /// Connection error
     ConnectionError(String),
-    
+
     /// Query execution error
     QueryError(String),
-    
+
     /// Invalid connection string
     InvalidConnectionString(String),
-    
+
     /// Unsupported database engine
     UnsupportedEngine(String),
-    
+
     /// Schema extraction error
     ExtractionError(String),
-    
+
     /// Type mapping error
     TypeMappingError(String),
-    
+
     /// Feature not enabled
     FeatureNotEnabled(String),
-    
+
     /// Other errors
     Other(String),
 }
@@ -47,7 +47,10 @@ impl fmt::Display for DbError {
             }
             Self::UnsupportedEngine(engine) => {
                 write!(f, "Unsupported database engine: {}", engine)?;
-                write!(f, " (Supported: sqlite, mysql, postgres, mongodb, sqlserver, firebird)")
+                write!(
+                    f,
+                    " (Supported: sqlite, mysql, postgres, mongodb, sqlserver, firebird)"
+                )
             }
             Self::ExtractionError(msg) => write!(f, "Schema extraction error: {}", msg),
             Self::TypeMappingError(msg) => write!(f, "Type mapping error: {}", msg),

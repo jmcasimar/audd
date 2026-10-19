@@ -3,9 +3,12 @@
 #[cfg(feature = "postgres")]
 use tokio_postgres::{Client, NoTls};
 
-use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, Index, IndexType, View, StoredProcedure, Trigger, SourceSchema};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
+use audd_ir::{
+    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, SourceSchema, StoredProcedure,
+    Trigger, View,
+};
 use serde_json::Value;
 
 /// PostgreSQL schema connector
@@ -18,11 +21,11 @@ use serde_json::Value;
 /// ```no_run
 /// # #[cfg(feature = "postgres")]
 /// # {
-/// use audd_adapters_db::postgresql::PostgresConnector;
+/// use audd_adapters_db::postgres::PostgresConnector;
 /// use audd_adapters_db::DbSchemaConnector;
 ///
 /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
-/// let connector = PostgresConnector::new("user:password@localhost:5432/mydb").await?;
+/// let mut connector = PostgresConnector::new("user:password@localhost:5432/mydb").await?;
 /// let schema = connector.load()?;
 /// # Ok(())
 /// # }
@@ -47,13 +50,11 @@ impl PostgresConnector {
     /// Returns an error if the connection cannot be established
     pub async fn new(conn_str: &str) -> DbResult<Self> {
         // Parse connection string: user:password@host:port/database
-        let (credentials_host, database) = conn_str
-            .rsplit_once('/')
-            .ok_or_else(|| {
-                DbError::InvalidConnectionString(
-                    "Missing database name (format: user:pass@host:port/database)".to_string(),
-                )
-            })?;
+        let (credentials_host, database) = conn_str.rsplit_once('/').ok_or_else(|| {
+            DbError::InvalidConnectionString(
+                "Missing database name (format: user:pass@host:port/database)".to_string(),
+            )
+        })?;
 
         let database_name = database.to_string();
 
@@ -98,10 +99,7 @@ impl PostgresConnector {
             .await
             .map_err(|e| DbError::QueryError(format!("Failed to query tables: {}", e)))?;
 
-        let tables: Vec<String> = rows
-            .iter()
-            .map(|row| row.get(0))
-            .collect();
+        let tables: Vec<String> = rows.iter().map(|row| row.get(0)).collect();
 
         Ok(tables)
     }
@@ -216,10 +214,7 @@ impl PostgresConnector {
             .await
             .map_err(|e| DbError::QueryError(format!("Failed to query primary key: {}", e)))?;
 
-        let pk_fields: Vec<String> = rows
-            .iter()
-            .map(|row| row.get(0))
-            .collect();
+        let pk_fields: Vec<String> = rows.iter().map(|row| row.get(0)).collect();
 
         Ok(pk_fields)
     }
@@ -284,9 +279,7 @@ impl PostgresConnector {
             .client
             .query(query, &[&table_name])
             .await
-            .map_err(|e| {
-                DbError::QueryError(format!("Failed to query foreign keys: {}", e))
-            })?;
+            .map_err(|e| DbError::QueryError(format!("Failed to query foreign keys: {}", e)))?;
 
         let mut foreign_keys = Vec::new();
 
@@ -297,8 +290,14 @@ impl PostgresConnector {
             let foreign_column_name: String = row.get(3);
 
             let fk = Key::foreign(vec![column_name.clone()])
-                .with_metadata("referenced_table".to_string(), Value::String(foreign_table_name))
-                .with_metadata("referenced_column".to_string(), Value::String(foreign_column_name))
+                .with_metadata(
+                    "referenced_table".to_string(),
+                    Value::String(foreign_table_name),
+                )
+                .with_metadata(
+                    "referenced_column".to_string(),
+                    Value::String(foreign_column_name),
+                )
                 .with_metadata("from_column".to_string(), Value::String(column_name));
 
             foreign_keys.push(fk);
@@ -366,7 +365,11 @@ impl PostgresConnector {
     }
 
     /// Extract column names for an index
-    async fn extract_index_columns(&self, table_name: &str, index_name: &str) -> DbResult<Vec<String>> {
+    async fn extract_index_columns(
+        &self,
+        table_name: &str,
+        index_name: &str,
+    ) -> DbResult<Vec<String>> {
         let query = "
             SELECT a.attname
             FROM pg_class t
@@ -425,11 +428,9 @@ impl PostgresConnector {
             WHERE schemaname = 'public'
         ";
 
-        let mat_rows = self
-            .client
-            .query(mat_views_query, &[])
-            .await
-            .map_err(|e| DbError::QueryError(format!("Failed to query materialized views: {}", e)))?;
+        let mat_rows = self.client.query(mat_views_query, &[]).await.map_err(|e| {
+            DbError::QueryError(format!("Failed to query materialized views: {}", e))
+        })?;
 
         for row in mat_rows {
             let view_name: String = row.get(0);
@@ -472,11 +473,11 @@ impl PostgresConnector {
             let definition: Option<String> = row.get(3);
 
             let mut proc = StoredProcedure::new(name, routine_type);
-            
+
             if let Some(ret_type) = return_type {
                 proc = proc.with_return_type(ret_type);
             }
-            
+
             if let Some(def) = definition {
                 proc = proc.with_definition(def);
             }
@@ -553,8 +554,8 @@ impl PostgresConnector {
             let timing: String = row.get(3);
             let definition: String = row.get(4);
 
-            let trigger = Trigger::new(trigger_name, table_name, timing, event)
-                .with_definition(definition);
+            let trigger =
+                Trigger::new(trigger_name, table_name, timing, event).with_definition(definition);
 
             triggers.push(trigger);
         }
@@ -565,7 +566,7 @@ impl PostgresConnector {
 
 #[cfg(feature = "postgres")]
 impl DbSchemaConnector for PostgresConnector {
-    fn load(&self) -> DbResult<SourceSchema> {
+    fn load(&mut self) -> DbResult<SourceSchema> {
         crate::runtime::block_on(async {
             let table_names = self.get_table_names().await?;
             let mut entities = Vec::new();

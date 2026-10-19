@@ -95,7 +95,9 @@ impl SchemaAdapter for JsonAdapter {
         };
 
         if fields.is_empty() {
-            return Err(AdapterError::EmptyData("No fields found in JSON".to_string()));
+            return Err(AdapterError::EmptyData(
+                "No fields found in JSON".to_string(),
+            ));
         }
 
         // Derive entity name from filename

@@ -2,11 +2,13 @@
 
 use serde::{Deserialize, Serialize};
 
-use crate::config::SemanticMatchConfig;
 use super::normalization::{normalize, NormalizedText};
 use super::pluralization::{apply_stemming, normalize_plural};
-use super::similarity::{calculate_fuzzy_similarity, calculate_ngram_similarity, calculate_token_similarity};
+use super::similarity::{
+    calculate_fuzzy_similarity, calculate_ngram_similarity, calculate_token_similarity,
+};
 use super::synonyms::check_synonym_match;
+use crate::config::SemanticMatchConfig;
 
 /// Decision outcome for semantic matching
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -129,11 +131,8 @@ impl SemanticMatchPipeline {
 
         // Strategy 4: Token similarity (always calculate, even if 0)
         if self.config.token_similarity.enabled {
-            let (token_score, overlap) = calculate_token_similarity(
-                &tokens_a,
-                &tokens_b,
-                &self.config.token_similarity,
-            );
+            let (token_score, overlap) =
+                calculate_token_similarity(&tokens_a, &tokens_b, &self.config.token_similarity);
             weighted_score += token_score * self.config.weights.token_similarity;
             total_weight += self.config.weights.token_similarity;
             if self.config.explain && token_score > 0.0 {
@@ -152,11 +151,8 @@ impl SemanticMatchPipeline {
 
         // Strategy 5: Fuzzy character matching (always calculate, even if 0)
         if self.config.fuzzy.enabled {
-            let fuzzy_score = calculate_fuzzy_similarity(
-                &norm_a.text,
-                &norm_b.text,
-                &self.config.fuzzy,
-            );
+            let fuzzy_score =
+                calculate_fuzzy_similarity(&norm_a.text, &norm_b.text, &self.config.fuzzy);
             weighted_score += fuzzy_score * self.config.weights.fuzzy_chars;
             total_weight += self.config.weights.fuzzy_chars;
             if self.config.explain && fuzzy_score > 0.0 {
@@ -170,11 +166,8 @@ impl SemanticMatchPipeline {
 
         // Strategy 6: N-grams (always calculate, even if 0)
         if self.config.ngrams.enabled {
-            let ngram_score = calculate_ngram_similarity(
-                &norm_a.text,
-                &norm_b.text,
-                &self.config.ngrams,
-            );
+            let ngram_score =
+                calculate_ngram_similarity(&norm_a.text, &norm_b.text, &self.config.ngrams);
             weighted_score += ngram_score * self.config.weights.ngrams;
             total_weight += self.config.weights.ngrams;
             if self.config.explain && ngram_score > 0.0 {
@@ -251,7 +244,11 @@ impl SemanticMatchPipeline {
     }
 
     /// Score synonym matches
-    fn score_synonyms(&self, tokens_a: &[String], tokens_b: &[String]) -> (f64, Option<serde_json::Value>) {
+    fn score_synonyms(
+        &self,
+        tokens_a: &[String],
+        tokens_b: &[String],
+    ) -> (f64, Option<serde_json::Value>) {
         if let Some(matches) = check_synonym_match(tokens_a, tokens_b, &self.config.synonyms) {
             let score = if !matches.is_empty() { 1.0 } else { 0.0 };
             let detail = serde_json::json!({
@@ -355,7 +352,11 @@ mod tests {
 
         // Fuzzy matching should recognize this as similar (typo with one missing 'd')
         // Even if it's not a perfect match, the score should be reasonably high
-        assert!(result.final_score > 0.35, "Expected score > 0.35, got {}", result.final_score);
+        assert!(
+            result.final_score > 0.35,
+            "Expected score > 0.35, got {}",
+            result.final_score
+        );
     }
 
     #[test]
@@ -371,7 +372,11 @@ mod tests {
         let result = pipeline.compare("customer", "user");
 
         // Synonyms should provide a strong signal
-        assert!(result.final_score > 0.4, "Expected score > 0.4, got {}", result.final_score);
+        assert!(
+            result.final_score > 0.4,
+            "Expected score > 0.4, got {}",
+            result.final_score
+        );
     }
 
     #[test]

@@ -1,0 +1,548 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "grow_travel",
+    "schema_b": "grow_venta",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 17,
+      "total_exclusives": 27,
+      "total_conflicts": 4,
+      "exclusives_from_a": 22,
+      "exclusives_from_b": 5,
+      "compatibility_score": 80.95238095238095,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 19.047619047619047
+    },
+    "risk_assessment": {
+      "risk_level": "High",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 3,
+      "reasons": [
+        "3 high-severity conflict(s) detected",
+        "Conflict rate is 19.0% (above 10% threshold)"
+      ]
+    },
+    "top_conflicts": [
+      {
+        "entity_name": "pago",
+        "conflict_count": 2,
+        "highest_severity": "High"
+      },
+      {
+        "entity_name": "cliente",
+        "conflict_count": 1,
+        "highest_severity": "High"
+      },
+      {
+        "entity_name": "categoria",
+        "conflict_count": 1,
+        "highest_severity": "High"
+      }
+    ]
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 17,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 1.0
+    },
+    "exclusives": {
+      "from_schema_a": 22,
+      "from_schema_b": 5,
+      "safe_from_a": 22,
+      "safe_from_b": 5,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 4,
+      "by_type": {
+        "TypeIncompatible": 3,
+        "NullabilityMismatch": 1
+      },
+      "by_severity": {
+        "High": 3,
+        "Medium": 1
+      }
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "categoria",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 0
+      },
+      {
+        "entity": "categoria",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "categoria",
+        "field": "nombre",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "categoria",
+        "field": "descripcion",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "cliente",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 1
+      },
+      {
+        "entity": "cliente",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "cliente",
+        "field": "codigo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "cliente",
+        "field": "nombre",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "cliente",
+        "field": "telefono",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "cliente",
+        "field": "correo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "cliente",
+        "field": "rfc",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "cliente",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 6
+      },
+      {
+        "entity": "pago",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 2
+      },
+      {
+        "entity": "pago",
+        "field": "id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "pago",
+        "field": "referencia",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 4
+      },
+      {
+        "entity": "pago",
+        "field": "monto",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 3
+      },
+      {
+        "entity": "pago",
+        "field": "fecha",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 5
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "cliente",
+        "field": "fecha_nacimiento",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "cliente",
+        "field": "pasaporte",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "pago",
+        "field": "metodo_pago",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "pago",
+        "field": "estatus",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "pago",
+        "field": "venta_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "pago",
+        "field": "forma_pago",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "aerolinea",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "aerolinea_frecuente",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "aeropuerto",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "avion",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "clase_vuelo",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "factura",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "guia_turistico",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "habitacion",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "hotel",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "pago_vuelo",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "paquete_turistico",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "pasajero",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "reserva_hotel",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "reserva_paquete",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "reserva_vuelo",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "seguro_viaje",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "tour",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "vuelo",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 20
+      },
+      {
+        "entity": "producto",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "venta",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "venta_detalle",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      }
+    ],
+    "conflicts": [
+      {
+        "id": 1,
+        "entity": "categoria",
+        "field": "nombre",
+        "conflict_type": "TypeIncompatible",
+        "severity": "High",
+        "evidence_a": "Type: Int64",
+        "evidence_b": "Type: String",
+        "rule": "Types must be compatible",
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "id": 2,
+        "entity": "cliente",
+        "field": "telefono",
+        "conflict_type": "TypeIncompatible",
+        "severity": "High",
+        "evidence_a": "Type: Int64",
+        "evidence_b": "Type: String",
+        "rule": "Types must be compatible",
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "id": 3,
+        "entity": "pago",
+        "field": "referencia",
+        "conflict_type": "NullabilityMismatch",
+        "severity": "Medium",
+        "evidence_a": "Nullable: false",
+        "evidence_b": "Nullable: true",
+        "rule": "Nullability must match or be compatible",
+        "index_a": 1,
+        "index_b": 4
+      },
+      {
+        "id": 4,
+        "entity": "pago",
+        "field": "monto",
+        "conflict_type": "TypeIncompatible",
+        "severity": "High",
+        "evidence_a": "Type: String",
+        "evidence_b": "Type: Decimal(10, 2)",
+        "rule": "Types must be compatible",
+        "index_a": 2,
+        "index_b": 3
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 3,
+      "high_confidence": 3,
+      "medium_confidence": 0,
+      "auto_accepted": 3,
+      "total_decisions": 3,
+      "accepted_decisions": 3,
+      "rejected_decisions": 0,
+      "system_decisions": 3,
+      "user_decisions": 0
+    },
+    "suggestions": [
+      {
+        "id": "sug_1",
+        "conflict_id": 1,
+        "entity": "categoria",
+        "field": "nombre",
+        "kind": "CastSafe { from_type: \"Int64\", to_type: \"String\" }",
+        "confidence": 0.9,
+        "impact": "Low",
+        "explanation": "Safe widening cast from Int64 to String - no data loss expected",
+        "evidence": [
+          "Source type: Int64",
+          "Target type: String",
+          "No data loss expected"
+        ],
+        "status": "accepted"
+      },
+      {
+        "id": "sug_3",
+        "conflict_id": 2,
+        "entity": "cliente",
+        "field": "telefono",
+        "kind": "CastSafe { from_type: \"Int64\", to_type: \"String\" }",
+        "confidence": 0.9,
+        "impact": "Low",
+        "explanation": "Safe widening cast from Int64 to String - no data loss expected",
+        "evidence": [
+          "Source type: Int64",
+          "Target type: String",
+          "No data loss expected"
+        ],
+        "status": "accepted"
+      },
+      {
+        "id": "sug_4",
+        "conflict_id": 3,
+        "entity": "pago",
+        "field": "referencia",
+        "kind": "PreferType { preferred_type: \"Nullable\", alternative_type: \"alternative\", rule: \"R-NULL-001\" }",
+        "confidence": 0.9,
+        "impact": "Medium",
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "status": "accepted"
+      }
+    ],
+    "decisions": [
+      {
+        "id": "auto_dec_1",
+        "suggestion_id": "sug_1",
+        "accepted": true,
+        "source": "system:high_confidence_auto_accept",
+        "rationale": "Automated by rule: high_confidence_auto_accept",
+        "timestamp": "1970-01-01T00:00:00+00:00"
+      },
+      {
+        "id": "auto_dec_2",
+        "suggestion_id": "sug_3",
+        "accepted": true,
+        "source": "system:high_confidence_auto_accept",
+        "rationale": "Automated by rule: high_confidence_auto_accept",
+        "timestamp": "1970-01-01T00:00:00+00:00"
+      },
+      {
+        "id": "auto_dec_3",
+        "suggestion_id": "sug_4",
+        "accepted": true,
+        "source": "system:high_confidence_auto_accept",
+        "rationale": "Automated by rule: high_confidence_auto_accept",
+        "timestamp": "1970-01-01T00:00:00+00:00"
+      }
+    ]
+  },
+  "recommendations": [
+    "HIGH RISK: Careful review of all conflicts recommended",
+    "Address 3 high-severity conflict(s) before auto-unification",
+    "1 conflict(s) remain without accepted resolutions",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

@@ -51,10 +51,7 @@ pub fn normalize(text: &str, config: &NormalizationConfig) -> NormalizedText {
     result = collapse_spaces(&result);
 
     // Tokenize
-    let mut tokens: Vec<String> = result
-        .split_whitespace()
-        .map(|s| s.to_string())
-        .collect();
+    let mut tokens: Vec<String> = result.split_whitespace().map(|s| s.to_string()).collect();
 
     // Remove stopwords
     if !config.stopwords.is_empty() {

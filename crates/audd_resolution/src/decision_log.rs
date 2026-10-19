@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 use std::path::Path;
 
 use crate::decision::Decision;
+use crate::time;
 
 /// Version of the decision log format
 const DECISION_LOG_VERSION: &str = "1.0.0";
@@ -46,7 +47,7 @@ pub struct DecisionLogMetadata {
 impl DecisionLogMetadata {
     /// Create new metadata
     fn new() -> Self {
-        let now = Utc::now();
+        let now = time::now();
         Self {
             version: DECISION_LOG_VERSION.to_string(),
             created_at: now,
@@ -65,7 +66,7 @@ impl DecisionLogMetadata {
         self.total_decisions = decisions.len();
         self.accepted_decisions = decisions.iter().filter(|d| d.accepted).count();
         self.rejected_decisions = decisions.iter().filter(|d| !d.accepted).count();
-        self.updated_at = Utc::now();
+        self.updated_at = time::now();
     }
 }
 
@@ -399,7 +400,8 @@ mod tests {
 
     #[test]
     fn test_with_schema_ids() {
-        let log = DecisionLog::new().with_schema_ids("schema_a".to_string(), "schema_b".to_string());
+        let log =
+            DecisionLog::new().with_schema_ids("schema_a".to_string(), "schema_b".to_string());
 
         assert_eq!(log.metadata.schema_a_id, Some("schema_a".to_string()));
         assert_eq!(log.metadata.schema_b_id, Some("schema_b".to_string()));
@@ -429,7 +431,10 @@ mod tests {
         let json = log.to_json().unwrap();
         let deserialized = DecisionLog::from_json(&json).unwrap();
 
-        assert_eq!(log.metadata.total_decisions, deserialized.metadata.total_decisions);
+        assert_eq!(
+            log.metadata.total_decisions,
+            deserialized.metadata.total_decisions
+        );
         assert_eq!(log.decisions.len(), deserialized.decisions.len());
     }
 

@@ -1,7 +1,7 @@
 //! Core adapter trait
 
-use audd_ir::SourceSchema;
 use crate::error::AdapterResult;
+use audd_ir::SourceSchema;
 use std::path::Path;
 
 /// Trait for loading schemas from different file formats

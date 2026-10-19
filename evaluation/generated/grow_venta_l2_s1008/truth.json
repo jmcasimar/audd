@@ -1,0 +1,176 @@
+{
+  "pair_id": "grow_venta_l2_s1008",
+  "level": 2,
+  "seed": 1008,
+  "matches": [
+    {
+      "a": "producto",
+      "b": "producto",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.id",
+      "b": "producto.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.codigo_barras",
+      "b": "producto.codigo_barras",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.nombre",
+      "b": "producto.nombre",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.descripcion",
+      "b": "producto.descripcion",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.precio",
+      "b": "producto.precio",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.existencia",
+      "b": "producto.existencia",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.categoria_id",
+      "b": "producto.categoria_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.activo",
+      "b": "producto.activo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.created_at",
+      "b": "producto.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "categoria",
+      "b": "categoria",
+      "reason": "ExactName"
+    },
+    {
+      "a": "categoria.id",
+      "b": "categoria.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "categoria.nombre",
+      "b": "categoria.nombre",
+      "reason": "ExactName"
+    },
+    {
+      "a": "categoria.descripcion",
+      "b": "categoria.descripcion",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta",
+      "b": "venta",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta.id",
+      "b": "venta.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta.folio",
+      "b": "venta.folio",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta.cliente_id",
+      "b": "venta.cliente_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta.fecha",
+      "b": "venta.fecha",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta.subtotal",
+      "b": "venta.subtotal",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta.impuesto",
+      "b": "venta.impuesto",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta.total",
+      "b": "venta.total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta.estatus",
+      "b": "venta.estatus",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle",
+      "b": "venta_detalle",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.id",
+      "b": "venta_detalle.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.venta_id",
+      "b": "venta_detalle.venta_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.producto_id",
+      "b": "venta_detalle.producto_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.cantidad",
+      "b": "venta_detalle.quantity",
+      "reason": "CatalogEquivalence"
+    },
+    {
+      "a": "venta_detalle.precio_unitario",
+      "b": "venta_detalle.precio_unitario",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.importe",
+      "b": "venta_detalle.importe",
+      "reason": "ExactName"
+    }
+  ],
+  "exclusives": [
+    {
+      "side": "a",
+      "entity": "cliente"
+    },
+    {
+      "side": "a",
+      "entity": "pago"
+    },
+    {
+      "side": "b",
+      "entity": "tbl_5225"
+    },
+    {
+      "side": "b",
+      "entity": "Pago"
+    }
+  ],
+  "conflicts": []
+}

@@ -1,20 +1,20 @@
 //! Microsoft SQL Server database schema connector
 
 #[cfg(feature = "sqlserver")]
-use tiberius::{Client, Config, AuthMethod};
+use std::collections::HashMap;
+#[cfg(feature = "sqlserver")]
+use tiberius::{AuthMethod, Client, Config};
 #[cfg(feature = "sqlserver")]
 use tokio::net::TcpStream;
 #[cfg(feature = "sqlserver")]
-use tokio_util::compat::{TokioAsyncWriteCompatExt, Compat};
-#[cfg(feature = "sqlserver")]
-use std::collections::HashMap;
+use tokio_util::compat::{Compat, TokioAsyncWriteCompatExt};
 
-use audd_ir::{
-    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, KeyType, SourceSchema,
-    StoredProcedure, Trigger, View, Constraint,
-};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
+use audd_ir::{
+    CanonicalType, Constraint, EntitySchema, FieldSchema, Index, IndexType, Key, KeyType,
+    SourceSchema, StoredProcedure, Trigger, View,
+};
 
 /// Microsoft SQL Server schema connector
 ///
@@ -29,7 +29,7 @@ use crate::error::{DbError, DbResult};
 /// use audd_adapters_db::DbSchemaConnector;
 ///
 /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
-/// let connector = SqlServerConnector::new("user:password@localhost:1433/mydb").await?;
+/// let mut connector = SqlServerConnector::new("user:password@localhost:1433/mydb").await?;
 /// let schema = connector.load()?;
 /// # Ok(())
 /// # }
@@ -39,6 +39,17 @@ use crate::error::{DbError, DbResult};
 pub struct SqlServerConnector {
     client: Client<Compat<TcpStream>>,
     database_name: String,
+}
+
+#[cfg(feature = "sqlserver")]
+fn require<'a, T: tiberius::FromSql<'a>>(
+    row: &'a tiberius::Row,
+    idx: usize,
+    desc: &str,
+) -> DbResult<T> {
+    row.try_get(idx)
+        .map_err(|e| DbError::QueryError(format!("Failed to read {}: {}", desc, e)))?
+        .ok_or_else(|| DbError::QueryError(format!("{} is NULL", desc)))
 }
 
 #[cfg(feature = "sqlserver")]
@@ -55,39 +66,36 @@ impl SqlServerConnector {
     /// Returns an error if the connection string cannot be parsed or connection fails
     pub async fn new(conn_str: &str) -> DbResult<Self> {
         // Parse connection string: user:password@host:port/database
-        let (credentials_host, database) = conn_str
-            .rsplit_once('/')
-            .ok_or_else(|| {
-                DbError::InvalidConnectionString(
-                    "Missing database name (format: user:pass@host:port/database)".to_string(),
-                )
-            })?;
+        let (credentials_host, database) = conn_str.rsplit_once('/').ok_or_else(|| {
+            DbError::InvalidConnectionString(
+                "Missing database name (format: user:pass@host:port/database)".to_string(),
+            )
+        })?;
 
         let database_name = database.to_string();
 
         // Parse credentials and host
-        let (credentials, host_port) = credentials_host
-            .split_once('@')
-            .ok_or_else(|| {
-                DbError::InvalidConnectionString(
-                    "Missing credentials (format: user:pass@host:port/database)".to_string(),
-                )
-            })?;
+        let (credentials, host_port) = credentials_host.split_once('@').ok_or_else(|| {
+            DbError::InvalidConnectionString(
+                "Missing credentials (format: user:pass@host:port/database)".to_string(),
+            )
+        })?;
 
-        let (username, password) = credentials
-            .split_once(':')
-            .ok_or_else(|| {
-                DbError::InvalidConnectionString(
-                    "Missing password (format: user:pass@host:port/database)".to_string(),
-                )
-            })?;
+        let (username, password) = credentials.split_once(':').ok_or_else(|| {
+            DbError::InvalidConnectionString(
+                "Missing password (format: user:pass@host:port/database)".to_string(),
+            )
+        })?;
 
         // Parse host and port
         let (host, port) = if let Some((h, p)) = host_port.split_once(':') {
             // P1 Fix (H1): Proper port validation instead of silent fallback
-            let port = p.parse::<u16>().map_err(|_|
-                DbError::InvalidConnectionString(format!("Invalid port number: '{}'. Port must be a number between 1 and 65535.", p))
-            )?;
+            let port = p.parse::<u16>().map_err(|_| {
+                DbError::InvalidConnectionString(format!(
+                    "Invalid port number: '{}'. Port must be a number between 1 and 65535.",
+                    p
+                ))
+            })?;
             (h.to_string(), port)
         } else {
             (host_port.to_string(), 1433)
@@ -103,11 +111,9 @@ impl SqlServerConnector {
         config.encryption(tiberius::EncryptionLevel::Required);
 
         // Connect to SQL Server
-        let tcp = TcpStream::connect(config.get_addr())
-            .await
-            .map_err(|e| {
-                DbError::ConnectionError(format!("Failed to connect to SQL Server: {}", e))
-            })?;
+        let tcp = TcpStream::connect(config.get_addr()).await.map_err(|e| {
+            DbError::ConnectionError(format!("Failed to connect to SQL Server: {}", e))
+        })?;
 
         let client = Client::connect(config, tcp.compat_write())
             .await
@@ -181,12 +187,11 @@ impl SqlServerConnector {
         let mut fields = Vec::new();
         for row in rows.iter() {
             // P1 Fix (H3): Proper error handling instead of silent data corruption
-            let column_name: &str = row.try_get(0)
-                .map_err(|e| DbError::QueryError(format!("Failed to read column name: {}", e)))?;
-            let data_type: &str = row.try_get(1)
-                .map_err(|e| DbError::QueryError(format!("Failed to read data type for column {}: {}", column_name, e)))?;
-            let is_nullable: &str = row.try_get(2)
-                .map_err(|e| DbError::QueryError(format!("Failed to read nullable flag for column {}: {}", column_name, e)))?;
+            let column_name: &str = require(row, 0, "column name")?;
+            let data_type: &str =
+                require(row, 1, &format!("data type for column {}", column_name))?;
+            let is_nullable: &str =
+                require(row, 2, &format!("nullable flag for column {}", column_name))?;
             let max_length: Option<i32> = row.get(3);
             let precision: Option<u8> = row.get(4);
             let scale: Option<u8> = row.get(5);
@@ -291,14 +296,15 @@ impl SqlServerConnector {
 
         for row in rows.iter() {
             // P1 Fix (H3): Proper error handling instead of silent data corruption
-            let fk_name: &str = row.try_get(0)
-                .map_err(|e| DbError::QueryError(format!("Failed to read foreign key name for table {}: {}", table_name, e)))?;
-            let column_name: &str = row.try_get(1)
-                .map_err(|e| DbError::QueryError(format!("Failed to read column name for FK {}: {}", fk_name, e)))?;
-            let ref_table: &str = row.try_get(2)
-                .map_err(|e| DbError::QueryError(format!("Failed to read referenced table for FK {}: {}", fk_name, e)))?;
-            let ref_column: &str = row.try_get(3)
-                .map_err(|e| DbError::QueryError(format!("Failed to read referenced column for FK {}: {}", fk_name, e)))?;
+            let fk_name: &str = require(
+                row,
+                0,
+                &format!("foreign key name for table {}", table_name),
+            )?;
+            let column_name: &str = require(row, 1, &format!("column name for FK {}", fk_name))?;
+            let ref_table: &str = require(row, 2, &format!("referenced table for FK {}", fk_name))?;
+            let ref_column: &str =
+                require(row, 3, &format!("referenced column for FK {}", fk_name))?;
 
             fk_map
                 .entry(fk_name.to_string())
@@ -310,8 +316,14 @@ impl SqlServerConnector {
         let mut foreign_keys = Vec::new();
         for (_fk_name, (field_names, ref_table, ref_column)) in fk_map {
             let mut metadata = HashMap::new();
-            metadata.insert("referenced_table".to_string(), serde_json::Value::String(ref_table));
-            metadata.insert("referenced_column".to_string(), serde_json::Value::String(ref_column));
+            metadata.insert(
+                "referenced_table".to_string(),
+                serde_json::Value::String(ref_table),
+            );
+            metadata.insert(
+                "referenced_column".to_string(),
+                serde_json::Value::String(ref_column),
+            );
 
             foreign_keys.push(Key {
                 key_type: KeyType::Foreign,
@@ -353,19 +365,19 @@ impl SqlServerConnector {
             .await
             .map_err(|e| DbError::QueryError(format!("Failed to fetch indexes: {}", e)))?;
 
-        let mut index_map: HashMap<String, (bool, String, Option<String>, Vec<String>)> = HashMap::new();
+        let mut index_map: HashMap<String, (bool, String, Option<String>, Vec<String>)> =
+            HashMap::new();
 
         for row in rows.iter() {
             // P1 Fix (H3): Proper error handling instead of silent data corruption
-            let index_name: &str = row.try_get(0)
-                .map_err(|e| DbError::QueryError(format!("Failed to read index name for table {}: {}", table_name, e)))?;
-            let is_unique: bool = row.try_get(1)
-                .map_err(|e| DbError::QueryError(format!("Failed to read unique flag for index {}: {}", index_name, e)))?;
-            let type_desc: &str = row.try_get(2)
-                .map_err(|e| DbError::QueryError(format!("Failed to read type for index {}: {}", index_name, e)))?;
+            let index_name: &str =
+                require(row, 0, &format!("index name for table {}", table_name))?;
+            let is_unique: bool =
+                require(row, 1, &format!("unique flag for index {}", index_name))?;
+            let type_desc: &str = require(row, 2, &format!("type for index {}", index_name))?;
             let filter_def: Option<&str> = row.get(3);
-            let column_name: &str = row.try_get(4)
-                .map_err(|e| DbError::QueryError(format!("Failed to read column name for index {}: {}", index_name, e)))?;
+            let column_name: &str =
+                require(row, 4, &format!("column name for index {}", index_name))?;
 
             index_map
                 .entry(index_name.to_string())
@@ -543,9 +555,14 @@ impl SqlServerConnector {
     }
 
     /// Map SQL Server types to canonical types
-    fn map_type(sql_type: &str, max_length: Option<i32>, precision: Option<u8>, scale: Option<u8>) -> CanonicalType {
+    fn map_type(
+        sql_type: &str,
+        max_length: Option<i32>,
+        precision: Option<u8>,
+        scale: Option<u8>,
+    ) -> CanonicalType {
         let sql_type_lower = sql_type.to_lowercase();
-        
+
         match sql_type_lower.as_str() {
             // Integer types
             "bit" => CanonicalType::Boolean,
@@ -553,27 +570,26 @@ impl SqlServerConnector {
             "smallint" => CanonicalType::Int32,
             "int" => CanonicalType::Int32,
             "bigint" => CanonicalType::Int64,
-            
+
             // Decimal/numeric types
-            "decimal" | "numeric" => {
-                CanonicalType::Decimal {
-                    precision: precision.unwrap_or(18) as u16,
-                    scale: scale.unwrap_or(0) as u16,
-                }
-            }
+            "decimal" | "numeric" => CanonicalType::Decimal {
+                precision: precision.unwrap_or(18) as u16,
+                scale: scale.unwrap_or(0) as u16,
+            },
             "money" | "smallmoney" => CanonicalType::Decimal {
                 precision: 19,
                 scale: 4,
             },
-            
+
             // Floating point types
             "real" => CanonicalType::Float32,
             "float" => CanonicalType::Float64,
-            
+
             // String types
             "char" | "varchar" | "nchar" | "nvarchar" => {
                 if let Some(len) = max_length {
-                    if len == -1 { // MAX
+                    if len == -1 {
+                        // MAX
                         CanonicalType::Text
                     } else {
                         CanonicalType::String
@@ -583,29 +599,31 @@ impl SqlServerConnector {
                 }
             }
             "text" | "ntext" => CanonicalType::Text,
-            
+
             // Binary types
             "binary" | "varbinary" | "image" => CanonicalType::Binary,
-            
+
             // Date/time types
             "date" => CanonicalType::Date,
             "time" => CanonicalType::Time,
-            "datetime" | "datetime2" | "smalldatetime" | "datetimeoffset" => CanonicalType::DateTime,
-            
+            "datetime" | "datetime2" | "smalldatetime" | "datetimeoffset" => {
+                CanonicalType::DateTime
+            }
+
             // UUID type
             "uniqueidentifier" => CanonicalType::Uuid,
-            
+
             // JSON type (SQL Server 2016+)
             "json" => CanonicalType::Json,
-            
+
             // XML type
             "xml" => CanonicalType::Json, // Map XML to JSON for now
-            
+
             // Spatial types
-            "geography" | "geometry" => CanonicalType::Unknown { 
-                original_type: format!("SQL Server spatial type: {}", sql_type)
+            "geography" | "geometry" => CanonicalType::Unknown {
+                original_type: format!("SQL Server spatial type: {}", sql_type),
             },
-            
+
             // Other types
             _ => CanonicalType::Unknown {
                 original_type: format!("SQL Server type: {}", sql_type),
@@ -616,17 +634,8 @@ impl SqlServerConnector {
 
 #[cfg(feature = "sqlserver")]
 impl DbSchemaConnector for SqlServerConnector {
-    fn load(&self) -> DbResult<SourceSchema> {
-        crate::runtime::block_on(async {
-            // We need mutable access to client for queries
-            // Since load() takes &self, we need to create a new connection
-            // This is a limitation of the current design
-            // In a real implementation, you might want to redesign the trait to support async
-            
-            Err(DbError::Other(
-                "SQL Server connector requires async support. Please use the async methods directly or redesign the trait.".to_string()
-            ))
-        })
+    fn load(&mut self) -> DbResult<SourceSchema> {
+        crate::runtime::block_on(self.load_async())
     }
 }
 
@@ -693,7 +702,10 @@ mod tests {
         // Decimal types
         assert_eq!(
             SqlServerConnector::map_type("decimal", None, Some(10), Some(2)),
-            CanonicalType::Decimal { precision: 10, scale: 2 }
+            CanonicalType::Decimal {
+                precision: 10,
+                scale: 2
+            }
         );
 
         // String types
@@ -732,19 +744,19 @@ mod tests {
             CanonicalType::Binary
         );
     }
-    
+
     // Note: Connection tests would require an actual SQL Server instance
     // These are commented out but show the expected usage
-    
+
     // #[tokio::test]
     // async fn test_connector_creation() {
     //     let result = SqlServerConnector::new("sa:YourPassword@localhost:1433/testdb").await;
     //     assert!(result.is_ok());
-    //     
+    //
     //     let connector = result.unwrap();
     //     assert_eq!(connector.database_name, "testdb");
     // }
-    
+
     // #[tokio::test]
     // async fn test_load_async() {
     //     let mut connector = SqlServerConnector::new("sa:YourPassword@localhost:1433/testdb").await.unwrap();
@@ -752,7 +764,7 @@ mod tests {
     //     assert_eq!(schema.source_type, "sqlserver");
     //     assert_eq!(schema.source_name, "testdb");
     // }
-    
+
     #[test]
     fn test_invalid_connection_string() {
         // Test with tokio runtime

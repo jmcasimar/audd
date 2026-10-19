@@ -1,0 +1,954 @@
+{
+  "matches": [
+    {
+      "entity_name": "categoria",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "categoria"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 0
+    },
+    {
+      "entity_name": "categoria",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "categoria",
+      "field_name": "nombre",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "nombre"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "categoria",
+      "field_name": "descripcion",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "descripcion"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "cliente"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 1
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "codigo",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "codigo"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "nombre",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "nombre"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "telefono",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "telefono"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "correo",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "correo"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "rfc",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "rfc"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "created_at",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "at",
+                "created"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 6
+    },
+    {
+      "entity_name": "pago",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "pago"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 11,
+      "index_b": 2
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "referencia",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "referencia"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 4
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "monto",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "monto"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 3
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "fecha",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "fecha"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 5
+    }
+  ],
+  "exclusives": [
+    {
+      "entity_name": "cliente",
+      "field_name": "fecha_nacimiento",
+      "side": "A",
+      "index": 6,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "pasaporte",
+      "side": "A",
+      "index": 7,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "metodo_pago",
+      "side": "A",
+      "index": 4,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "estatus",
+      "side": "A",
+      "index": 5,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "venta_id",
+      "side": "B",
+      "index": 1,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "forma_pago",
+      "side": "B",
+      "index": 2,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "aerolinea",
+      "field_name": null,
+      "side": "A",
+      "index": 0,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "aerolinea_frecuente",
+      "field_name": null,
+      "side": "A",
+      "index": 1,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "aeropuerto",
+      "field_name": null,
+      "side": "A",
+      "index": 2,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "avion",
+      "field_name": null,
+      "side": "A",
+      "index": 3,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "clase_vuelo",
+      "field_name": null,
+      "side": "A",
+      "index": 5,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "factura",
+      "field_name": null,
+      "side": "A",
+      "index": 7,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "guia_turistico",
+      "field_name": null,
+      "side": "A",
+      "index": 8,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "habitacion",
+      "field_name": null,
+      "side": "A",
+      "index": 9,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "hotel",
+      "field_name": null,
+      "side": "A",
+      "index": 10,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "pago_vuelo",
+      "field_name": null,
+      "side": "A",
+      "index": 12,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "paquete_turistico",
+      "field_name": null,
+      "side": "A",
+      "index": 13,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "pasajero",
+      "field_name": null,
+      "side": "A",
+      "index": 14,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "reserva_hotel",
+      "field_name": null,
+      "side": "A",
+      "index": 15,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "reserva_paquete",
+      "field_name": null,
+      "side": "A",
+      "index": 16,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "reserva_vuelo",
+      "field_name": null,
+      "side": "A",
+      "index": 17,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "seguro_viaje",
+      "field_name": null,
+      "side": "A",
+      "index": 18,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "tour",
+      "field_name": null,
+      "side": "A",
+      "index": 19,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "vuelo",
+      "field_name": null,
+      "side": "A",
+      "index": 20,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "producto",
+      "field_name": null,
+      "side": "B",
+      "index": 3,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "venta",
+      "field_name": null,
+      "side": "B",
+      "index": 4,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "venta_detalle",
+      "field_name": null,
+      "side": "B",
+      "index": 5,
+      "safe_to_add": true
+    }
+  ],
+  "conflicts": [
+    {
+      "entity_name": "categoria",
+      "field_name": "nombre",
+      "conflict_type": "type_incompatible",
+      "severity": "high",
+      "evidence": {
+        "from_a": "Type: Int64",
+        "from_b": "Type: String",
+        "rule": "Types must be compatible"
+      },
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "telefono",
+      "conflict_type": "type_incompatible",
+      "severity": "high",
+      "evidence": {
+        "from_a": "Type: Int64",
+        "from_b": "Type: String",
+        "rule": "Types must be compatible"
+      },
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "referencia",
+      "conflict_type": "nullability_mismatch",
+      "severity": "medium",
+      "evidence": {
+        "from_a": "Nullable: false",
+        "from_b": "Nullable: true",
+        "rule": "Nullability must match or be compatible"
+      },
+      "index_a": 1,
+      "index_b": 4
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "monto",
+      "conflict_type": "type_incompatible",
+      "severity": "high",
+      "evidence": {
+        "from_a": "Type: String",
+        "from_b": "Type: Decimal(10, 2)",
+        "rule": "Types must be compatible"
+      },
+      "index_a": 2,
+      "index_b": 3
+    }
+  ],
+  "summary": {
+    "total_matches": 17,
+    "total_exclusives": 27,
+    "total_conflicts": 4,
+    "exclusives_a": 22,
+    "exclusives_b": 5
+  }
+}

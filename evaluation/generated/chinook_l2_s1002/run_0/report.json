@@ -1,0 +1,492 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "a",
+    "schema_b": "b",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 46,
+      "total_exclusives": 7,
+      "total_conflicts": 0,
+      "exclusives_from_a": 4,
+      "exclusives_from_b": 3,
+      "compatibility_score": 100.0,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 0.0
+    },
+    "risk_assessment": {
+      "risk_level": "Low",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 0,
+      "reasons": [
+        "Low conflict rate and no high-severity issues"
+      ]
+    }
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 46,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 1.0
+    },
+    "exclusives": {
+      "from_schema_a": 4,
+      "from_schema_b": 3,
+      "safe_from_a": 4,
+      "safe_from_b": 3,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 0,
+      "by_type": {},
+      "by_severity": {}
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "Album",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Album",
+        "field": "AlbumId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Album",
+        "field": "Title",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Album",
+        "field": "ArtistId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Artist",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Artist",
+        "field": "ArtistId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Artist",
+        "field": "Name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Customer",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Customer",
+        "field": "CustomerId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Customer",
+        "field": "FirstName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Customer",
+        "field": "LastName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Customer",
+        "field": "Company",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Customer",
+        "field": "Address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Customer",
+        "field": "City",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Customer",
+        "field": "State",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Customer",
+        "field": "Country",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Customer",
+        "field": "PostalCode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Customer",
+        "field": "Phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Customer",
+        "field": "Fax",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Customer",
+        "field": "Email",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Customer",
+        "field": "SupportRepId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Genre",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Genre",
+        "field": "GenreId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Genre",
+        "field": "Name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Invoice",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Invoice",
+        "field": "InvoiceId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Invoice",
+        "field": "CustomerId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Invoice",
+        "field": "BillingAddress",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 2
+      },
+      {
+        "entity": "Invoice",
+        "field": "BillingCity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 3
+      },
+      {
+        "entity": "Invoice",
+        "field": "BillingState",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 4
+      },
+      {
+        "entity": "Invoice",
+        "field": "BillingCountry",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 5
+      },
+      {
+        "entity": "Invoice",
+        "field": "BillingPostalCode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 6
+      },
+      {
+        "entity": "Invoice",
+        "field": "Total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 7
+      },
+      {
+        "entity": "Playlist",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 5
+      },
+      {
+        "entity": "Playlist",
+        "field": "PlaylistId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Playlist",
+        "field": "Name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Track",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 6
+      },
+      {
+        "entity": "Track",
+        "field": "TrackId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Track",
+        "field": "Name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Track",
+        "field": "AlbumId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Track",
+        "field": "MediaTypeId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Track",
+        "field": "GenreId",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Track",
+        "field": "Composer",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Track",
+        "field": "Milliseconds",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Track",
+        "field": "Bytes",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Track",
+        "field": "UnitPrice",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "Invoice",
+        "field": "InvoiceDate",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "InvoiceLine",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "MediaType",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "PlaylistTrack",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "invoiceline",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "playlisttrack",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "tbl_3662",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 0,
+      "high_confidence": 0,
+      "medium_confidence": 0,
+      "auto_accepted": 0,
+      "total_decisions": 0,
+      "accepted_decisions": 0,
+      "rejected_decisions": 0,
+      "system_decisions": 0,
+      "user_decisions": 0
+    },
+    "suggestions": [],
+    "decisions": []
+  },
+  "recommendations": [
+    "Low risk detected - schemas are mostly compatible",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

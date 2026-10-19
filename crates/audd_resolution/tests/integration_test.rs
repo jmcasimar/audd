@@ -1,7 +1,7 @@
 //! Integration tests for resolution engine with comparison results
 
 use audd_compare::{Conflict, ConflictType};
-use audd_resolution::{DecisionLog, SuggestionEngine, Decision, DecisionSource};
+use audd_resolution::{Decision, DecisionLog, DecisionSource, SuggestionEngine};
 
 #[test]
 fn test_generate_suggestions_for_conflicts() {
@@ -36,18 +36,12 @@ fn test_generate_suggestions_for_conflicts() {
     assert!(all_suggestions.len() >= conflicts.len());
 
     // Verify suggestions are generated for each conflict type
-    let has_cast_suggestion = all_suggestions.iter().any(|s| {
-        matches!(
-            s.kind,
-            audd_resolution::SuggestionKind::CastSafe { .. }
-        )
-    });
-    let has_rename_suggestion = all_suggestions.iter().any(|s| {
-        matches!(
-            s.kind,
-            audd_resolution::SuggestionKind::RenameField { .. }
-        )
-    });
+    let has_cast_suggestion = all_suggestions
+        .iter()
+        .any(|s| matches!(s.kind, audd_resolution::SuggestionKind::CastSafe { .. }));
+    let has_rename_suggestion = all_suggestions
+        .iter()
+        .any(|s| matches!(s.kind, audd_resolution::SuggestionKind::RenameField { .. }));
 
     assert!(has_cast_suggestion);
     assert!(has_rename_suggestion);
@@ -72,8 +66,8 @@ fn test_decision_log_workflow() {
     assert!(!suggestions.is_empty());
 
     // Create a decision log
-    let mut log = DecisionLog::new()
-        .with_schema_ids("schema_a".to_string(), "schema_b".to_string());
+    let mut log =
+        DecisionLog::new().with_schema_ids("schema_a".to_string(), "schema_b".to_string());
 
     // Make a decision on the first suggestion
     let decision = Decision::accept(
@@ -115,7 +109,10 @@ fn test_coverage_all_conflict_types_have_suggestions() {
         1,
     );
     let suggestions = engine.suggest(&conflict);
-    assert!(!suggestions.is_empty(), "TypeIncompatible should have suggestions");
+    assert!(
+        !suggestions.is_empty(),
+        "TypeIncompatible should have suggestions"
+    );
 
     // Normalization collision
     let conflict = Conflict::normalization_collision(
@@ -127,19 +124,19 @@ fn test_coverage_all_conflict_types_have_suggestions() {
         1,
     );
     let suggestions = engine.suggest(&conflict);
-    assert!(!suggestions.is_empty(), "NormalizationCollision should have suggestions");
+    assert!(
+        !suggestions.is_empty(),
+        "NormalizationCollision should have suggestions"
+    );
 
     // Nullability mismatch
-    let conflict = Conflict::nullability_mismatch(
-        "users".to_string(),
-        "email".to_string(),
-        false,
-        true,
-        0,
-        1,
-    );
+    let conflict =
+        Conflict::nullability_mismatch("users".to_string(), "email".to_string(), false, true, 0, 1);
     let suggestions = engine.suggest(&conflict);
-    assert!(!suggestions.is_empty(), "NullabilityMismatch should have suggestions");
+    assert!(
+        !suggestions.is_empty(),
+        "NullabilityMismatch should have suggestions"
+    );
 
     // Constraint mismatch
     let conflict = Conflict::constraint_mismatch(
@@ -151,7 +148,10 @@ fn test_coverage_all_conflict_types_have_suggestions() {
         1,
     );
     let suggestions = engine.suggest(&conflict);
-    assert!(!suggestions.is_empty(), "ConstraintMismatch should have suggestions");
+    assert!(
+        !suggestions.is_empty(),
+        "ConstraintMismatch should have suggestions"
+    );
 
     // All conflict types covered
     println!("✓ All conflict types produce at least one suggestion");
@@ -187,7 +187,7 @@ fn test_export_decision_log_to_files() {
     // Export to temp directory
     let temp_dir = std::env::temp_dir();
     let json_path = temp_dir.join("test_decision_log.json");
-    
+
     log.to_json_file(&json_path).unwrap();
     assert!(json_path.exists());
 
@@ -227,14 +227,7 @@ fn test_suggestion_coverage_percentage() {
             0,
             1,
         ),
-        Conflict::nullability_mismatch(
-            "users".to_string(),
-            "email".to_string(),
-            false,
-            true,
-            0,
-            1,
-        ),
+        Conflict::nullability_mismatch("users".to_string(), "email".to_string(), false, true, 0, 1),
     ];
 
     let engine = SuggestionEngine::new();
@@ -248,13 +241,13 @@ fn test_suggestion_coverage_percentage() {
     }
 
     let coverage = (conflicts_with_suggestions as f64 / conflicts.len() as f64) * 100.0;
-    
+
     // MVP goal is ≥90% coverage
     assert!(
         coverage >= 90.0,
         "Suggestion coverage is {}%, expected ≥90%",
         coverage
     );
-    
+
     println!("✓ Suggestion coverage: {:.1}%", coverage);
 }

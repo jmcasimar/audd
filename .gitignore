@@ -33,3 +33,7 @@ Thumbs.db
 /output_*
 ir.json
 ir_*.json
+
+# Temporary / generated archives
+docs.zip
+package-lock.json

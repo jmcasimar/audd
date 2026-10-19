@@ -1,0 +1,35 @@
+[domain]
+name = "pos"
+description = "Equivalencias para sistemas de punto de venta"
+
+[[equivalence]]
+canonical = "producto"
+aliases = ["product", "item", "articulo"]
+
+[[equivalence]]
+canonical = "precio"
+aliases = ["price", "unit_price", "precio_unitario", "pvp"]
+
+[[equivalence]]
+canonical = "existencia"
+aliases = ["stock", "inventario", "qty_on_hand"]
+
+[[equivalence]]
+canonical = "cliente"
+aliases = ["customer", "client"]
+
+[[equivalence]]
+canonical = "venta"
+aliases = ["sale", "ticket", "order"]
+
+[[equivalence]]
+canonical = "fecha"
+aliases = ["date", "created_at", "fecha_venta"]
+
+[[equivalence]]
+canonical = "codigo_barras"
+aliases = ["barcode", "sku", "upc"]
+
+[[equivalence]]
+canonical = "cantidad"
+aliases = ["quantity", "qty"]

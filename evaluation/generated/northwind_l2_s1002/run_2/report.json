@@ -1,0 +1,710 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "a",
+    "schema_b": "b",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 75,
+      "total_exclusives": 5,
+      "total_conflicts": 0,
+      "exclusives_from_a": 2,
+      "exclusives_from_b": 3,
+      "compatibility_score": 100.0,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 0.0
+    },
+    "risk_assessment": {
+      "risk_level": "Low",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 0,
+      "reasons": [
+        "Low conflict rate and no high-severity issues"
+      ]
+    }
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 75,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 1.0
+    },
+    "exclusives": {
+      "from_schema_a": 2,
+      "from_schema_b": 3,
+      "safe_from_a": 2,
+      "safe_from_b": 3,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 0,
+      "by_type": {},
+      "by_severity": {}
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "Categories",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Categories",
+        "field": "CategoryID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Categories",
+        "field": "Description",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 1
+      },
+      {
+        "entity": "Customers",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Customers",
+        "field": "CustomerID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Customers",
+        "field": "CompanyName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Customers",
+        "field": "ContactName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Customers",
+        "field": "ContactTitle",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Customers",
+        "field": "Address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Customers",
+        "field": "City",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Customers",
+        "field": "Region",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Customers",
+        "field": "PostalCode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Customers",
+        "field": "Country",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Customers",
+        "field": "Phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Customers",
+        "field": "Fax",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Employees",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Employees",
+        "field": "EmployeeID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Employees",
+        "field": "LastName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Employees",
+        "field": "FirstName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Employees",
+        "field": "Title",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Employees",
+        "field": "TitleOfCourtesy",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Employees",
+        "field": "BirthDate",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Employees",
+        "field": "HireDate",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Employees",
+        "field": "Address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Employees",
+        "field": "City",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Employees",
+        "field": "Region",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Employees",
+        "field": "PostalCode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Employees",
+        "field": "Country",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Employees",
+        "field": "HomePhone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Employees",
+        "field": "Extension",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Employees",
+        "field": "Notes",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Employees",
+        "field": "ReportsTo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Orders",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 3
+      },
+      {
+        "entity": "Orders",
+        "field": "OrderID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Orders",
+        "field": "CustomerID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Orders",
+        "field": "EmployeeID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Orders",
+        "field": "OrderDate",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Orders",
+        "field": "RequiredDate",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Orders",
+        "field": "ShippedDate",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Orders",
+        "field": "ShipVia",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Orders",
+        "field": "Freight",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Orders",
+        "field": "ShipName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Orders",
+        "field": "ShipAddress",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Orders",
+        "field": "ShipCity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Orders",
+        "field": "ShipRegion",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Orders",
+        "field": "ShipPostalCode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Orders",
+        "field": "ShipCountry",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Products",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 4
+      },
+      {
+        "entity": "Products",
+        "field": "ProductID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Products",
+        "field": "ProductName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Products",
+        "field": "SupplierID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Products",
+        "field": "CategoryID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Products",
+        "field": "QuantityPerUnit",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Products",
+        "field": "UnitPrice",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Products",
+        "field": "UnitsInStock",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Products",
+        "field": "UnitsOnOrder",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Products",
+        "field": "ReorderLevel",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Products",
+        "field": "Discontinued",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Shippers",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 5
+      },
+      {
+        "entity": "Shippers",
+        "field": "ShipperID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Shippers",
+        "field": "CompanyName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Shippers",
+        "field": "Phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Suppliers",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 6
+      },
+      {
+        "entity": "Suppliers",
+        "field": "SupplierID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Suppliers",
+        "field": "CompanyName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Suppliers",
+        "field": "ContactName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Suppliers",
+        "field": "ContactTitle",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Suppliers",
+        "field": "Address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Suppliers",
+        "field": "City",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Suppliers",
+        "field": "Region",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Suppliers",
+        "field": "PostalCode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Suppliers",
+        "field": "Country",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Suppliers",
+        "field": "Phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Suppliers",
+        "field": "Fax",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Suppliers",
+        "field": "HomePage",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "Categories",
+        "field": "CategoryName",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "Employees",
+        "field": "extra_field_2310",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "Products",
+        "field": "extra_field_2526",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "OrderDetails",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "tbl_5740",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 0,
+      "high_confidence": 0,
+      "medium_confidence": 0,
+      "auto_accepted": 0,
+      "total_decisions": 0,
+      "accepted_decisions": 0,
+      "rejected_decisions": 0,
+      "system_decisions": 0,
+      "user_decisions": 0
+    },
+    "suggestions": [],
+    "decisions": []
+  },
+  "recommendations": [
+    "Low risk detected - schemas are mostly compatible",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

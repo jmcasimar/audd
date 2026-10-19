@@ -45,6 +45,9 @@ pub enum CliError {
 
     #[error("IO error: {0}")]
     IoError(#[from] std::io::Error),
+
+    #[error("Failed to load resolution catalog: {0}")]
+    CatalogError(String),
 }
 
 pub type CliResult<T> = Result<T, CliError>;

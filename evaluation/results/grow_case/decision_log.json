@@ -1,0 +1,109 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "1970-01-01T00:00:00Z",
+    "updated_at": "1970-01-01T00:00:00Z",
+    "total_decisions": 3,
+    "accepted_decisions": 3,
+    "rejected_decisions": 0,
+    "schema_a_id": "grow_travel",
+    "schema_b_id": "grow_venta"
+  },
+  "decisions": [
+    {
+      "id": "auto_dec_1",
+      "suggestion": {
+        "id": "sug_1",
+        "entity_name": "categoria",
+        "field_name": "nombre",
+        "kind": {
+          "cast_safe": {
+            "from_type": "Int64",
+            "to_type": "String"
+          }
+        },
+        "confidence": 0.9,
+        "explanation": "Safe widening cast from Int64 to String - no data loss expected",
+        "evidence": [
+          "Source type: Int64",
+          "Target type: String",
+          "No data loss expected"
+        ],
+        "impact": "low",
+        "conflict_index": null
+      },
+      "accepted": true,
+      "rationale": "Automated by rule: high_confidence_auto_accept",
+      "source": {
+        "system": {
+          "rule": "high_confidence_auto_accept"
+        }
+      },
+      "status": "pending",
+      "timestamp": "1970-01-01T00:00:00Z"
+    },
+    {
+      "id": "auto_dec_2",
+      "suggestion": {
+        "id": "sug_3",
+        "entity_name": "cliente",
+        "field_name": "telefono",
+        "kind": {
+          "cast_safe": {
+            "from_type": "Int64",
+            "to_type": "String"
+          }
+        },
+        "confidence": 0.9,
+        "explanation": "Safe widening cast from Int64 to String - no data loss expected",
+        "evidence": [
+          "Source type: Int64",
+          "Target type: String",
+          "No data loss expected"
+        ],
+        "impact": "low",
+        "conflict_index": null
+      },
+      "accepted": true,
+      "rationale": "Automated by rule: high_confidence_auto_accept",
+      "source": {
+        "system": {
+          "rule": "high_confidence_auto_accept"
+        }
+      },
+      "status": "pending",
+      "timestamp": "1970-01-01T00:00:00Z"
+    },
+    {
+      "id": "auto_dec_3",
+      "suggestion": {
+        "id": "sug_4",
+        "entity_name": "pago",
+        "field_name": "referencia",
+        "kind": {
+          "prefer_type": {
+            "preferred_type": "Nullable",
+            "alternative_type": "alternative",
+            "rule": "R-NULL-001"
+          }
+        },
+        "confidence": 0.9,
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "impact": "medium",
+        "conflict_index": null
+      },
+      "accepted": true,
+      "rationale": "Automated by rule: high_confidence_auto_accept",
+      "source": {
+        "system": {
+          "rule": "high_confidence_auto_accept"
+        }
+      },
+      "status": "pending",
+      "timestamp": "1970-01-01T00:00:00Z"
+    }
+  ]
+}

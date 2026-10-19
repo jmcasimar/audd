@@ -1,0 +1,2251 @@
+{
+  "schema_name": "grow_travel_grow_venta_unified",
+  "entities": [
+    {
+      "entity_name": "categoria",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "conflicted",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "descripcion",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "cliente",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "codigo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "telefono",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "conflicted",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "correo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "rfc",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "fecha_nacimiento",
+            "canonical_type": {
+              "type": "date"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "pasaporte",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "pago",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "referencia",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "conflicted",
+          "index_a": 1,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "monto",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "conflicted",
+          "index_a": 2,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "fecha",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "metodo_pago",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "estatus",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "venta_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "forma_pago",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "aerolinea",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "codigo_iata",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "pais",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "activa",
+            "canonical_type": {
+              "type": "boolean"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "aerolinea_frecuente",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "cliente_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "aerolinea_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "numero_membresia",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "millas_acumuladas",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "aeropuerto",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "codigo_iata",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "ciudad",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "pais",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "zona_horaria",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "avion",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "matricula",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "modelo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "capacidad",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "aerolinea_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "clase_vuelo",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "vuelo_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "precio",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "asientos_disponibles",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "factura",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "cliente_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "estatus",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "guia_turistico",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "idiomas",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "telefono",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "email",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "calificacion",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "habitacion",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "hotel_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "tipo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "precio_noche",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "capacidad",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "numero",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "hotel",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "ciudad",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "pais",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "categoria",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "direccion",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "telefono",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "pago_vuelo",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "reserva_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "monto",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "metodo_pago",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_pago",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "referencia",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "paquete_turistico",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "codigo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "descripcion",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "precio",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "duracion_dias",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "activo",
+            "canonical_type": {
+              "type": "boolean"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "pasajero",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "cliente_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "apellido",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "pasaporte",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nacionalidad",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_nacimiento",
+            "canonical_type": {
+              "type": "date"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "requiere_asistencia",
+            "canonical_type": {
+              "type": "boolean"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "reserva_hotel",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "codigo_reserva",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "cliente_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "hotel_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "habitacion_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_entrada",
+            "canonical_type": {
+              "type": "date"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_salida",
+            "canonical_type": {
+              "type": "date"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "estatus",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 8,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "reserva_paquete",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "codigo_reserva",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "cliente_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "paquete_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_inicio",
+            "canonical_type": {
+              "type": "date"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "estatus",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "reserva_vuelo",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "codigo_reserva",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "pasajero_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "vuelo_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "clase_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_reserva",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "estatus",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "seguro_viaje",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "pasajero_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "tipo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_inicio",
+            "canonical_type": {
+              "type": "date"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_fin",
+            "canonical_type": {
+              "type": "date"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "prima",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "tour",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "guia_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "destino",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha",
+            "canonical_type": {
+              "type": "date"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "precio",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "duracion_horas",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "vuelo",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "numero_vuelo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "aerolinea_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "origen_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "destino_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_salida",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "fecha_llegada",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "duracion_minutos",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "producto",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "codigo_barras",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "descripcion",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "precio",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "existencia",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "categoria_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "activo",
+            "canonical_type": {
+              "type": "boolean"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "notas",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 9
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "venta",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "folio",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "cliente_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "fecha",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "subtotal",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "impuesto",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "estatus",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 7
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "venta_detalle",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "venta_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "producto_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "cantidad",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "precio_unitario",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "importe",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 5
+        }
+      ],
+      "origin": "B"
+    }
+  ],
+  "metadata": {}
+}

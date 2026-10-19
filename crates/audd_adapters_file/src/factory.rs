@@ -4,6 +4,7 @@ use crate::adapter::SchemaAdapter;
 use crate::csv_adapter::CsvAdapter;
 use crate::error::{AdapterError, AdapterResult};
 use crate::json_adapter::JsonAdapter;
+#[cfg(feature = "remote")]
 use crate::remote_adapter::RemoteAdapter;
 use crate::sql_adapter::SqlAdapter;
 use crate::xml_adapter::XmlAdapter;
@@ -78,9 +79,7 @@ pub fn load_schema_from_file<P: AsRef<Path>>(path: P) -> AdapterResult<SourceSch
 ///
 /// Returns an error if the file extension is not recognized
 #[allow(dead_code)]
-pub fn get_adapter_for_file<P: AsRef<Path>>(
-    path: P,
-) -> AdapterResult<Box<dyn SchemaAdapter>> {
+pub fn get_adapter_for_file<P: AsRef<Path>>(path: P) -> AdapterResult<Box<dyn SchemaAdapter>> {
     let path = path.as_ref();
     let extension = path
         .extension()
@@ -100,7 +99,9 @@ pub fn get_adapter_for_file<P: AsRef<Path>>(
     }
 }
 
-/// Load a schema from a URL (HTTP/HTTPS or Google Sheets)
+/// Load a schema from a URL (HTTP/HTTPS or Google Sheets).
+///
+/// Requires the crate feature `remote` to be enabled.
 ///
 /// Supports:
 /// - HTTP/HTTPS URLs with file extensions (.csv, .json, .xml, .sql, .ddl)
@@ -117,6 +118,7 @@ pub fn get_adapter_for_file<P: AsRef<Path>>(
 /// # Errors
 ///
 /// Returns an error if:
+/// - The `remote` feature is not enabled
 /// - The URL cannot be fetched
 /// - The format cannot be detected
 /// - The content is invalid
@@ -124,6 +126,8 @@ pub fn get_adapter_for_file<P: AsRef<Path>>(
 /// # Example
 ///
 /// ```no_run
+/// # #[cfg(feature = "remote")]
+/// # {
 /// use audd_adapters_file::load_schema_from_url;
 ///
 /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -137,12 +141,16 @@ pub fn get_adapter_for_file<P: AsRef<Path>>(
 /// println!("Loaded schema: {}", schema.source_name);
 /// # Ok(())
 /// # }
+/// # }
 /// ```
+#[cfg(feature = "remote")]
 pub fn load_schema_from_url(url: &str) -> AdapterResult<SourceSchema> {
     RemoteAdapter::new(url).load_schema()
 }
 
-/// Load a schema from a URL with an explicit format hint
+/// Load a schema from a URL with an explicit format hint.
+///
+/// Requires the crate feature `remote` to be enabled.
 ///
 /// This is useful when the URL doesn't have a clear file extension
 ///
@@ -158,6 +166,8 @@ pub fn load_schema_from_url(url: &str) -> AdapterResult<SourceSchema> {
 /// # Example
 ///
 /// ```no_run
+/// # #[cfg(feature = "remote")]
+/// # {
 /// use audd_adapters_file::load_schema_from_url_with_format;
 ///
 /// # fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -167,7 +177,9 @@ pub fn load_schema_from_url(url: &str) -> AdapterResult<SourceSchema> {
 /// )?;
 /// # Ok(())
 /// # }
+/// # }
 /// ```
+#[cfg(feature = "remote")]
 pub fn load_schema_from_url_with_format(url: &str, format: &str) -> AdapterResult<SourceSchema> {
     RemoteAdapter::with_format(url, format).load_schema()
 }

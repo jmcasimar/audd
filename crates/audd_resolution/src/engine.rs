@@ -2,12 +2,12 @@
 
 use audd_compare::{Conflict, ConflictType};
 
+use crate::catalog::ResolutionCatalog;
 use crate::config::ResolutionConfig;
 use crate::suggestion::{Confidence, Impact, Suggestion, SuggestionKind};
 
 /// Counter for generating unique suggestion IDs
-static SUGGESTION_COUNTER: std::sync::atomic::AtomicUsize =
-    std::sync::atomic::AtomicUsize::new(0);
+static SUGGESTION_COUNTER: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
 
 /// Generate a unique suggestion ID
 fn generate_suggestion_id() -> String {
@@ -19,6 +19,8 @@ fn generate_suggestion_id() -> String {
 pub struct SuggestionEngine {
     /// Configuration for resolution policies
     config: ResolutionConfig,
+    /// Optional resolution catalog; rules from the catalog are evaluated first
+    catalog: Option<ResolutionCatalog>,
 }
 
 impl SuggestionEngine {
@@ -26,19 +28,30 @@ impl SuggestionEngine {
     pub fn new() -> Self {
         Self {
             config: ResolutionConfig::default(),
+            catalog: None,
         }
     }
 
     /// Create an engine with custom configuration
     pub fn with_config(config: ResolutionConfig) -> Self {
-        Self { config }
+        Self {
+            config,
+            catalog: None,
+        }
     }
 
     /// Create an engine that only generates safe suggestions
     pub fn safe_only() -> Self {
         Self {
             config: ResolutionConfig::conservative(),
+            catalog: None,
         }
+    }
+
+    /// Attach a resolution catalog to the engine.
+    pub fn with_catalog(mut self, catalog: ResolutionCatalog) -> Self {
+        self.catalog = Some(catalog);
+        self
     }
 
     /// Get the current configuration
@@ -46,8 +59,17 @@ impl SuggestionEngine {
         &self.config
     }
 
-    /// Generate suggestions for a single conflict
+    /// Generate suggestions for a single conflict.
+    ///
+    /// Catalog rules are evaluated first (K02); if none matches, the default
+    /// engine behavior is used.
     pub fn suggest(&self, conflict: &Conflict) -> Vec<Suggestion> {
+        if let Some(catalog) = &self.catalog {
+            if let Some(suggestion) = catalog.suggest(conflict, generate_suggestion_id()) {
+                return vec![suggestion];
+            }
+        }
+
         match conflict.conflict_type {
             ConflictType::TypeIncompatible => self.suggest_type_cast(conflict),
             ConflictType::NormalizationCollision => self.suggest_rename(conflict),
@@ -346,7 +368,9 @@ fn analyze_cast_safety(from_type: &str, to_type: &str) -> Option<(bool, String)>
 
     // Integer to float (safe with potential precision loss for very large integers)
     if (from_lower.contains("int") || from_lower.contains("integer"))
-        && (to_lower.contains("float") || to_lower.contains("double") || to_lower.contains("decimal"))
+        && (to_lower.contains("float")
+            || to_lower.contains("double")
+            || to_lower.contains("decimal"))
     {
         return Some((
             true,
@@ -377,7 +401,9 @@ fn analyze_cast_safety(from_type: &str, to_type: &str) -> Option<(bool, String)>
     }
 
     // Float to integer (risky - loses decimal)
-    if (from_lower.contains("float") || from_lower.contains("double") || from_lower.contains("decimal"))
+    if (from_lower.contains("float")
+        || from_lower.contains("double")
+        || from_lower.contains("decimal"))
         && to_lower.contains("int")
     {
         return Some((false, "Loss of decimal precision".to_string()));
@@ -391,6 +417,49 @@ fn analyze_cast_safety(from_type: &str, to_type: &str) -> Option<(bool, String)>
     // Text to varchar (risky)
     if from_lower.contains("text") && to_lower.contains("varchar") {
         return Some((false, "Potential truncation of long text".to_string()));
+    }
+
+    // Numeric or Boolean -> String/Text (safe textual representation)
+    let is_numeric_or_bool = |s: &str| {
+        s.contains("int")
+            || s.contains("float")
+            || s.contains("double")
+            || s.contains("decimal")
+            || s.contains("bool")
+    };
+    if is_numeric_or_bool(&from_lower) && (to_lower.contains("string") || to_lower.contains("text"))
+    {
+        return Some((true, String::new()));
+    }
+
+    // String/Text -> numeric or date/time (risky, requires validation)
+    if (from_lower.contains("string") || from_lower.contains("text"))
+        && (is_numeric_or_bool(&to_lower)
+            || to_lower.contains("date")
+            || to_lower.contains("timestamp")
+            || to_lower.contains("time"))
+    {
+        return Some((
+            false,
+            "Requires validating that all values can be parsed".to_string(),
+        ));
+    }
+
+    // Boolean <-> Integer (safe convention 0/1)
+    if (from_lower.contains("bool") && to_lower.contains("int"))
+        || (from_lower.contains("int") && to_lower.contains("bool"))
+    {
+        return Some((true, String::new()));
+    }
+
+    // Date -> Timestamp (safe, adds 00:00 time)
+    if from_lower.contains("date") && to_lower.contains("timestamp") {
+        return Some((true, String::new()));
+    }
+
+    // Timestamp -> Date (risky, loses time)
+    if from_lower.contains("timestamp") && to_lower.contains("date") {
+        return Some((false, "Loses time component".to_string()));
     }
 
     // No cast analysis available
@@ -545,7 +614,10 @@ mod tests {
     #[test]
     fn test_analyze_cast_safety() {
         // Safe casts
-        assert_eq!(analyze_cast_safety("Int32", "Int64"), Some((true, String::new())));
+        assert_eq!(
+            analyze_cast_safety("Int32", "Int64"),
+            Some((true, String::new()))
+        );
         assert_eq!(
             analyze_cast_safety("Int16", "Int32"),
             Some((true, String::new()))

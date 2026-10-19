@@ -226,7 +226,11 @@ impl UnifiedSchema {
     }
 
     /// Create entity from schema A (exclusive)
-    fn entity_from_a(entity: &EntitySchema, _idx: usize, _result: &ComparisonResult) -> UnifiedEntity {
+    fn entity_from_a(
+        entity: &EntitySchema,
+        _idx: usize,
+        _result: &ComparisonResult,
+    ) -> UnifiedEntity {
         let fields = entity
             .fields
             .iter()
@@ -248,7 +252,11 @@ impl UnifiedSchema {
     }
 
     /// Create entity from schema B (exclusive)
-    fn entity_from_b(entity: &EntitySchema, _idx: usize, _result: &ComparisonResult) -> UnifiedEntity {
+    fn entity_from_b(
+        entity: &EntitySchema,
+        _idx: usize,
+        _result: &ComparisonResult,
+    ) -> UnifiedEntity {
         let fields = entity
             .fields
             .iter()

@@ -1,13 +1,15 @@
 //! MongoDB database schema connector
 
 #[cfg(feature = "mongodb")]
-use mongodb::{Client, options::ClientOptions};
+use mongodb::bson::{doc, Bson, Document};
 #[cfg(feature = "mongodb")]
-use mongodb::bson::{Bson, Document, doc};
+use mongodb::{options::ClientOptions, Client};
 
-use audd_ir::{CanonicalType, EntitySchema, FieldSchema, Key, SourceSchema, Index, IndexType, View};
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
+use audd_ir::{
+    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, SourceSchema, View,
+};
 
 #[cfg(feature = "mongodb")]
 use std::collections::{HashMap, HashSet};
@@ -26,7 +28,7 @@ use std::collections::{HashMap, HashSet};
 /// use audd_adapters_db::DbSchemaConnector;
 ///
 /// # async fn example() -> Result<(), Box<dyn std::error::Error>> {
-/// let connector = MongoDbConnector::new("mongodb://localhost:27017/mydb").await?;
+/// let mut connector = MongoDbConnector::new("mongodb://localhost:27017/mydb").await?;
 /// let schema = connector.load()?;
 /// # Ok(())
 /// # }
@@ -64,36 +66,34 @@ impl MongoDbConnector {
         // P1 Fix (H4): Validate sample size to prevent OOM and invalid inputs
         const MIN_SAMPLE_SIZE: usize = 1;
         const MAX_SAMPLE_SIZE: usize = 10000;
-        
+
         if sample_size < MIN_SAMPLE_SIZE || sample_size > MAX_SAMPLE_SIZE {
             return Err(DbError::InvalidConnectionString(format!(
                 "Sample size must be between {} and {} (got {})",
                 MIN_SAMPLE_SIZE, MAX_SAMPLE_SIZE, sample_size
             )));
         }
-        
+
         // Parse the connection string to get the database name
-        let full_uri = if conn_str.starts_with("mongodb://") || conn_str.starts_with("mongodb+srv://") {
-            conn_str.to_string()
-        } else {
-            format!("mongodb://{}", conn_str)
-        };
+        let full_uri =
+            if conn_str.starts_with("mongodb://") || conn_str.starts_with("mongodb+srv://") {
+                conn_str.to_string()
+            } else {
+                format!("mongodb://{}", conn_str)
+            };
 
         // Extract database name from connection string
         let database_name = extract_database_name(&full_uri)?;
 
         // Parse MongoDB connection options
-        let client_options = ClientOptions::parse(&full_uri)
-            .await
-            .map_err(|e| {
-                DbError::InvalidConnectionString(format!("Failed to parse MongoDB URI: {}", e))
-            })?;
+        let client_options = ClientOptions::parse(&full_uri).await.map_err(|e| {
+            DbError::InvalidConnectionString(format!("Failed to parse MongoDB URI: {}", e))
+        })?;
 
         // Create MongoDB client
-        let client = Client::with_options(client_options)
-            .map_err(|e| {
-                DbError::ConnectionError(format!("Failed to create MongoDB client: {}", e))
-            })?;
+        let client = Client::with_options(client_options).map_err(|e| {
+            DbError::ConnectionError(format!("Failed to create MongoDB client: {}", e))
+        })?;
 
         Ok(Self {
             client,
@@ -105,7 +105,7 @@ impl MongoDbConnector {
     /// Get list of all collections in the database
     async fn get_collection_names(&self) -> DbResult<Vec<String>> {
         let db = self.client.database(&self.database_name);
-        
+
         let collections = db
             .list_collection_names()
             .await
@@ -125,7 +125,10 @@ impl MongoDbConnector {
             .limit(self.sample_size as i64)
             .await
             .map_err(|e| {
-                DbError::QueryError(format!("Failed to query collection {}: {}", collection_name, e))
+                DbError::QueryError(format!(
+                    "Failed to query collection {}: {}",
+                    collection_name, e
+                ))
             })?;
 
         // Collect schema information from sampled documents
@@ -137,22 +140,24 @@ impl MongoDbConnector {
             match cursor.advance().await {
                 Ok(true) => {
                     // We have a document
-                    let doc = cursor.deserialize_current()
-                        .map_err(|e| DbError::ExtractionError(format!("Failed to deserialize document: {}", e)))?;
-                    
+                    let doc = cursor.deserialize_current().map_err(|e| {
+                        DbError::ExtractionError(format!("Failed to deserialize document: {}", e))
+                    })?;
+
                     // Check if _id field exists
                     if doc.contains_key("_id") {
                         has_id = true;
                     }
 
                     for (field_name, value) in doc {
-                        let entry = field_schemas
-                            .entry(field_name.to_string())
-                            .or_insert_with(|| FieldTypeInfo {
-                                types_seen: HashSet::new(),
-                                null_count: 0,
-                                total_count: 0,
-                            });
+                        let entry =
+                            field_schemas
+                                .entry(field_name.to_string())
+                                .or_insert_with(|| FieldTypeInfo {
+                                    types_seen: HashSet::new(),
+                                    null_count: 0,
+                                    total_count: 0,
+                                });
 
                         entry.total_count += 1;
 
@@ -168,7 +173,10 @@ impl MongoDbConnector {
                     break;
                 }
                 Err(e) => {
-                    return Err(DbError::ExtractionError(format!("Failed to read document: {}", e)));
+                    return Err(DbError::ExtractionError(format!(
+                        "Failed to read document: {}",
+                        e
+                    )));
                 }
             }
         }
@@ -209,19 +217,19 @@ impl MongoDbConnector {
 
     /// Extract indexes for a specific collection
     async fn extract_collection_indexes(&self, collection_name: &str) -> DbResult<Vec<Index>> {
-        use mongodb::IndexModel;
         use futures::stream::TryStreamExt;
+        use mongodb::IndexModel;
 
         let db = self.client.database(&self.database_name);
         let collection = db.collection::<Document>(collection_name);
 
         // List indexes using the listIndexes command
-        let cursor = collection
-            .list_indexes()
-            .await
-            .map_err(|e| {
-                DbError::QueryError(format!("Failed to list indexes for collection {}: {}", collection_name, e))
-            })?;
+        let cursor = collection.list_indexes().await.map_err(|e| {
+            DbError::QueryError(format!(
+                "Failed to list indexes for collection {}: {}",
+                collection_name, e
+            ))
+        })?;
 
         let mut indexes = Vec::new();
 
@@ -234,8 +242,9 @@ impl MongoDbConnector {
         // Process each index
         for index_model in index_models {
             // Get the index options as BSON Document
-            let index_doc = mongodb::bson::to_document(&index_model)
-                .map_err(|e| DbError::ExtractionError(format!("Failed to convert index to document: {}", e)))?;
+            let index_doc = mongodb::bson::to_document(&index_model).map_err(|e| {
+                DbError::ExtractionError(format!("Failed to convert index to document: {}", e))
+            })?;
 
             // Skip the _id index (it's the primary key)
             if let Some(name) = index_doc.get_str("name").ok() {
@@ -261,9 +270,9 @@ impl MongoDbConnector {
             .to_string();
 
         // Get the key specification
-        let key_doc = index_doc
-            .get_document("key")
-            .map_err(|_| DbError::ExtractionError(format!("Index {} missing key field", index_name)))?;
+        let key_doc = index_doc.get_document("key").map_err(|_| {
+            DbError::ExtractionError(format!("Index {} missing key field", index_name))
+        })?;
 
         // Extract column names from key
         let field_names: Vec<String> = key_doc.keys().map(|k| k.to_string()).collect();
@@ -336,16 +345,19 @@ impl MongoDbConnector {
         let mut views = Vec::new();
 
         // Collect all collection specifications
-        let coll_specs: Vec<mongodb::results::CollectionSpecification> = cursor
-            .try_collect()
-            .await
-            .map_err(|e| DbError::ExtractionError(format!("Failed to collect collections: {}", e)))?;
+        let coll_specs: Vec<mongodb::results::CollectionSpecification> =
+            cursor.try_collect().await.map_err(|e| {
+                DbError::ExtractionError(format!("Failed to collect collections: {}", e))
+            })?;
 
         // Process each collection specification
         for coll_spec in coll_specs {
             // Check if this is a view based on collection_type field
             // CollectionType::View is the enum variant for views
-            if matches!(coll_spec.collection_type, mongodb::results::CollectionType::View) {
+            if matches!(
+                coll_spec.collection_type,
+                mongodb::results::CollectionType::View
+            ) {
                 let view_name = coll_spec.name.clone();
 
                 // Extract view options if available
@@ -365,7 +377,7 @@ impl MongoDbConnector {
                     view_name,
                     definition,
                     field_names: Vec::new(), // We don't infer fields for views
-                    is_materialized: false, // MongoDB doesn't have materialized views
+                    is_materialized: false,  // MongoDB doesn't have materialized views
                     metadata: std::collections::HashMap::new(),
                 });
             }
@@ -377,7 +389,7 @@ impl MongoDbConnector {
 
 #[cfg(feature = "mongodb")]
 impl DbSchemaConnector for MongoDbConnector {
-    fn load(&self) -> DbResult<SourceSchema> {
+    fn load(&mut self) -> DbResult<SourceSchema> {
         crate::runtime::block_on(async {
             let collection_names = self.get_collection_names().await?;
             let mut entities = Vec::new();
@@ -415,7 +427,14 @@ impl FieldTypeInfo {
         // If multiple types seen, return Unknown
         if self.types_seen.len() > 1 {
             return CanonicalType::Unknown {
-                original_type: format!("mixed: {}", self.types_seen.iter().cloned().collect::<Vec<_>>().join(", ")),
+                original_type: format!(
+                    "mixed: {}",
+                    self.types_seen
+                        .iter()
+                        .cloned()
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                ),
             };
         }
 
@@ -488,7 +507,7 @@ fn map_bson_type_to_canonical(type_name: &str) -> CanonicalType {
 fn extract_database_name(conn_str: &str) -> DbResult<String> {
     // Connection string format: mongodb://[user:pass@]host[:port]/database[?options]
     // or mongodb+srv://[user:pass@]host/database[?options]
-    
+
     // Remove the protocol prefix
     let without_protocol = conn_str
         .strip_prefix("mongodb+srv://")
@@ -506,10 +525,7 @@ fn extract_database_name(conn_str: &str) -> DbResult<String> {
     }
 
     let db_with_options = parts[1];
-    let db_name = db_with_options
-        .split('?')
-        .next()
-        .unwrap_or(db_with_options);
+    let db_name = db_with_options.split('?').next().unwrap_or(db_with_options);
 
     if db_name.is_empty() {
         return Err(DbError::InvalidConnectionString(
@@ -547,14 +563,8 @@ mod tests {
         );
         assert_eq!(map_bson_type_to_canonical("int32"), CanonicalType::Int32);
         assert_eq!(map_bson_type_to_canonical("int64"), CanonicalType::Int64);
-        assert_eq!(
-            map_bson_type_to_canonical("double"),
-            CanonicalType::Float64
-        );
-        assert_eq!(
-            map_bson_type_to_canonical("string"),
-            CanonicalType::String
-        );
+        assert_eq!(map_bson_type_to_canonical("double"), CanonicalType::Float64);
+        assert_eq!(map_bson_type_to_canonical("string"), CanonicalType::String);
         assert_eq!(
             map_bson_type_to_canonical("datetime"),
             CanonicalType::DateTime

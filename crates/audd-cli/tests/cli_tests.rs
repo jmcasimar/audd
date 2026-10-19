@@ -90,7 +90,7 @@ fn test_inspect_csv_to_stdout() {
 fn test_inspect_csv_to_file() {
     let fixtures = get_fixtures_dir();
     let csv_file = fixtures.join("users.csv");
-    
+
     let temp_dir = tempfile::tempdir().unwrap();
     let out_file = temp_dir.path().join("ir.json");
 
@@ -118,7 +118,7 @@ fn test_compare_csv_and_json() {
     let fixtures = get_fixtures_dir();
     let csv_file = fixtures.join("users.csv");
     let json_file = fixtures.join("users.json");
-    
+
     let temp_dir = tempfile::tempdir().unwrap();
     let out_dir = temp_dir.path().join("compare_output");
 
@@ -151,7 +151,7 @@ fn test_compare_csv_and_json() {
     // Verify content of report
     let report = fs::read_to_string(out_dir.join("report.md")).unwrap();
     assert!(report.contains("# AUDD Comparison Report"));
-    assert!(report.contains("## Summary"));
+    assert!(report.contains("## Executive Summary"));
     assert!(report.contains("Matches"));
     assert!(report.contains("Conflicts"));
 }
@@ -217,7 +217,7 @@ fn test_compare_with_config_file() {
     let fixtures = get_fixtures_dir();
     let csv_file = fixtures.join("users.csv");
     let json_file = fixtures.join("users.json");
-    
+
     let temp_dir = tempfile::tempdir().unwrap();
     let config_file = temp_dir.path().join("config.toml");
     let out_dir = temp_dir.path().join("output_with_config");
@@ -225,7 +225,7 @@ fn test_compare_with_config_file() {
     // Create a custom config file
     let config_content = r#"
 [resolution]
-confidence_threshold = 0.85
+confidence_threshold = 0.7
 decision_id_prefix = "test_dec"
 
 [compare]
@@ -261,7 +261,7 @@ fn test_compare_with_confidence_threshold_flag() {
     let fixtures = get_fixtures_dir();
     let csv_file = fixtures.join("users.csv");
     let json_file = fixtures.join("users.json");
-    
+
     let temp_dir = tempfile::tempdir().unwrap();
     let out_dir = temp_dir.path().join("output_with_threshold");
 

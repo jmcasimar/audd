@@ -55,7 +55,11 @@ mod tests {
         SynonymConfig {
             enabled: true,
             groups: vec![
-                vec!["id".to_string(), "identifier".to_string(), "key".to_string()],
+                vec![
+                    "id".to_string(),
+                    "identifier".to_string(),
+                    "key".to_string(),
+                ],
                 vec![
                     "user".to_string(),
                     "customer".to_string(),
@@ -98,7 +102,9 @@ mod tests {
 
         let matches = result.unwrap();
         assert_eq!(matches.len(), 2);
-        assert!(matches.iter().any(|(a, b, _)| a == "user" && b == "customer"));
+        assert!(matches
+            .iter()
+            .any(|(a, b, _)| a == "user" && b == "customer"));
         assert!(matches.iter().any(|(a, b, _)| a == "id" && b == "key"));
     }
 

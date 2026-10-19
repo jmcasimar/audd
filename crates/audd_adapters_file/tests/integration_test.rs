@@ -28,7 +28,11 @@ fn test_csv_fixture_deterministic() {
     assert_eq!(entity.fields.len(), 5);
 
     // Verify deterministic field names
-    let field_names: Vec<&str> = entity.fields.iter().map(|f| f.field_name.as_str()).collect();
+    let field_names: Vec<&str> = entity
+        .fields
+        .iter()
+        .map(|f| f.field_name.as_str())
+        .collect();
     assert_eq!(field_names, vec!["id", "name", "email", "age", "active"]);
 }
 
@@ -72,7 +76,11 @@ fn test_xml_fixture_deterministic() {
     assert_eq!(entity.fields.len(), 4);
 
     // XML fields should include id, name, email, age (order may vary)
-    let field_names: Vec<&str> = entity.fields.iter().map(|f| f.field_name.as_str()).collect();
+    let field_names: Vec<&str> = entity
+        .fields
+        .iter()
+        .map(|f| f.field_name.as_str())
+        .collect();
     assert!(field_names.contains(&"id"));
     assert!(field_names.contains(&"name"));
     assert!(field_names.contains(&"email"));
@@ -125,8 +133,7 @@ fn test_json_serialization_roundtrip() {
     let json = schema.to_json().expect("Failed to serialize");
 
     // Deserialize back
-    let deserialized =
-        audd_ir::SourceSchema::from_json(&json).expect("Failed to deserialize");
+    let deserialized = audd_ir::SourceSchema::from_json(&json).expect("Failed to deserialize");
 
     // Should be identical
     assert_eq!(schema, deserialized);
@@ -138,8 +145,8 @@ fn test_all_formats_have_ir_version() {
 
     for fixture in fixtures {
         let path = fixture_path(fixture);
-        let schema = load_schema_from_file(&path)
-            .unwrap_or_else(|_| panic!("Failed to load {}", fixture));
+        let schema =
+            load_schema_from_file(&path).unwrap_or_else(|_| panic!("Failed to load {}", fixture));
         assert_eq!(schema.ir_version, "1.0.0");
     }
 }

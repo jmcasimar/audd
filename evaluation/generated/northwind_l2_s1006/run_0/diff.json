@@ -1,0 +1,2711 @@
+{
+  "matches": [
+    {
+      "entity_name": "Categories",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "category"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Categories",
+      "field_name": "CategoryID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "category",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Categories",
+      "field_name": "CategoryName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name",
+                "category"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "customer"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "CustomerID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "customer"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "CompanyName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "company",
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "ContactName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "contact",
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "ContactTitle",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "contact",
+                "title"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "Address",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "address"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "City",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "city"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "Region",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "region"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "PostalCode",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "postal",
+                "code"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "Country",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "country"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 8
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "Phone",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "phone"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 9,
+      "index_b": 9
+    },
+    {
+      "entity_name": "Customers",
+      "field_name": "Fax",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "fax"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 10,
+      "index_b": 10
+    },
+    {
+      "entity_name": "OrderDetails",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "order",
+                "detail"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 2
+    },
+    {
+      "entity_name": "OrderDetails",
+      "field_name": "OrderID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "order",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "OrderDetails",
+      "field_name": "ProductID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "product"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "OrderDetails",
+      "field_name": "UnitPrice",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "unit",
+                "price"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "OrderDetails",
+      "field_name": "Quantity",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "quantity"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "OrderDetails",
+      "field_name": "Discount",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "discount"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "order"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "OrderID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "order",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "CustomerID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "customer",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "EmployeeID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "employee",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "OrderDate",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "date",
+                "order"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "RequiredDate",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "required",
+                "date"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "ShippedDate",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "date",
+                "shipped"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "ShipVia",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "ship",
+                "via"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "Freight",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "freight"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "ShipName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name",
+                "ship"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 8
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "ShipAddress",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "ship",
+                "address"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 9,
+      "index_b": 9
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "ShipCity",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "ship",
+                "city"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 10,
+      "index_b": 10
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "ShipRegion",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "region",
+                "ship"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 11,
+      "index_b": 11
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "ShipPostalCode",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "ship",
+                "postal",
+                "code"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 12,
+      "index_b": 12
+    },
+    {
+      "entity_name": "Orders",
+      "field_name": "ShipCountry",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "ship",
+                "country"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 13,
+      "index_b": 13
+    },
+    {
+      "entity_name": "Products",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "product"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "ProductID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "product",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "ProductName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "product",
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "SupplierID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "supplier",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "CategoryID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "category"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "QuantityPerUnit",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "per",
+                "unit",
+                "quantity"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "UnitPrice",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "price",
+                "unit"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "UnitsInStock",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "in",
+                "unit",
+                "stock"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "UnitsOnOrder",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "on",
+                "order",
+                "unit"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "ReorderLevel",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "level",
+                "reorder"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 8
+    },
+    {
+      "entity_name": "Products",
+      "field_name": "Discontinued",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "discontinued"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 9,
+      "index_b": 9
+    },
+    {
+      "entity_name": "Shippers",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "shipper"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 5
+    },
+    {
+      "entity_name": "Shippers",
+      "field_name": "ShipperID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "shipper",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Shippers",
+      "field_name": "CompanyName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "name",
+                "company"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Shippers",
+      "field_name": "Phone",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "phone"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "supplier"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 6
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "SupplierID",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "supplier",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "CompanyName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "company",
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "ContactName",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "contact",
+                "name"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "ContactTitle",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "contact",
+                "title"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "Address",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "address"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "City",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "city"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "Region",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "region"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "PostalCode",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "postal",
+                "code"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "Country",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "country"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 8
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "Phone",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "phone"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 9,
+      "index_b": 9
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "Fax",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "fax"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 10,
+      "index_b": 10
+    },
+    {
+      "entity_name": "Suppliers",
+      "field_name": "HomePage",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "home",
+                "page"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 11,
+      "index_b": 11
+    }
+  ],
+  "exclusives": [
+    {
+      "entity_name": "Categories",
+      "field_name": "Description",
+      "side": "A",
+      "index": 2,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "Categories",
+      "field_name": "extra_field_4361",
+      "side": "B",
+      "index": 2,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "Employees",
+      "field_name": null,
+      "side": "A",
+      "index": 2,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "tbl_3476",
+      "field_name": null,
+      "side": "B",
+      "index": 7,
+      "safe_to_add": true
+    }
+  ],
+  "conflicts": [],
+  "summary": {
+    "total_matches": 64,
+    "total_exclusives": 4,
+    "total_conflicts": 0,
+    "exclusives_a": 2,
+    "exclusives_b": 2
+  }
+}

@@ -1,0 +1,1843 @@
+{
+  "matches": [
+    {
+      "entity_name": "categoria",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "categoria"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "categoria",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "categoria",
+      "field_name": "descripcion",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "descripcion"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 1
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "cliente"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "codigo",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "codigo"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "nombre",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "nombre"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "telefono",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "telefono"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "correo",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "correo"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "rfc",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "rfc"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "cliente",
+      "field_name": "created_at",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "created",
+                "at"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "pago",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "pago"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "venta_id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "venta",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "forma_pago",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "forma",
+                "pago"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "monto",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "monto"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "referencia",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "referencia"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "pago",
+      "field_name": "fecha",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "fecha"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "producto",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "producto"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "codigo_barras",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "barra",
+                "codigo"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "nombre",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "nombre"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "descripcion",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "descripcion"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "precio",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "precio"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "existencia",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "existencia"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "categoria_id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "categoria"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "activo",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "activo"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "producto",
+      "field_name": "created_at",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "at",
+                "created"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 8,
+      "index_b": 8
+    },
+    {
+      "entity_name": "venta",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "venta"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "venta",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "venta",
+      "field_name": "folio",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "folio"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "venta",
+      "field_name": "cliente_id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "cliente",
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "venta",
+      "field_name": "fecha",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "fecha"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "venta",
+      "field_name": "subtotal",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "subtotal"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "venta",
+      "field_name": "impuesto",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "impuesto"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "venta",
+      "field_name": "total",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "total"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 6,
+      "index_b": 6
+    },
+    {
+      "entity_name": "venta",
+      "field_name": "estatus",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "estatus"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 7,
+      "index_b": 7
+    },
+    {
+      "entity_name": "venta_detalle",
+      "field_name": null,
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "venta",
+                "detalle"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    },
+    {
+      "entity_name": "venta_detalle",
+      "field_name": "id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 0,
+      "index_b": 0
+    },
+    {
+      "entity_name": "venta_detalle",
+      "field_name": "venta_id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "venta"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 1,
+      "index_b": 1
+    },
+    {
+      "entity_name": "venta_detalle",
+      "field_name": "producto_id",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "id",
+                "producto"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 2,
+      "index_b": 2
+    },
+    {
+      "entity_name": "venta_detalle",
+      "field_name": "cantidad",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "cantidad"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 3,
+      "index_b": 3
+    },
+    {
+      "entity_name": "venta_detalle",
+      "field_name": "precio_unitario",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "precio",
+                "unitario"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 4,
+      "index_b": 4
+    },
+    {
+      "entity_name": "venta_detalle",
+      "field_name": "importe",
+      "reason": {
+        "reason": "semantic",
+        "score": 1.0,
+        "decision": "match",
+        "details": [
+          {
+            "strategy": "exact_normalized",
+            "score": 1.0
+          },
+          {
+            "strategy": "plural_stem",
+            "score": 1.0
+          },
+          {
+            "strategy": "token_similarity",
+            "score": 1.0,
+            "detail": {
+              "intersection": [
+                "importe"
+              ],
+              "only_a": [],
+              "only_b": []
+            }
+          },
+          {
+            "strategy": "fuzzy_chars",
+            "score": 1.0
+          },
+          {
+            "strategy": "ngrams",
+            "score": 1.0
+          }
+        ]
+      },
+      "score": 1.0,
+      "index_a": 5,
+      "index_b": 5
+    }
+  ],
+  "exclusives": [
+    {
+      "entity_name": "categoria",
+      "field_name": "nombre",
+      "side": "A",
+      "index": 1,
+      "safe_to_add": true
+    },
+    {
+      "entity_name": "categoria",
+      "field_name": "extra_field_9760",
+      "side": "B",
+      "index": 2,
+      "safe_to_add": true
+    }
+  ],
+  "conflicts": [],
+  "summary": {
+    "total_matches": 44,
+    "total_exclusives": 2,
+    "total_conflicts": 0,
+    "exclusives_a": 1,
+    "exclusives_b": 1
+  }
+}

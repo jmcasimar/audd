@@ -1,0 +1,673 @@
+{
+  "schema_name": "a_b_unified",
+  "entities": [
+    {
+      "entity_name": "categoria",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "descripcion",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "pago",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "venta_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "forma_pago",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "monto",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "referencia",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "fecha",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "producto",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "codigo_barras",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "descripcion",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "precio",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "existencia",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "categoria_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "activo",
+            "canonical_type": {
+              "type": "boolean"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "venta",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "folio",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "cliente_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "fecha",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "subtotal",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "impuesto",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "estatus",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "venta_detalle",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "venta_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "producto_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "precio_unitario",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "importe",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "cantidad",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "cliente",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "codigo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "telefono",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "correo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "rfc",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "tbl_5225",
+      "fields": [
+        {
+          "field": {
+            "field_name": "id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "codigo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "nombre",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "telefono",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "correo",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "rfc",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 6
+        }
+      ],
+      "origin": "B"
+    }
+  ],
+  "metadata": {}
+}

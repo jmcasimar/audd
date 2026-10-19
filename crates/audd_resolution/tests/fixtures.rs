@@ -51,14 +51,7 @@ pub fn comprehensive_conflict_fixtures() -> Vec<Conflict> {
             1,
         ),
         // Nullability mismatch - NOT NULL vs NULL
-        Conflict::nullability_mismatch(
-            "users".to_string(),
-            "email".to_string(),
-            false,
-            true,
-            0,
-            1,
-        ),
+        Conflict::nullability_mismatch("users".to_string(), "email".to_string(), false, true, 0, 1),
         // Nullability mismatch - NULL vs NOT NULL
         Conflict::nullability_mismatch(
             "products".to_string(),
@@ -270,10 +263,13 @@ mod tests {
     fn test_type_cast_fixtures_coverage() {
         let fixtures = type_cast_fixtures();
         assert!(!fixtures.is_empty());
-        
+
         // Should have both safe and risky casts
         let all_type_conflicts = fixtures.iter().all(|f| {
-            matches!(f.conflict_type, audd_compare::ConflictType::TypeIncompatible)
+            matches!(
+                f.conflict_type,
+                audd_compare::ConflictType::TypeIncompatible
+            )
         });
         assert!(all_type_conflicts);
     }
@@ -282,9 +278,12 @@ mod tests {
     fn test_naming_collision_fixtures() {
         let fixtures = naming_collision_fixtures();
         assert!(!fixtures.is_empty());
-        
+
         let all_collisions = fixtures.iter().all(|f| {
-            matches!(f.conflict_type, audd_compare::ConflictType::NormalizationCollision)
+            matches!(
+                f.conflict_type,
+                audd_compare::ConflictType::NormalizationCollision
+            )
         });
         assert!(all_collisions);
     }
@@ -293,9 +292,12 @@ mod tests {
     fn test_nullability_fixtures() {
         let fixtures = nullability_fixtures();
         assert!(!fixtures.is_empty());
-        
+
         let all_nullability = fixtures.iter().all(|f| {
-            matches!(f.conflict_type, audd_compare::ConflictType::NullabilityMismatch)
+            matches!(
+                f.conflict_type,
+                audd_compare::ConflictType::NullabilityMismatch
+            )
         });
         assert!(all_nullability);
     }
@@ -304,9 +306,12 @@ mod tests {
     fn test_constraint_fixtures() {
         let fixtures = constraint_fixtures();
         assert!(!fixtures.is_empty());
-        
+
         let all_constraints = fixtures.iter().all(|f| {
-            matches!(f.conflict_type, audd_compare::ConflictType::ConstraintMismatch)
+            matches!(
+                f.conflict_type,
+                audd_compare::ConflictType::ConstraintMismatch
+            )
         });
         assert!(all_constraints);
     }

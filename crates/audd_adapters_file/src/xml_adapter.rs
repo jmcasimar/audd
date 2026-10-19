@@ -72,7 +72,13 @@ impl XmlAdapter {
                     }
                 }
                 Ok(Event::Eof) => break,
-                Err(e) => return Err(format!("XML parse error at position {}: {}", reader.buffer_position(), e)),
+                Err(e) => {
+                    return Err(format!(
+                        "XML parse error at position {}: {}",
+                        reader.buffer_position(),
+                        e
+                    ))
+                }
                 _ => {}
             }
             buf.clear();
@@ -92,8 +98,8 @@ impl SchemaAdapter for XmlAdapter {
     fn load(&self, path: &Path) -> AdapterResult<SourceSchema> {
         let content = fs::read_to_string(path)?;
 
-        let field_names = Self::extract_fields_from_xml(&content)
-            .map_err(|e| AdapterError::XmlError(e))?;
+        let field_names =
+            Self::extract_fields_from_xml(&content).map_err(|e| AdapterError::XmlError(e))?;
 
         if field_names.is_empty() {
             return Err(AdapterError::EmptyData(
@@ -203,7 +209,7 @@ mod tests {
 
         let entity = &schema.entities[0];
         let field_names: Vec<_> = entity.fields.iter().map(|f| &f.field_name).collect();
-        
+
         // Should have both the name tag and the id attribute
         assert!(field_names.contains(&&"name".to_string()));
         assert!(field_names.contains(&&"id_attr".to_string()));

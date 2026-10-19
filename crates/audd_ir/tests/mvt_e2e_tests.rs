@@ -108,14 +108,8 @@ mod ir_tests {
             .add_key(Key::primary(vec!["id"]))
             .add_key(
                 Key::foreign(vec!["user_id"])
-                    .with_metadata(
-                        "referenced_entity".to_string(),
-                        serde_json::json!("users"),
-                    )
-                    .with_metadata(
-                        "referenced_fields".to_string(),
-                        serde_json::json!(["id"]),
-                    ),
+                    .with_metadata("referenced_entity".to_string(), serde_json::json!("users"))
+                    .with_metadata("referenced_fields".to_string(), serde_json::json!(["id"])),
             )
             .build();
 
@@ -228,7 +222,10 @@ mod ir_tests {
         let schema2 = build_schema();
 
         // IDs should be stable (same input = same IDs)
-        assert_eq!(schema1.entities[0].entity_name, schema2.entities[0].entity_name);
+        assert_eq!(
+            schema1.entities[0].entity_name,
+            schema2.entities[0].entity_name
+        );
 
         // Serialize and compare for determinism
         let json1 = schema1.to_json().unwrap();
@@ -247,18 +244,13 @@ mod ir_tests {
             ("user", "user"),
             ("USERS", "users"),
             ("user_profile", "user_profile"),
-            ("UserProfile", "user_profile"),  // CamelCase -> snake_case
+            ("UserProfile", "user_profile"), // CamelCase -> snake_case
             ("firstName", "first_name"),
         ];
 
         for (input, expected) in variations {
             let normalized = normalize_identifier(input);
-            assert_eq!(
-                normalized,
-                expected,
-                "Failed to normalize '{}'",
-                input
-            );
+            assert_eq!(normalized, expected, "Failed to normalize '{}'", input);
         }
     }
 
@@ -268,7 +260,7 @@ mod ir_tests {
         use audd_ir::map_type_to_canonical;
 
         let type_mappings = vec![
-            ("sqlite", "INTEGER", CanonicalType::Int64),  // SQLite uses 64-bit
+            ("sqlite", "INTEGER", CanonicalType::Int64), // SQLite uses 64-bit
             ("sqlite", "REAL", CanonicalType::Float64),
             ("sqlite", "TEXT", CanonicalType::Text),
             ("sqlite", "BOOLEAN", CanonicalType::Boolean),
@@ -285,8 +277,7 @@ mod ir_tests {
             assert_eq!(
                 result, expected_canonical,
                 "Failed to map type '{}' from {}",
-                sql_type,
-                source_type
+                sql_type, source_type
             );
         }
     }
@@ -331,16 +322,16 @@ mod fixture_roundtrip_tests {
             return;
         }
 
-        let json = fs::read_to_string(&path)
-            .unwrap_or_else(|_| panic!("Failed to read {:?}", path));
+        let json =
+            fs::read_to_string(&path).unwrap_or_else(|_| panic!("Failed to read {:?}", path));
 
         let schema: SourceSchema = serde_json::from_str(&json)
             .unwrap_or_else(|e| panic!("Failed to parse {:?}: {}", path, e));
 
         // Round-trip
         let serialized = schema.to_json().expect("Failed to serialize");
-        let roundtrip: SourceSchema = serde_json::from_str(&serialized)
-            .expect("Failed to parse round-tripped JSON");
+        let roundtrip: SourceSchema =
+            serde_json::from_str(&serialized).expect("Failed to parse round-tripped JSON");
 
         assert_eq!(schema, roundtrip);
     }
@@ -355,16 +346,16 @@ mod fixture_roundtrip_tests {
             return;
         }
 
-        let json = fs::read_to_string(&path)
-            .unwrap_or_else(|_| panic!("Failed to read {:?}", path));
+        let json =
+            fs::read_to_string(&path).unwrap_or_else(|_| panic!("Failed to read {:?}", path));
 
         let schema: SourceSchema = serde_json::from_str(&json)
             .unwrap_or_else(|e| panic!("Failed to parse {:?}: {}", path, e));
 
         // Round-trip
         let serialized = schema.to_json().expect("Failed to serialize");
-        let roundtrip: SourceSchema = serde_json::from_str(&serialized)
-            .expect("Failed to parse round-tripped JSON");
+        let roundtrip: SourceSchema =
+            serde_json::from_str(&serialized).expect("Failed to parse round-tripped JSON");
 
         assert_eq!(schema, roundtrip);
     }

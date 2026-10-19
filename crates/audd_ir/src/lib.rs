@@ -42,20 +42,20 @@
 //! ```
 
 mod constraint;
-mod key;
 mod index;
-mod view;
+mod key;
 mod normalization;
 mod schema;
 mod types;
+mod view;
 
 pub use constraint::Constraint;
-pub use key::{Key, KeyType};
 pub use index::{Index, IndexType};
-pub use view::{View, StoredProcedure, Trigger};
+pub use key::{Key, KeyType};
 pub use normalization::{map_type_to_canonical, normalize_identifier};
 pub use schema::{EntitySchema, FieldSchema, SourceSchema};
 pub use types::CanonicalType;
+pub use view::{StoredProcedure, Trigger, View};
 
 /// Current version of the IR specification
 pub const IR_VERSION: &str = "1.0.0";

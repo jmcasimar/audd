@@ -9,7 +9,7 @@
 //! - **JSON**: Flat objects or arrays with homogeneous keys
 //! - **XML**: Basic tags and attributes (MVP subset)
 //! - **SQL/DDL**: Subset of CREATE TABLE statements
-//! - **Remote Files**: HTTP/HTTPS URLs and Google Sheets (public)
+//! - **Remote Files** (requires the `remote` feature): HTTP/HTTPS URLs and Google Sheets (public)
 //!
 //! # Example
 //!
@@ -26,7 +26,11 @@
 //!
 //! # Remote Files Example
 //!
+//! Requires the crate feature `remote`.
+//!
 //! ```no_run
+//! # #[cfg(feature = "remote")]
+//! # {
 //! use audd_adapters_file::{RemoteAdapter, SchemaAdapter, AdapterError};
 //!
 //! # fn main() -> Result<(), AdapterError> {
@@ -39,6 +43,7 @@
 //! let schema = adapter.load_schema()?;
 //! # Ok(())
 //! # }
+//! # }
 //! ```
 
 mod adapter;
@@ -46,6 +51,7 @@ mod csv_adapter;
 mod error;
 mod factory;
 mod json_adapter;
+#[cfg(feature = "remote")]
 mod remote_adapter;
 mod sql_adapter;
 mod xml_adapter;
@@ -53,8 +59,11 @@ mod xml_adapter;
 pub use adapter::SchemaAdapter;
 pub use csv_adapter::CsvAdapter;
 pub use error::{AdapterError, AdapterResult};
-pub use factory::{load_schema_from_file, load_schema_from_url, load_schema_from_url_with_format};
+pub use factory::load_schema_from_file;
+#[cfg(feature = "remote")]
+pub use factory::{load_schema_from_url, load_schema_from_url_with_format};
 pub use json_adapter::JsonAdapter;
+#[cfg(feature = "remote")]
 pub use remote_adapter::RemoteAdapter;
 pub use sql_adapter::SqlAdapter;
 pub use xml_adapter::XmlAdapter;

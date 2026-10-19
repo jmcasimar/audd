@@ -1,12 +1,16 @@
 //! Schema loading utilities
 
-use audd_ir::SourceSchema;
 use crate::error::{CliError, CliResult};
+use audd_ir::SourceSchema;
 
-/// Load schema from either a file, database, or remote URL source
+/// Load schema from either a file, database, or remote URL source.
+///
+/// Remote URL loading is only available when the `remote` feature is enabled.
 pub fn load_schema(source: &str, conn: Option<&str>) -> CliResult<SourceSchema> {
-    use audd_adapters_file::{load_schema_from_file, load_schema_from_url};
     use audd_adapters_db::create_connector;
+    use audd_adapters_file::load_schema_from_file;
+    #[cfg(feature = "remote")]
+    use audd_adapters_file::load_schema_from_url;
 
     // Determine source type
     if source.starts_with("db:") {
@@ -20,31 +24,39 @@ pub fn load_schema(source: &str, conn: Option<&str>) -> CliResult<SourceSchema> 
             source.strip_prefix("db:").unwrap().to_string()
         };
 
-        let connector = create_connector(&db_conn_str)
-            .map_err(|e| CliError::SchemaLoad {
-                source: source.to_string(),
-                details: anyhow::anyhow!("Failed to create database connector: {}", e),
-            })?;
-        
-        connector.load()
-            .map_err(|e| CliError::SchemaLoad {
-                source: source.to_string(),
-                details: anyhow::anyhow!("Failed to load database schema: {}", e),
-            })
+        let mut connector = create_connector(&db_conn_str).map_err(|e| CliError::SchemaLoad {
+            source: source.to_string(),
+            details: anyhow::anyhow!("Failed to create database connector: {}", e),
+        })?;
+
+        connector.load().map_err(|e| CliError::SchemaLoad {
+            source: source.to_string(),
+            details: anyhow::anyhow!("Failed to load database schema: {}", e),
+        })
     } else if source.starts_with("http://") || source.starts_with("https://") {
         // Remote URL source
-        load_schema_from_url(source)
-            .map_err(|e| CliError::SchemaLoad {
+        #[cfg(feature = "remote")]
+        {
+            load_schema_from_url(source).map_err(|e| CliError::SchemaLoad {
                 source: source.to_string(),
                 details: anyhow::anyhow!("Failed to load remote schema: {}", e),
             })
+        }
+        #[cfg(not(feature = "remote"))]
+        {
+            Err(CliError::SchemaLoad {
+                source: source.to_string(),
+                details: anyhow::anyhow!(
+                    "Remote URL loading is not enabled. Rebuild with --features remote."
+                ),
+            })
+        }
     } else {
         // File source
         let path = source.strip_prefix("file:").unwrap_or(source);
-        load_schema_from_file(path)
-            .map_err(|e| CliError::SchemaLoad {
-                source: source.to_string(),
-                details: anyhow::anyhow!("Failed to load file schema: {}", e),
-            })
+        load_schema_from_file(path).map_err(|e| CliError::SchemaLoad {
+            source: source.to_string(),
+            details: anyhow::anyhow!("Failed to load file schema: {}", e),
+        })
     }
 }

@@ -1,0 +1,206 @@
+{
+  "pair_id": "grow_venta_l3_s1001",
+  "level": 3,
+  "seed": 1001,
+  "matches": [
+    {
+      "a": "producto",
+      "b": "producto",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.id",
+      "b": "producto.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.codigo_barras",
+      "b": "producto.codigo_barras",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.nombre",
+      "b": "producto.nombre",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.descripcion",
+      "b": "producto.descripcion",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.precio",
+      "b": "producto.precio",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.existencia",
+      "b": "producto.existencia",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.categoria_id",
+      "b": "producto.categoria_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.activo",
+      "b": "producto.activo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "producto.created_at",
+      "b": "producto.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "categoria",
+      "b": "categoria",
+      "reason": "ExactName"
+    },
+    {
+      "a": "categoria.id",
+      "b": "categoria.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "categoria.nombre",
+      "b": "categoria.nombre",
+      "reason": "ExactName"
+    },
+    {
+      "a": "categoria.descripcion",
+      "b": "categoria.descripcion",
+      "reason": "ExactName"
+    },
+    {
+      "a": "cliente",
+      "b": "cliente",
+      "reason": "ExactName"
+    },
+    {
+      "a": "cliente.id",
+      "b": "cliente.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "cliente.codigo",
+      "b": "cliente.codigo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "cliente.nombre",
+      "b": "cliente.nombre",
+      "reason": "ExactName"
+    },
+    {
+      "a": "cliente.telefono",
+      "b": "cliente.telefono",
+      "reason": "ExactName"
+    },
+    {
+      "a": "cliente.correo",
+      "b": "cliente.correo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "cliente.rfc",
+      "b": "cliente.rfc",
+      "reason": "ExactName"
+    },
+    {
+      "a": "cliente.created_at",
+      "b": "cliente.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle",
+      "b": "venta_detalle",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.id",
+      "b": "venta_detalle.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.venta_id",
+      "b": "venta_detalle.venta_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.producto_id",
+      "b": "venta_detalle.producto_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.cantidad",
+      "b": "venta_detalle.cantidad",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.precio_unitario",
+      "b": "venta_detalle.precio_unitario",
+      "reason": "ExactName"
+    },
+    {
+      "a": "venta_detalle.importe",
+      "b": "venta_detalle.importe",
+      "reason": "ExactName"
+    },
+    {
+      "a": "pago",
+      "b": "pago",
+      "reason": "ExactName"
+    },
+    {
+      "a": "pago.id",
+      "b": "pago.id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "pago.venta_id",
+      "b": "pago.venta_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "pago.forma_pago",
+      "b": "pago.forma_pago",
+      "reason": "ExactName"
+    },
+    {
+      "a": "pago.monto",
+      "b": "pago.monto",
+      "reason": "ExactName"
+    },
+    {
+      "a": "pago.fecha",
+      "b": "pago.fecha",
+      "reason": "ExactName"
+    }
+  ],
+  "exclusives": [
+    {
+      "side": "a",
+      "entity": "venta"
+    },
+    {
+      "side": "a",
+      "entity": "pago",
+      "field": "referencia"
+    },
+    {
+      "side": "b",
+      "entity": "tbl_3625"
+    }
+  ],
+  "conflicts": [
+    {
+      "entity": "producto",
+      "field": "nombre",
+      "type": "TypeIncompatible",
+      "side": "b",
+      "expected_suggestion": "CastSafe"
+    }
+  ]
+}

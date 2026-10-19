@@ -1,0 +1,413 @@
+{
+  "pair_id": "northwind_l2_s1002",
+  "level": 2,
+  "seed": 1002,
+  "matches": [
+    {
+      "a": "Categories",
+      "b": "Categories",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Categories.CategoryID",
+      "b": "Categories.CategoryID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Categories.Description",
+      "b": "Categories.Description",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers",
+      "b": "Suppliers",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.SupplierID",
+      "b": "Suppliers.SupplierID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.CompanyName",
+      "b": "Suppliers.CompanyName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.ContactName",
+      "b": "Suppliers.ContactName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.ContactTitle",
+      "b": "Suppliers.ContactTitle",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.Address",
+      "b": "Suppliers.Address",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.City",
+      "b": "Suppliers.City",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.Region",
+      "b": "Suppliers.Region",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.PostalCode",
+      "b": "Suppliers.PostalCode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.Country",
+      "b": "Suppliers.Country",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.Phone",
+      "b": "Suppliers.Phone",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.Fax",
+      "b": "Suppliers.Fax",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.HomePage",
+      "b": "Suppliers.HomePage",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products",
+      "b": "Products",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.ProductID",
+      "b": "Products.ProductID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.ProductName",
+      "b": "Products.ProductName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.SupplierID",
+      "b": "Products.SupplierID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.CategoryID",
+      "b": "Products.CategoryID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.QuantityPerUnit",
+      "b": "Products.QuantityPerUnit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.UnitPrice",
+      "b": "Products.UnitPrice",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.UnitsInStock",
+      "b": "Products.UnitsInStock",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.UnitsOnOrder",
+      "b": "Products.UnitsOnOrder",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.ReorderLevel",
+      "b": "Products.ReorderLevel",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Products.Discontinued",
+      "b": "Products.Discontinued",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers",
+      "b": "Customers",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.CustomerID",
+      "b": "Customers.CustomerID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.CompanyName",
+      "b": "Customers.CompanyName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.ContactName",
+      "b": "Customers.ContactName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.ContactTitle",
+      "b": "Customers.ContactTitle",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.Address",
+      "b": "Customers.Address",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.City",
+      "b": "Customers.City",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.Region",
+      "b": "Customers.Region",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.PostalCode",
+      "b": "Customers.PostalCode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.Country",
+      "b": "Customers.Country",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.Phone",
+      "b": "Customers.Phone",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customers.Fax",
+      "b": "Customers.Fax",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees",
+      "b": "Employees",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.EmployeeID",
+      "b": "Employees.EmployeeID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.LastName",
+      "b": "Employees.LastName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.FirstName",
+      "b": "Employees.FirstName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.Title",
+      "b": "Employees.Title",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.TitleOfCourtesy",
+      "b": "Employees.TitleOfCourtesy",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.BirthDate",
+      "b": "Employees.BirthDate",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.HireDate",
+      "b": "Employees.HireDate",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.Address",
+      "b": "Employees.Address",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.City",
+      "b": "Employees.City",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.Region",
+      "b": "Employees.Region",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.PostalCode",
+      "b": "Employees.PostalCode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.Country",
+      "b": "Employees.Country",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.HomePhone",
+      "b": "Employees.HomePhone",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.Extension",
+      "b": "Employees.Extension",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.Notes",
+      "b": "Employees.Notes",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Employees.ReportsTo",
+      "b": "Employees.ReportsTo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Shippers",
+      "b": "Shippers",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Shippers.ShipperID",
+      "b": "Shippers.ShipperID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Shippers.CompanyName",
+      "b": "Shippers.CompanyName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Shippers.Phone",
+      "b": "Shippers.Phone",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders",
+      "b": "Orders",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.OrderID",
+      "b": "Orders.OrderID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.CustomerID",
+      "b": "Orders.CustomerID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.EmployeeID",
+      "b": "Orders.EmployeeID",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.OrderDate",
+      "b": "Orders.OrderDate",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.RequiredDate",
+      "b": "Orders.RequiredDate",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.ShippedDate",
+      "b": "Orders.ShippedDate",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.ShipVia",
+      "b": "Orders.ShipVia",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.Freight",
+      "b": "Orders.Freight",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.ShipName",
+      "b": "Orders.ShipName",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.ShipAddress",
+      "b": "Orders.ShipAddress",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.ShipCity",
+      "b": "Orders.ShipCity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.ShipRegion",
+      "b": "Orders.ShipRegion",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.ShipPostalCode",
+      "b": "Orders.ShipPostalCode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.ShipCountry",
+      "b": "Orders.ShipCountry",
+      "reason": "ExactName"
+    }
+  ],
+  "exclusives": [
+    {
+      "side": "a",
+      "entity": "Categories",
+      "field": "CategoryName"
+    },
+    {
+      "side": "a",
+      "entity": "OrderDetails"
+    },
+    {
+      "side": "b",
+      "entity": "tbl_5740"
+    }
+  ],
+  "conflicts": [
+    {
+      "entity": "Suppliers",
+      "field": "ContactName",
+      "type": "TypeIncompatible",
+      "side": "b",
+      "expected_suggestion": "CastSafe"
+    },
+    {
+      "entity": "Suppliers",
+      "field": "Phone",
+      "type": "TypeIncompatible",
+      "side": "b",
+      "expected_suggestion": "CastSafe"
+    }
+  ]
+}

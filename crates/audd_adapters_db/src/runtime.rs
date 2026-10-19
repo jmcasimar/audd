@@ -20,8 +20,7 @@ pub(crate) fn block_on<F: std::future::Future>(future: F) -> F::Output {
     match tokio::runtime::Handle::try_current() {
         Ok(handle) => tokio::task::block_in_place(|| handle.block_on(future)),
         Err(_) => {
-            let rt = tokio::runtime::Runtime::new()
-                .expect("Failed to create Tokio runtime");
+            let rt = tokio::runtime::Runtime::new().expect("Failed to create Tokio runtime");
             let result = rt.block_on(future);
             // Dispose without blocking on long-running background tasks
             // (e.g. the tokio-postgres connection driver task).

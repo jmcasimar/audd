@@ -242,8 +242,8 @@ pub fn calculate_similarity(a: &str, b: &str) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use audd_ir::CanonicalType;
     use crate::result::MatchReason;
+    use audd_ir::CanonicalType;
 
     fn create_test_entity(name: &str) -> EntitySchema {
         EntitySchema::builder().entity_name(name).build()

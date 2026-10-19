@@ -7,9 +7,8 @@
 //! 4. Serialize/deserialize schemas to/from JSON
 
 use audd_ir::{
-    normalize_identifier, map_type_to_canonical,
-    SourceSchema, EntitySchema, FieldSchema,
-    CanonicalType, Constraint, Key,
+    map_type_to_canonical, normalize_identifier, CanonicalType, Constraint, EntitySchema,
+    FieldSchema, Key, SourceSchema,
 };
 
 fn main() {
@@ -44,7 +43,7 @@ fn main() {
 
     // Example 3: Building a schema
     println!("\n3. Building a Schema:");
-    
+
     // Create fields
     let id_field = FieldSchema::builder()
         .field_name("id")
@@ -92,7 +91,8 @@ fn main() {
         println!("\n  Entity: {}", entity.entity_name);
         println!("    Fields:");
         for field in &entity.fields {
-            println!("      - {}: {} (nullable: {})",
+            println!(
+                "      - {}: {} (nullable: {})",
                 field.field_name,
                 field.canonical_type.type_name(),
                 field.nullable
@@ -106,14 +106,19 @@ fn main() {
     match source.to_json() {
         Ok(json) => {
             println!("  Serialized to JSON ({} bytes)", json.len());
-            
+
             // Example 5: JSON Deserialization
             println!("\n5. JSON Deserialization:");
             match SourceSchema::from_json(&json) {
                 Ok(loaded) => {
                     println!("  Loaded from JSON successfully");
-                    println!("  Roundtrip verification: {}",
-                        if source == loaded { "✓ PASSED" } else { "✗ FAILED" }
+                    println!(
+                        "  Roundtrip verification: {}",
+                        if source == loaded {
+                            "✓ PASSED"
+                        } else {
+                            "✗ FAILED"
+                        }
                     );
                 }
                 Err(e) => println!("  Error: {}", e),
@@ -131,15 +136,20 @@ fn main() {
         (CanonicalType::String, CanonicalType::Text, true),
         (CanonicalType::DateTime, CanonicalType::Timestamp, true),
     ];
-    
+
     for (t1, t2, expected) in compatibility_examples {
         let compatible = t1.is_compatible_with(&t2);
         let symbol = if compatible == expected { "✓" } else { "✗" };
-        println!("  {} {} ↔ {}: {}",
+        println!(
+            "  {} {} ↔ {}: {}",
             symbol,
             t1.type_name(),
             t2.type_name(),
-            if compatible { "compatible" } else { "incompatible" }
+            if compatible {
+                "compatible"
+            } else {
+                "incompatible"
+            }
         );
     }
 

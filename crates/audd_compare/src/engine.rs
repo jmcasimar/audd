@@ -122,21 +122,13 @@ pub fn compare(
     // Step 3: Find exclusive entities
     for (idx, entity) in schema_a.entities.iter().enumerate() {
         if !matched_entities_a[idx] {
-            exclusives.push(Exclusive::from_a(
-                entity.entity_name.clone(),
-                None,
-                idx,
-            ));
+            exclusives.push(Exclusive::from_a(entity.entity_name.clone(), None, idx));
         }
     }
 
     for (idx, entity) in schema_b.entities.iter().enumerate() {
         if !matched_entities_b[idx] {
-            exclusives.push(Exclusive::from_b(
-                entity.entity_name.clone(),
-                None,
-                idx,
-            ));
+            exclusives.push(Exclusive::from_b(entity.entity_name.clone(), None, idx));
         }
     }
 
@@ -227,7 +219,7 @@ fn detect_field_conflicts(
 
         if let (Some(len_a), Some(len_b)) = (max_len_a, max_len_b) {
             if len_a != len_b {
-                conflicts.push(Conflict::constraint_mismatch(
+                conflicts.push(Conflict::length_mismatch(
                     entity_name.to_string(),
                     field_a.field_name.clone(),
                     format!("MaxLength: {}", len_a),
@@ -258,10 +250,11 @@ fn detect_normalization_collisions(
     for (idx, field) in entity_a.fields.iter().enumerate() {
         if !matched_fields_a[idx] {
             let normalized = normalize_identifier(&field.field_name);
-            normalized_map
-                .entry(normalized)
-                .or_default()
-                .push((field.field_name.clone(), idx, ExclusiveSide::A));
+            normalized_map.entry(normalized).or_default().push((
+                field.field_name.clone(),
+                idx,
+                ExclusiveSide::A,
+            ));
         }
     }
 
@@ -269,10 +262,11 @@ fn detect_normalization_collisions(
     for (idx, field) in entity_b.fields.iter().enumerate() {
         if !matched_fields_b[idx] {
             let normalized = normalize_identifier(&field.field_name);
-            normalized_map
-                .entry(normalized)
-                .or_default()
-                .push((field.field_name.clone(), idx, ExclusiveSide::B));
+            normalized_map.entry(normalized).or_default().push((
+                field.field_name.clone(),
+                idx,
+                ExclusiveSide::B,
+            ));
         }
     }
 

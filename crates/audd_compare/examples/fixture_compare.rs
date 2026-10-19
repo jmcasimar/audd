@@ -25,8 +25,14 @@ fn main() {
     let schema_b: SourceSchema =
         serde_json::from_str(&json_b).expect("Failed to parse simple_b.json");
 
-    println!("Schema A: {} ({})", schema_a.source_name, schema_a.source_type);
-    println!("Schema B: {} ({})", schema_b.source_name, schema_b.source_type);
+    println!(
+        "Schema A: {} ({})",
+        schema_a.source_name, schema_a.source_type
+    );
+    println!(
+        "Schema B: {} ({})",
+        schema_b.source_name, schema_b.source_type
+    );
 
     // Compare with default configuration
     let config = CompareConfig::default();
@@ -68,10 +74,7 @@ fn main() {
         println!("\n--- Conflicts ---");
         for c in &result.conflicts {
             if let Some(field) = &c.field_name {
-                println!(
-                    "  ⚠ {}.{} ({:?})",
-                    c.entity_name, field, c.conflict_type
-                );
+                println!("  ⚠ {}.{} ({:?})", c.entity_name, field, c.conflict_type);
             } else {
                 println!("  ⚠ {} ({:?})", c.entity_name, c.conflict_type);
             }
