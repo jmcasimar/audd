@@ -43,7 +43,7 @@ class SuiteTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
             pair_dir = tmp_path / "identity"
-            base = BASES_DIR / "grow_venta.sql"
+            base = BASES_DIR / "growventa" / "grow_venta.sql"
             run_mutate(base, "identity_test", 1, 1, pair_dir)
             # Forzar A == B
             shutil.copy(pair_dir / "a.sqlite", pair_dir / "b.sqlite")
@@ -59,12 +59,15 @@ class SuiteTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             tmp_path = Path(tmp)
             pair_dir = tmp_path / "known_conflict"
-            base = BASES_DIR / "grow_venta.sql"
-            run_mutate(base, "known_conflict_test", 2, 12345, pair_dir)
+            base = BASES_DIR / "growventa" / "grow_venta.sql"
+            # La semilla 99 produce al menos un conflicto detectable desde SQLite
+            run_mutate(base, "known_conflict_test", 2, 99, pair_dir)
             results_csv = run_eval_pair(pair_dir)
             with open(results_csv, newline="", encoding="utf-8") as f:
                 reader = csv.DictReader(f)
                 row = next(reader)
+            self.assertGreater(int(row["truth_conflicts"]), 0,
+                               "Expected the seed to produce at least one truth conflict")
             self.assertGreater(float(row["pcd"]), 0, f"Expected PCD > 0, got {row['pcd']}")
 
 

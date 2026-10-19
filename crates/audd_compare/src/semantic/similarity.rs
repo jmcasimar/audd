@@ -1,6 +1,6 @@
 //! Similarity metrics for token and n-gram comparison
 
-use std::collections::HashSet;
+use std::collections::{BTreeSet, HashSet};
 
 use crate::config::{
     FuzzyAlgorithm, FuzzyConfig, NgramConfig, SimilarityMetric, TokenSimilarityConfig,
@@ -31,8 +31,8 @@ pub fn calculate_token_similarity(
         );
     }
 
-    let set_a: HashSet<&String> = tokens_a.iter().collect();
-    let set_b: HashSet<&String> = tokens_b.iter().collect();
+    let set_a: BTreeSet<&String> = tokens_a.iter().collect();
+    let set_b: BTreeSet<&String> = tokens_b.iter().collect();
 
     let intersection: Vec<String> = set_a.intersection(&set_b).map(|s| (*s).clone()).collect();
     let only_a: Vec<String> = set_a.difference(&set_b).map(|s| (*s).clone()).collect();

@@ -111,7 +111,7 @@ mod tests {
 
     #[test]
     fn test_csv_empty_headers() {
-        let mut file = NamedTempFile::new().unwrap();
+        let file = NamedTempFile::new().unwrap();
         // Empty file - no headers
 
         let adapter = CsvAdapter::new();

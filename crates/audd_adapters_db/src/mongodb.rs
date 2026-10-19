@@ -67,7 +67,7 @@ impl MongoDbConnector {
         const MIN_SAMPLE_SIZE: usize = 1;
         const MAX_SAMPLE_SIZE: usize = 10000;
 
-        if sample_size < MIN_SAMPLE_SIZE || sample_size > MAX_SAMPLE_SIZE {
+        if !(MIN_SAMPLE_SIZE..=MAX_SAMPLE_SIZE).contains(&sample_size) {
             return Err(DbError::InvalidConnectionString(format!(
                 "Sample size must be between {} and {} (got {})",
                 MIN_SAMPLE_SIZE, MAX_SAMPLE_SIZE, sample_size
@@ -247,7 +247,7 @@ impl MongoDbConnector {
             })?;
 
             // Skip the _id index (it's the primary key)
-            if let Some(name) = index_doc.get_str("name").ok() {
+            if let Ok(name) = index_doc.get_str("name") {
                 if name == "_id_" {
                     continue;
                 }
@@ -302,16 +302,8 @@ impl MongoDbConnector {
             if is_unique {
                 IndexType::Unique
             } else {
-                // Check for hashed index
-                if let Some(Bson::String(ref val)) = key_doc.values().next() {
-                    if val == "hashed" {
-                        IndexType::Regular // Hashed indexes are just regular indexes
-                    } else {
-                        IndexType::Regular
-                    }
-                } else {
-                    IndexType::Regular
-                }
+                // Hashed and other non-unique indexes are treated as regular indexes
+                IndexType::Regular
             }
         };
 

@@ -181,7 +181,7 @@ impl SuggestionEngine {
                 name_a.clone(),
                 format!("{}_{}", normalize_name(&name_a), "src_a"),
                 "Preserve original distinction".to_string(),
-                format!("Keep normalized name but add source suffix to preserve distinction"),
+                "Keep normalized name but add source suffix to preserve distinction".to_string(),
             ));
         }
 
@@ -469,7 +469,6 @@ fn analyze_cast_safety(from_type: &str, to_type: &str) -> Option<(bool, String)>
 #[cfg(test)]
 mod tests {
     use super::*;
-    use audd_compare::ConflictEvidence;
 
     #[test]
     fn test_safe_integer_widening() {

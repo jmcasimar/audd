@@ -28,6 +28,8 @@ mysql = ["dep:mysql"]
 postgres = ["tokio-postgres", "tokio"]
 mongodb = ["dep:mongodb", "tokio", "futures"]
 sqlserver = ["tiberius", "tokio", "tokio-util", "futures"]
+# Experimental: does not compile against rsfbclient 0.23 and needs a native fbclient
+# library; excluded from CI feature sets until the connector is ported.
 firebird = ["rsfbclient"]
 
 [dev-dependencies]

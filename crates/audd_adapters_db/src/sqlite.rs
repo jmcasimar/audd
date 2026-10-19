@@ -285,7 +285,10 @@ impl SqliteConnector {
     /// Extract foreign keys for a table
     fn extract_foreign_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
         validate_sql_identifier(table_name)?;
-        let query = format!("PRAGMA foreign_key_list(\"{}\")", table_name.replace('"', "\"\""));
+        let query = format!(
+            "PRAGMA foreign_key_list(\"{}\")",
+            table_name.replace('"', "\"\"")
+        );
         let mut stmt = self
             .connection
             .prepare(&query)

@@ -196,35 +196,29 @@ impl RemoteAdapter {
 
         // Use ureq for HTTP requests (synchronous, simple)
         let response = ureq::get(&url).call().map_err(|e| {
-            AdapterError::IoError(std::io::Error::new(
-                std::io::ErrorKind::Other,
-                format!("Failed to fetch URL {}: {}", url, e),
-            ))
+            AdapterError::IoError(std::io::Error::other(format!(
+                "Failed to fetch URL {}: {}",
+                url, e
+            )))
         })?;
 
         // Check status code
         if response.status() != 200 {
-            return Err(AdapterError::IoError(std::io::Error::new(
-                std::io::ErrorKind::Other,
-                format!(
-                    "HTTP error {}: {}",
-                    response.status(),
-                    response.status_text()
-                ),
-            )));
+            return Err(AdapterError::IoError(std::io::Error::other(format!(
+                "HTTP error {}: {}",
+                response.status(),
+                response.status_text()
+            ))));
         }
 
         // Check content-length header for file size limit
         if let Some(content_length) = response.header("content-length") {
             if let Ok(size) = content_length.parse::<u64>() {
                 if size > MAX_FILE_SIZE {
-                    return Err(AdapterError::IoError(std::io::Error::new(
-                        std::io::ErrorKind::Other,
-                        format!(
-                            "File too large: {} bytes (max: {} bytes)",
-                            size, MAX_FILE_SIZE
-                        ),
-                    )));
+                    return Err(AdapterError::IoError(std::io::Error::other(format!(
+                        "File too large: {} bytes (max: {} bytes)",
+                        size, MAX_FILE_SIZE
+                    ))));
                 }
             }
         }
@@ -233,14 +227,14 @@ impl RemoteAdapter {
         let reader = response.into_reader();
         let mut buffer = Vec::new();
         let bytes_read = std::io::copy(&mut reader.take(MAX_FILE_SIZE), &mut buffer)
-            .map_err(|e| AdapterError::IoError(e))?;
+            .map_err(AdapterError::IoError)?;
 
         // Enforce size limit even if content-length header was missing
         if bytes_read >= MAX_FILE_SIZE {
-            return Err(AdapterError::IoError(std::io::Error::new(
-                std::io::ErrorKind::Other,
-                format!("File too large: reached {} byte limit", MAX_FILE_SIZE),
-            )));
+            return Err(AdapterError::IoError(std::io::Error::other(format!(
+                "File too large: reached {} byte limit",
+                MAX_FILE_SIZE
+            ))));
         }
 
         Ok(buffer)
@@ -256,13 +250,12 @@ impl RemoteAdapter {
 
         // Create a temporary file with the appropriate extension
         let suffix = format!(".{}", format);
-        let mut temp_file =
-            NamedTempFile::with_suffix(&suffix).map_err(|e| AdapterError::IoError(e))?;
+        let mut temp_file = NamedTempFile::with_suffix(&suffix).map_err(AdapterError::IoError)?;
 
         temp_file
             .write_all(&content)
-            .map_err(|e| AdapterError::IoError(e))?;
-        temp_file.flush().map_err(|e| AdapterError::IoError(e))?;
+            .map_err(AdapterError::IoError)?;
+        temp_file.flush().map_err(AdapterError::IoError)?;
 
         // Use the appropriate adapter based on format
         let mut schema = match format.as_str() {

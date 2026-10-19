@@ -99,7 +99,7 @@ impl SchemaAdapter for XmlAdapter {
         let content = fs::read_to_string(path)?;
 
         let field_names =
-            Self::extract_fields_from_xml(&content).map_err(|e| AdapterError::XmlError(e))?;
+            Self::extract_fields_from_xml(&content).map_err(AdapterError::XmlError)?;
 
         if field_names.is_empty() {
             return Err(AdapterError::EmptyData(

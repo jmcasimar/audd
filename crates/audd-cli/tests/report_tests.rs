@@ -202,7 +202,7 @@ fn test_report_sections_structure() {
 
 #[test]
 fn test_risk_level_indicators() {
-    use audd_cli::report::{generate_report, ReportMetrics};
+    use audd_cli::report::generate_report;
     use audd_compare::{
         ComparisonResult, Conflict, ConflictEvidence, ConflictSeverity, ConflictType,
     };

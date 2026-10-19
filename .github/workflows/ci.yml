@@ -30,8 +30,9 @@ jobs:
         with:
           components: clippy
       - uses: Swatinem/rust-cache@v2
+      # Every feature except `firebird` (see crates/audd_adapters_db/Cargo.toml)
       - name: Run clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: cargo clippy --all-targets --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver -- -D warnings
 
   test:
     name: Test
@@ -44,7 +45,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Run tests
-        run: cargo test --all-features
+        run: cargo test --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver
 
   build:
     name: Build
@@ -57,4 +58,4 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
       - name: Build release
-        run: cargo build --release --all-features
+        run: cargo build --release --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver

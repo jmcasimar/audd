@@ -269,7 +269,7 @@ fn generate_executive_summary(md: &mut String, metrics: &ReportMetrics, result: 
     if metrics.risk_level == RiskLevel::Low {
         md.push_str("- Low conflict rate and no high-severity issues\n");
     }
-    md.push_str("\n");
+    md.push('\n');
 
     // Top Conflicts by Entity
     if metrics.total_conflicts > 0 {
@@ -287,7 +287,7 @@ fn generate_top_conflicts(md: &mut String, result: &ComparisonResult) {
     for conflict in &result.conflicts {
         entity_map
             .entry(conflict.entity_name.clone())
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(conflict);
     }
 
@@ -335,7 +335,7 @@ fn generate_top_conflicts(md: &mut String, result: &ComparisonResult) {
         ));
     }
 
-    md.push_str("\n");
+    md.push('\n');
 }
 
 fn generate_detailed_breakdown(
@@ -488,7 +488,7 @@ fn generate_technical_details(md: &mut String, result: &ComparisonResult) {
                 m.entity_name, field_name, match_type, m.score, m.index_a, m.index_b
             ));
         }
-        md.push_str("\n");
+        md.push('\n');
     }
 
     // Exclusives listing
@@ -513,7 +513,7 @@ fn generate_technical_details(md: &mut String, result: &ComparisonResult) {
                 e.entity_name, field_name, side, safe, e.index
             ));
         }
-        md.push_str("\n");
+        md.push('\n');
     }
 
     // Conflicts listing
@@ -581,7 +581,7 @@ fn generate_resolution_section(md: &mut String, result: &ComparisonResult, log: 
         .iter()
         .filter(|d| {
             let conf = d.suggestion.confidence.value();
-            conf >= 0.60 && conf < 0.85
+            (0.60..0.85).contains(&conf)
         })
         .count();
     let auto_accepted = decisions.iter().filter(|d| d.accepted).count();
@@ -644,7 +644,7 @@ fn generate_resolution_section(md: &mut String, result: &ComparisonResult, log: 
             } else {
                 md.push_str("- **Status**: ❌ Rejected\n");
             }
-            md.push_str("\n");
+            md.push('\n');
         }
     }
 
@@ -824,7 +824,7 @@ fn generate_recommendations(
         md.push_str(&format!("- {}\n", rec));
     }
 
-    md.push_str("\n");
+    md.push('\n');
 }
 
 #[cfg(test)]
@@ -1225,7 +1225,7 @@ fn build_json_top_conflicts(result: &ComparisonResult) -> Vec<JsonEntityConflict
     for conflict in &result.conflicts {
         entity_map
             .entry(conflict.entity_name.clone())
-            .or_insert_with(Vec::new)
+            .or_default()
             .push(conflict);
     }
 
@@ -1399,7 +1399,7 @@ fn build_json_resolution_section(
         .iter()
         .filter(|d| {
             let conf = d.suggestion.confidence.value();
-            conf >= 0.60 && conf < 0.85
+            (0.60..0.85).contains(&conf)
         })
         .count();
     let auto_accepted = decisions.iter().filter(|d| d.accepted).count();

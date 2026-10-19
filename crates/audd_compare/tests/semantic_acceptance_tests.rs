@@ -107,8 +107,10 @@ fn test_ac7_configuration() {
 #[test]
 fn test_ac8_backward_compatibility() {
     // When disabled, should fall back to old behavior
-    let mut config = SemanticMatchConfig::default();
-    config.enabled = false;
+    let config = SemanticMatchConfig {
+        enabled: false,
+        ..Default::default()
+    };
 
     let pipeline = SemanticMatchPipeline::new(config);
     let result = pipeline.compare("User", "users");

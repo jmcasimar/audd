@@ -1,12 +1,12 @@
 //! Integration tests for resolution engine with comparison results
 
-use audd_compare::{Conflict, ConflictType};
+use audd_compare::Conflict;
 use audd_resolution::{Decision, DecisionLog, DecisionSource, SuggestionEngine};
 
 #[test]
 fn test_generate_suggestions_for_conflicts() {
     // Create sample conflicts
-    let conflicts = vec![
+    let conflicts = [
         Conflict::type_incompatible(
             "users".to_string(),
             "id".to_string(),
@@ -159,8 +159,6 @@ fn test_coverage_all_conflict_types_have_suggestions() {
 
 #[test]
 fn test_export_decision_log_to_files() {
-    use std::path::PathBuf;
-
     let mut log = DecisionLog::new();
 
     // Add a sample decision

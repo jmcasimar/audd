@@ -2,7 +2,7 @@
 
 # Ejecuta la suite de evaluación completa (E03, E05, E08, E09)
 eval:
-	python evaluation/mutate.py --base evaluation/bases/grow_venta.sql --pair-id grow_venta_l2_sample --level 2 --seed 42 --out evaluation/generated/grow_venta_l2_sample
+	python evaluation/mutate.py --base evaluation/bases/growventa/grow_venta.sql --pair-id grow_venta_l2_sample --level 2 --seed 42 --out evaluation/generated/grow_venta_l2_sample
 	python evaluation/run.py --all
 	python evaluation/adoption.py
 	python evaluation/requirements_coverage.py --run-tests

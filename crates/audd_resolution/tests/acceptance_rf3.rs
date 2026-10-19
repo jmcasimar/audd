@@ -176,8 +176,10 @@ fn acceptance_rf3_normalization_collision() {
     // Two different original names that normalize to the same identifier, neither matched.
     // Disable normalized and semantic matching so the fields remain unmatched and trigger
     // the collision detector.
-    let mut config = CompareConfig::default();
-    config.normalized_matching = false;
+    let mut config = CompareConfig {
+        normalized_matching: false,
+        ..Default::default()
+    };
     config.semantic_match.enabled = false;
 
     let a = schema(
@@ -208,7 +210,7 @@ fn acceptance_rf3_normalization_collision() {
         .filter(|c| c.conflict_type == ConflictType::NormalizationCollision)
         .collect();
     assert!(
-        collisions.len() >= 1,
+        !collisions.is_empty(),
         "Expected at least one NormalizationCollision conflict"
     );
     let suggestions = SuggestionEngine::new().suggest(collisions[0]);

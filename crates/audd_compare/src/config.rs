@@ -5,8 +5,10 @@ use serde::{Deserialize, Serialize};
 /// Language/locale for semantic matching
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
+#[derive(Default)]
 pub enum MatchLocale {
     /// English language rules
+    #[default]
     En,
     /// Spanish language rules
     Es,
@@ -14,60 +16,42 @@ pub enum MatchLocale {
     Mixed,
 }
 
-impl Default for MatchLocale {
-    fn default() -> Self {
-        Self::En
-    }
-}
-
 /// Unicode normalization form
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "UPPERCASE")]
+#[derive(Default)]
 pub enum UnicodeNormalization {
     /// Canonical Composition
+    #[default]
     NFC,
     /// Compatibility Composition
     NFKC,
 }
 
-impl Default for UnicodeNormalization {
-    fn default() -> Self {
-        Self::NFC
-    }
-}
-
 /// Similarity metric for token and n-gram comparison
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "lowercase")]
+#[derive(Default)]
 pub enum SimilarityMetric {
     /// Jaccard similarity coefficient
+    #[default]
     Jaccard,
     /// Dice coefficient (Sørensen-Dice)
     Dice,
 }
 
-impl Default for SimilarityMetric {
-    fn default() -> Self {
-        Self::Jaccard
-    }
-}
-
 /// Fuzzy string matching algorithm
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+#[derive(Default)]
 pub enum FuzzyAlgorithm {
     /// Jaro-Winkler distance
+    #[default]
     JaroWinkler,
     /// Levenshtein distance
     Levenshtein,
     /// Damerau-Levenshtein distance
     DamerauLevenshtein,
-}
-
-impl Default for FuzzyAlgorithm {
-    fn default() -> Self {
-        Self::JaroWinkler
-    }
 }
 
 /// Configuration for semantic name matching
@@ -166,16 +150,10 @@ impl Default for PluralizationConfig {
 }
 
 /// Stemming configuration
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct StemmingConfig {
     /// Enable simple stemming
     pub enabled: bool,
-}
-
-impl Default for StemmingConfig {
-    fn default() -> Self {
-        Self { enabled: false } // Disable by default for entity names
-    }
 }
 
 /// Synonym dictionary configuration
@@ -395,8 +373,10 @@ impl CompareConfig {
 
     /// Create a minimal configuration (exact matching only)
     pub fn minimal() -> Self {
-        let mut semantic_config = SemanticMatchConfig::default();
-        semantic_config.enabled = false;
+        let semantic_config = SemanticMatchConfig {
+            enabled: false,
+            ..Default::default()
+        };
 
         Self {
             exact_matching: true,

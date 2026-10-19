@@ -89,7 +89,7 @@ impl SqlAdapter {
     fn extract_columns_section(sql: &str) -> Result<String, String> {
         if let Some(start) = sql.find('(') {
             if let Some(end) = sql.rfind(')') {
-                if end > start && start + 1 <= end {
+                if end > start {
                     return sql
                         .get(start + 1..end)
                         .map(|s| s.to_string())
@@ -115,7 +115,7 @@ impl SqlAdapter {
                 // Extract column names from PRIMARY KEY (col1, col2)
                 if let Some(start) = def.find('(') {
                     if let Some(end) = def.find(')') {
-                        if end > start && start + 1 <= end {
+                        if end > start {
                             if let Some(cols_str) = def.get(start + 1..end) {
                                 primary_keys
                                     .extend(cols_str.split(',').map(|s| s.trim().to_string()));

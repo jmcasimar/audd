@@ -14,6 +14,7 @@ pub const DEFAULT_DECISION_ID_PREFIX: &str = "auto_dec";
 /// Configuration for the AUDD CLI
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
+#[derive(Default)]
 pub struct Config {
     /// Comparison configuration
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -31,6 +32,7 @@ pub struct Config {
 /// Configuration for the compare command
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
+#[derive(Default)]
 pub struct CompareConfig {
     /// Similarity threshold for matching entities/fields (0.0 to 1.0)
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -44,6 +46,7 @@ pub struct CompareConfig {
 /// Configuration for the resolution engine
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
+#[derive(Default)]
 pub struct ResolutionConfig {
     /// Confidence threshold for auto-accepting suggestions (0.0 to 1.0)
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -61,6 +64,7 @@ pub struct ResolutionConfig {
 /// Configuration for output generation
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
+#[derive(Default)]
 pub struct OutputConfig {
     /// Whether to generate the unified schema file
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -87,52 +91,10 @@ pub struct OutputConfig {
     pub generate_suggestions: Option<bool>,
 }
 
-impl Default for Config {
-    fn default() -> Self {
-        Self {
-            compare: None,
-            resolution: None,
-            output: None,
-        }
-    }
-}
-
-impl Default for CompareConfig {
-    fn default() -> Self {
-        Self {
-            similarity_threshold: None,
-            default_output_dir: None,
-        }
-    }
-}
-
-impl Default for ResolutionConfig {
-    fn default() -> Self {
-        Self {
-            confidence_threshold: None,
-            decision_id_prefix: None,
-            allow_risky_suggestions: None,
-        }
-    }
-}
-
-impl Default for OutputConfig {
-    fn default() -> Self {
-        Self {
-            generate_unified_schema: None,
-            generate_diff: None,
-            generate_decision_log: None,
-            generate_report: None,
-            generate_json_report: None,
-            generate_suggestions: None,
-        }
-    }
-}
-
 impl Config {
     /// Load configuration from a TOML file
     pub fn from_file<P: AsRef<Path>>(path: P) -> CliResult<Self> {
-        let contents = fs::read_to_string(&path).map_err(|e| CliError::IoError(e))?;
+        let contents = fs::read_to_string(&path).map_err(CliError::IoError)?;
         let config: Config =
             toml::from_str(&contents).map_err(|e| CliError::ConfigParseError(e.to_string()))?;
         Ok(config)

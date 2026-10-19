@@ -246,12 +246,13 @@ fn handle_load(source: &str, conn: Option<&str>, format: &str) -> CliResult<()> 
     Ok(())
 }
 
+#[allow(clippy::too_many_arguments)]
 fn handle_compare(
     source_a: &str,
     conn_a: Option<&str>,
     source_b: &str,
     conn_b: Option<&str>,
-    out_dir: &PathBuf,
+    out_dir: &std::path::Path,
     config: &Config,
     confidence_threshold_override: Option<f64>,
     deterministic: bool,

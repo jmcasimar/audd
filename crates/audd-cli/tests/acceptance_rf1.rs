@@ -49,7 +49,7 @@ fn acceptance_rf1_csv_vs_sqlite() {
     drop(conn);
 
     let output = Command::new(get_audd_bin())
-        .args(&[
+        .args([
             "compare",
             "--source-a",
             csv_file.to_str().unwrap(),
@@ -82,7 +82,7 @@ fn acceptance_rf1_sql_ddl_vs_json() {
     let out_dir = temp_dir.path().join("compare_output");
 
     let output = Command::new(get_audd_bin())
-        .args(&[
+        .args([
             "compare",
             "--source-a",
             sql_file.to_str().unwrap(),
@@ -131,7 +131,7 @@ fn acceptance_rf2_sqlite_foreign_key() {
     drop(conn);
 
     let output = Command::new(get_audd_bin())
-        .args(&[
+        .args([
             "inspect",
             "--source",
             &format!("db:sqlite://{}", db_path.to_str().unwrap()),

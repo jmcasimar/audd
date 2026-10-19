@@ -44,7 +44,7 @@ fn test_help_command() {
 #[test]
 fn test_compare_help() {
     let output = Command::new(get_audd_bin())
-        .args(&["compare", "--help"])
+        .args(["compare", "--help"])
         .output()
         .expect("Failed to execute command");
 
@@ -59,7 +59,7 @@ fn test_compare_help() {
 #[test]
 fn test_inspect_help() {
     let output = Command::new(get_audd_bin())
-        .args(&["inspect", "--help"])
+        .args(["inspect", "--help"])
         .output()
         .expect("Failed to execute command");
 
@@ -76,7 +76,7 @@ fn test_inspect_csv_to_stdout() {
     let csv_file = fixtures.join("users.csv");
 
     let output = Command::new(get_audd_bin())
-        .args(&["inspect", "--source", csv_file.to_str().unwrap()])
+        .args(["inspect", "--source", csv_file.to_str().unwrap()])
         .output()
         .expect("Failed to execute command");
 
@@ -95,7 +95,7 @@ fn test_inspect_csv_to_file() {
     let out_file = temp_dir.path().join("ir.json");
 
     let output = Command::new(get_audd_bin())
-        .args(&[
+        .args([
             "inspect",
             "--source",
             csv_file.to_str().unwrap(),
@@ -123,7 +123,7 @@ fn test_compare_csv_and_json() {
     let out_dir = temp_dir.path().join("compare_output");
 
     let output = Command::new(get_audd_bin())
-        .args(&[
+        .args([
             "compare",
             "--source-a",
             csv_file.to_str().unwrap(),
@@ -159,7 +159,7 @@ fn test_compare_csv_and_json() {
 #[test]
 fn test_compare_invalid_source() {
     let output = Command::new(get_audd_bin())
-        .args(&[
+        .args([
             "compare",
             "--source-a",
             "nonexistent.csv",
@@ -180,7 +180,7 @@ fn test_load_csv() {
     let csv_file = fixtures.join("users.csv");
 
     let output = Command::new(get_audd_bin())
-        .args(&["load", "--source", csv_file.to_str().unwrap()])
+        .args(["load", "--source", csv_file.to_str().unwrap()])
         .output()
         .expect("Failed to execute command");
 
@@ -197,7 +197,7 @@ fn test_generate_config() {
     let config_file = temp_dir.path().join("test_config.toml");
 
     let output = Command::new(get_audd_bin())
-        .args(&["generate-config", "--out", config_file.to_str().unwrap()])
+        .args(["generate-config", "--out", config_file.to_str().unwrap()])
         .output()
         .expect("Failed to execute command");
 
@@ -234,7 +234,7 @@ default_output_dir = "custom_output"
     fs::write(&config_file, config_content).unwrap();
 
     let output = Command::new(get_audd_bin())
-        .args(&[
+        .args([
             "--config",
             config_file.to_str().unwrap(),
             "compare",
@@ -266,7 +266,7 @@ fn test_compare_with_confidence_threshold_flag() {
     let out_dir = temp_dir.path().join("output_with_threshold");
 
     let output = Command::new(get_audd_bin())
-        .args(&[
+        .args([
             "compare",
             "--source-a",
             csv_file.to_str().unwrap(),

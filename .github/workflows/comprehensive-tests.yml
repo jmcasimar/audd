@@ -104,7 +104,7 @@ jobs:
           if [ "${{ matrix.feature-set }}" = "default" ]; then
             cargo test --lib
           elif [ "${{ matrix.feature-set }}" = "all-features" ]; then
-            cargo test --all-features --lib
+            cargo test --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver --lib
           else
             cargo test --package audd_adapters_db --features ${{ matrix.feature-set }} --lib
           fi
@@ -201,7 +201,7 @@ jobs:
         uses: taiki-e/install-action@cargo-llvm-cov
       
       - name: Generate coverage
-        run: cargo llvm-cov --all-features --workspace --lcov --output-path lcov.info
+        run: cargo llvm-cov --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver --lcov --output-path lcov.info
       
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
@@ -212,11 +212,11 @@ jobs:
       
       - name: Generate coverage summary
         run: |
-          cargo llvm-cov --all-features --workspace --summary-only
+          cargo llvm-cov --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver --summary-only
       
       - name: Check coverage threshold (informational)
         run: |
-          COVERAGE=$(cargo llvm-cov --all-features --workspace --summary-only | grep -oP 'Total.*?(\d+\.\d+)%' | grep -oP '\d+\.\d+' || echo "0")
+          COVERAGE=$(cargo llvm-cov --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver --summary-only | grep -oP 'Total.*?(\d+\.\d+)%' | grep -oP '\d+\.\d+' || echo "0")
           echo "Current coverage: ${COVERAGE}%"
           echo "Target coverage: 85%"
           if (( $(echo "$COVERAGE < 85" | bc -l 2>/dev/null || echo "0") )); then
@@ -288,7 +288,7 @@ jobs:
       - name: Check compilation - ${{ matrix.features }}
         run: |
           if [ "${{ matrix.features }}" = "all" ]; then
-            cargo check --package audd_adapters_db --all-features
+            cargo check --package audd_adapters_db --features sqlserver
           elif [ -z "${{ matrix.features }}" ]; then
             cargo check --package audd_adapters_db --no-default-features
           else
@@ -309,10 +309,10 @@ jobs:
           toolchain: stable
       
       - name: Check documentation
-        run: cargo doc --all-features --no-deps
+        run: cargo doc --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver --no-deps
       
       - name: Test documentation examples
-        run: cargo test --doc --all-features
+        run: cargo test --doc --workspace --features audd_adapters_file/remote,audd-cli/remote,audd_adapters_db/sqlserver
       
       - name: Check for broken links in docs
         run: |

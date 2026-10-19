@@ -6,7 +6,7 @@ Genera pares sintéticos de esquemas SQLite a partir de un esquema base,
 aplicando operadores de mutación determinísticos con semilla fija.
 
 Uso:
-    python evaluation/mutate.py --base evaluation/bases/grow_venta.sql \
+    python evaluation/mutate.py --base evaluation/bases/growventa/grow_venta.sql \
         --pair-id grow_venta_v1_v2 --level 2 --seed 42 \
         --out evaluation/generated/grow_venta_v1_v2
 
@@ -499,7 +499,8 @@ def extract_schema(path: Path) -> Schema:
             columns.append(Column(
                 name=col["name"],
                 dtype=col["type"].upper() if col["type"] else "",
-                nullable=not bool(col["notnull"]),
+                # Igual que el adaptador SQLite de AUDD: las columnas PK son NOT NULL implícitas
+                nullable=not bool(col["notnull"]) and not bool(col["pk"]),
                 default=col["dflt_value"],
             ))
         tables[table_name] = columns
@@ -516,14 +517,50 @@ def extract_schema(path: Path) -> Schema:
     return Schema(tables=tables, indexes=indexes)
 
 
-def parse_length(dtype: str) -> Optional[int]:
-    m = re.search(r"\((\d+)\)", dtype)
-    return int(m.group(1)) if m else None
+def sqlite_canonical_type(dtype: str) -> Tuple[str, ...]:
+    """Replica `map_sqlite_type` (crates/audd_adapters_db/src/sqlite.rs)."""
+    t = dtype.upper()
+    if "INT" in t:
+        return ("Int64",)
+    if "TEXT" in t or "CLOB" in t:
+        return ("Text",)
+    if "CHAR" in t:
+        return ("String",)
+    if "BLOB" in t:
+        return ("Binary",)
+    if "REAL" in t or "FLOA" in t or "DOUB" in t:
+        return ("Float64",)
+    if "NUMERIC" in t or "DECIMAL" in t:
+        return ("Decimal",)  # SQLite siempre mapea a Decimal(10, 2)
+    if t == "DATE":
+        return ("Date",)
+    if "TIME" in t:
+        return ("DateTime",)
+    if "BOOL" in t:
+        return ("Boolean",)
+    return ("Unknown", t or "NONE")
 
 
-def base_type(dtype: str) -> str:
-    """Extrae el tipo base sin parámetros (p. ej. VARCHAR(200) -> VARCHAR)."""
-    return re.split(r"[\s(]", dtype.strip().upper())[0]
+# Pares no incompatibles según `compare_types` (crates/audd_compare/src/types.rs)
+_COMPATIBLE_PAIRS = {
+    ("Int32", "Int64"), ("Float32", "Float64"), ("Int64", "Int32"), ("Float64", "Float32"),
+    ("String", "Text"), ("Text", "String"),
+    ("DateTime", "Timestamp"), ("Timestamp", "DateTime"),
+    ("Date", "DateTime"), ("Date", "Timestamp"), ("DateTime", "Date"), ("Timestamp", "Date"),
+    ("Int32", "Decimal"), ("Int64", "Decimal"), ("Decimal", "Int32"), ("Decimal", "Int64"),
+    ("Float32", "Decimal"), ("Float64", "Decimal"), ("Decimal", "Float32"), ("Decimal", "Float64"),
+    ("Int32", "Float32"), ("Int32", "Float64"), ("Int64", "Float64"),
+    ("Float32", "Int32"), ("Float64", "Int32"), ("Float64", "Int64"),
+    ("Boolean", "Int32"), ("Int32", "Boolean"),
+}
+
+
+def types_incompatible(a: Tuple[str, ...], b: Tuple[str, ...]) -> bool:
+    if a == b:
+        return False
+    if a[0] == "Unknown" or b[0] == "Unknown":
+        return True
+    return (a[0], b[0]) not in _COMPATIBLE_PAIRS
 
 
 def build_truth(
@@ -577,15 +614,14 @@ def build_truth(
                 "reason": col_reason,
             })
 
-            # Tipos y longitudes
-            a_type = a_col.dtype.upper()
-            b_type = b_col.dtype.upper()
-            a_base = base_type(a_type)
-            b_base = base_type(b_type)
-            a_len = parse_length(a_type)
-            b_len = parse_length(b_type)
+            # La verdad replica las reglas del motor (crates/audd_compare/src/engine.rs)
+            # sobre lo que el adaptador SQLite expone. LengthMismatch y ConstraintMismatch
+            # no se esperan aquí: SQLite no conserva longitudes y el adaptador modela
+            # UNIQUE como clave de entidad, no como restricción de campo.
 
-            if a_base != b_base:
+            # Tipos: solo combinaciones canónicas incompatibles
+            if types_incompatible(sqlite_canonical_type(a_col.dtype),
+                                  sqlite_canonical_type(b_col.dtype)):
                 conflicts.append({
                     "entity": a_table,
                     "field": a_col.name,
@@ -593,35 +629,15 @@ def build_truth(
                     "side": "b",
                     "expected_suggestion": "CastSafe",
                 })
-            elif a_len is not None and b_len is not None and a_len != b_len:
-                conflicts.append({
-                    "entity": a_table,
-                    "field": a_col.name,
-                    "type": "LengthMismatch",
-                    "side": "b",
-                    "expected_suggestion": "PreferType",
-                })
 
-            # Nulabilidad
-            if a_col.nullable != b_col.nullable:
+            # Nulabilidad: solo A NOT NULL frente a B nullable (posible pérdida de datos)
+            if not a_col.nullable and b_col.nullable:
                 conflicts.append({
                     "entity": a_table,
                     "field": a_col.name,
                     "type": "NullabilityMismatch",
                     "side": "b",
                     "expected_suggestion": "PreferType",
-                })
-
-            # UNIQUE
-            a_unique = a_col.name in schema_a.indexes.get(a_table, [])
-            b_unique = b_col.name in schema_b.indexes.get(b_table, [])
-            if a_unique != b_unique:
-                conflicts.append({
-                    "entity": a_table,
-                    "field": a_col.name,
-                    "type": "ConstraintMismatch",
-                    "side": "b",
-                    "expected_suggestion": "NoSuggestion",
                 })
 
     # Tablas exclusivas de B

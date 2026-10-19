@@ -322,7 +322,7 @@ def generate_all_corpus() -> List[Path]:
     pairs.extend(generate_corpus_level(3, 2, base))
 
     # Nivel 4: caso de aplicación con truth manual (placeholder)
-    base = BASES_DIR / "grow_venta.sql"
+    base = BASES_DIR / "growventa" / "grow_venta.sql"
     pairs.extend(generate_corpus_level(4, 1, base))
 
     return pairs
