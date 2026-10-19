@@ -14,6 +14,9 @@ pub struct ResolutionRule {
     pub conflict_type: String,
     #[serde(default)]
     pub when: HashMap<String, String>,
+    /// `from`/`to` also match with A and B swapped (e.g. "Int32 vs Int64")
+    #[serde(default)]
+    pub symmetric: bool,
     pub suggestion: String,
     #[serde(default)]
     pub params: HashMap<String, String>,
@@ -151,42 +154,43 @@ fn rule_matches(rule: &ResolutionRule, conflict: &Conflict) -> bool {
         return false;
     }
 
+    // Types are compared by name in the A -> B direction; `|` separates alternatives
+    let type_a = evidence_type(&conflict.evidence.from_a);
+    let type_b = evidence_type(&conflict.evidence.from_b);
+    let from = rule.when.get("from");
+    let to = rule.when.get("to");
+    if from.is_some() || to.is_some() {
+        let accepts = |cond: Option<&String>, ty: &str| {
+            cond.is_none_or(|c| c.split('|').any(|alt| alt.trim() == ty))
+        };
+        let forward = accepts(from, type_a) && accepts(to, type_b);
+        let backward = rule.symmetric && accepts(from, type_b) && accepts(to, type_a);
+        if !forward && !backward {
+            return false;
+        }
+    }
+
     for (key, value) in &rule.when {
         match key.as_str() {
-            "from" => {
+            "from" | "to" => {}
+            // Constraint kind or preferred value: accept if the evidence mentions it
+            _ => {
                 if !conflict.evidence.from_a.contains(value)
                     && !conflict.evidence.from_b.contains(value)
                 {
                     return false;
                 }
             }
-            "to" => {
-                if !conflict.evidence.from_a.contains(value)
-                    && !conflict.evidence.from_b.contains(value)
-                {
-                    return false;
-                }
-            }
-            "kind" => {
-                if !conflict.evidence.from_a.contains(value)
-                    && !conflict.evidence.from_b.contains(value)
-                {
-                    return false;
-                }
-            }
-            "preferred" => {
-                // generic condition, accept if evidence mentions the value
-                if !conflict.evidence.from_a.contains(value)
-                    && !conflict.evidence.from_b.contains(value)
-                {
-                    return false;
-                }
-            }
-            _ => {}
         }
     }
 
     true
+}
+
+/// Base type name from evidence such as `Type: Decimal(10, 2)` -> `Decimal`
+fn evidence_type(evidence: &str) -> &str {
+    let ty = evidence.strip_prefix("Type: ").unwrap_or(evidence);
+    ty.split('(').next().unwrap_or(ty).trim()
 }
 
 fn rule_to_suggestion(
@@ -319,6 +323,7 @@ mod tests {
                 ("to".to_string(), "Int64".to_string()),
             ]
             .into(),
+            symmetric: false,
             suggestion: "CastSafe".to_string(),
             params: [("target".to_string(), "Int64".to_string())].into(),
             confidence: 0.95,
@@ -336,6 +341,7 @@ mod tests {
             id: "R-TYPE-001".to_string(),
             conflict_type: "TypeIncompatible".to_string(),
             when: HashMap::new(),
+            symmetric: false,
             suggestion: "CastSafe".to_string(),
             params: [("target".to_string(), "Int64".to_string())].into(),
             confidence: 0.95,
@@ -347,5 +353,68 @@ mod tests {
         let suggestion = rule_to_suggestion(&rule, &sample_conflict(), "sug_1".to_string());
         assert!(matches!(suggestion.kind, SuggestionKind::CastSafe { .. }));
         assert!(suggestion.evidence.iter().any(|e| e.contains("catalog:")));
+    }
+
+    fn type_rule(from: &str, to: &str, symmetric: bool) -> ResolutionRule {
+        ResolutionRule {
+            id: "R-TEST".to_string(),
+            conflict_type: "TypeIncompatible".to_string(),
+            when: [
+                ("from".to_string(), from.to_string()),
+                ("to".to_string(), to.to_string()),
+            ]
+            .into(),
+            symmetric,
+            suggestion: "CastSafe".to_string(),
+            params: HashMap::new(),
+            confidence: 0.9,
+            rationale: "test".to_string(),
+            source: "default".to_string(),
+            version: 1,
+        }
+    }
+
+    fn type_conflict(a: &str, b: &str) -> Conflict {
+        Conflict::type_incompatible(
+            "t".to_string(),
+            "f".to_string(),
+            a.to_string(),
+            b.to_string(),
+            0,
+            0,
+        )
+    }
+
+    #[test]
+    fn test_type_rules_are_directional_unless_symmetric() {
+        let directional = type_rule("Int32", "String", false);
+        assert!(rule_matches(
+            &directional,
+            &type_conflict("Int32", "String")
+        ));
+        assert!(!rule_matches(
+            &directional,
+            &type_conflict("String", "Int32")
+        ));
+
+        let symmetric = type_rule("Int32", "Int64", true);
+        assert!(rule_matches(&symmetric, &type_conflict("Int64", "Int32")));
+    }
+
+    #[test]
+    fn test_type_rules_compare_whole_type_names() {
+        // "Date" must not match "DateTime"; parameters are ignored; `|` lists alternatives
+        assert!(!rule_matches(
+            &type_rule("Date", "Timestamp", false),
+            &type_conflict("DateTime", "Timestamp")
+        ));
+        assert!(rule_matches(
+            &type_rule("Int32|Int64", "Decimal", false),
+            &type_conflict("Int64", "Decimal(10, 2)")
+        ));
+        assert!(rule_matches(
+            &type_rule("Date", "DateTime|Timestamp", false),
+            &type_conflict("Date", "DateTime")
+        ));
     }
 }

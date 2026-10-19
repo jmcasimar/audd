@@ -6,7 +6,7 @@
 use audd_compare::{ComparisonResult, Conflict, ConflictSeverity, ExclusiveSide, MatchReason};
 use audd_resolution::DecisionLog;
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 /// Risk level for overall compatibility assessment
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -283,7 +283,7 @@ fn generate_top_conflicts(md: &mut String, result: &ComparisonResult) {
     md.push_str("### Top Conflicts by Entity\n\n");
 
     // Group conflicts by entity
-    let mut entity_map: HashMap<String, Vec<&Conflict>> = HashMap::new();
+    let mut entity_map: BTreeMap<String, Vec<&Conflict>> = BTreeMap::new();
     for conflict in &result.conflicts {
         entity_map
             .entry(conflict.entity_name.clone())
@@ -415,7 +415,7 @@ fn generate_detailed_breakdown(
 
     if metrics.total_conflicts > 0 {
         // Count by type
-        let mut type_counts: HashMap<String, usize> = HashMap::new();
+        let mut type_counts: BTreeMap<String, usize> = BTreeMap::new();
         for conflict in &result.conflicts {
             let type_name = format!("{:?}", conflict.conflict_type);
             *type_counts.entry(type_name).or_insert(0) += 1;
@@ -1015,8 +1015,8 @@ pub struct JsonExclusivesBreakdown {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct JsonConflictsBreakdown {
     pub total: usize,
-    pub by_type: HashMap<String, usize>,
-    pub by_severity: HashMap<String, usize>,
+    pub by_type: BTreeMap<String, usize>,
+    pub by_severity: BTreeMap<String, usize>,
 }
 
 /// Technical details
@@ -1221,7 +1221,7 @@ fn build_json_executive_summary(
 }
 
 fn build_json_top_conflicts(result: &ComparisonResult) -> Vec<JsonEntityConflicts> {
-    let mut entity_map: HashMap<String, Vec<&Conflict>> = HashMap::new();
+    let mut entity_map: BTreeMap<String, Vec<&Conflict>> = BTreeMap::new();
     for conflict in &result.conflicts {
         entity_map
             .entry(conflict.entity_name.clone())
@@ -1297,13 +1297,13 @@ fn build_json_detailed_breakdown(
         safe_addition_rate: metrics.safe_addition_rate,
     };
 
-    let mut by_type: HashMap<String, usize> = HashMap::new();
+    let mut by_type: BTreeMap<String, usize> = BTreeMap::new();
     for conflict in &result.conflicts {
         let type_name = format!("{:?}", conflict.conflict_type);
         *by_type.entry(type_name).or_insert(0) += 1;
     }
 
-    let mut by_severity: HashMap<String, usize> = HashMap::new();
+    let mut by_severity: BTreeMap<String, usize> = BTreeMap::new();
     for conflict in &result.conflicts {
         let severity_name = format!("{:?}", conflict.severity);
         *by_severity.entry(severity_name).or_insert(0) += 1;

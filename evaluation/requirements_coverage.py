@@ -3,11 +3,12 @@
 requirements_coverage.py
 
 Calcula el indicador PRM: porcentaje de requerimientos funcionales y no funcionales
-cubiertos por pruebas de aceptación con nombre acceptance_<id>_*.
+con pruebas de aceptación (acceptance_<id>_*) APROBADAS. Un requerimiento cuenta como
+cubierto solo si tiene al menos una prueba y todas sus pruebas pasan.
 
 Uso:
-    python evaluation/requirements_coverage.py
-    python evaluation/requirements_coverage.py --run-tests
+    python evaluation/requirements_coverage.py              # ejecuta cargo test acceptance
+    python evaluation/requirements_coverage.py --no-run     # solo lista las pruebas (sin PRM)
 
 Salida:
     evaluation/results/requirements_coverage.json
@@ -18,6 +19,7 @@ import json
 import re
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 
 EVAL_DIR = Path(__file__).parent.resolve()
@@ -25,7 +27,7 @@ PROJECT_ROOT = EVAL_DIR.parent
 RESULTS_DIR = EVAL_DIR / "results"
 
 REQUIREMENTS = {
-    "functional": ["RF1", "RF2", "RF3", "RF4", "RF5"],
+    "functional": ["RF1", "RF2", "RF3", "RF4", "RF5", "RF6"],
     "non_functional": ["RNF1", "RNF2", "RNF3", "RNF4"],
 }
 
@@ -47,62 +49,80 @@ def find_acceptance_tests() -> dict:
     return coverage
 
 
-def run_acceptance_tests() -> bool:
+def run_acceptance_tests() -> dict:
+    """Ejecuta `cargo test acceptance` y devuelve {nombre_de_prueba: aprobada}."""
     print("Running cargo test acceptance...")
     result = subprocess.run(
-        ["cargo", "test", "acceptance", "--workspace"],
+        ["cargo", "test", "acceptance", "--workspace", "--no-fail-fast"],
         cwd=PROJECT_ROOT,
         capture_output=True,
         text=True,
         encoding="utf-8",
         errors="replace",
     )
-    print(result.stdout)
+    outcomes = {}
+    for m in re.finditer(r"^test (\S+) \.\.\. (ok|FAILED|ignored)", result.stdout, re.MULTILINE):
+        name = m.group(1).split("::")[-1]
+        outcomes[name] = m.group(2) == "ok"
     if result.returncode != 0:
-        print(result.stderr, file=sys.stderr)
-    return result.returncode == 0
+        print(result.stderr[-2000:], file=sys.stderr)
+    return outcomes
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Calcula cobertura de requerimientos por pruebas acceptance.")
-    parser.add_argument("--run-tests", action="store_true", help="Ejecuta cargo test acceptance antes de reportar")
+    parser = argparse.ArgumentParser(description="Calcula PRM: requerimientos con pruebas de aceptación aprobadas.")
+    parser.add_argument("--no-run", action="store_true", help="No ejecutar las pruebas; solo listarlas")
+    parser.add_argument("--run-tests", action="store_true", help=argparse.SUPPRESS)  # compatibilidad
     args = parser.parse_args()
 
-    if args.run_tests:
-        if not run_acceptance_tests():
-            print("acceptance tests failed", file=sys.stderr)
-
     coverage = find_acceptance_tests()
+    outcomes = None if args.no_run else run_acceptance_tests()
 
-    total_functional = len(REQUIREMENTS["functional"])
-    covered_functional = sum(1 for req in REQUIREMENTS["functional"] if coverage[req])
-    total_non_functional = len(REQUIREMENTS["non_functional"])
-    covered_non_functional = sum(1 for req in REQUIREMENTS["non_functional"] if coverage[req])
+    def covered(req: str) -> bool:
+        tests = coverage[req]
+        if not tests or outcomes is None:
+            return False
+        return all(outcomes.get(t.split("::")[-1], False) for t in tests)
 
-    prm_functional = covered_functional / total_functional * 100.0
-    prm_non_functional = covered_non_functional / total_non_functional * 100.0
-    prm_total = (covered_functional + covered_non_functional) / (total_functional + total_non_functional) * 100.0
+    status = {
+        req: {
+            "tests": [{"test": t, "passed": None if outcomes is None else outcomes.get(t.split("::")[-1], False)}
+                      for t in coverage[req]],
+            "covered": covered(req),
+        }
+        for req in coverage
+    }
 
+    def summary(kind: str) -> dict:
+        reqs = REQUIREMENTS[kind]
+        n = sum(1 for r in reqs if status[r]["covered"])
+        return {"covered": n, "total": len(reqs), "percentage": round(100.0 * n / len(reqs), 2)}
+
+    total_n = sum(1 for r in status if status[r]["covered"])
     report = {
-        "date": subprocess.run(["date", "/t"], capture_output=True, text=True, shell=False).stdout.strip()
-        if sys.platform == "win32"
-        else subprocess.run(["date", "-Iseconds"], capture_output=True, text=True).stdout.strip(),
-        "coverage": coverage,
+        "date": datetime.now().isoformat(timespec="seconds"),
+        "tests_run": outcomes is not None,
+        "coverage": status,
         "summary": {
-            "functional": {"covered": covered_functional, "total": total_functional, "percentage": round(prm_functional, 2)},
-            "non_functional": {"covered": covered_non_functional, "total": total_non_functional, "percentage": round(prm_non_functional, 2)},
-            "total": {"covered": covered_functional + covered_non_functional, "total": total_functional + total_non_functional, "percentage": round(prm_total, 2)},
+            "functional": summary("functional"),
+            "non_functional": summary("non_functional"),
+            "total": {"covered": total_n, "total": len(status),
+                      "percentage": round(100.0 * total_n / len(status), 2) if outcomes is not None else None},
         },
     }
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     path = RESULTS_DIR / "requirements_coverage.json"
-    path.write_text(json.dumps(report, indent=2), encoding="utf-8")
+    path.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
 
     print(f"Requirements coverage written to {path}")
-    print(f"  Functional: {covered_functional}/{total_functional} ({prm_functional:.1f}%)")
-    print(f"  Non-functional: {covered_non_functional}/{total_non_functional} ({prm_non_functional:.1f}%)")
-    print(f"  Total PRM: {prm_total:.1f}%")
+    for req, st in status.items():
+        mark = "OK " if st["covered"] else "-- "
+        print(f"  {mark}{req}: {len(st['tests'])} prueba(s)")
+    if outcomes is None:
+        print("  PRM no calculado (--no-run)")
+    else:
+        print(f"  Total PRM: {report['summary']['total']['percentage']:.1f}%")
     return 0
 
 

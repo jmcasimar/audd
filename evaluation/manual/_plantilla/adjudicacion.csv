@@ -1,0 +1,3 @@
+id,tipo_error,entidad,campo,tipo_conflicto,decision,justificacion
+# tipo_error = FN | FP | PSR. decision = error_audd | error_verdad | ambiguo,,,,,,
+# error_verdad: corregir verdad.csv, volver a ejecutar freeze y registrar aquí el motivo,,,,,,

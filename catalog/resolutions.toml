@@ -3,11 +3,14 @@
 # This file contains rules that map a conflict type and optional conditions
 # to a concrete suggestion, its confidence and a human-readable rationale.
 # Rules are evaluated in order; the first matching rule wins.
+# Type rules match `from` against schema A and `to` against schema B; `symmetric = true`
+# also matches them swapped. `|` separates alternative type names.
 
 [[rule]]
 id = "R-TYPE-001"
 conflict_type = "TypeIncompatible"
 when = { from = "Int32", to = "Int64" }
+symmetric = true
 suggestion = "CastSafe"
 params = { target = "Int64" }
 confidence = 0.95
@@ -18,7 +21,8 @@ version = 1
 [[rule]]
 id = "R-TYPE-002"
 conflict_type = "TypeIncompatible"
-when = { from = "Int32", to = "Decimal" }
+when = { from = "Int32|Int64", to = "Decimal" }
+symmetric = true
 suggestion = "CastSafe"
 params = { target = "Decimal" }
 confidence = 0.90
@@ -29,7 +33,8 @@ version = 1
 [[rule]]
 id = "R-TYPE-003"
 conflict_type = "TypeIncompatible"
-when = { from = "Float64", to = "Decimal" }
+when = { from = "Float32|Float64", to = "Decimal" }
+symmetric = true
 suggestion = "CastRisky"
 params = { target = "Decimal" }
 confidence = 0.70
@@ -40,7 +45,7 @@ version = 1
 [[rule]]
 id = "R-TYPE-004"
 conflict_type = "TypeIncompatible"
-when = { from = "Int32", to = "String" }
+when = { from = "Int32|Int64", to = "String|Text" }
 suggestion = "CastSafe"
 params = { target = "String" }
 confidence = 0.85
@@ -51,7 +56,7 @@ version = 1
 [[rule]]
 id = "R-TYPE-005"
 conflict_type = "TypeIncompatible"
-when = { from = "String", to = "Int32" }
+when = { from = "String|Text", to = "Int32|Int64" }
 suggestion = "CastRisky"
 params = { target = "Int32" }
 confidence = 0.60
@@ -62,7 +67,8 @@ version = 1
 [[rule]]
 id = "R-TYPE-006"
 conflict_type = "TypeIncompatible"
-when = { from = "Boolean", to = "Int32" }
+when = { from = "Boolean", to = "Int32|Int64" }
+symmetric = true
 suggestion = "CastSafe"
 params = { target = "Int32" }
 confidence = 0.85
@@ -73,7 +79,7 @@ version = 1
 [[rule]]
 id = "R-TYPE-007"
 conflict_type = "TypeIncompatible"
-when = { from = "Date", to = "Timestamp" }
+when = { from = "Date", to = "DateTime|Timestamp" }
 suggestion = "CastSafe"
 params = { target = "Timestamp" }
 confidence = 0.90
@@ -84,7 +90,7 @@ version = 1
 [[rule]]
 id = "R-TYPE-008"
 conflict_type = "TypeIncompatible"
-when = { from = "Timestamp", to = "Date" }
+when = { from = "DateTime|Timestamp", to = "Date" }
 suggestion = "CastRisky"
 params = { target = "Date" }
 confidence = 0.65

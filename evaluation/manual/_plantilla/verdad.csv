@@ -1,0 +1,9 @@
+tipo,entidad_a,campo_a,entidad_b,campo_b,tipo_conflicto,sugerencia_esperada,nota
+# EJEMPLOS (borrar estas filas): tipo = coincidencia | exclusivo_a | exclusivo_b | conflicto,,,,,,,
+# coincidencia,products,name,producto,nombre,,,"mismo significado, nombre distinto"
+# conflicto,products,pricesell,producto,precio,TypeIncompatible,CastRisky,"DOUBLE en A, DECIMAL en B"
+# conflicto,customers,email,cliente,correo,NullabilityMismatch,PreferType,
+# exclusivo_a,products,stockcost,,,,,campo sin equivalente en B
+# exclusivo_a,attributes,,,,,,tabla completa sin equivalente: una sola fila con campo vacío
+# exclusivo_b,,,producto,codigo_barras,,,
+# conflicto,customers,curdebt,cliente,saldo,Semantic,,"mismo nombre, distinto significado: se reporta aparte, no cuenta para PCD"

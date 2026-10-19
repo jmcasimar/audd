@@ -158,13 +158,15 @@ impl SqliteConnector {
             // In SQLite, PRIMARY KEY columns are implicitly NOT NULL
             let nullable = notnull == 0 && pk == 0;
 
-            fields.push(
-                FieldSchema::builder()
-                    .field_name(name)
-                    .canonical_type(canonical_type)
-                    .nullable(nullable)
-                    .build(),
-            );
+            let mut builder = FieldSchema::builder()
+                .field_name(name)
+                .canonical_type(canonical_type)
+                .nullable(nullable);
+            // SQLite does not enforce lengths, but the declared type keeps them
+            if let Some(len) = declared_char_length(&type_str) {
+                builder = builder.add_constraint(audd_ir::Constraint::max_length(len));
+            }
+            fields.push(builder.build());
         }
 
         Ok(fields)
@@ -242,16 +244,18 @@ impl SqliteConnector {
                 Ok((
                     row.get::<_, String>(1)?, // name
                     row.get::<_, i32>(2)?,    // unique
+                    row.get::<_, String>(3)?, // origin: c (CREATE INDEX), u (UNIQUE), pk
                 ))
             })
             .map_err(|e| DbError::QueryError(format!("Failed to query indexes: {}", e)))?;
 
         for index_result in indexes {
-            let (index_name, is_unique) = index_result
+            let (index_name, is_unique, origin) = index_result
                 .map_err(|e| DbError::ExtractionError(format!("Failed to extract index: {}", e)))?;
 
-            // Only process unique indexes (excluding primary key auto-indexes)
-            if is_unique == 1 && !index_name.starts_with("sqlite_autoindex_") {
+            // Unique indexes, including the auto-indexes behind inline UNIQUE
+            // constraints; primary key auto-indexes are already extracted as keys
+            if is_unique == 1 && origin != "pk" {
                 let index_fields = self.extract_index_columns(table_name, &index_name)?;
                 if !index_fields.is_empty() {
                     unique_keys.push(Key::unique(index_fields));
@@ -505,11 +509,11 @@ fn map_sqlite_type(sqlite_type: &str) -> CanonicalType {
     {
         CanonicalType::Float64
     } else if type_upper.contains("NUMERIC") || type_upper.contains("DECIMAL") {
-        // Default decimal precision for SQLite
-        CanonicalType::Decimal {
-            precision: 10,
-            scale: 2,
-        }
+        // Declared precision and scale, or the SQLite default
+        let (precision, scale) = declared_type_params(&type_upper)
+            .map(|(p, s)| (p, s.unwrap_or(0)))
+            .unwrap_or((10, 2));
+        CanonicalType::Decimal { precision, scale }
     } else if type_upper == "DATE" {
         CanonicalType::Date
     } else if type_upper.contains("TIME") {
@@ -525,6 +529,32 @@ fn map_sqlite_type(sqlite_type: &str) -> CanonicalType {
         CanonicalType::Unknown {
             original_type: sqlite_type.to_string(),
         }
+    }
+}
+
+/// Numeric parameters of a declared type, e.g. `DECIMAL(8,3)` -> `(8, Some(3))`
+fn declared_type_params(type_str: &str) -> Option<(u16, Option<u16>)> {
+    let start = type_str.find('(')?;
+    let end = type_str[start..].find(')')? + start;
+    let mut parts = type_str[start + 1..end].split(',').map(|p| p.trim());
+    let first = parts.next()?.parse().ok()?;
+    let second = match parts.next() {
+        Some(p) => Some(p.parse().ok()?),
+        None => None,
+    };
+    Some((first, second))
+}
+
+/// Declared length of a bounded character type, e.g. `VARCHAR(80)` -> 80
+#[cfg(feature = "sqlite")]
+fn declared_char_length(type_str: &str) -> Option<usize> {
+    let upper = type_str.to_uppercase();
+    if !upper.contains("CHAR") || upper.contains("TEXT") || upper.contains("CLOB") {
+        return None;
+    }
+    match declared_type_params(&upper)? {
+        (len, None) => Some(len as usize),
+        _ => None,
     }
 }
 
@@ -593,6 +623,69 @@ mod tests {
             }
             _ => panic!("Expected Unknown type"),
         }
+    }
+
+    #[test]
+    fn test_sqlite_declared_type_params() {
+        assert_eq!(
+            map_sqlite_type("DECIMAL(8,3)"),
+            CanonicalType::Decimal {
+                precision: 8,
+                scale: 3
+            }
+        );
+        assert_eq!(
+            map_sqlite_type("NUMERIC"),
+            CanonicalType::Decimal {
+                precision: 10,
+                scale: 2
+            }
+        );
+        assert_eq!(declared_char_length("VARCHAR(80)"), Some(80));
+        assert_eq!(declared_char_length("nchar(2)"), Some(2));
+        assert_eq!(declared_char_length("VARCHAR"), None);
+        assert_eq!(declared_char_length("TEXT"), None);
+        assert_eq!(declared_char_length("INTEGER"), None);
+    }
+
+    #[test]
+    fn test_sqlite_lengths_and_inline_unique() {
+        use tempfile::NamedTempFile;
+
+        let temp_file = NamedTempFile::new().unwrap();
+        let db_path = temp_file.path().to_str().unwrap();
+        let conn = Connection::open(db_path).unwrap();
+        conn.execute(
+            "CREATE TABLE items (
+                id INTEGER PRIMARY KEY,
+                code VARCHAR(20) NOT NULL UNIQUE,
+                name TEXT
+            )",
+            [],
+        )
+        .unwrap();
+
+        let mut connector = SqliteConnector::new(db_path).unwrap();
+        let schema = connector.load().unwrap();
+        let items = &schema.entities[0];
+
+        let code = items
+            .fields
+            .iter()
+            .find(|f| f.field_name == "code")
+            .unwrap();
+        assert_eq!(code.constraints, vec![audd_ir::Constraint::max_length(20)]);
+
+        // Inline UNIQUE is stored as an auto-index and must still be extracted
+        assert!(items
+            .keys
+            .iter()
+            .any(|k| k.key_type == audd_ir::KeyType::Unique && k.field_names == vec!["code"]));
+        // The primary key is not duplicated as a unique key
+        assert!(!items
+            .keys
+            .iter()
+            .any(|k| k.key_type == audd_ir::KeyType::Unique && k.field_names == vec!["id"]));
     }
 
     #[test]

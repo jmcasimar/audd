@@ -103,6 +103,12 @@ impl Conflict {
         }
     }
 
+    /// Override the default severity of a conflict
+    pub fn with_severity(mut self, severity: ConflictSeverity) -> Self {
+        self.severity = severity;
+        self
+    }
+
     /// Create a type incompatibility conflict
     pub fn type_incompatible(
         entity_name: String,

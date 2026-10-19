@@ -8,8 +8,8 @@ use serde_json::Value;
 use crate::connector::DbSchemaConnector;
 use crate::error::{DbError, DbResult};
 use audd_ir::{
-    CanonicalType, EntitySchema, FieldSchema, Index, IndexType, Key, SourceSchema, StoredProcedure,
-    Trigger, View,
+    CanonicalType, Constraint, EntitySchema, FieldSchema, Index, IndexType, Key, SourceSchema,
+    StoredProcedure, Trigger, View,
 };
 
 /// MySQL/MariaDB schema connector
@@ -141,35 +141,46 @@ impl MysqlConnector {
         let mut conn = self.get_conn()?;
 
         let query = format!(
-            "SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_TYPE, COLUMN_DEFAULT
+            "SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_TYPE, COLUMN_DEFAULT,
+                    CHARACTER_MAXIMUM_LENGTH
              FROM INFORMATION_SCHEMA.COLUMNS
              WHERE TABLE_SCHEMA = '{}' AND TABLE_NAME = '{}'
              ORDER BY ORDINAL_POSITION",
             self.database_name, table_name
         );
 
-        let rows: Vec<(String, String, String, String, Option<String>)> = conn
+        type ColumnRow = (String, String, String, String, Option<String>, Option<u64>);
+        let rows: Vec<ColumnRow> = conn
             .query_map(
                 query,
-                |(col_name, data_type, is_nullable, column_type, default_value)| {
-                    (col_name, data_type, is_nullable, column_type, default_value)
+                |(col_name, data_type, is_nullable, column_type, default_value, max_length)| {
+                    (
+                        col_name,
+                        data_type,
+                        is_nullable,
+                        column_type,
+                        default_value,
+                        max_length,
+                    )
                 },
             )
             .map_err(|e| DbError::QueryError(format!("Failed to query columns: {}", e)))?;
 
         let mut fields = Vec::new();
 
-        for (col_name, data_type, is_nullable, column_type, _default_value) in rows {
+        for (col_name, data_type, is_nullable, column_type, _default_value, max_length) in rows {
             let canonical_type = map_mysql_type(&data_type, &column_type);
             let nullable = is_nullable.to_uppercase() == "YES";
 
-            fields.push(
-                FieldSchema::builder()
-                    .field_name(col_name)
-                    .canonical_type(canonical_type)
-                    .nullable(nullable)
-                    .build(),
-            );
+            let mut builder = FieldSchema::builder()
+                .field_name(col_name)
+                .canonical_type(canonical_type)
+                .nullable(nullable);
+            // Declared length only matters for bounded string types
+            if let Some(len) = max_length_constraint(&data_type, max_length) {
+                builder = builder.add_constraint(len);
+            }
+            fields.push(builder.build());
         }
 
         Ok(fields)
@@ -625,6 +636,14 @@ fn map_mysql_type(data_type: &str, column_type: &str) -> CanonicalType {
     }
 }
 
+/// MaxLength constraint for CHAR/VARCHAR columns
+fn max_length_constraint(data_type: &str, max_length: Option<u64>) -> Option<Constraint> {
+    match data_type.to_lowercase().as_str() {
+        "char" | "varchar" => max_length.map(|len| Constraint::max_length(len as usize)),
+        _ => None,
+    }
+}
+
 /// Extract precision and scale from decimal/numeric column type
 fn extract_decimal_params(column_type: &str) -> Option<CanonicalType> {
     // Expected format: decimal(precision,scale) or decimal(precision)
@@ -667,6 +686,21 @@ impl MysqlConnector {
 #[cfg(all(test, feature = "mysql"))]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_max_length_constraint() {
+        assert_eq!(
+            max_length_constraint("varchar", Some(80)),
+            Some(Constraint::max_length(80))
+        );
+        assert_eq!(
+            max_length_constraint("CHAR", Some(2)),
+            Some(Constraint::max_length(2))
+        );
+        // TEXT has an implicit maximum that is not part of the declared schema
+        assert_eq!(max_length_constraint("text", Some(65535)), None);
+        assert_eq!(max_length_constraint("int", None), None);
+    }
 
     #[test]
     fn test_mysql_type_mapping() {

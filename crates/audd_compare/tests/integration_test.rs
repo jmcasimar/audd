@@ -154,7 +154,7 @@ fn test_case_conflict_types() {
                 .add_field(field("id", CanonicalType::String, false)) // Incompatible!
                 .add_field(field("price", CanonicalType::String, false)) // Incompatible!
                 .add_field(field("name", CanonicalType::Text, false)) // Compatible (String<->Text)
-                .add_field(field("stock", CanonicalType::Int64, false)) // Compatible (widening)
+                .add_field(field("stock", CanonicalType::Int64, false)) // Widening: low-severity conflict
                 .add_field(field("is_available", CanonicalType::String, false)) // Incompatible!
                 .build(),
         )
@@ -166,13 +166,20 @@ fn test_case_conflict_types() {
     // Should match entity + all 5 fields by name
     assert_eq!(result.summary.total_matches, 6);
 
-    // Should have 3 type conflicts: id, price, is_available
-    assert_eq!(result.summary.total_conflicts, 3);
+    // Unification spec: 3 incompatible types (id, price, is_available) plus the
+    // Int32 -> Int64 widening on stock, reported with low severity
+    assert_eq!(result.summary.total_conflicts, 4);
 
     // Verify the conflicts are type conflicts
     for conflict in &result.conflicts {
-        use audd_compare::ConflictType;
+        use audd_compare::{ConflictSeverity, ConflictType};
         assert_eq!(conflict.conflict_type, ConflictType::TypeIncompatible);
+        let expected = if conflict.field_name.as_deref() == Some("stock") {
+            ConflictSeverity::Low
+        } else {
+            ConflictSeverity::High
+        };
+        assert_eq!(conflict.severity, expected);
     }
 }
 

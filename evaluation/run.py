@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """
-run.py
+run.py  --  OBSOLETO
 
-Orquesta la suite de evaluación de AUDD.
+Sustituido por evaluation/suite/ (PROTOCOLO_EVALUACION.md). Sus métricas no son
+válidas para la tesis (sección 4: PRE como reproducibilidad, ROB por archivos,
+PSR sin comparar con la sugerencia esperada) y dependía del mutador anterior.
+Se conserva solo como referencia histórica.
+
+Orquesta la suite de evaluación de AUDD (versión anterior).
 
 Uso:
     python evaluation/run.py --all
@@ -438,4 +443,7 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    print("evaluation/run.py está obsoleto: usa evaluation/suite/ (ver PROTOCOLO_EVALUACION.md, "
+          "sección 10, o `make eval-suite`).", file=sys.stderr)
+    sys.exit(2)
     sys.exit(main())

@@ -3,9 +3,8 @@
 //! Each test builds a synthetic schema pair that should produce exactly one conflict of the
 //! target type and verifies that the resolution engine returns at least one suggestion.
 //!
-//! Note: ConstraintMismatch currently returns `NoSuggestion` because the resolution catalog
-//! (R01 / section 6) is not yet integrated. The corresponding test documents this partial
-//! state and will be updated once the catalog provides concrete constraint rules.
+//! ConstraintMismatch gets a concrete suggestion only when the resolution catalog is loaded.
+//! The symmetric unification rules (E1-E3) are covered in `acceptance_symmetric_spec.rs`.
 
 use audd_compare::{compare, CompareConfig, ConflictType};
 use audd_ir::{CanonicalType, Constraint, EntitySchema, FieldSchema, SourceSchema};

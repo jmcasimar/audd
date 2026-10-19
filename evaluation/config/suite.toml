@@ -1,0 +1,107 @@
+# Configuración de la suite de evaluación de AUDD
+# ------------------------------------------------
+# Todo lo que cambia el resultado de la evaluación está aquí y se versiona.
+# Las credenciales NO se escriben aquí: se leen de variables de entorno ${VAR}.
+#
+#   PowerShell:  $env:AUDD_MYSQL = "usuario:clave@127.0.0.1:3306"
+#   bash:        export AUDD_MYSQL="usuario:clave@127.0.0.1:3306"
+
+[audd]
+binary  = "target/release/audd.exe"   # en Linux/macOS: target/release/audd
+catalog = "catalog"                    # catálogo de reglas de resolución (versionado)
+domain  = ""                           # "" = sin dominio. Evaluar primero SIN dominio (ver PROTOCOLO, sección 7)
+runs    = 3                            # repeticiones por comparación (REP)
+
+# ------------------------------------------------------------------
+# Bases de la suite (6). Cada base es una fuente congelada: su IR se
+# guarda en snapshots y su hash queda en config/snapshots.lock.json.
+# ------------------------------------------------------------------
+
+[[base]]
+id     = "chinook"
+source = "db:mysql://${AUDD_MYSQL}/chinook"
+ddl    = "bases/chinohook/Chinook_MySql.sql"     # DDL versionado: setup_mysql.py y mutate.py
+origen = "Chinook 1.4 (Luis Rocha), licencia MIT; DDL: bases/chinohook/Chinook_MySql.sql"
+dominio = "tienda de música: clientes, facturas, productos"
+
+[[base]]
+id     = "employees"
+source = "db:mysql://${AUDD_MYSQL}/employees"
+ddl    = "bases/employees/employees.sql"
+origen = "MySQL Employees sample (datacharmer/test_db), licencia CC BY-SA 3.0 [VERIFICAR]"
+dominio = "recursos humanos"
+
+[[base]]
+id     = "northwind"
+# No hay DDL MySQL de Northwind en el repositorio: se usa la versión SQLite nativa.
+# Al obtener la versión MySQL oficial, agregar `ddl` y cambiar `source` a MySQL.
+source = "db:sqlite://bases/northwind/northwind.db"
+origen = "Northwind (versión SQLite) [VERIFICAR fuente y licencia]"
+dominio = "comercio: clientes, pedidos, productos, empleados"
+
+[[base]]
+id     = "unicenta"
+source = "db:mysql://${AUDD_MYSQL}/unicentaopos"
+ddl    = "bases/unicenta-opos/MySQL-create.sql"
+origen = "uniCenta oPOS, MySQL-create.sql, licencia GPL v3 (solo se usa la estructura)"
+dominio = "punto de venta"
+
+[[base]]
+id     = "growtravel"
+source = "db:mysql://${AUDD_MYSQL}/growtravel"
+ddl    = "bases/growtravel/growvtravel.sql"
+origen = "Grow Travel, estructura propia sin datos"
+dominio = "agencia de viajes"
+
+[[base]]
+id     = "growventa"
+source = "db:sqlite://bases/growventa/growventa.db"
+origen = "Grow Venta, estructura propia sin datos (SQLite nativo)"
+dominio = "punto de venta"
+
+# ------------------------------------------------------------------
+# Pares de evaluación manual (3 obligatorios + 2 opcionales).
+# A = sistema de origen, B = sistema de destino.
+# scope_* = tablas que entran en la verdad de referencia; [] = todas.
+# Los nombres de tabla deben copiarse EXACTOS del esquema [AJUSTAR].
+# ------------------------------------------------------------------
+
+[[manual]]
+id      = "M1_growtravel_growventa"
+a       = "growtravel"
+b       = "growventa"
+scope_a = []          # par ya documentado (17 / 145 / 4): esquema completo
+scope_b = []
+tri     = true
+
+[[manual]]
+id      = "M2_unicenta_growventa"
+a       = "unicenta"
+b       = "growventa"
+scope_a = ["products", "categories", "customers", "tickets", "ticketlines", "receipts", "stockcurrent", "taxes"]   # [AJUSTAR]
+scope_b = ["producto", "categoria", "cliente", "venta", "detalle_venta", "pago", "inventario", "impuesto"]           # [AJUSTAR]
+tri     = true
+
+[[manual]]
+id      = "M3_northwind_growventa"
+a       = "northwind"
+b       = "growventa"
+scope_a = ["products", "categories", "customers", "orders", "order_details"]          # [AJUSTAR]
+scope_b = ["producto", "categoria", "cliente", "venta", "detalle_venta"]               # [AJUSTAR]
+tri     = true
+
+[[manual]]
+id      = "M4_chinook_northwind"       # opcional: dominio comercial genérico, dos sistemas públicos
+a       = "chinook"
+b       = "northwind"
+scope_a = ["Customer", "Employee", "Invoice", "InvoiceLine"]                           # [AJUSTAR]
+scope_b = ["customers", "employees", "orders", "order_details"]                        # [AJUSTAR]
+tri     = false
+
+[[manual]]
+id      = "M5_employees_northwind"     # opcional: control de falsos positivos (dominios casi ajenos)
+a       = "employees"
+b       = "northwind"
+scope_a = []
+scope_b = ["employees"]
+tri     = false

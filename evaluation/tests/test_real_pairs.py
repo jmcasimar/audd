@@ -46,22 +46,26 @@ class RealPairTests(unittest.TestCase):
                 f"{pair_id}: ROB no es 100% ({result.rob})"
             )
 
+    # Conteos con la especificación de unificación simétrica (PROTOCOLO, sección 5):
+    # las conversiones seguras y con pérdida y la nulabilidad en ambos sentidos son conflictos.
+
     def test_chinook_cross_engine_expected_counts(self):
+        # MySQL (INT = Int32) frente a SQLite (INTEGER = Int64): conflictos de baja severidad
         r = self.results["chinook_cross_engine"]
-        self.assertEqual(r.matches, 71, f"matches={r.matches}")
-        self.assertEqual(r.exclusives, 2, f"exclusives={r.exclusives}")
-        self.assertEqual(r.conflicts, 0, f"conflicts={r.conflicts}")
+        self.assertEqual(r.matches, 75, f"matches={r.matches}")
+        self.assertEqual(r.exclusives, 0, f"exclusives={r.exclusives}")
+        self.assertEqual(r.conflicts, 24, f"conflicts={r.conflicts}")
 
     def test_grow_real_case_expected_counts(self):
         r = self.results["grow_travel_vs_venta"]
         self.assertEqual(r.matches, 17, f"matches={r.matches}")
-        self.assertEqual(r.conflicts, 4, f"conflicts={r.conflicts}")
+        self.assertEqual(r.conflicts, 12, f"conflicts={r.conflicts}")
         self.assertGreater(r.exclusives, 0, f"exclusives={r.exclusives}")
 
     def test_unicenta_vs_growventa_has_matches(self):
         r = self.results["unicenta_vs_growventa"]
         self.assertGreater(r.matches, 0, f"matches={r.matches}")
-        self.assertEqual(r.conflicts, 0, f"conflicts={r.conflicts}")
+        self.assertEqual(r.conflicts, 2, f"conflicts={r.conflicts}")
 
     def test_northwind_loads_with_quoted_identifiers(self):
         # Esta prueba fallaría antes de soportar espacios en identificadores SQLite.

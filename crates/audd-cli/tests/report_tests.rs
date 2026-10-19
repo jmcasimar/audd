@@ -109,8 +109,8 @@ fn test_report_generation_users_csv_vs_json() {
 
     // Check specific metrics
     assert!(normalized.contains("**Matches**: 6"));
-    assert!(normalized.contains("**Conflicts**: 3"));
-    assert!(normalized.contains("**Compatibility Score**: 66.7%"));
+    assert!(normalized.contains("**Conflicts**: 8"));
+    assert!(normalized.contains("**Compatibility Score**: 42.9%"));
 
     // Optional: Update golden file if needed
     // To update golden files, set environment variable: UPDATE_GOLDEN=1

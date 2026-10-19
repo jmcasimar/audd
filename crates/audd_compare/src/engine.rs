@@ -1,10 +1,10 @@
 //! Main comparison engine
 
 use audd_ir::{normalize_identifier, SourceSchema};
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
 use crate::config::CompareConfig;
-use crate::conflict::Conflict;
+use crate::conflict::{Conflict, ConflictSeverity};
 use crate::matcher::{match_entities, match_fields};
 use crate::result::{ComparisonResult, Exclusive, ExclusiveSide};
 use crate::types::{compare_types, TypeCompatibility};
@@ -74,6 +74,8 @@ pub fn compare(
             // Check for conflicts
             let field_conflicts = detect_field_conflicts(
                 &entity_match.entity_name,
+                entity_a,
+                entity_b,
                 field_a,
                 field_b,
                 field_match.index_a,
@@ -136,8 +138,11 @@ pub fn compare(
 }
 
 /// Detect conflicts between two matched fields
+#[allow(clippy::too_many_arguments)]
 fn detect_field_conflicts(
     entity_name: &str,
+    entity_a: &audd_ir::EntitySchema,
+    entity_b: &audd_ir::EntitySchema,
     field_a: &audd_ir::FieldSchema,
     field_b: &audd_ir::FieldSchema,
     index_a: usize,
@@ -150,22 +155,34 @@ fn detect_field_conflicts(
     if config.check_type_compatibility {
         let type_compat = compare_types(&field_a.canonical_type, &field_b.canonical_type);
 
-        if type_compat == TypeCompatibility::Incompatible {
-            conflicts.push(Conflict::type_incompatible(
-                entity_name.to_string(),
-                field_a.field_name.clone(),
-                field_a.canonical_type.type_name(),
-                field_b.canonical_type.type_name(),
-                index_a,
-                index_b,
-            ));
+        // Unification spec (E1): every difference that forces a decision on the
+        // unified type is a conflict; severity separates safe from lossy casts.
+        let severity = match type_compat {
+            TypeCompatibility::Identical | TypeCompatibility::Compatible => None,
+            TypeCompatibility::WideningSafe => Some(ConflictSeverity::Low),
+            TypeCompatibility::RequiresCast => Some(ConflictSeverity::Medium),
+            TypeCompatibility::Incompatible => Some(ConflictSeverity::High),
+        };
+
+        if let Some(severity) = severity {
+            conflicts.push(
+                Conflict::type_incompatible(
+                    entity_name.to_string(),
+                    field_a.field_name.clone(),
+                    field_a.canonical_type.type_name(),
+                    field_b.canonical_type.type_name(),
+                    index_a,
+                    index_b,
+                )
+                .with_severity(severity),
+            );
         }
     }
 
     // Nullability check
     if config.check_nullability {
-        // Only flag if A is NOT nullable but B is nullable (potential data loss)
-        if !field_a.nullable && field_b.nullable {
+        // Flag any difference (E2): the unified field must pick one nullability
+        if field_a.nullable != field_b.nullable {
             conflicts.push(Conflict::nullability_mismatch(
                 entity_name.to_string(),
                 field_a.field_name.clone(),
@@ -179,15 +196,10 @@ fn detect_field_conflicts(
 
     // Constraint checks
     if config.check_constraints {
-        // Check for unique constraint mismatches
-        let has_unique_a = field_a
-            .constraints
-            .iter()
-            .any(|c| matches!(c, audd_ir::Constraint::Unique));
-        let has_unique_b = field_b
-            .constraints
-            .iter()
-            .any(|c| matches!(c, audd_ir::Constraint::Unique));
+        // Check for unique constraint mismatches (field constraint or
+        // single-column unique key, E3)
+        let has_unique_a = field_is_unique(entity_a, field_a);
+        let has_unique_b = field_is_unique(entity_b, field_b);
 
         if has_unique_a != has_unique_b {
             conflicts.push(Conflict::constraint_mismatch(
@@ -234,6 +246,20 @@ fn detect_field_conflicts(
     conflicts
 }
 
+/// Whether a field is unique, either through a field-level `Unique` constraint
+/// or a single-column unique key on its entity.
+fn field_is_unique(entity: &audd_ir::EntitySchema, field: &audd_ir::FieldSchema) -> bool {
+    field
+        .constraints
+        .iter()
+        .any(|c| matches!(c, audd_ir::Constraint::Unique))
+        || entity.keys.iter().any(|k| {
+            k.key_type == audd_ir::KeyType::Unique
+                && k.field_names.len() == 1
+                && k.field_names[0] == field.field_name
+        })
+}
+
 /// Detect normalization collisions (different names that normalize to the same identifier)
 /// Only detects collisions for fields that are NOT already matched
 fn detect_normalization_collisions(
@@ -244,7 +270,7 @@ fn detect_normalization_collisions(
     matched_fields_b: &[bool],
 ) -> Vec<Conflict> {
     let mut conflicts = Vec::new();
-    let mut normalized_map: HashMap<String, Vec<(String, usize, ExclusiveSide)>> = HashMap::new();
+    let mut normalized_map: BTreeMap<String, Vec<(String, usize, ExclusiveSide)>> = BTreeMap::new();
 
     // Only collect UNMATCHED fields from A
     for (idx, field) in entity_a.fields.iter().enumerate() {
