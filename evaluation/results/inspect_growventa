@@ -1,0 +1,5696 @@
+{
+  "source_name": "growventa",
+  "source_type": "sqlite",
+  "entities": [
+    {
+      "entity_name": "Cash_movements",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "box_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "type",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "amount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "note",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "metadata",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "tip",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "referenced_table": "Multibox",
+            "referenced_column": "object_id",
+            "from_column": "box_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "from_column": "user_id",
+            "referenced_column": "object_id",
+            "referenced_table": "User"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_cash_movements_createdAt",
+          "index_type": "regular",
+          "field_names": [
+            "created_at"
+          ]
+        },
+        {
+          "index_name": "idx_cash_movements_register",
+          "index_type": "regular",
+          "field_names": [
+            "box_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Cashcut",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "cash",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "msg",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "open",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "box_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "referenced_table": "Multibox",
+            "referenced_column": "object_id",
+            "from_column": "box_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "user_id",
+            "referenced_table": "User"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "from_column": "box_id",
+            "referenced_column": "object_id",
+            "referenced_table": "Multibox"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_cashcut_box_id",
+          "index_type": "regular",
+          "field_names": [
+            "box_id"
+          ]
+        },
+        {
+          "index_name": "idx_cashcut_created_at",
+          "index_type": "regular",
+          "field_names": [
+            "created_at"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "CashregisterLog",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "cash",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "user_id",
+            "referenced_table": "User"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "CatalogProduct",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "code",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "department",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "unit",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "image_url",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_catalog_product_department",
+          "index_type": "regular",
+          "field_names": [
+            "department"
+          ]
+        },
+        {
+          "index_name": "idx_catalog_product_name",
+          "index_type": "regular",
+          "field_names": [
+            "name"
+          ]
+        },
+        {
+          "index_name": "idx_catalog_product_code",
+          "index_type": "regular",
+          "field_names": [
+            "code"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Customer",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "phone",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "discount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "credit",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "points",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "street",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "exterior_number",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "interior_number",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "city",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "state",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "country",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "postal_code",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_customer_name",
+          "index_type": "regular",
+          "field_names": [
+            "name"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Department",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Department_Printer",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "department_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "printer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "department_id",
+            "printer_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "printer_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Printer",
+            "from_column": "printer_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "department_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Department",
+            "from_column": "department_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_dept_printer_printer",
+          "index_type": "regular",
+          "field_names": [
+            "printer_id"
+          ]
+        },
+        {
+          "index_name": "idx_dept_printer_dept",
+          "index_type": "regular",
+          "field_names": [
+            "department_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Expense",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "payment_method",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "box_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "from_column": "box_id",
+            "referenced_table": "Multibox",
+            "referenced_column": "object_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "from_column": "user_id",
+            "referenced_column": "object_id",
+            "referenced_table": "User"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "from_column": "box_id",
+            "referenced_table": "Multibox",
+            "referenced_column": "object_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_expense_box_id",
+          "index_type": "regular",
+          "field_names": [
+            "box_id"
+          ]
+        },
+        {
+          "index_name": "idx_expense_updated_at",
+          "index_type": "regular",
+          "field_names": [
+            "updated_at"
+          ]
+        },
+        {
+          "index_name": "idx_expense_created_at",
+          "index_type": "regular",
+          "field_names": [
+            "created_at"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Inventory",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "diff",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "min_quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "warehouse_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "product_id",
+            "referenced_table": "Product"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "warehouse_id"
+          ],
+          "metadata": {
+            "from_column": "warehouse_id",
+            "referenced_table": "Warehouse",
+            "referenced_column": "object_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "User",
+            "from_column": "user_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_inventory_product_id",
+          "index_type": "regular",
+          "field_names": [
+            "product_id"
+          ]
+        },
+        {
+          "index_name": "idx_inventory_warehouse_id",
+          "index_type": "regular",
+          "field_names": [
+            "warehouse_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "InventoryLog",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "diff",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "warehouse_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "from_column": "product_id",
+            "referenced_column": "object_id",
+            "referenced_table": "Product"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "warehouse_id"
+          ],
+          "metadata": {
+            "from_column": "warehouse_id",
+            "referenced_column": "object_id",
+            "referenced_table": "Warehouse"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "referenced_table": "User",
+            "from_column": "user_id",
+            "referenced_column": "object_id"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Inventory_movements",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "inventory_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "warehouse_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "qty",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "qty_before",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "qty_after",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "movement_type",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "movement_direction",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "reference_type",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "reference_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "source",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "notes",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "user_id",
+            "referenced_table": "User"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "warehouse_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Warehouse",
+            "from_column": "warehouse_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "product_id",
+            "referenced_table": "Product"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "inventory_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "inventory_id",
+            "referenced_table": "Inventory"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_inventory_movements_warehouse",
+          "index_type": "regular",
+          "field_names": [
+            "warehouse_id"
+          ]
+        },
+        {
+          "index_name": "idx_inventory_movements_reference",
+          "index_type": "regular",
+          "field_names": [
+            "reference_type",
+            "reference_id"
+          ]
+        },
+        {
+          "index_name": "idx_inventory_movements_direction",
+          "index_type": "regular",
+          "field_names": [
+            "movement_direction"
+          ]
+        },
+        {
+          "index_name": "idx_inventory_movements_type",
+          "index_type": "regular",
+          "field_names": [
+            "movement_type"
+          ]
+        },
+        {
+          "index_name": "idx_inventory_movements_created",
+          "index_type": "regular",
+          "field_names": [
+            "created_at"
+          ]
+        },
+        {
+          "index_name": "idx_inventory_movements_product",
+          "index_type": "regular",
+          "field_names": [
+            "product_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "License",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "demo",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "expired_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "license_hash",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "first_license_hash",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "license_id",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "machine_id",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "issued_at",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Multibox",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "type",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "current_ip",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "port",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "principal_ip",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "connected",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "last_connection",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "machine_id",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "settings_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "settings_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "settings_id",
+            "referenced_table": "Setting"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Order_detail",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "code",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "price",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "discount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "order_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "department_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "cost",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "unit",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "comments",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_prepared",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "department_id"
+          ],
+          "metadata": {
+            "referenced_table": "Department",
+            "referenced_column": "object_id",
+            "from_column": "department_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "from_column": "product_id",
+            "referenced_table": "Product",
+            "referenced_column": "object_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "order_id"
+          ],
+          "metadata": {
+            "referenced_table": "Orders",
+            "referenced_column": "object_id",
+            "from_column": "order_id"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Order_detail_options",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "order_detail_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_option_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_option_detail_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name_snapshot",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "price_delta_snapshot",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_order_detail_options_detail",
+          "index_type": "regular",
+          "field_names": [
+            "order_detail_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Order_payment",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "payment_method",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "reference",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency_amount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "exchange_rate",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "box_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "order_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "tip",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "from_column": "box_id",
+            "referenced_column": "object_id",
+            "referenced_table": "Multibox"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "order_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "order_id",
+            "referenced_table": "Orders"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "box_id",
+            "referenced_table": "Multibox"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_order_payment_box_id",
+          "index_type": "regular",
+          "field_names": [
+            "box_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Order_tax",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "order_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "order_array_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "order_array_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "order_array_id",
+            "referenced_table": "Order_detail"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "from_column": "product_id",
+            "referenced_column": "object_id",
+            "referenced_table": "Product"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "order_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Orders",
+            "from_column": "order_id"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Orders",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "toPay",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "discount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "paid",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "layaway",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "credit",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "box_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "customer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "cost",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "table_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "tip",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "type",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "comments",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "points",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "identifier",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_cancellable",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "referenced_table": "Multibox",
+            "referenced_column": "object_id",
+            "from_column": "box_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "from_column": "user_id",
+            "referenced_table": "User",
+            "referenced_column": "object_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "customer_id"
+          ],
+          "metadata": {
+            "referenced_table": "Customer",
+            "from_column": "customer_id",
+            "referenced_column": "object_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Multibox",
+            "from_column": "box_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_orders_table_id",
+          "index_type": "regular",
+          "field_names": [
+            "table_id"
+          ]
+        },
+        {
+          "index_name": "idx_orders_box_id",
+          "index_type": "regular",
+          "field_names": [
+            "box_id"
+          ]
+        },
+        {
+          "index_name": "idx_orders_total",
+          "index_type": "regular",
+          "field_names": [
+            "total"
+          ]
+        },
+        {
+          "index_name": "idx_orders_customer_id",
+          "index_type": "regular",
+          "field_names": [
+            "customer_id"
+          ]
+        },
+        {
+          "index_name": "idx_orders_updated_at",
+          "index_type": "regular",
+          "field_names": [
+            "updated_at"
+          ]
+        },
+        {
+          "index_name": "idx_orders_created_at",
+          "index_type": "regular",
+          "field_names": [
+            "created_at"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Payment_methods",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "label",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "value",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "unique",
+          "field_names": [
+            "value"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_payment_methods_active",
+          "index_type": "regular",
+          "field_names": [
+            "is_active"
+          ]
+        },
+        {
+          "index_name": "idx_payment_methods_value",
+          "index_type": "unique",
+          "field_names": [
+            "value"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Printer",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "role",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_default",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_enabled",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "connection_type",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "usb_mode",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "usb_vid",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "usb_pid",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "os_printer_name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "net_host",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "net_port",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ticket_copy",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "settings",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_printer_conn",
+          "index_type": "regular",
+          "field_names": [
+            "connection_type"
+          ]
+        },
+        {
+          "index_name": "idx_printer_role",
+          "index_type": "regular",
+          "field_names": [
+            "role"
+          ]
+        },
+        {
+          "index_name": "idx_printer_enabled",
+          "index_type": "regular",
+          "field_names": [
+            "is_enabled"
+          ]
+        },
+        {
+          "index_name": "idx_printer_default",
+          "index_type": "regular",
+          "field_names": [
+            "is_default"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Product",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "code",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "amount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "price",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "cost",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "department_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "unit",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "url_image",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_supply",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "unit_purchase",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "unit_quantity",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "track_inventory",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "department_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "department_id",
+            "referenced_table": "Department"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "user_id",
+            "referenced_table": "User"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_product_is_supply",
+          "index_type": "regular",
+          "field_names": [
+            "is_supply"
+          ]
+        },
+        {
+          "index_name": "idx_product_department",
+          "index_type": "regular",
+          "field_names": [
+            "department_id"
+          ]
+        },
+        {
+          "index_name": "idx_product_department_id",
+          "index_type": "regular",
+          "field_names": [
+            "department_id"
+          ]
+        },
+        {
+          "index_name": "idx_product_name",
+          "index_type": "regular",
+          "field_names": [
+            "name"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "ProductLog",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "price",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "cost",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Product",
+            "from_column": "product_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "from_column": "user_id",
+            "referenced_column": "object_id",
+            "referenced_table": "User"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Product_Product",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "includes_product",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "includes_product"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Product",
+            "from_column": "includes_product"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "from_column": "product_id",
+            "referenced_table": "Product",
+            "referenced_column": "object_id"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Product_Tax",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "tax_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "referenced_table": "Product",
+            "from_column": "product_id",
+            "referenced_column": "object_id"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "tax_id"
+          ],
+          "metadata": {
+            "referenced_table": "Tax",
+            "referenced_column": "object_id",
+            "from_column": "tax_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_Product_Tax_product_id_tax_id",
+          "index_type": "regular",
+          "field_names": [
+            "product_id",
+            "tax_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Product_cost",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "source_type",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "source_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "old_cost",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "new_cost",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "note",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "referenced_table": "Product",
+            "referenced_column": "object_id",
+            "from_column": "product_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_product_cost_created_at",
+          "index_type": "regular",
+          "field_names": [
+            "created_at"
+          ]
+        },
+        {
+          "index_name": "idx_product_cost_source",
+          "index_type": "regular",
+          "field_names": [
+            "source_type",
+            "source_id"
+          ]
+        },
+        {
+          "index_name": "idx_product_cost_product",
+          "index_type": "regular",
+          "field_names": [
+            "product_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Product_option_assignment",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_option_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "sort_order",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_poa_option",
+          "index_type": "regular",
+          "field_names": [
+            "product_option_id"
+          ]
+        },
+        {
+          "index_name": "idx_poa_product",
+          "index_type": "regular",
+          "field_names": [
+            "product_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Product_option_detail",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_option_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "price_delta",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "sku_suffix",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "sort_order",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_option_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Product_options",
+            "from_column": "product_option_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_product_option_detail_option",
+          "index_type": "regular",
+          "field_names": [
+            "product_option_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Product_options",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "selection_mode",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_required",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "sort_order",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_product_options_active",
+          "index_type": "regular",
+          "field_names": [
+            "is_active"
+          ]
+        },
+        {
+          "index_name": "idx_product_options_product",
+          "index_type": "regular",
+          "field_names": [
+            "product_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Purchase_order_details",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "purchase_order_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "unit_cost",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "unit_cost_mxn",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "applied_unit_cost_mxn",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "applied_total_mxn",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "unit_purchase",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "unit_quantity",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "unit_sale",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "product_id",
+            "referenced_table": "Product"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "purchase_order_id"
+          ],
+          "metadata": {
+            "referenced_table": "Purchase_orders",
+            "from_column": "purchase_order_id",
+            "referenced_column": "object_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_pod_product",
+          "index_type": "regular",
+          "field_names": [
+            "product_id"
+          ]
+        },
+        {
+          "index_name": "idx_pod_order",
+          "index_type": "regular",
+          "field_names": [
+            "purchase_order_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Purchase_orders",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "supplier_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "status",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency_exchange",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "additionals",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "notes",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "paid_from_cash",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "cash_movement_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "cash_movement_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "cash_movement_id",
+            "referenced_table": "Cash_movements"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "supplier_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "supplier_id",
+            "referenced_table": "Suppliers"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_purchase_orders_created_at",
+          "index_type": "regular",
+          "field_names": [
+            "created_at"
+          ]
+        },
+        {
+          "index_name": "idx_purchase_orders_supplier",
+          "index_type": "regular",
+          "field_names": [
+            "supplier_id"
+          ]
+        },
+        {
+          "index_name": "idx_purchase_orders_status",
+          "index_type": "regular",
+          "field_names": [
+            "status"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Quotation",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "folio",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "toPay",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "discount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_converted",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "converted_order_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "terms_quote",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "transfer_comment",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "box_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "customer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "unique",
+          "field_names": [
+            "folio"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "converted_order_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "converted_order_id",
+            "referenced_table": "Orders"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "box_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "box_id",
+            "referenced_table": "Multibox"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "customer_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "customer_id",
+            "referenced_table": "Customer"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "referenced_table": "User",
+            "from_column": "user_id",
+            "referenced_column": "object_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_quotation_created_at",
+          "index_type": "regular",
+          "field_names": [
+            "created_at"
+          ]
+        },
+        {
+          "index_name": "idx_quotation_converted",
+          "index_type": "regular",
+          "field_names": [
+            "is_converted"
+          ]
+        },
+        {
+          "index_name": "idx_quotation_box",
+          "index_type": "regular",
+          "field_names": [
+            "box_id"
+          ]
+        },
+        {
+          "index_name": "idx_quotation_customer",
+          "index_type": "regular",
+          "field_names": [
+            "customer_id"
+          ]
+        },
+        {
+          "index_name": "idx_quotation_folio",
+          "index_type": "unique",
+          "field_names": [
+            "folio"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Quotation_detail",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "code",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "price",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "discount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quotation_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "department_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "unit",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "comments",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "department_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "department_id",
+            "referenced_table": "Department"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "product_id"
+          ],
+          "metadata": {
+            "from_column": "product_id",
+            "referenced_column": "object_id",
+            "referenced_table": "Product"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "quotation_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "referenced_table": "Quotation",
+            "from_column": "quotation_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_quotation_detail_product",
+          "index_type": "regular",
+          "field_names": [
+            "product_id"
+          ]
+        },
+        {
+          "index_name": "idx_quotation_detail_quotation",
+          "index_type": "regular",
+          "field_names": [
+            "quotation_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Quotation_detail_options",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quotation_detail_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_option_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_option_detail_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name_snapshot",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "price_delta_snapshot",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_quotation_detail_options_detail",
+          "index_type": "regular",
+          "field_names": [
+            "quotation_detail_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Recipe_items",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "recipe_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "food_supply_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "food_supply_id"
+          ],
+          "metadata": {
+            "referenced_column": "object_id",
+            "from_column": "food_supply_id",
+            "referenced_table": "Product"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "recipe_id"
+          ],
+          "metadata": {
+            "from_column": "recipe_id",
+            "referenced_table": "Product",
+            "referenced_column": "object_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_recipe_items_supply",
+          "index_type": "regular",
+          "field_names": [
+            "food_supply_id"
+          ]
+        },
+        {
+          "index_name": "idx_recipe_items_recipe",
+          "index_type": "regular",
+          "field_names": [
+            "recipe_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Restaurant_tables",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "area",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "priority",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_restaurant_tables_active",
+          "index_type": "regular",
+          "field_names": [
+            "is_active"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Setting",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "small_logo",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "big_logo",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "print_logo",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "principal_color",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "secondary_color",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "phone",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "address",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "bank_account",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "bank_name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "bank_clabe",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "name_quote",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "terms_quote",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "transfer_comment",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "max_credit",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "discount_customer",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "discount_order",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "enable_discount",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "mandatory_reference",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "usd_price",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "enable_bailment",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "tax_included",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_restaurant",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "second_currency",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "costing_strategy",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "costing_last_n",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "enable_batches",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "points_perc",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quotation_folio_prefix",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "quotation_folio_min_length",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Setting_discount",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "min",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "discount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "setting_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "setting_id"
+          ],
+          "metadata": {
+            "referenced_table": "Setting",
+            "referenced_column": "object_id",
+            "from_column": "setting_id"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Setting_local",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "NUM"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "NUM"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "setting_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "machine_id",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "backup_path",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "scale_vid",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "scale_pid",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "cash",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "enable_scale",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "version",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "channel",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "tour_login",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "touch_mode",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_commander",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_kitchen_display",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "auto_updates_enabled",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "allow_unstable_channel",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "product_grid_view",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_price_checker",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "uuid_baseboard",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "uuid_ram",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "uuid_disk",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "uuid_system",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "platform",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "entity_name": "Suppliers",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "phone",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "address",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_suppliers_name",
+          "index_type": "regular",
+          "field_names": [
+            "name"
+          ]
+        },
+        {
+          "index_name": "idx_suppliers_active",
+          "index_type": "regular",
+          "field_names": [
+            "is_active"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Tax",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "tax_name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "value",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "type",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "withholding",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "transfer",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "apply_default",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Tour",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "dashboard_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "customers_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "products_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "departments_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "open_cash_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "cash_register_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "orders_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "inventory_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "expenses_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "cash_drawer_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "close_cash_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "reports_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "configuration_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "daily_sales_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "weekly_sales_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "monthly_sales_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "best_customers_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "best_products_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_details_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "product_analysis_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "payments_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "credit_statement_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "credit_general_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "cashcuts_report_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "options_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "business_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "users_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "taxes_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "database_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "printer_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "scale_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "tpv_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "multibox_config_tour",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "user_id"
+          ],
+          "metadata": {
+            "referenced_table": "User",
+            "from_column": "user_id",
+            "referenced_column": "object_id"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Unit",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_enabled",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "User",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "username",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "password",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "admin_permission",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "pin",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "unique",
+          "field_names": [
+            "pin"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_user_username",
+          "index_type": "regular",
+          "field_names": [
+            "username"
+          ]
+        },
+        {
+          "index_name": "idx_user_pin_unique",
+          "index_type": "unique",
+          "field_names": [
+            "pin"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Warehouse",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "object_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "customer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "object_id"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "customer_id"
+          ],
+          "metadata": {
+            "referenced_table": "Customer",
+            "referenced_column": "object_id",
+            "from_column": "customer_id"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "idx_warehouse_customer_id",
+          "index_type": "regular",
+          "field_names": [
+            "customer_id"
+          ]
+        }
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "trigger_name": "customer_order_delete",
+      "table_name": "Customer",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER customer_order_delete BEFORE DELETE ON Customer\n                        BEGIN\n                            UPDATE Orders SET customer_id=(1) WHERE customer_id=OLD.object_id;\n                        END"
+    },
+    {
+      "trigger_name": "customer_quotation_delete",
+      "table_name": "Customer",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER customer_quotation_delete \n            BEFORE DELETE ON Customer\n            BEGIN\n                UPDATE Quotation SET customer_id=1 WHERE customer_id=OLD.object_id;\n            END"
+    },
+    {
+      "trigger_name": "customer_warehouse_insert",
+      "table_name": "Customer",
+      "timing": "AFTER",
+      "event": "INSERT",
+      "definition": "CREATE TRIGGER customer_warehouse_insert AFTER INSERT ON Customer\n                        BEGIN\n                            INSERT INTO Warehouse (name, customer_id) VALUES (NEW.name, NEW.object_id);\n                        END"
+    },
+    {
+      "trigger_name": "customer_warehouse_update",
+      "table_name": "Customer",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER customer_warehouse_update AFTER UPDATE ON Customer\n                        BEGIN\n                            UPDATE Warehouse SET name=NEW.name WHERE customer_id=NEW.object_id;\n                        END"
+    },
+    {
+      "trigger_name": "department_orderDetail_delete",
+      "table_name": "Department",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER department_orderDetail_delete \n            BEFORE DELETE ON Department\n            BEGIN\n                UPDATE Order_detail SET department_id=(1) WHERE department_id=OLD.object_id;\n            END"
+    },
+    {
+      "trigger_name": "department_product_update",
+      "table_name": "Department",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER department_product_update BEFORE DELETE ON Department\n                        BEGIN\n                            UPDATE Product SET department_id=(1) WHERE department_id=OLD.object_id;\n                        END"
+    },
+    {
+      "trigger_name": "inventoryLog_insert",
+      "table_name": "Inventory",
+      "timing": "BEFORE",
+      "event": "INSERT",
+      "definition": "CREATE TRIGGER inventoryLog_insert BEFORE UPDATE ON Inventory\n                        WHEN OLD.quantity IS NOT NEW.quantity\n                        BEGIN\n                            INSERT INTO InventoryLog (diff, quantity, user_id, warehouse_id, product_id) VALUES (NEW.diff, NEW.quantity, NEW.user_id, NEW.warehouse_id, NEW.product_id);\n                        END"
+    },
+    {
+      "trigger_name": "multibox_delete_cash_movements",
+      "table_name": "Multibox",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER multibox_delete_cash_movements\n                  BEFORE DELETE ON Multibox\n                      BEGIN\n                          UPDATE Cash_movements SET box_id = 1 WHERE box_id = OLD.object_id AND OLD.object_id != 1;\n                      END"
+    },
+    {
+      "trigger_name": "multibox_delete_cashcut",
+      "table_name": "Multibox",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER multibox_delete_cashcut\n                      BEFORE DELETE ON Multibox\n                      BEGIN\n                          UPDATE Cashcut SET box_id = 1 WHERE box_id = OLD.object_id AND OLD.object_id != 1;\n                      END"
+    },
+    {
+      "trigger_name": "multibox_delete_expense",
+      "table_name": "Multibox",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER multibox_delete_expense\n                      BEFORE DELETE ON Multibox\n                      BEGIN\n                          UPDATE Expense SET box_id = 1 WHERE box_id = OLD.object_id AND OLD.object_id != 1;\n                      END"
+    },
+    {
+      "trigger_name": "multibox_delete_orders",
+      "table_name": "Multibox",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER multibox_delete_orders \n                      BEFORE DELETE ON Multibox\n                      BEGIN\n                          UPDATE Orders SET box_id = 1 WHERE box_id = OLD.object_id AND OLD.object_id != 1;\n                      END"
+    },
+    {
+      "trigger_name": "multibox_delete_payments",
+      "table_name": "Multibox",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER multibox_delete_payments\n            BEFORE DELETE ON Multibox\n            BEGIN\n                UPDATE Order_payment SET box_id = 1 WHERE box_id = OLD.object_id AND OLD.object_id != 1;\n            END"
+    },
+    {
+      "trigger_name": "multibox_delete_quotation",
+      "table_name": "Multibox",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER multibox_delete_quotation \n            BEFORE DELETE ON Multibox\n            BEGIN\n                UPDATE Quotation SET box_id = 1 WHERE box_id = OLD.object_id AND OLD.object_id != 1;\n            END"
+    },
+    {
+      "trigger_name": "prevent_created_at_update",
+      "table_name": "License",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER prevent_created_at_update\n                BEFORE UPDATE OF created_at ON License\n                BEGIN\n                    SELECT RAISE (FAIL, 'Imposible actualizar :c');\n                END"
+    },
+    {
+      "trigger_name": "product_delete_cleanup_option_assignment",
+      "table_name": "Product",
+      "timing": "BEFORE",
+      "event": "DELETE",
+      "definition": "CREATE TRIGGER product_delete_cleanup_option_assignment\n                BEFORE DELETE ON Product\n                BEGIN\n                    DELETE FROM Product_option_assignment WHERE product_id = OLD.object_id;\n                END"
+    },
+    {
+      "trigger_name": "product_insert",
+      "table_name": "Product",
+      "timing": "AFTER",
+      "event": "INSERT",
+      "definition": "CREATE TRIGGER product_insert AFTER INSERT ON Product\n                        BEGIN\n                            INSERT INTO Inventory (warehouse_id, product_id) VALUES (1, NEW.object_id);\n                        END"
+    },
+    {
+      "trigger_name": "product_productLog_update",
+      "table_name": "Product",
+      "timing": "BEFORE",
+      "event": "INSERT",
+      "definition": "CREATE TRIGGER product_productLog_update BEFORE UPDATE ON Product\n                        WHEN (OLD.price IS NOT NEW.price) OR (OLD.cost IS NOT NEW.cost)\n                        BEGIN\n                            INSERT INTO ProductLog (user_id, product_id, price, cost) VALUES (NEW.user_id, NEW.object_id, NEW.price, NEW.cost);\n                        END"
+    },
+    {
+      "trigger_name": "product_return",
+      "table_name": "Inventory",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER product_return AFTER UPDATE ON Inventory\n                        WHEN NEW.quantity == 0 AND NEW.warehouse_id != 1\n                        BEGIN\n                            DELETE FROM Inventory WHERE product_id=NEW.product_id AND warehouse_id=NEW.warehouse_id;\n                        END"
+    },
+    {
+      "trigger_name": "setting_customer_update_credit",
+      "table_name": "Setting",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER setting_customer_update_credit BEFORE UPDATE ON Setting\n                WHEN OLD.max_credit IS NOT NEW.max_credit\n                BEGIN\n                    UPDATE Customer SET credit=NEW.max_credit WHERE credit>NEW.max_credit;\n                END"
+    },
+    {
+      "trigger_name": "setting_customer_update_discount",
+      "table_name": "Setting",
+      "timing": "BEFORE",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER setting_customer_update_discount BEFORE UPDATE ON Setting\n                WHEN OLD.discount_customer IS NOT NEW.discount_customer\n                BEGIN\n                    UPDATE Customer SET discount=NEW.discount_customer WHERE discount>NEW.discount_customer;\n                END"
+    },
+    {
+      "trigger_name": "update_Cash_movements",
+      "table_name": "Cash_movements",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Cash_movements AFTER UPDATE ON Cash_movements\n    BEGIN\n        UPDATE Cash_movements SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Cashcut",
+      "table_name": "Cashcut",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Cashcut AFTER UPDATE ON Cashcut\n    BEGIN\n        UPDATE Cashcut SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_CashregisterLog",
+      "table_name": "CashregisterLog",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_CashregisterLog AFTER UPDATE ON CashregisterLog\n    BEGIN\n        UPDATE CashregisterLog SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_CatalogProduct",
+      "table_name": "CatalogProduct",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_CatalogProduct AFTER UPDATE ON CatalogProduct\n    BEGIN\n        UPDATE CatalogProduct SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Customer",
+      "table_name": "Customer",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Customer AFTER UPDATE ON Customer\n    BEGIN\n        UPDATE Customer SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Department",
+      "table_name": "Department",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Department AFTER UPDATE ON Department\n    BEGIN\n        UPDATE Department SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Department_Printer",
+      "table_name": "Department_Printer",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Department_Printer AFTER UPDATE ON Department_Printer\n    BEGIN\n        UPDATE Department_Printer SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Expense",
+      "table_name": "Expense",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Expense AFTER UPDATE ON Expense\n    BEGIN\n        UPDATE Expense SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Inventory",
+      "table_name": "Inventory",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Inventory AFTER UPDATE ON Inventory\n    BEGIN\n        UPDATE Inventory SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_InventoryLog",
+      "table_name": "InventoryLog",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_InventoryLog AFTER UPDATE ON InventoryLog\n    BEGIN\n        UPDATE InventoryLog SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Inventory_movements",
+      "table_name": "Inventory_movements",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Inventory_movements AFTER UPDATE ON Inventory_movements\n    BEGIN\n        UPDATE Inventory_movements SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_License",
+      "table_name": "License",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_License\n            AFTER UPDATE ON License\n            BEGIN\n                UPDATE License SET updated_at=CURRENT_TIMESTAMP WHERE object_id=NEW.object_id;\n            END"
+    },
+    {
+      "trigger_name": "update_Multibox",
+      "table_name": "Multibox",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Multibox AFTER UPDATE ON Multibox\n    BEGIN\n        UPDATE Multibox SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Order_detail",
+      "table_name": "Order_detail",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Order_detail\n                AFTER UPDATE ON Order_detail\n                BEGIN\n                    UPDATE Order_detail SET updated_at=CURRENT_TIMESTAMP WHERE object_id=NEW.object_id;\n                END"
+    },
+    {
+      "trigger_name": "update_Order_detail_options",
+      "table_name": "Order_detail_options",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Order_detail_options AFTER UPDATE ON Order_detail_options\n    BEGIN\n        UPDATE Order_detail_options SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Order_payment",
+      "table_name": "Order_payment",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Order_payment\n                AFTER UPDATE ON Order_payment\n                BEGIN\n                    UPDATE Order_payment SET updated_at=CURRENT_TIMESTAMP WHERE object_id=NEW.object_id;\n                END"
+    },
+    {
+      "trigger_name": "update_Order_tax",
+      "table_name": "Order_tax",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Order_tax\n                AFTER UPDATE ON Order_tax\n                BEGIN\n                    UPDATE Order_tax SET updated_at=CURRENT_TIMESTAMP WHERE object_id=NEW.object_id;\n                END"
+    },
+    {
+      "trigger_name": "update_Orders",
+      "table_name": "Orders",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Orders AFTER UPDATE ON Orders\n    BEGIN\n        UPDATE Orders SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Payment_methods",
+      "table_name": "Payment_methods",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Payment_methods AFTER UPDATE ON Payment_methods\n    BEGIN\n        UPDATE Payment_methods SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Printer",
+      "table_name": "Printer",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Printer AFTER UPDATE ON Printer\n    BEGIN\n        UPDATE Printer SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Product",
+      "table_name": "Product",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Product AFTER UPDATE ON Product\n    BEGIN\n        UPDATE Product SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_ProductLog",
+      "table_name": "ProductLog",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_ProductLog AFTER UPDATE ON ProductLog\n    BEGIN\n        UPDATE ProductLog SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Product_Product",
+      "table_name": "Product_Product",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Product_Product AFTER UPDATE ON Product_Product\n    BEGIN\n        UPDATE Product_Product SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Product_Tax",
+      "table_name": "Product_Tax",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Product_Tax AFTER UPDATE ON Product_Tax\n    BEGIN\n        UPDATE Product_Tax SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Product_cost",
+      "table_name": "Product_cost",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Product_cost AFTER UPDATE ON Product_cost\n    BEGIN\n        UPDATE Product_cost SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Product_option_detail",
+      "table_name": "Product_option_detail",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Product_option_detail AFTER UPDATE ON Product_option_detail\n    BEGIN\n        UPDATE Product_option_detail SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Product_options",
+      "table_name": "Product_options",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Product_options AFTER UPDATE ON Product_options\n    BEGIN\n        UPDATE Product_options SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Purchase_order_details",
+      "table_name": "Purchase_order_details",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Purchase_order_details AFTER UPDATE ON Purchase_order_details\n    BEGIN\n        UPDATE Purchase_order_details SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Purchase_orders",
+      "table_name": "Purchase_orders",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Purchase_orders AFTER UPDATE ON Purchase_orders\n    BEGIN\n        UPDATE Purchase_orders SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Quotation",
+      "table_name": "Quotation",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Quotation AFTER UPDATE ON Quotation\n    BEGIN\n        UPDATE Quotation SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Quotation_detail",
+      "table_name": "Quotation_detail",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Quotation_detail AFTER UPDATE ON Quotation_detail\n    BEGIN\n        UPDATE Quotation_detail SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Quotation_detail_options",
+      "table_name": "Quotation_detail_options",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Quotation_detail_options AFTER UPDATE ON Quotation_detail_options\n    BEGIN\n        UPDATE Quotation_detail_options SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Recipe_items",
+      "table_name": "Recipe_items",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Recipe_items AFTER UPDATE ON Recipe_items\n    BEGIN\n        UPDATE Recipe_items SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Restaurant_tables",
+      "table_name": "Restaurant_tables",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Restaurant_tables AFTER UPDATE ON Restaurant_tables\n    BEGIN\n        UPDATE Restaurant_tables SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Setting",
+      "table_name": "Setting",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Setting AFTER UPDATE ON Setting BEGIN\n                    UPDATE Setting SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n                END"
+    },
+    {
+      "trigger_name": "update_Setting_discount",
+      "table_name": "Setting_discount",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Setting_discount\n                AFTER UPDATE ON Setting_discount\n                BEGIN\n                    UPDATE Setting_discount SET updated_at=CURRENT_TIMESTAMP WHERE object_id=NEW.object_id;\n                END"
+    },
+    {
+      "trigger_name": "update_Setting_local",
+      "table_name": "Setting_local",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Setting_local AFTER UPDATE ON Setting_local\n    BEGIN\n        UPDATE Setting_local SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Suppliers",
+      "table_name": "Suppliers",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Suppliers AFTER UPDATE ON Suppliers\n    BEGIN\n        UPDATE Suppliers SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Tax",
+      "table_name": "Tax",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Tax AFTER UPDATE ON Tax\n    BEGIN\n        UPDATE Tax SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Unit",
+      "table_name": "Unit",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Unit AFTER UPDATE ON Unit\n    BEGIN\n        UPDATE Unit SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_User",
+      "table_name": "User",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_User AFTER UPDATE ON User\n    BEGIN\n        UPDATE User SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "update_Warehouse",
+      "table_name": "Warehouse",
+      "timing": "AFTER",
+      "event": "UPDATE",
+      "definition": "CREATE TRIGGER update_Warehouse AFTER UPDATE ON Warehouse\n    BEGIN\n        UPDATE Warehouse SET updated_at= DATETIME('NOW') WHERE ROWID = NEW.ROWID;\n    END"
+    },
+    {
+      "trigger_name": "user_tour_insert",
+      "table_name": "User",
+      "timing": "AFTER",
+      "event": "INSERT",
+      "definition": "CREATE TRIGGER user_tour_insert\n                AFTER INSERT ON User\n                BEGIN\n                    INSERT INTO Tour (user_id) VALUES (NEW.object_id);\n                END"
+    }
+  ],
+  "ir_version": "1.0.0"
+}

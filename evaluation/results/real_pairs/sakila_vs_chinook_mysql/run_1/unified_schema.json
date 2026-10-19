@@ -1,0 +1,2503 @@
+{
+  "schema_name": "sakila-schema_Chinook_MySql_unified",
+  "entities": [
+    {
+      "entity_name": "customer",
+      "fields": [
+        {
+          "field": {
+            "field_name": "customer_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "first_name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "last_name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "email",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "store_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "address_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "active",
+            "canonical_type": {
+              "type": "boolean"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "create_date",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 8,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_STORE_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 9,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_ADDRESS_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 10,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_LAST_NAME"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 11,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "Company",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "Address",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "City",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "State",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "Country",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "PostalCode",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "Phone",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "Fax",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "SupportRepId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 12
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "actor",
+      "fields": [
+        {
+          "field": {
+            "field_name": "actor_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "first_name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_ACTOR_LAST_NAME"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "address",
+      "fields": [
+        {
+          "field": {
+            "field_name": "address_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "address",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "address2",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "district",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "city_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "postal_code",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "phone",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "--",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "ADD"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "*/",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "LAST_UPDATE"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 8,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_CITY_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 9,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "/*!50705",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "SPATIAL"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 10,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "*/",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "CONSTRAINT"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 11,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "category",
+      "fields": [
+        {
+          "field": {
+            "field_name": "category_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "city",
+      "fields": [
+        {
+          "field": {
+            "field_name": "city_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "city",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "country_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_COUNTRY_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "country",
+      "fields": [
+        {
+          "field": {
+            "field_name": "country_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "country",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "film",
+      "fields": [
+        {
+          "field": {
+            "field_name": "film_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "title",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "description",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "release_year",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "YEAR"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "language_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "original_language_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "rental_duration",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "rental_rate",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "length",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 8,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "replacement_cost",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 9,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "rating",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "ENUM('G','PG','PG-13','R','NC-17')"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 10,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "special_features",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "SET('TRAILERS','COMMENTARIES','DELETED"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 11,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 12,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_TITLE"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 13,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_LANGUAGE_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 14,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_ORIGINAL_LANGUAGE_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 15,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "film_actor",
+      "fields": [
+        {
+          "field": {
+            "field_name": "actor_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "film_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_FILM_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "film_category",
+      "fields": [
+        {
+          "field": {
+            "field_name": "film_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "category_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "film_text",
+      "fields": [
+        {
+          "field": {
+            "field_name": "film_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "title",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "description",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "FULLTEXT",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "KEY"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "inventory",
+      "fields": [
+        {
+          "field": {
+            "field_name": "inventory_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "film_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "store_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_FILM_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_STORE_ID_FILM_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "language",
+      "fields": [
+        {
+          "field": {
+            "field_name": "language_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "payment",
+      "fields": [
+        {
+          "field": {
+            "field_name": "payment_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "customer_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "staff_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "rental_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "amount",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "payment_date",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_STAFF_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_CUSTOMER_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 8,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "rental",
+      "fields": [
+        {
+          "field": {
+            "field_name": "rental_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "rental_date",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "inventory_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "customer_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "return_date",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "staff_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "UNIQUE",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "KEY"
+            },
+            "nullable": true,
+            "constraints": [
+              {
+                "constraint_type": "Unique"
+              }
+            ]
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_INVENTORY_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 8,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_CUSTOMER_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 9,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_STAFF_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 10,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "staff",
+      "fields": [
+        {
+          "field": {
+            "field_name": "staff_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "first_name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "address_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "picture",
+            "canonical_type": {
+              "type": "binary"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "email",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "store_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "active",
+            "canonical_type": {
+              "type": "boolean"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "username",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 8,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "password",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 9,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 10,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_STORE_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 11,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_ADDRESS_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 12,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "store",
+      "fields": [
+        {
+          "field": {
+            "field_name": "store_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 0,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "manager_staff_id",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "TINYINT"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 1,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "address_id",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "last_update",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 3,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "UNIQUE",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "KEY"
+            },
+            "nullable": true,
+            "constraints": [
+              {
+                "constraint_type": "Unique"
+              }
+            ]
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "KEY",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "IDX_FK_ADDRESS_ID"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 5,
+          "index_b": null
+        }
+      ],
+      "origin": "A"
+    },
+    {
+      "entity_name": "s\r\n********************************************************************************/\r\nCREATE TABLE `Album",
+      "fields": [
+        {
+          "field": {
+            "field_name": "AlbumId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "Title",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "ArtistId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "Artist",
+      "fields": [
+        {
+          "field": {
+            "field_name": "ArtistId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "Name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "Employee",
+      "fields": [
+        {
+          "field": {
+            "field_name": "EmployeeId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "LastName",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "FirstName",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "Title",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "ReportsTo",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "BirthDate",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "HireDate",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "Address",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "City",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "State",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "Country",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "PostalCode",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "Phone",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "Fax",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "Email",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 14
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "Genre",
+      "fields": [
+        {
+          "field": {
+            "field_name": "GenreId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "Name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "Invoice",
+      "fields": [
+        {
+          "field": {
+            "field_name": "InvoiceId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "CustomerId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "InvoiceDate",
+            "canonical_type": {
+              "type": "timestamp"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "BillingAddress",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "BillingCity",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "BillingState",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "BillingCountry",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "BillingPostalCode",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "Total",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 8
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "fields": [
+        {
+          "field": {
+            "field_name": "InvoiceLineId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "InvoiceId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "TrackId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "UnitPrice",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "Quantity",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "MediaType",
+      "fields": [
+        {
+          "field": {
+            "field_name": "MediaTypeId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "Name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "Playlist",
+      "fields": [
+        {
+          "field": {
+            "field_name": "PlaylistId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "Name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "PlaylistTrack",
+      "fields": [
+        {
+          "field": {
+            "field_name": "PlaylistId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "TrackId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        }
+      ],
+      "origin": "B"
+    },
+    {
+      "entity_name": "Track",
+      "fields": [
+        {
+          "field": {
+            "field_name": "TrackId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "Name",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "AlbumId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "MediaTypeId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "GenreId",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "Composer",
+            "canonical_type": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "Milliseconds",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "Bytes",
+            "canonical_type": {
+              "type": "int32"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "UnitPrice",
+            "canonical_type": {
+              "type": "decimal",
+              "precision": 10,
+              "scale": 2
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 8
+        }
+      ],
+      "origin": "B"
+    }
+  ],
+  "metadata": {}
+}

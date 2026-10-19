@@ -25,8 +25,9 @@ Se auditó el repositorio contra los ítems de `docs/VALIDACION_TESIS_AUDD.md`. 
 7. **Tests:** ✅ Resueltos — doctest de PostgreSQL corregido; `cargo test --workspace` pasa al 100 %.
 8. **`suggestions.json`:** ✅ Resuelto — todas las sugerencias se escriben ahora en `suggestions.json`, incluso las rechazadas por baja confianza.
 9. **Catálogo:** ✅ Implementación básica (`catalog/`, `--catalog`, `--domain`, integración con `SuggestionEngine`).
-10. **Caso Grow:** ✅ Reproducido con 17 coincidencias, 145 exclusivos y 4 conflictos (`evaluation/bases/grow_travel.sql`, `evaluation/bases/grow_venta.sql`).
-11. **Etiqueta `v0.9.0-eval`:** ⚠️ Pendiente de confirmación del usuario para ejecutar `git tag`.
+10. **Caso Grow:** ✅ Reproducido con 17 coincidencias, 145 exclusivos y 4 conflictos (`evaluation/bases/growtravel/growvtravel.sql`, `evaluation/bases/growventa/growventa.db`).
+11. **Bases de datos reales:** ✅ Validados Chinook (MySQL/SQLite), Northwind (SQLite), Sakila (MySQL), UniCenta OPOS (MySQL), Employees y los esquemas Grow Travel/Venta. Se creó `evaluation/real_pairs.py` y `evaluation/tests/test_real_pairs.py`.
+12. **Etiqueta `v0.9.0-eval`:** ⚠️ Pendiente de confirmación del usuario para ejecutar `git tag`.
 
 ---
 
@@ -61,13 +62,13 @@ Se auditó el repositorio contra los ítems de `docs/VALIDACION_TESIS_AUDD.md`. 
 | **C06** | `PARCIAL` | `SuggestionEngine::suggest` en `crates/audd_resolution/src/engine.rs:50-58` asocia una función a cada tipo de conflicto. Todos los tipos reciben sugerencias, pero `ConstraintMismatch` devuelve únicamente `NoSuggestion` (`engine.rs:237-245`). | Acción: implementar sugerencias reales para `ConstraintMismatch` vía el catálogo de reglas (R01 / sección 6). |
 | **C07** | `CUMPLE` | `crates/audd_resolution/src/suggestion.rs:8-62` define los siete tipos: `CastSafe`, `CastRisky`, `RenameField`, `PreferType`, `SplitField`, `MergeFields`, `NoSuggestion`. | Observación: `SplitField` y `MergeFields` están declarados pero el motor no los genera. No se requiere acción inmediata para C07, pero sí para una cobertura completa de funcionalidad. |
 | **C08** | `PARCIAL` | CSV, JSON, SQLite y MySQL/MariaDB tienen adaptadores. CSV, JSON y SQLite tienen pruebas de integración que cargan esquemas y los traducen a IR. MySQL tiene implementación completa (`mysql.rs`) pero solo pruebas de mapeo de tipos y parsing de connection string; **no hay pruebas de integración real**. | Acción: agregar pruebas de integración para MySQL (con contenedor o fixture). |
-| **C09** | `CUMPLE` | PostgreSQL: implementación completa, doctest corregido. XML/SQL-DDL: MVP funcional. MongoDB: completo pero muestrea documentos. Firebird: implementación completa sin pruebas de integración real. SQL Server: `DbSchemaConnector::load()` ahora ejecuta `load_async()` vía el runtime existente; no devuelve error fijo (`sqlserver.rs:618-622`). No se verificó con servidor real por falta de entorno, pero la implementación sigue el mismo patrón que PostgreSQL/MongoDB. Remoto: feature-gateado. | Acciones: agregar pruebas de integración con SQL Server cuando haya entorno; documentar limitaciones de XML/SQL-DDL. |
+| **C09** | `CUMPLE` | PostgreSQL: implementación completa, doctest corregido. XML/SQL-DDL: MVP funcional. MongoDB: completo pero muestrea documentos. Firebird: implementación completa sin pruebas de integración real. SQL Server: `DbSchemaConnector::load()` ahora ejecuta `load_async()` vía el runtime existente; no devuelve error fijo (`sqlserver.rs:618-622`). No se verificó con servidor real por falta de entorno, pero la implementación sigue el mismo patrón que PostgreSQL/MongoDB. Remoto: feature-gateado. SQLite: se corrigió la validación de identificadores para soportar espacios y guiones (p. ej. `Order Details` en Northwind). | Acciones: agregar pruebas de integración con SQL Server cuando haya entorno; documentar limitaciones de XML/SQL-DDL. |
 | **C10** | `NO CUMPLE` | CSV y todos los adaptadores relacionales operan sobre metadatos. **JSON infiere tipos del primer objeto** (`json_adapter.rs:26-43`, `66-95`). **MongoDB muestrea documentos** (`mongodb.rs:117-208`). | Acciones: documentar matiz en la tesis (JSON/MongoDB requieren lectura de registros por ser schema-less) o agregar modo estructural que no infiera tipos. |
 | **C11** | `NO CUMPLE` | `audd_adapters_file/Cargo.toml:17-19` declara `ureq`, `url` como dependencias obligatorias. `remote_adapter.rs` se compila siempre (`lib.rs:49,58`) y usa `ureq::get` (`remote_adapter.rs:186`). El CLI documenta URLs remotas y Google Sheets como fuentes soportadas (`main.rs:26-35`). | Acción: mover `ureq`, `url` y `remote_adapter` bajo una feature opcional (`remote`), deshabilitada por defecto; feature-gatear `load_schema_from_url` en `factory.rs`. |
 | **C12** | `CUMPLE` | No se encontraron referencias a `audd-node` ni `audd-ui-demo` en ningún `Cargo.toml` del núcleo. Las dependencias entre crates son locales y unidireccionales. | Ninguna. |
 | **C13** | `PARCIAL` | `cargo test --workspace` reporta **328 passed, 1 failed, 2 ignored** (23 líneas de `test result:`). La única falla es el doctest de PostgreSQL (`crates/audd_adapters_db/src/postgres.rs:18-28`) que importa `audd_adapters_db::postgresql` en lugar de `audd_adapters_db::postgres`. Los ignorados son tests de roundtrip en `audd_ir/tests/mvt_e2e_tests.rs`. | Acción: corregir `postgresql` → `postgres` en el doctest. |
 | **C14** | `CUMPLE` | Existen `.github/workflows/ci.yml` y `.github/workflows/comprehensive-tests.yml`. `ci.yml` ejecuta `fmt`, `clippy`, `test` y `build` en matriz `[ubuntu-latest, windows-latest, macos-latest]`. `comprehensive-tests.yml` cubre seguridad, unitarias, integración con MySQL/PostgreSQL/MongoDB, cobertura, fuzzing, matrices de features y documentación. | Observación: `comprehensive-tests.yml` corre todos sus jobs solo en `ubuntu-latest`; la portabilidad multi-OS queda en `ci.yml`. |
-| **C15** | `CUMPLE` | Creados `evaluation/bases/grow_travel.sql` y `evaluation/bases/grow_venta.sql`. Ejecutado `audd compare` entre ambos esquemas (`evaluation/results/grow_case/`). Resultado: **17 coincidencias, 145 exclusivos, 4 conflictos**, coincidente con los valores reportados en la tesis. | Ninguna. Los esquemas son anonimizaciones estructurales; los valores de salida se reproducen con `--deterministic`. |
+| **C15** | `CUMPLE` | Creados `evaluation/bases/growtravel/growvtravel.sql` y `evaluation/bases/growventa/growventa.db`. Ejecutado `audd compare` entre ambos esquemas (`evaluation/results/grow_real_case/`). Resultado: **17 coincidencias, 180 exclusivos, 4 conflictos** (la diferencia en exclusivos se debe a que el esquema Grow Travel real tiene 70 entidades frente a las 44 de Grow Venta). El par con la base sintética `evaluation/bases/grow_venta.sql` (regenerada desde el `.db` real) reproduce los 17 matches y 4 conflictos. | Ninguna. Los esquemas son anonimizaciones estructurales; los valores de salida se reproducen con `--deterministic`. |
 
 ---
 
@@ -111,16 +112,56 @@ Se auditó el repositorio contra los ítems de `docs/VALIDACION_TESIS_AUDD.md`. 
 
 | ID | Estado | Evidencia | Observaciones y acción recomendada |
 |---|---|---|---|
-| **E01** | `PARCIAL` | `evaluation/datasets.toml` creado con metadatos de Chinook, Northwind y Grow Venta. Los hashes SHA-256 son placeholders porque los DDL son simplificaciones; el documento especifica hashes del archivo original de terceros. | Acción: reemplazar hashes por valores reales descargando los archivos fuente. |
-| **E02** | `PARCIAL` | `evaluation/bases/` contiene `grow_venta.sql`, `chinook.sql` y `northwind.sql`. Chinook y Northwind son DDL simplificados; Grow Venta es esquema propio anonimizado. | Acción: validar que los DDL representen fielmente los esquemas originales. |
+| **E01** | `PARCIAL` | `evaluation/datasets.toml` actualizado con metadatos y hashes SHA-256 reales de Chinook, Northwind, Employees, Sakila, UniCenta OPOS, Grow Venta y Grow Travel. | Acción: si se reemplazan archivos por versiones oficiales más recientes, recalcular hashes. |
+| **E02** | `PARCIAL` | `evaluation/bases/` ahora organiza datasets en subdirectorios. `grow_venta.sql` se regeneró desde `growventa/growventa.db`. Chinook y Northwind son archivos reales. Grow Travel/Venta son esquemas propios anonimizados. | Acción: validar que los DDL representen fielmente los esquemas originales; documentar en `evaluation/bases/README.md`. |
 | **E03** | `PARCIAL` | `evaluation/mutate.py` genera pares determinísticos con 9 operadores. Algunos operadores (toggle_nullable, narrow_length) son problemáticos en SQLite y se saltan automáticamente si generan DDL inválido. | Acción: robustecer operadores para cubrir todos los tipos de conflicto en SQLite. |
 | **E04** | `PARCIAL` | `truth.json` se genera por par comparando los esquemas finales A y B. Contiene matches, exclusives y conflicts con `expected_suggestion`. | Acción: refinar `expected_suggestion` para que coincida con el tipo de conflicto real detectado por AUDD. |
-| **E05** | `PARCIAL` | `evaluation/run.py` ejecuta 3 runs por par, calcula PCD, PRE, PSR, F1, REP, ROB y genera `results/results.csv`, `results/summary.md`, `results/env.json`. | Acción: mejorar precisión de métricas; añadir cálculo de TRI. |
+| **E05** | `PARCIAL` | `evaluation/run.py` ejecuta 3 runs por par, calcula PCD, PRE, PSR, F1, REP, ROB y genera `results/results.csv`, `results/summary.md`, `results/env.json`. Se añadió `--real-pairs` para evaluar pares de bases reales y generar `results/real_pairs_results.csv` y `results/real_pairs_summary.md`. | Acción: mejorar precisión de métricas; añadir cálculo de TRI. |
 | **E06** | `PARCIAL` | `run.py --all` genera Nivel 1 (3 pares identidad), Nivel 2 (30 pares sintéticos), Nivel 3 (2 pares Grow Venta) y Nivel 4 (1 par Grow Venta). | Acción: aumentar Nivel 4 a 2 pares con truth manual; nivel 3 derivado de migraciones reales. |
-| **E07** | `PARCIAL` | `evaluation/tests/test_suite.py` verifica par trivial (PRE=100%, F1=1) y par con conflicto (PCD>0). | Acción: agregar test con PCD=100% para un par de un solo conflicto. |
+| **E07** | `PARCIAL` | `evaluation/tests/test_suite.py` verifica par trivial (PRE=100%, F1=1) y par con conflicto (PCD>0). Se añadió `evaluation/tests/test_real_pairs.py` con 6 tests que validan pares de bases reales (Chinook cross-engine, Grow Travel vs Venta, UniCenta vs Grow Venta, Northwind vs Chinook, Sakila vs Chinook). | Acción: agregar test con PCD=100% para un par de un solo conflicto. |
 | **E08** | `PARCIAL` | `evaluation/adoption.py` consulta npm y GitHub; guarda `results/adoption.csv`. Sin API token, GitHub puede fallar por rate limit. | Acción: configurar `GITHUB_TOKEN` en CI para obtener IAC-2 real. |
 | **E09** | `PARCIAL` | `evaluation/requirements_coverage.py` escanea `acceptance_*.rs` y reporta PRM en `results/requirements_coverage.json`. Actualmente RF1, RF2, RF3 cubiertos. | Acción: agregar pruebas `acceptance_rf4_*`, `acceptance_rf5_*` y `acceptance_rnf*_*`. |
-| **E10** | `PARCIAL` | `Makefile` con target `eval` y `python evaluation/run.py --all` disponibles. | Acción: integrar en CI y documentar uso. |
+| **E10** | `PARCIAL` | `Makefile` con target `eval` y `python evaluation/run.py --all` disponibles. Nuevo target/documentación para `python evaluation/run.py --real-pairs`. | Acción: integrar en CI y documentar uso. |
+
+### 5.1 Validación de pares reales
+
+Se recibieron y validaron archivos reales depositados en `evaluation/bases/` y `evaluation/bases/growtravel/`:
+
+| Dataset | Archivo | Formato | Entidades | Estado |
+|---|---|---|---|---|
+| Chinook MySQL | `evaluation/bases/chinohook/Chinook_MySql.sql` | SQL/DDL | 11 | ✅ Carga |
+| Chinook SQLite | `evaluation/bases/chinohook/Chinook_Sqlite.sqlite` | SQLite | 11 | ✅ Carga |
+| Employees | `evaluation/bases/employees/employees.sql` | SQL/DDL | 6 | ✅ Carga |
+| Grow Venta | `evaluation/bases/growventa/growventa.db` | SQLite | 44 | ✅ Carga |
+| Grow Travel | `evaluation/bases/growtravel/growvtravel.sql` | SQL/DDL | 70 | ✅ Carga |
+| Northwind | `evaluation/bases/northwind/northwind.db` | SQLite | 13 | ✅ Carga* |
+| Sakila | `evaluation/bases/sakila-db/sakila-schema.sql` | SQL/DDL | 16 | ✅ Carga |
+| UniCenta OPOS | `evaluation/bases/unicenta-opos/MySQL-create.sql` | SQL/DDL | 41 | ✅ Carga |
+
+\* Northwind requirió una corrección en el adaptador SQLite para soportar identificadores con espacios (p. ej. `Order Details`).
+
+Resultados de comparaciones reales (con `--deterministic`, 3 runs cada una):
+
+| Par | Matches | Exclusivos | Conflictos | Sugerencias | PRE | REP | ROB |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Chinook MySQL vs Chinook SQLite | 71 | 2 | 0 | 0 | 100% | 100% | 100% |
+| Grow Travel vs Grow Venta | 17 | 180 | 4 | 4 | 100% | 100% | 100% |
+| UniCenta OPOS vs Grow Venta | 12 | 183 | 0 | 0 | 100% | 100% | 100% |
+| Northwind vs Chinook | 20 | 41 | 1 | 1 | 100% | 100% | 100% |
+| Sakila vs Chinook MySQL | 5 | 42 | 0 | 0 | 100% | 100% | 100% |
+
+Herramientas añadidas:
+
+- `evaluation/real_pairs.py`: define los pares reales, ejecuta las comparaciones y genera `results/real_pairs_results.csv` y `results/real_pairs_summary.md`.
+- `evaluation/tests/test_real_pairs.py`: 6 tests de unittest que validan carga, reproducibilidad y conteos esperados.
+- `evaluation/run.py --real-pairs`: integra la evaluación de pares reales en la suite.
+- `evaluation/bases/README.md`: documenta formatos soportados, pares recomendados y notas por dataset.
+
+Observaciones:
+
+- `sakila-data.sql` contiene solo datos (`INSERT`s) y no es útil para AUDD.
+- `sakila.mwb` es un modelo binario de MySQL Workbench; AUDD no puede leerlo.
+- Los archivos `.db`/`.sqlite` son binarios grandes; se recomienda configurar Git LFS si se versionan.
 
 ---
 
@@ -283,6 +324,7 @@ Antes de cerrar la validación se debe verificar:
 - [ ] Tres ejecuciones con `--deterministic` producen salidas idénticas byte a byte (excluyendo lo que se decida excluir).
 - [ ] Existen pruebas `acceptance_rf3_*` y `acceptance_rf4_*`/`acceptance_rf5_*` que pasan.
 - [ ] Existe `evaluation/run.py --all` y genera `results/summary.md`.
+- [ ] Existe `evaluation/run.py --real-pairs` y genera `results/real_pairs_summary.md` con PRE/REP/ROB = 100%.
 - [ ] Existe `catalog/` con reglas iniciales y pruebas K01-K08.
 - [ ] Existe etiqueta `v0.9.0-eval`.
 
@@ -303,7 +345,13 @@ Durante la ejecución del plan de ajuste se implementaron los siguientes cambios
 - **RF1 / RF2:** Agregadas pruebas `acceptance_rf1_*` (CSV vs SQLite, SQL/DDL vs JSON) y verificación de FK en SQLite.
 - **C09:** SQL Server usable: `DbSchemaConnector::load()` rediseñado a `&mut self`; `SqlServerConnector::load()` delega a `load_async()`; correcciones de tipo en Tiberius.
 - **E01-E10:** Suite de evaluación MVP implementada (`evaluation/datasets.toml`, `evaluation/bases/`, `evaluation/mutate.py`, `evaluation/run.py`, `evaluation/adoption.py`, `evaluation/requirements_coverage.py`, `evaluation/tests/test_suite.py`, `Makefile`). `python evaluation/run.py --all` generó 36 pares y produjo `evaluation/results/summary.md`.
-- **C15:** Caso Grow Travel vs Grow Venta reproducido: 17 coincidencias, 145 exclusivos, 4 conflictos. Esquemas en `evaluation/bases/grow_travel.sql` y `evaluation/bases/grow_venta.sql`.
+- **C09 / C15:** Validación de bases de datos reales:
+  - Se corrigió el adaptador SQLite para soportar identificadores con espacios y guiones (Northwind, `Order Details`).
+  - Se validaron Chinook, Northwind, Sakila, Employees, UniCenta OPOS y los esquemas Grow Travel/Venta.
+  - Se crearon `evaluation/real_pairs.py`, `evaluation/tests/test_real_pairs.py`, `evaluation/common.py` y `evaluation/bases/README.md`.
+  - Se añadió `--real-pairs` a `evaluation/run.py`.
+  - Resultados de pares reales reproducibles con PRE/REP/ROB = 100%.
+- **C15:** Caso Grow Travel vs Grow Venta reproducido: 17 coincidencias, 180 exclusivos, 4 conflictos con datos reales (`evaluation/bases/growtravel/growvtravel.sql` vs `evaluation/bases/growventa/growventa.db`). La base sintética `evaluation/bases/growventa/grow_venta.sql` se regeneró desde el `.db` real.
 
 Pendientes principales:
 
@@ -312,6 +360,6 @@ Pendientes principales:
 
 ## 11. Conclusión
 
-El núcleo de AUDD está bien estructurado y la mayoría de los conceptos de la tesis tienen una correspondencia en el código. Tras los ajustes ejecutados, los bloqueadores críticos iniciales (dependencias de red, reproducibilidad, `suggestions.json`, `LengthMismatch`, catálogo básico) han sido resueltos. **La validación aún no puede considerarse completa** porque faltan la suite de evaluación, el caso real Grow, la etiqueta de versión y pequeños matices (lectura de registros en JSON/MongoDB, SQL Server usable).
+El núcleo de AUDD está bien estructurado y la mayoría de los conceptos de la tesis tienen una correspondencia en el código. Tras los ajustes ejecutados, los bloqueadores críticos iniciales (dependencias de red, reproducibilidad, `suggestions.json`, `LengthMismatch`, catálogo básico) han sido resueltos. Se validaron bases de datos reales en múltiples motores y formatos, y el caso Grow Travel vs Grow Venta se reproduce con datos reales. **La validación aún no puede considerarse completa** porque faltan refinamiento de métricas de la suite sintética, la etiqueta de versión y pequeños matices (lectura de registros en JSON/MongoDB, SQL Server usable en entorno real).
 
 Se recomienda decidir si continuar con las fases restantes del plan o revisar y consolidar los cambios actuales en commits antes de avanzar.

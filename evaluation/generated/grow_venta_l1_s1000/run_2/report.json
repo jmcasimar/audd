@@ -1,0 +1,4614 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "a",
+    "schema_b": "b",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 535,
+      "total_exclusives": 37,
+      "total_conflicts": 0,
+      "exclusives_from_a": 19,
+      "exclusives_from_b": 18,
+      "compatibility_score": 100.0,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 0.0
+    },
+    "risk_assessment": {
+      "risk_level": "Low",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 0,
+      "reasons": [
+        "Low conflict rate and no high-severity issues"
+      ]
+    }
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 535,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 0.9996000000000002
+    },
+    "exclusives": {
+      "from_schema_a": 19,
+      "from_schema_b": 18,
+      "safe_from_a": 19,
+      "safe_from_b": 18,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 0,
+      "by_type": {},
+      "by_severity": {}
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "Cash_movements",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "box_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "type",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "amount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "currency",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "note",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "metadata",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Cash_movements",
+        "field": "tip",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Cashcut",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Cashcut",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Cashcut",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Cashcut",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Cashcut",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Cashcut",
+        "field": "cash",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Cashcut",
+        "field": "msg",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Cashcut",
+        "field": "open",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Cashcut",
+        "field": "box_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Cashcut",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": "cash",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": "code",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": "department",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": "unit",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": "image_url",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Customer",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Customer",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Customer",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Customer",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Customer",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Customer",
+        "field": "phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Customer",
+        "field": "email",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Customer",
+        "field": "discount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Customer",
+        "field": "credit",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Customer",
+        "field": "points",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Customer",
+        "field": "street",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Customer",
+        "field": "exterior_number",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Customer",
+        "field": "interior_number",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Customer",
+        "field": "city",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Customer",
+        "field": "state",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Customer",
+        "field": "country",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Customer",
+        "field": "postal_code",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Department",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Department",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Department",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Department",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Department",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Department",
+        "field": "description",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Department_Printer",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Department_Printer",
+        "field": "department_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Department_Printer",
+        "field": "printer_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Department_Printer",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Department_Printer",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Expense",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Expense",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Expense",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Expense",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Expense",
+        "field": "description",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Expense",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Expense",
+        "field": "payment_method",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Expense",
+        "field": "box_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Expense",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Inventory",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Inventory",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Inventory",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Inventory",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Inventory",
+        "field": "diff",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Inventory",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Inventory",
+        "field": "min_quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Inventory",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Inventory",
+        "field": "warehouse_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Inventory",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "InventoryLog",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "InventoryLog",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "InventoryLog",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "InventoryLog",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "InventoryLog",
+        "field": "diff",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "InventoryLog",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "InventoryLog",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "InventoryLog",
+        "field": "warehouse_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "InventoryLog",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "inventory_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "warehouse_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "qty",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "qty_before",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "qty_after",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "movement_type",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "movement_direction",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "reference_type",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "reference_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "source",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": "notes",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "License",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "License",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "License",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "License",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "License",
+        "field": "demo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "License",
+        "field": "expired_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "License",
+        "field": "license_hash",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "License",
+        "field": "first_license_hash",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "License",
+        "field": "license_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "License",
+        "field": "machine_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "License",
+        "field": "issued_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Multibox",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Multibox",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Multibox",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Multibox",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Multibox",
+        "field": "type",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Multibox",
+        "field": "current_ip",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Multibox",
+        "field": "port",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Multibox",
+        "field": "principal_ip",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Multibox",
+        "field": "connected",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Multibox",
+        "field": "last_connection",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Multibox",
+        "field": "machine_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Multibox",
+        "field": "settings_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Order_detail",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Order_detail",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Order_detail",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Order_detail",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Order_detail",
+        "field": "code",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Order_detail",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Order_detail",
+        "field": "price",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Order_detail",
+        "field": "discount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Order_detail",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Order_detail",
+        "field": "order_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Order_detail",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Order_detail",
+        "field": "department_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Order_detail",
+        "field": "cost",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Order_detail",
+        "field": "unit",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Order_detail",
+        "field": "comments",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Order_detail",
+        "field": "is_prepared",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": "order_detail_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": "product_option_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": "product_option_detail_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": "name_snapshot",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": "price_delta_snapshot",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Order_payment",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Order_payment",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Order_payment",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Order_payment",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Order_payment",
+        "field": "payment_method",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Order_payment",
+        "field": "reference",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Order_payment",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Order_payment",
+        "field": "currency",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Order_payment",
+        "field": "currency_amount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Order_payment",
+        "field": "exchange_rate",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Order_payment",
+        "field": "box_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Order_payment",
+        "field": "order_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Order_payment",
+        "field": "tip",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Order_tax",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 16,
+        "index_b": 16
+      },
+      {
+        "entity": "Order_tax",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Order_tax",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Order_tax",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Order_tax",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Order_tax",
+        "field": "order_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Order_tax",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Order_tax",
+        "field": "order_array_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Orders",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 17,
+        "index_b": 17
+      },
+      {
+        "entity": "Orders",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Orders",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Orders",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Orders",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Orders",
+        "field": "toPay",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Orders",
+        "field": "discount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Orders",
+        "field": "paid",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Orders",
+        "field": "layaway",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Orders",
+        "field": "credit",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Orders",
+        "field": "currency",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Orders",
+        "field": "box_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Orders",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Orders",
+        "field": "customer_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Orders",
+        "field": "cost",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Orders",
+        "field": "table_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Orders",
+        "field": "tip",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Orders",
+        "field": "type",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 16,
+        "index_b": 16
+      },
+      {
+        "entity": "Orders",
+        "field": "comments",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 17,
+        "index_b": 17
+      },
+      {
+        "entity": "Orders",
+        "field": "points",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 18,
+        "index_b": 18
+      },
+      {
+        "entity": "Orders",
+        "field": "identifier",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 19,
+        "index_b": 19
+      },
+      {
+        "entity": "Orders",
+        "field": "is_cancellable",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 20,
+        "index_b": 20
+      },
+      {
+        "entity": "Payment_methods",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 18,
+        "index_b": 18
+      },
+      {
+        "entity": "Payment_methods",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Payment_methods",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Payment_methods",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Payment_methods",
+        "field": "label",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Payment_methods",
+        "field": "value",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Payment_methods",
+        "field": "is_active",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Printer",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 19,
+        "index_b": 19
+      },
+      {
+        "entity": "Printer",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Printer",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Printer",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Printer",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Printer",
+        "field": "role",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Printer",
+        "field": "is_default",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Printer",
+        "field": "is_enabled",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Printer",
+        "field": "connection_type",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Printer",
+        "field": "usb_mode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Printer",
+        "field": "usb_vid",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Printer",
+        "field": "usb_pid",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Printer",
+        "field": "os_printer_name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Printer",
+        "field": "net_host",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Printer",
+        "field": "net_port",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Printer",
+        "field": "ticket_copy",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Printer",
+        "field": "settings",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Product",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 20,
+        "index_b": 20
+      },
+      {
+        "entity": "Product",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Product",
+        "field": "code",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Product",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Product",
+        "field": "amount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Product",
+        "field": "price",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Product",
+        "field": "cost",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Product",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Product",
+        "field": "department_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Product",
+        "field": "unit",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Product",
+        "field": "url_image",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Product",
+        "field": "is_supply",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Product",
+        "field": "unit_purchase",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Product",
+        "field": "unit_quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Product",
+        "field": "track_inventory",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Product",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.893,
+        "index_a": 20,
+        "index_b": 22
+      },
+      {
+        "entity": "Product",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "ProductLog",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 21,
+        "index_b": 21
+      },
+      {
+        "entity": "ProductLog",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "ProductLog",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "ProductLog",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "ProductLog",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "ProductLog",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "ProductLog",
+        "field": "price",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "ProductLog",
+        "field": "cost",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Product_Product",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.893,
+        "index_a": 22,
+        "index_b": 20
+      },
+      {
+        "entity": "Product_Product",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product_Product",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product_Product",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Product_Product",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 22,
+        "index_b": 22
+      },
+      {
+        "entity": "Product_Product",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product_Product",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product_Product",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Product_Product",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Product_Product",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Product_Product",
+        "field": "includes_product",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Product_Tax",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 23,
+        "index_b": 23
+      },
+      {
+        "entity": "Product_Tax",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product_Tax",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product_Tax",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Product_Tax",
+        "field": "tax_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Product_Tax",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Product_cost",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 24,
+        "index_b": 24
+      },
+      {
+        "entity": "Product_cost",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product_cost",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product_cost",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Product_cost",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Product_cost",
+        "field": "source_type",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Product_cost",
+        "field": "source_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Product_cost",
+        "field": "old_cost",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Product_cost",
+        "field": "new_cost",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Product_cost",
+        "field": "currency",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Product_cost",
+        "field": "note",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Product_option_assignment",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 25,
+        "index_b": 25
+      },
+      {
+        "entity": "Product_option_assignment",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product_option_assignment",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product_option_assignment",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Product_option_assignment",
+        "field": "product_option_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Product_option_assignment",
+        "field": "sort_order",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 26,
+        "index_b": 26
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "product_option_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "price_delta",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "sku_suffix",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "sort_order",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": "is_active",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Product_options",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 27,
+        "index_b": 27
+      },
+      {
+        "entity": "Product_options",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Product_options",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Product_options",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Product_options",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Product_options",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Product_options",
+        "field": "selection_mode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Product_options",
+        "field": "is_required",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Product_options",
+        "field": "sort_order",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Product_options",
+        "field": "is_active",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 28,
+        "index_b": 28
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "purchase_order_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "unit_cost",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "unit_cost_mxn",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "applied_unit_cost_mxn",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "applied_total_mxn",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "unit_purchase",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "unit_quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": "unit_sale",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 29,
+        "index_b": 29
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "supplier_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "status",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "currency",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "currency_exchange",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "additionals",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "notes",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "paid_from_cash",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": "cash_movement_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Quotation",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 30,
+        "index_b": 30
+      },
+      {
+        "entity": "Quotation",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Quotation",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Quotation",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Quotation",
+        "field": "folio",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Quotation",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Quotation",
+        "field": "toPay",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Quotation",
+        "field": "discount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Quotation",
+        "field": "currency",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Quotation",
+        "field": "is_converted",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Quotation",
+        "field": "converted_order_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Quotation",
+        "field": "terms_quote",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Quotation",
+        "field": "transfer_comment",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Quotation",
+        "field": "box_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Quotation",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Quotation",
+        "field": "customer_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 31,
+        "index_b": 31
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "code",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "price",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "discount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "total",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "quotation_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "product_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "department_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "unit",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "comments",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 32,
+        "index_b": 32
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": "quotation_detail_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": "product_option_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": "product_option_detail_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": "name_snapshot",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": "price_delta_snapshot",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Recipe_items",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 33,
+        "index_b": 33
+      },
+      {
+        "entity": "Recipe_items",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Recipe_items",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Recipe_items",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Recipe_items",
+        "field": "recipe_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Recipe_items",
+        "field": "food_supply_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Recipe_items",
+        "field": "quantity",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 34,
+        "index_b": 34
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": "area",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": "is_active",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": "priority",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Setting",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 35,
+        "index_b": 35
+      },
+      {
+        "entity": "Setting",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Setting",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Setting",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Setting",
+        "field": "small_logo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Setting",
+        "field": "big_logo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Setting",
+        "field": "print_logo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Setting",
+        "field": "principal_color",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Setting",
+        "field": "secondary_color",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Setting",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Setting",
+        "field": "phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Setting",
+        "field": "address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Setting",
+        "field": "bank_account",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Setting",
+        "field": "bank_name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Setting",
+        "field": "bank_clabe",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Setting",
+        "field": "name_quote",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Setting",
+        "field": "terms_quote",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Setting",
+        "field": "transfer_comment",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 16,
+        "index_b": 16
+      },
+      {
+        "entity": "Setting",
+        "field": "max_credit",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 17,
+        "index_b": 17
+      },
+      {
+        "entity": "Setting",
+        "field": "discount_customer",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 18,
+        "index_b": 18
+      },
+      {
+        "entity": "Setting",
+        "field": "discount_order",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 19,
+        "index_b": 19
+      },
+      {
+        "entity": "Setting",
+        "field": "enable_discount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 20,
+        "index_b": 20
+      },
+      {
+        "entity": "Setting",
+        "field": "mandatory_reference",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 21,
+        "index_b": 21
+      },
+      {
+        "entity": "Setting",
+        "field": "usd_price",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 22,
+        "index_b": 22
+      },
+      {
+        "entity": "Setting",
+        "field": "enable_bailment",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 23,
+        "index_b": 23
+      },
+      {
+        "entity": "Setting",
+        "field": "tax_included",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 24,
+        "index_b": 24
+      },
+      {
+        "entity": "Setting",
+        "field": "is_restaurant",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 25,
+        "index_b": 25
+      },
+      {
+        "entity": "Setting",
+        "field": "currency",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 26,
+        "index_b": 26
+      },
+      {
+        "entity": "Setting",
+        "field": "second_currency",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 27,
+        "index_b": 27
+      },
+      {
+        "entity": "Setting",
+        "field": "costing_strategy",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 28,
+        "index_b": 28
+      },
+      {
+        "entity": "Setting",
+        "field": "costing_last_n",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 29,
+        "index_b": 29
+      },
+      {
+        "entity": "Setting",
+        "field": "enable_batches",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 30,
+        "index_b": 30
+      },
+      {
+        "entity": "Setting",
+        "field": "points_perc",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 31,
+        "index_b": 31
+      },
+      {
+        "entity": "Setting",
+        "field": "quotation_folio_prefix",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 32,
+        "index_b": 32
+      },
+      {
+        "entity": "Setting",
+        "field": "quotation_folio_min_length",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 33,
+        "index_b": 33
+      },
+      {
+        "entity": "Setting_discount",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 36,
+        "index_b": 36
+      },
+      {
+        "entity": "Setting_discount",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Setting_discount",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Setting_discount",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Setting_discount",
+        "field": "min",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Setting_discount",
+        "field": "discount",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Setting_discount",
+        "field": "setting_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Setting_local",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 37,
+        "index_b": 37
+      },
+      {
+        "entity": "Setting_local",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Setting_local",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Setting_local",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Setting_local",
+        "field": "setting_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Setting_local",
+        "field": "machine_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Setting_local",
+        "field": "backup_path",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Setting_local",
+        "field": "scale_vid",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Setting_local",
+        "field": "scale_pid",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Setting_local",
+        "field": "cash",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Setting_local",
+        "field": "enable_scale",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Setting_local",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Setting_local",
+        "field": "version",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Setting_local",
+        "field": "channel",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Setting_local",
+        "field": "tour_login",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Setting_local",
+        "field": "touch_mode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Setting_local",
+        "field": "is_commander",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Setting_local",
+        "field": "is_kitchen_display",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 16,
+        "index_b": 16
+      },
+      {
+        "entity": "Setting_local",
+        "field": "auto_updates_enabled",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 17,
+        "index_b": 17
+      },
+      {
+        "entity": "Setting_local",
+        "field": "allow_unstable_channel",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 18,
+        "index_b": 18
+      },
+      {
+        "entity": "Setting_local",
+        "field": "product_grid_view",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 19,
+        "index_b": 19
+      },
+      {
+        "entity": "Setting_local",
+        "field": "is_price_checker",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 20,
+        "index_b": 20
+      },
+      {
+        "entity": "Setting_local",
+        "field": "uuid_baseboard",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 21,
+        "index_b": 21
+      },
+      {
+        "entity": "Setting_local",
+        "field": "uuid_ram",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 22,
+        "index_b": 22
+      },
+      {
+        "entity": "Setting_local",
+        "field": "uuid_disk",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 23,
+        "index_b": 23
+      },
+      {
+        "entity": "Setting_local",
+        "field": "uuid_system",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 24,
+        "index_b": 24
+      },
+      {
+        "entity": "Setting_local",
+        "field": "platform",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 25,
+        "index_b": 25
+      },
+      {
+        "entity": "Suppliers",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 38,
+        "index_b": 38
+      },
+      {
+        "entity": "Suppliers",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Suppliers",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Suppliers",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Suppliers",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Suppliers",
+        "field": "phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Suppliers",
+        "field": "email",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Suppliers",
+        "field": "address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Suppliers",
+        "field": "is_active",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Tax",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 39,
+        "index_b": 39
+      },
+      {
+        "entity": "Tax",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Tax",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Tax",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Tax",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Tax",
+        "field": "tax_name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Tax",
+        "field": "value",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Tax",
+        "field": "type",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Tax",
+        "field": "withholding",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Tax",
+        "field": "transfer",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Tax",
+        "field": "apply_default",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Tour",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 40,
+        "index_b": 40
+      },
+      {
+        "entity": "Tour",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Tour",
+        "field": "user_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Tour",
+        "field": "dashboard_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Tour",
+        "field": "customers_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Tour",
+        "field": "products_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Tour",
+        "field": "departments_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Tour",
+        "field": "open_cash_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Tour",
+        "field": "cash_register_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Tour",
+        "field": "orders_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Tour",
+        "field": "inventory_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Tour",
+        "field": "expenses_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Tour",
+        "field": "cash_drawer_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 11
+      },
+      {
+        "entity": "Tour",
+        "field": "close_cash_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 12
+      },
+      {
+        "entity": "Tour",
+        "field": "reports_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 13
+      },
+      {
+        "entity": "Tour",
+        "field": "configuration_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 14,
+        "index_b": 14
+      },
+      {
+        "entity": "Tour",
+        "field": "daily_sales_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 15
+      },
+      {
+        "entity": "Tour",
+        "field": "weekly_sales_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 16,
+        "index_b": 16
+      },
+      {
+        "entity": "Tour",
+        "field": "monthly_sales_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 17,
+        "index_b": 17
+      },
+      {
+        "entity": "Tour",
+        "field": "best_customers_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 18,
+        "index_b": 18
+      },
+      {
+        "entity": "Tour",
+        "field": "best_products_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 19,
+        "index_b": 19
+      },
+      {
+        "entity": "Tour",
+        "field": "product_details_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 20,
+        "index_b": 20
+      },
+      {
+        "entity": "Tour",
+        "field": "product_analysis_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 21,
+        "index_b": 21
+      },
+      {
+        "entity": "Tour",
+        "field": "payments_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 22,
+        "index_b": 22
+      },
+      {
+        "entity": "Tour",
+        "field": "credit_statement_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 23,
+        "index_b": 23
+      },
+      {
+        "entity": "Tour",
+        "field": "credit_general_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 24,
+        "index_b": 24
+      },
+      {
+        "entity": "Tour",
+        "field": "cashcuts_report_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 25,
+        "index_b": 25
+      },
+      {
+        "entity": "Tour",
+        "field": "options_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 26,
+        "index_b": 26
+      },
+      {
+        "entity": "Tour",
+        "field": "business_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 27,
+        "index_b": 27
+      },
+      {
+        "entity": "Tour",
+        "field": "users_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 28,
+        "index_b": 28
+      },
+      {
+        "entity": "Tour",
+        "field": "taxes_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 29,
+        "index_b": 29
+      },
+      {
+        "entity": "Tour",
+        "field": "database_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 30,
+        "index_b": 30
+      },
+      {
+        "entity": "Tour",
+        "field": "printer_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 31,
+        "index_b": 31
+      },
+      {
+        "entity": "Tour",
+        "field": "scale_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 32,
+        "index_b": 32
+      },
+      {
+        "entity": "Tour",
+        "field": "tpv_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 33,
+        "index_b": 33
+      },
+      {
+        "entity": "Tour",
+        "field": "multibox_config_tour",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 34,
+        "index_b": 34
+      },
+      {
+        "entity": "Unit",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 41,
+        "index_b": 41
+      },
+      {
+        "entity": "Unit",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Unit",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Unit",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Unit",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Unit",
+        "field": "is_enabled",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "User",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 42,
+        "index_b": 42
+      },
+      {
+        "entity": "User",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "User",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "User",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "User",
+        "field": "username",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "User",
+        "field": "password",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "User",
+        "field": "email",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "User",
+        "field": "admin_permission",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "User",
+        "field": "pin",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Warehouse",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 43,
+        "index_b": 43
+      },
+      {
+        "entity": "Warehouse",
+        "field": "object_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Warehouse",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Warehouse",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 2
+      },
+      {
+        "entity": "Warehouse",
+        "field": "description",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 3
+      },
+      {
+        "entity": "Warehouse",
+        "field": "customer_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 4
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "Order_detail",
+        "field": "product",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Order_detail",
+        "field": "producto",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Product",
+        "field": "code",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Product",
+        "field": "name",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Product",
+        "field": "amount",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "Product",
+        "field": "price",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "Product",
+        "field": "cost",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "Product",
+        "field": "user_id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "Product",
+        "field": "department_id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Product",
+        "field": "unit",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "Product",
+        "field": "url_image",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "Product",
+        "field": "is_supply",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "Product",
+        "field": "unit_purchase",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "Product",
+        "field": "unit_quantity",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "Product",
+        "field": "track_inventory",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "Product",
+        "field": "quantity",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Product",
+        "field": "product_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Product",
+        "field": "includes_product",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "Product_Product",
+        "field": "quantity",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Product_Product",
+        "field": "product_id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Product_Product",
+        "field": "includes_product",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "Product_Product",
+        "field": "code",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Product_Product",
+        "field": "name",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Product_Product",
+        "field": "amount",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "Product_Product",
+        "field": "price",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "Product_Product",
+        "field": "cost",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "Product_Product",
+        "field": "user_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "Product_Product",
+        "field": "department_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Product_Product",
+        "field": "unit",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "Product_Product",
+        "field": "url_image",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "Product_Product",
+        "field": "is_supply",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "Product_Product",
+        "field": "unit_purchase",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "Product_Product",
+        "field": "unit_quantity",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "Product_Product",
+        "field": "track_inventory",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "product",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": "producto",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Warehouse",
+        "field": "updated_at",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 0,
+      "high_confidence": 0,
+      "medium_confidence": 0,
+      "auto_accepted": 0,
+      "total_decisions": 0,
+      "accepted_decisions": 0,
+      "rejected_decisions": 0,
+      "system_decisions": 0,
+      "user_decisions": 0
+    },
+    "suggestions": [],
+    "decisions": []
+  },
+  "recommendations": [
+    "Low risk detected - schemas are mostly compatible",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

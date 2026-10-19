@@ -1,0 +1,2049 @@
+{
+  "source_name": "MySQL-create",
+  "source_type": "sql",
+  "entities": [
+    {
+      "entity_name": "APPLICATIONS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "c)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "2009-2012"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "VERSION",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "ROLES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PERMISSIONS",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "PEOPLE",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "APPPASSWORD",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "CARD",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ROLE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "VISIBLE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "IMAGE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "RESOURCES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "RESTYPE",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CONTENT",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "TAXCUSTCATEGORIES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "CUSTOMERS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "SEARCHKEY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TAXID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TAXCATEGORY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "CARD",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "MAXDEBT",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ADDRESS",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ADDRESS2",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "POSTAL",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "CITY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "REGION",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "COUNTRY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "FIRSTNAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "LASTNAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "EMAIL",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PHONE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PHONE2",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "FAX",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "NOTES",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "VISIBLE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CURDATE",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "CURDEBT",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "CATEGORIES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PARENTID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "IMAGE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "TAXCATEGORIES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "TAXES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CATEGORY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CUSTCATEGORY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PARENTID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "RATE",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "RATECASCADE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "RATEORDER",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "ATTRIBUTE",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "ATTRIBUTEVALUE",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTE_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "VALUE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "ATTRIBUTESET",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "ATTRIBUTEUSE",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTESET_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTE_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LINENO",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "ATTRIBUTESETINSTANCE",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTESET_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "DESCRIPTION",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "ATTRIBUTEINSTANCE",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTESETINSTANCE_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTE_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "VALUE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "PRODUCTS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "REFERENCE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CODE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CODETYPE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRICEBUY",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRICESELL",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CATEGORY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TAXCAT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTESET_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "STOCKCOST",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "STOCKVOLUME",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "IMAGE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ISCOM",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ISSCALE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ISKITCHEN",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRINTKB",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "SENDSTATUS",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ISSERVICE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTES",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "DISPLAY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "PRODUCTS_CAT",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "PRODUCT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CATORDER",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "PRODUCT"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "PRODUCTS_COM",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRODUCT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRODUCT2",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "LOCATIONS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ADDRESS",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "STOCKDIARY",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "DATENEW",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "REASON",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LOCATION",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRODUCT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTESETINSTANCE_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNITS",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRICE",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "STOCKLEVEL",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LOCATION",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRODUCT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "STOCKSECURITY",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "STOCKMAXIMUM",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "STOCKCURRENT",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "LOCATION",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRODUCT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTESETINSTANCE_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNITS",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "entity_name": "CLOSEDCASH",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "MONEY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "HOST",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "HOSTSEQUENCE",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "DATESTART",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "DATEEND",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "MONEY"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "RECEIPTS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "MONEY",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "DATENEW",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTES",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PERSON",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "TICKETS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TICKETTYPE",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TICKETID",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PERSON",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CUSTOMER",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "STATUS",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "TICKETSNUM",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "entity_name": "TICKETSNUM_REFUND",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "entity_name": "TICKETSNUM_PAYMENT",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "entity_name": "TICKETLINES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "TICKET",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LINE",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRODUCT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ATTRIBUTESETINSTANCE_ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNITS",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PRICE",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TAXID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ATTRIBUTES",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "TICKET",
+            "LINE"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "PAYMENTS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "RECEIPT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PAYMENT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TOTAL",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TRANSID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "RETURNMSG",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "NOTES",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "TAXLINES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "RECEIPT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TAXID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "BASE",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "AMOUNT",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "FLOORS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "IMAGE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "PLACES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "X",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Y",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "FLOOR",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "RESERVATIONS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CREATED",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "DATENEW",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TITLE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CHAIRS",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ISDONE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "BIT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "DESCRIPTION",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "RESERVATION_CUSTOMERS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CUSTOMER",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "THIRDPARTIES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CIF",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ADDRESS",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "CONTACTCOMM",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "CONTACTFACT",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PAYRULE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "FAXNUMBER",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PHONENUMBER",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "MOBILENUMBER",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "EMAIL",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "WEBPAGE",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "NOTES",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "SHAREDTICKETS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CONTENT",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "MEDIUMBLOB"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "SHIFTS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "STARTSHIFT",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ENDSHIFT",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PPLID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "LEAVES",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "PPLID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "STARTDATE",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ENDDATE",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NOTES",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "BREAKS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NAME",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "NOTES",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "VISIBLE",
+          "canonical_type": {
+            "type": "boolean"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "SHIFT_BREAKS",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "SHIFTID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "BREAKID",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "STARTTIME",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ENDTIME",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ID"
+          ]
+        }
+      ]
+    }
+  ],
+  "ir_version": "1.0.0"
+}

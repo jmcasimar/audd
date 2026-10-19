@@ -8,19 +8,20 @@ Uso:
     python evaluation/run.py --all
     python evaluation/run.py --pair evaluation/generated/grow_venta_l2_s42
     python evaluation/run.py --level 2 --count 5
+    python evaluation/run.py --real-pairs
 
 Salidas:
-    evaluation/results/results.csv      métricas por par
-    evaluation/results/summary.md       resumen por nivel
-    evaluation/results/env.json         entorno de ejecución
+    evaluation/results/results.csv                    métricas por par sintético
+    evaluation/results/summary.md                     resumen por nivel
+    evaluation/results/env.json                       entorno de ejecución
+    evaluation/results/real_pairs_results.csv         métricas de pares reales
+    evaluation/results/real_pairs_summary.md          resumen de pares reales
 """
 
 import argparse
 import csv
-import hashlib
 import json
 import os
-import platform
 import shutil
 import subprocess
 import sys
@@ -29,55 +30,18 @@ from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
-EVAL_DIR = Path(__file__).parent.resolve()
-PROJECT_ROOT = EVAL_DIR.parent
-RESULTS_DIR = EVAL_DIR / "results"
-GENERATED_DIR = EVAL_DIR / "generated"
-BASES_DIR = EVAL_DIR / "bases"
-
-
-def audd_binary() -> List[str]:
-    """Devuelve el comando para ejecutar audd compare."""
-    release_exe = PROJECT_ROOT / "target" / "release" / "audd.exe"
-    debug_exe = PROJECT_ROOT / "target" / "debug" / "audd.exe"
-    unix_release = PROJECT_ROOT / "target" / "release" / "audd"
-    unix_debug = PROJECT_ROOT / "target" / "debug" / "audd"
-
-    candidates = [release_exe, debug_exe, unix_release, unix_debug]
-    for c in candidates:
-        if c.exists():
-            return [str(c)]
-    return ["cargo", "run", "--release", "--"]
-
-
-def sha256_file(path: Path) -> str:
-    h = hashlib.sha256()
-    with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(8192), b""):
-            h.update(chunk)
-    return h.hexdigest()
-
-
-def canonical_hash(path: Path) -> str:
-    """Calcula hash canónico de un JSON (listas ordenadas, claves ordenadas)."""
-    try:
-        data = load_json(path)
-    except Exception:
-        return sha256_file(path)
-
-    def sort_lists(obj):
-        if isinstance(obj, dict):
-            return {k: sort_lists(v) for k, v in sorted(obj.items())}
-        if isinstance(obj, list):
-            sorted_list = [sort_lists(x) for x in obj]
-            try:
-                return sorted(sorted_list, key=lambda x: json.dumps(x, sort_keys=True))
-            except TypeError:
-                return sorted_list
-        return obj
-
-    canonical = json.dumps(sort_lists(data), sort_keys=True, ensure_ascii=False)
-    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+from real_pairs import REAL_PAIRS, evaluate_real_pair, write_real_results_csv, write_real_summary
+from common import (
+    audd_binary,
+    canonical_hash,
+    load_json,
+    write_env,
+    RESULTS_DIR,
+    GENERATED_DIR,
+    BASES_DIR,
+    PROJECT_ROOT,
+    EVAL_DIR,
+)
 
 
 def run_audd_compare(source_a: str, source_b: str, out_dir: Path) -> Tuple[int, float]:
@@ -96,11 +60,6 @@ def run_audd_compare(source_a: str, source_b: str, out_dir: Path) -> Tuple[int, 
     if result.returncode != 0:
         print(f"AUDD failed: {result.stderr}", file=sys.stderr)
     return result.returncode, elapsed
-
-
-def load_json(path: Path) -> Dict:
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def load_truth(pair_dir: Path) -> Dict:
@@ -330,8 +289,11 @@ def generate_corpus_level(level: int, count: int, base: Path) -> List[Path]:
 def generate_all_corpus() -> List[Path]:
     pairs: List[Path] = []
     # Nivel 1: identidad entre motores — par a=a para cada base
-    for base in BASES_DIR.glob("*.sql"):
-        pair_id = f"{base.stem}_identity"
+    for base in BASES_DIR.rglob("*.sql"):
+        # Saltar archivos que solo contienen datos o que no son adecuados para mutación
+        if "-data" in base.name.lower():
+            continue
+        pair_id = f"{base.parent.name}_{base.stem}_identity"
         out_dir = GENERATED_DIR / pair_id
         if out_dir.exists():
             shutil.rmtree(out_dir)
@@ -349,12 +311,14 @@ def generate_all_corpus() -> List[Path]:
         shutil.copy(out_dir / "a.sqlite", out_dir / "b.sqlite")
         pairs.append(out_dir)
 
-    # Nivel 2: 30 pares sintéticos por base
-    for base in BASES_DIR.glob("*.sql"):
+    # Nivel 2: 10 pares sintéticos por base
+    for base in BASES_DIR.rglob("*.sql"):
+        if "-data" in base.name.lower():
+            continue
         pairs.extend(generate_corpus_level(2, 10, base))
 
     # Nivel 3: versiones n contra n+1 de Grow Venta
-    base = BASES_DIR / "grow_venta.sql"
+    base = BASES_DIR / "growventa" / "grow_venta.sql"
     pairs.extend(generate_corpus_level(3, 2, base))
 
     # Nivel 4: caso de aplicación con truth manual (placeholder)
@@ -433,38 +397,15 @@ def write_summary(results: List[PairResult]) -> None:
     path.write_text("\n".join(lines), encoding="utf-8")
 
 
-def write_env() -> None:
-    env = {
-        "os": platform.system(),
-        "os_version": platform.release(),
-        "python": sys.version,
-        "rustc": get_rustc_version(),
-        "cargo": get_cargo_version(),
-    }
-    (RESULTS_DIR / "env.json").write_text(json.dumps(env, indent=2), encoding="utf-8")
-
-
-def get_rustc_version() -> str:
-    try:
-        return subprocess.run(["rustc", "--version"], capture_output=True, text=True).stdout.strip()
-    except Exception:
-        return "unknown"
-
-
-def get_cargo_version() -> str:
-    try:
-        return subprocess.run(["cargo", "--version"], capture_output=True, text=True).stdout.strip()
-    except Exception:
-        return "unknown"
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description="Suite de evaluación AUDD")
     parser.add_argument("--all", action="store_true", help="Generar corpus completo y evaluar")
     parser.add_argument("--pair", type=Path, help="Evaluar un par ya generado")
     parser.add_argument("--level", type=int, default=2, choices=[1, 2, 3, 4])
     parser.add_argument("--count", type=int, default=5, help="Número de pares a generar")
-    parser.add_argument("--base", type=Path, default=BASES_DIR / "grow_venta.sql")
+    parser.add_argument("--base", type=Path, default=BASES_DIR / "growventa" / "grow_venta.sql")
+    parser.add_argument("--real-pairs", action="store_true",
+                        help="Evaluar únicamente los pares de bases de datos reales")
     args = parser.parse_args()
 
     if not shutil.which("cargo") and not audd_binary()[0].endswith("audd"):
@@ -473,6 +414,13 @@ def main() -> int:
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     write_env()
+
+    if args.real_pairs:
+        real_results = [evaluate_real_pair(p) for p in REAL_PAIRS]
+        csv_path = write_real_results_csv(real_results)
+        md_path = write_real_summary(real_results)
+        print(f"Real-pair results written to {csv_path} and {md_path}")
+        return 0
 
     if args.pair:
         results = [evaluate_pair(args.pair)]

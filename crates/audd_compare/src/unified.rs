@@ -146,6 +146,15 @@ impl UnifiedSchema {
         for m in &result.matches {
             if let Some(field_name) = &m.field_name {
                 if m.entity_name == *entity_name {
+                    // Defensive: indices must be valid for the current entity pair.
+                    if m.index_a >= entity_a.fields.len() || m.index_b >= entity_b.fields.len() {
+                        eprintln!(
+                            "[audd_compare::unified] skipping field match with out-of-bounds indices: \"{}\".{} index_a={} (len={}) index_b={} (len={})",
+                            entity_name, field_name, m.index_a, entity_a.fields.len(), m.index_b, entity_b.fields.len()
+                        );
+                        continue;
+                    }
+
                     let field_a = &entity_a.fields[m.index_a];
                     let has_conflict = result.conflicts.iter().any(|c| {
                         c.entity_name == *entity_name

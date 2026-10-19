@@ -1,46 +1,85 @@
-# Datasets de terceros usados en la suite de evaluación de AUDD
-# Los datos crudos no se versionan; solo se conserva el DDL extraído en bases/.
+# Datasets usados en la suite de evaluación de AUDD
+# Los archivos binarios grandes (.db/.sqlite) deberían gestionarse con Git LFS.
 
 [metadata]
-schema_version = "1.0"
+schema_version = "1.1"
 last_updated = "2026-10-18"
 
 [[dataset]]
 name = "Chinook"
-source_url = "https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/Chinook_Sqlite.sqlite"
+source_url = "https://github.com/lerocha/chinook-database"
 version = "1.4"
-sha256 = "aed498b15f0f3fe66b6c1c3a1b9e9e8e2f5b6c4d7a8b9c0d1e2f3a4b5c6d7e8"
 license = "MIT"
 attribution = "Chinook Database by Luis Rocha"
-ddl_file = "bases/chinook.sql"
-note = "DDL simplificado para la evaluación. El hash corresponde al archivo original de terceros, no al DDL extraído."
+files = [
+    { path = "bases/chinohook/Chinook_MySql.sql", sha256 = "02a1835417c3ea19bff64e1d1f22be738ce51b3f88b0473c24eebff9a3ccde4b", format = "sql" },
+    { path = "bases/chinohook/Chinook_Sqlite.sqlite", sha256 = "bdf635be69850bd3be09c9a2dbeef7ddfb80036bd3ef3381383cd03b61e4a61a", format = "sqlite" },
+]
+note = "Chinook en MySQL DDL y SQLite. Útil para pruebas cross-engine."
 
 [[dataset]]
 name = "Northwind"
-source_url = "https://github.com/jpwhite3/northwind-SQLite3/raw/main/northwind.db"
+source_url = "https://github.com/jpwhite3/northwind-SQLite3"
 version = "1.0"
-sha256 = "1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b"
 license = "MIT"
 attribution = "Northwind sample database by jpwhite3"
-ddl_file = "bases/northwind.sql"
-note = "DDL simplificado para la evaluación. El hash corresponde al archivo original de terceros, no al DDL extraído."
+files = [
+    { path = "bases/northwind/northwind.db", sha256 = "2f4f5c68dfcd33ba27373eae48c7a4869800c68095ee0f9f0da494f83382a877", format = "sqlite" },
+]
+note = "Northwind en SQLite. Contiene identificadores con espacios (p. ej. Order Details)."
+
+[[dataset]]
+name = "Employees"
+source_url = "unknown"
+version = "1.0"
+license = "Public domain"
+attribution = "Sample employees schema"
+files = [
+    { path = "bases/employees/employees.sql", sha256 = "cfe3f89f7b21326c516ba65d253e35e795877e9bb60c388520d915f348403a9a", format = "sql" },
+]
+note = "Esquema didáctico pequeño para pruebas rápidas."
+
+[[dataset]]
+name = "Sakila"
+source_url = "https://dev.mysql.com/doc/sakila/en/"
+version = "1.0"
+license = "BSD"
+attribution = "MySQL Sakila sample database"
+files = [
+    { path = "bases/sakila-db/sakila-schema.sql", sha256 = "b32170e1e2ad5828749b61a5ec896155bcd143104b076e5ee8a3a3b013f44915", format = "sql" },
+]
+note = "Sakila solo estructura. sakila-data.sql contiene solo INSERTs y sakila.mwb no es legible por AUDD."
+
+[[dataset]]
+name = "UniCentaOPOS"
+source_url = "https://github.com/unicenta/opos"
+version = "unknown"
+license = "GPL-3.0"
+attribution = "UniCenta OPOS"
+files = [
+    { path = "bases/unicenta-opos/MySQL-create.sql", sha256 = "21eb7f16e95956ce633d69291812346e8eaef01b4d77b4f520f38ce061378f5c", format = "sql" },
+]
+note = "Esquema MySQL de UniCenta OPOS, un POS open source."
 
 [[dataset]]
 name = "GrowVenta"
 source_url = "local"
 version = "0.1"
-sha256 = null
 license = "Proprietary (anonymized structure only)"
 attribution = "Synthetic POS schema based on Grow Venta case study"
-ddl_file = "bases/grow_venta.sql"
-note = "Esquema propio anonimizado; solo estructura, sin datos ni identificadores reales. Reproducido para el caso Grow Travel vs Grow Venta."
+files = [
+    { path = "bases/growventa/growventa.db", sha256 = "ae4f3ef17273fecb5491e922ec4b8e4e6dd9b608e9e6a147b6855179fe3684e9", format = "sqlite" },
+    { path = "bases/growventa/grow_venta.sql", sha256 = "13d120fde1237630c171bdc90f4e6210909ad518e1c9adcd8c7156b20feedec7", format = "sql" },
+]
+note = "Esquema propio anonimizado; solo estructura, sin datos ni identificadores reales. grow_venta.sql se extrajo de growventa.db para mutaciones."
 
 [[dataset]]
 name = "GrowTravel"
 source_url = "local"
 version = "0.1"
-sha256 = null
 license = "Proprietary (anonymized structure only)"
 attribution = "Synthetic travel reservations schema based on Grow Travel case study"
-ddl_file = "bases/grow_travel.sql"
-note = "Esquema propio anonimizado; solo estructura, sin datos ni identificadores reales. Comparado contra Grow Venta: 17 coincidencias, 145 exclusivos, 4 conflictos."
+files = [
+    { path = "bases/growtravel/growvtravel.sql", sha256 = "a2ef6afb3bedec1a7f11615406f0c4d25e3e6d239a19303da9c71ae7b5465858", format = "sql" },
+]
+note = "Esquema propio anonimizado; solo estructura, sin datos ni identificadores reales. Comparado contra Grow Venta: 17 coincidencias, 180 exclusivos, 4 conflictos."

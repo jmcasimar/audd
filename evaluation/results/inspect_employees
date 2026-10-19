@@ -1,0 +1,326 @@
+{
+  "source_name": "employees",
+  "source_type": "sql",
+  "entities": [
+    {
+      "entity_name": "employees",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "emp_no",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "birth_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "first_name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "last_name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "gender",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "ENUM"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "hire_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "emp_no"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "departments",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "dept_no",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "dept_name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "dept_no"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "dept_manager",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "emp_no",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "dept_no",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "from_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "to_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "FOREIGN",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "FOREIGN",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "emp_no",
+            "dept_no"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "dept_emp",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "emp_no",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "dept_no",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "from_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "to_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "FOREIGN",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "FOREIGN",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "emp_no",
+            "dept_no"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "titles",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "emp_no",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "title",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "from_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "to_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "FOREIGN",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "emp_no",
+            "title",
+            "from_date"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "salaries",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "emp_no",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "salary",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "from_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "to_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "FOREIGN",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "emp_no",
+            "from_date"
+          ]
+        }
+      ]
+    }
+  ],
+  "ir_version": "1.0.0"
+}

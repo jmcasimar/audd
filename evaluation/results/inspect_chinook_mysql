@@ -1,0 +1,527 @@
+{
+  "source_name": "Chinook_MySql",
+  "source_type": "sql",
+  "entities": [
+    {
+      "entity_name": "s\r\n********************************************************************************/\r\nCREATE TABLE `Album",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "AlbumId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Title",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ArtistId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "entity_name": "Artist",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ArtistId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "entity_name": "Customer",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "CustomerId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "FirstName",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LastName",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Company",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Address",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "City",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "State",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Country",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PostalCode",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Phone",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Fax",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "SupportRepId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "entity_name": "Employee",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "EmployeeId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LastName",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "FirstName",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Title",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ReportsTo",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BirthDate",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "HireDate",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Address",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "City",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "State",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Country",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PostalCode",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Phone",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Fax",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "entity_name": "Genre",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "GenreId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "entity_name": "Invoice",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "InvoiceId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CustomerId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "InvoiceDate",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "BillingAddress",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BillingCity",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BillingState",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BillingCountry",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BillingPostalCode",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "InvoiceLineId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "InvoiceId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TrackId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "UnitPrice",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Quantity",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "entity_name": "MediaType",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "MediaTypeId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "entity_name": "Playlist",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "PlaylistId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "entity_name": "PlaylistTrack",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "PlaylistId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TrackId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "entity_name": "Track",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "TrackId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "AlbumId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "MediaTypeId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "GenreId",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Composer",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Milliseconds",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Bytes",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UnitPrice",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        }
+      ]
+    }
+  ],
+  "ir_version": "1.0.0"
+}

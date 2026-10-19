@@ -1,0 +1,2682 @@
+{
+  "pair_id": "grow_venta_l1_s1000",
+  "level": 1,
+  "seed": 1000,
+  "matches": [
+    {
+      "a": "User",
+      "b": "User",
+      "reason": "ExactName"
+    },
+    {
+      "a": "User.object_id",
+      "b": "User.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "User.created_at",
+      "b": "User.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "User.updated_at",
+      "b": "User.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "User.username",
+      "b": "User.username",
+      "reason": "ExactName"
+    },
+    {
+      "a": "User.password",
+      "b": "User.password",
+      "reason": "ExactName"
+    },
+    {
+      "a": "User.email",
+      "b": "User.email",
+      "reason": "ExactName"
+    },
+    {
+      "a": "User.admin_permission",
+      "b": "User.admin_permission",
+      "reason": "ExactName"
+    },
+    {
+      "a": "User.pin",
+      "b": "User.pin",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_discount",
+      "b": "Setting_discount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_discount.object_id",
+      "b": "Setting_discount.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_discount.created_at",
+      "b": "Setting_discount.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_discount.updated_at",
+      "b": "Setting_discount.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_discount.min",
+      "b": "Setting_discount.min",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_discount.discount",
+      "b": "Setting_discount.discount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_discount.setting_id",
+      "b": "Setting_discount.setting_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department",
+      "b": "Department",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department.object_id",
+      "b": "Department.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department.created_at",
+      "b": "Department.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department.updated_at",
+      "b": "Department.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department.name",
+      "b": "Department.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department.description",
+      "b": "Department.description",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax",
+      "b": "Tax",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.object_id",
+      "b": "Tax.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.created_at",
+      "b": "Tax.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.updated_at",
+      "b": "Tax.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.name",
+      "b": "Tax.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.tax_name",
+      "b": "Tax.tax_name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.value",
+      "b": "Tax.value",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.type",
+      "b": "Tax.type",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.withholding",
+      "b": "Tax.withholding",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.transfer",
+      "b": "Tax.transfer",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tax.apply_default",
+      "b": "Tax.apply_default",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product",
+      "b": "Product",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.object_id",
+      "b": "Product.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.created_at",
+      "b": "Product.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.updated_at",
+      "b": "Product.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.code",
+      "b": "Product.code",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.name",
+      "b": "Product.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.amount",
+      "b": "Product.amount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.price",
+      "b": "Product.price",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.cost",
+      "b": "Product.cost",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.user_id",
+      "b": "Product.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.department_id",
+      "b": "Product.department_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.unit",
+      "b": "Product.unit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.url_image",
+      "b": "Product.url_image",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.is_supply",
+      "b": "Product.is_supply",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.unit_purchase",
+      "b": "Product.unit_purchase",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.unit_quantity",
+      "b": "Product.unit_quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product.track_inventory",
+      "b": "Product.track_inventory",
+      "reason": "ExactName"
+    },
+    {
+      "a": "ProductLog",
+      "b": "ProductLog",
+      "reason": "ExactName"
+    },
+    {
+      "a": "ProductLog.object_id",
+      "b": "ProductLog.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "ProductLog.created_at",
+      "b": "ProductLog.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "ProductLog.updated_at",
+      "b": "ProductLog.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "ProductLog.user_id",
+      "b": "ProductLog.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "ProductLog.product_id",
+      "b": "ProductLog.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "ProductLog.price",
+      "b": "ProductLog.price",
+      "reason": "ExactName"
+    },
+    {
+      "a": "ProductLog.cost",
+      "b": "ProductLog.cost",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Tax",
+      "b": "Product_Tax",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Tax.object_id",
+      "b": "Product_Tax.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Tax.created_at",
+      "b": "Product_Tax.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Tax.updated_at",
+      "b": "Product_Tax.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Tax.tax_id",
+      "b": "Product_Tax.tax_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Tax.product_id",
+      "b": "Product_Tax.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Product",
+      "b": "Product_Product",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Product.object_id",
+      "b": "Product_Product.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Product.created_at",
+      "b": "Product_Product.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Product.updated_at",
+      "b": "Product_Product.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Product.quantity",
+      "b": "Product_Product.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Product.product_id",
+      "b": "Product_Product.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_Product.includes_product",
+      "b": "Product_Product.includes_product",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer",
+      "b": "Customer",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.object_id",
+      "b": "Customer.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.created_at",
+      "b": "Customer.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.updated_at",
+      "b": "Customer.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.name",
+      "b": "Customer.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.phone",
+      "b": "Customer.phone",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.email",
+      "b": "Customer.email",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.discount",
+      "b": "Customer.discount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.credit",
+      "b": "Customer.credit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.points",
+      "b": "Customer.points",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.street",
+      "b": "Customer.street",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.exterior_number",
+      "b": "Customer.exterior_number",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.interior_number",
+      "b": "Customer.interior_number",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.city",
+      "b": "Customer.city",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.state",
+      "b": "Customer.state",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.country",
+      "b": "Customer.country",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Customer.postal_code",
+      "b": "Customer.postal_code",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Warehouse",
+      "b": "Warehouse",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Warehouse.object_id",
+      "b": "Warehouse.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Warehouse.created_at",
+      "b": "Warehouse.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Warehouse.name",
+      "b": "Warehouse.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Warehouse.description",
+      "b": "Warehouse.description",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Warehouse.customer_id",
+      "b": "Warehouse.customer_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory",
+      "b": "Inventory",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.object_id",
+      "b": "Inventory.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.created_at",
+      "b": "Inventory.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.updated_at",
+      "b": "Inventory.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.diff",
+      "b": "Inventory.diff",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.quantity",
+      "b": "Inventory.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.min_quantity",
+      "b": "Inventory.min_quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.user_id",
+      "b": "Inventory.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.warehouse_id",
+      "b": "Inventory.warehouse_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory.product_id",
+      "b": "Inventory.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog",
+      "b": "InventoryLog",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog.object_id",
+      "b": "InventoryLog.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog.created_at",
+      "b": "InventoryLog.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog.updated_at",
+      "b": "InventoryLog.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog.diff",
+      "b": "InventoryLog.diff",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog.quantity",
+      "b": "InventoryLog.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog.user_id",
+      "b": "InventoryLog.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog.warehouse_id",
+      "b": "InventoryLog.warehouse_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "InventoryLog.product_id",
+      "b": "InventoryLog.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox",
+      "b": "Multibox",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.object_id",
+      "b": "Multibox.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.created_at",
+      "b": "Multibox.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.updated_at",
+      "b": "Multibox.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.type",
+      "b": "Multibox.type",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.current_ip",
+      "b": "Multibox.current_ip",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.port",
+      "b": "Multibox.port",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.principal_ip",
+      "b": "Multibox.principal_ip",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.connected",
+      "b": "Multibox.connected",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.last_connection",
+      "b": "Multibox.last_connection",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.machine_id",
+      "b": "Multibox.machine_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Multibox.settings_id",
+      "b": "Multibox.settings_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail",
+      "b": "Order_detail",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.object_id",
+      "b": "Order_detail.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.created_at",
+      "b": "Order_detail.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.updated_at",
+      "b": "Order_detail.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.code",
+      "b": "Order_detail.code",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.product",
+      "b": "Order_detail.producto",
+      "reason": "CatalogEquivalence"
+    },
+    {
+      "a": "Order_detail.quantity",
+      "b": "Order_detail.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.price",
+      "b": "Order_detail.price",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.discount",
+      "b": "Order_detail.discount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.total",
+      "b": "Order_detail.total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.order_id",
+      "b": "Order_detail.order_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.product_id",
+      "b": "Order_detail.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.department_id",
+      "b": "Order_detail.department_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.cost",
+      "b": "Order_detail.cost",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.unit",
+      "b": "Order_detail.unit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.comments",
+      "b": "Order_detail.comments",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail.is_prepared",
+      "b": "Order_detail.is_prepared",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_tax",
+      "b": "Order_tax",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_tax.object_id",
+      "b": "Order_tax.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_tax.created_at",
+      "b": "Order_tax.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_tax.updated_at",
+      "b": "Order_tax.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_tax.total",
+      "b": "Order_tax.total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_tax.order_id",
+      "b": "Order_tax.order_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_tax.product_id",
+      "b": "Order_tax.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_tax.order_array_id",
+      "b": "Order_tax.order_array_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CashregisterLog",
+      "b": "CashregisterLog",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CashregisterLog.object_id",
+      "b": "CashregisterLog.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CashregisterLog.created_at",
+      "b": "CashregisterLog.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CashregisterLog.updated_at",
+      "b": "CashregisterLog.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CashregisterLog.quantity",
+      "b": "CashregisterLog.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CashregisterLog.cash",
+      "b": "CashregisterLog.cash",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CashregisterLog.user_id",
+      "b": "CashregisterLog.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License",
+      "b": "License",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.object_id",
+      "b": "License.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.created_at",
+      "b": "License.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.updated_at",
+      "b": "License.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.demo",
+      "b": "License.demo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.expired_at",
+      "b": "License.expired_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.license_hash",
+      "b": "License.license_hash",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.first_license_hash",
+      "b": "License.first_license_hash",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.license_id",
+      "b": "License.license_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.machine_id",
+      "b": "License.machine_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "License.issued_at",
+      "b": "License.issued_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting",
+      "b": "Setting",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.object_id",
+      "b": "Setting.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.created_at",
+      "b": "Setting.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.updated_at",
+      "b": "Setting.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.small_logo",
+      "b": "Setting.small_logo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.big_logo",
+      "b": "Setting.big_logo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.print_logo",
+      "b": "Setting.print_logo",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.principal_color",
+      "b": "Setting.principal_color",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.secondary_color",
+      "b": "Setting.secondary_color",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.name",
+      "b": "Setting.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.phone",
+      "b": "Setting.phone",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.address",
+      "b": "Setting.address",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.bank_account",
+      "b": "Setting.bank_account",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.bank_name",
+      "b": "Setting.bank_name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.bank_clabe",
+      "b": "Setting.bank_clabe",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.name_quote",
+      "b": "Setting.name_quote",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.terms_quote",
+      "b": "Setting.terms_quote",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.transfer_comment",
+      "b": "Setting.transfer_comment",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.max_credit",
+      "b": "Setting.max_credit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.discount_customer",
+      "b": "Setting.discount_customer",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.discount_order",
+      "b": "Setting.discount_order",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.enable_discount",
+      "b": "Setting.enable_discount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.mandatory_reference",
+      "b": "Setting.mandatory_reference",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.usd_price",
+      "b": "Setting.usd_price",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.enable_bailment",
+      "b": "Setting.enable_bailment",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.tax_included",
+      "b": "Setting.tax_included",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.is_restaurant",
+      "b": "Setting.is_restaurant",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.currency",
+      "b": "Setting.currency",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.second_currency",
+      "b": "Setting.second_currency",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.costing_strategy",
+      "b": "Setting.costing_strategy",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.costing_last_n",
+      "b": "Setting.costing_last_n",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.enable_batches",
+      "b": "Setting.enable_batches",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.points_perc",
+      "b": "Setting.points_perc",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.quotation_folio_prefix",
+      "b": "Setting.quotation_folio_prefix",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting.quotation_folio_min_length",
+      "b": "Setting.quotation_folio_min_length",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders",
+      "b": "Orders",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.object_id",
+      "b": "Orders.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.created_at",
+      "b": "Orders.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.updated_at",
+      "b": "Orders.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.total",
+      "b": "Orders.total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.toPay",
+      "b": "Orders.toPay",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.discount",
+      "b": "Orders.discount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.paid",
+      "b": "Orders.paid",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.layaway",
+      "b": "Orders.layaway",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.credit",
+      "b": "Orders.credit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.currency",
+      "b": "Orders.currency",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.box_id",
+      "b": "Orders.box_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.user_id",
+      "b": "Orders.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.customer_id",
+      "b": "Orders.customer_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.cost",
+      "b": "Orders.cost",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.table_id",
+      "b": "Orders.table_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.tip",
+      "b": "Orders.tip",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.type",
+      "b": "Orders.type",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.comments",
+      "b": "Orders.comments",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.points",
+      "b": "Orders.points",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.identifier",
+      "b": "Orders.identifier",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Orders.is_cancellable",
+      "b": "Orders.is_cancellable",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment",
+      "b": "Order_payment",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.object_id",
+      "b": "Order_payment.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.created_at",
+      "b": "Order_payment.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.updated_at",
+      "b": "Order_payment.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.payment_method",
+      "b": "Order_payment.payment_method",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.reference",
+      "b": "Order_payment.reference",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.total",
+      "b": "Order_payment.total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.currency",
+      "b": "Order_payment.currency",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.currency_amount",
+      "b": "Order_payment.currency_amount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.exchange_rate",
+      "b": "Order_payment.exchange_rate",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.box_id",
+      "b": "Order_payment.box_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.order_id",
+      "b": "Order_payment.order_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_payment.tip",
+      "b": "Order_payment.tip",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut",
+      "b": "Cashcut",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.object_id",
+      "b": "Cashcut.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.created_at",
+      "b": "Cashcut.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.updated_at",
+      "b": "Cashcut.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.quantity",
+      "b": "Cashcut.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.cash",
+      "b": "Cashcut.cash",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.msg",
+      "b": "Cashcut.msg",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.open",
+      "b": "Cashcut.open",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.box_id",
+      "b": "Cashcut.box_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cashcut.user_id",
+      "b": "Cashcut.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense",
+      "b": "Expense",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense.object_id",
+      "b": "Expense.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense.created_at",
+      "b": "Expense.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense.updated_at",
+      "b": "Expense.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense.description",
+      "b": "Expense.description",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense.total",
+      "b": "Expense.total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense.payment_method",
+      "b": "Expense.payment_method",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense.box_id",
+      "b": "Expense.box_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Expense.user_id",
+      "b": "Expense.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour",
+      "b": "Tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.object_id",
+      "b": "Tour.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.user_id",
+      "b": "Tour.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.dashboard_tour",
+      "b": "Tour.dashboard_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.customers_tour",
+      "b": "Tour.customers_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.products_tour",
+      "b": "Tour.products_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.departments_tour",
+      "b": "Tour.departments_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.open_cash_tour",
+      "b": "Tour.open_cash_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.cash_register_tour",
+      "b": "Tour.cash_register_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.orders_tour",
+      "b": "Tour.orders_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.inventory_tour",
+      "b": "Tour.inventory_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.expenses_tour",
+      "b": "Tour.expenses_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.cash_drawer_tour",
+      "b": "Tour.cash_drawer_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.close_cash_tour",
+      "b": "Tour.close_cash_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.reports_tour",
+      "b": "Tour.reports_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.configuration_tour",
+      "b": "Tour.configuration_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.daily_sales_report_tour",
+      "b": "Tour.daily_sales_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.weekly_sales_report_tour",
+      "b": "Tour.weekly_sales_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.monthly_sales_report_tour",
+      "b": "Tour.monthly_sales_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.best_customers_report_tour",
+      "b": "Tour.best_customers_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.best_products_report_tour",
+      "b": "Tour.best_products_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.product_details_report_tour",
+      "b": "Tour.product_details_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.product_analysis_report_tour",
+      "b": "Tour.product_analysis_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.payments_report_tour",
+      "b": "Tour.payments_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.credit_statement_report_tour",
+      "b": "Tour.credit_statement_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.credit_general_report_tour",
+      "b": "Tour.credit_general_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.cashcuts_report_tour",
+      "b": "Tour.cashcuts_report_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.options_config_tour",
+      "b": "Tour.options_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.business_config_tour",
+      "b": "Tour.business_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.users_config_tour",
+      "b": "Tour.users_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.taxes_config_tour",
+      "b": "Tour.taxes_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.database_config_tour",
+      "b": "Tour.database_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.printer_config_tour",
+      "b": "Tour.printer_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.scale_config_tour",
+      "b": "Tour.scale_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.tpv_config_tour",
+      "b": "Tour.tpv_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Tour.multibox_config_tour",
+      "b": "Tour.multibox_config_tour",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_assignment",
+      "b": "Product_option_assignment",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_assignment.object_id",
+      "b": "Product_option_assignment.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_assignment.created_at",
+      "b": "Product_option_assignment.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_assignment.product_id",
+      "b": "Product_option_assignment.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_assignment.product_option_id",
+      "b": "Product_option_assignment.product_option_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_assignment.sort_order",
+      "b": "Product_option_assignment.sort_order",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer",
+      "b": "Printer",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.object_id",
+      "b": "Printer.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.created_at",
+      "b": "Printer.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.updated_at",
+      "b": "Printer.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.name",
+      "b": "Printer.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.role",
+      "b": "Printer.role",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.is_default",
+      "b": "Printer.is_default",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.is_enabled",
+      "b": "Printer.is_enabled",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.connection_type",
+      "b": "Printer.connection_type",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.usb_mode",
+      "b": "Printer.usb_mode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.usb_vid",
+      "b": "Printer.usb_vid",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.usb_pid",
+      "b": "Printer.usb_pid",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.os_printer_name",
+      "b": "Printer.os_printer_name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.net_host",
+      "b": "Printer.net_host",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.net_port",
+      "b": "Printer.net_port",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.ticket_copy",
+      "b": "Printer.ticket_copy",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Printer.settings",
+      "b": "Printer.settings",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local",
+      "b": "Setting_local",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.object_id",
+      "b": "Setting_local.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.created_at",
+      "b": "Setting_local.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.updated_at",
+      "b": "Setting_local.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.setting_id",
+      "b": "Setting_local.setting_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.machine_id",
+      "b": "Setting_local.machine_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.backup_path",
+      "b": "Setting_local.backup_path",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.scale_vid",
+      "b": "Setting_local.scale_vid",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.scale_pid",
+      "b": "Setting_local.scale_pid",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.cash",
+      "b": "Setting_local.cash",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.enable_scale",
+      "b": "Setting_local.enable_scale",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.user_id",
+      "b": "Setting_local.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.version",
+      "b": "Setting_local.version",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.channel",
+      "b": "Setting_local.channel",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.tour_login",
+      "b": "Setting_local.tour_login",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.touch_mode",
+      "b": "Setting_local.touch_mode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.is_commander",
+      "b": "Setting_local.is_commander",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.is_kitchen_display",
+      "b": "Setting_local.is_kitchen_display",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.auto_updates_enabled",
+      "b": "Setting_local.auto_updates_enabled",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.allow_unstable_channel",
+      "b": "Setting_local.allow_unstable_channel",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.product_grid_view",
+      "b": "Setting_local.product_grid_view",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.is_price_checker",
+      "b": "Setting_local.is_price_checker",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.uuid_baseboard",
+      "b": "Setting_local.uuid_baseboard",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.uuid_ram",
+      "b": "Setting_local.uuid_ram",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.uuid_disk",
+      "b": "Setting_local.uuid_disk",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.uuid_system",
+      "b": "Setting_local.uuid_system",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Setting_local.platform",
+      "b": "Setting_local.platform",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department_Printer",
+      "b": "Department_Printer",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department_Printer.department_id",
+      "b": "Department_Printer.department_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department_Printer.printer_id",
+      "b": "Department_Printer.printer_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department_Printer.created_at",
+      "b": "Department_Printer.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Department_Printer.updated_at",
+      "b": "Department_Printer.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Payment_methods",
+      "b": "Payment_methods",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Payment_methods.object_id",
+      "b": "Payment_methods.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Payment_methods.created_at",
+      "b": "Payment_methods.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Payment_methods.updated_at",
+      "b": "Payment_methods.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Payment_methods.label",
+      "b": "Payment_methods.label",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Payment_methods.value",
+      "b": "Payment_methods.value",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Payment_methods.is_active",
+      "b": "Payment_methods.is_active",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation",
+      "b": "Quotation",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.object_id",
+      "b": "Quotation.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.created_at",
+      "b": "Quotation.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.updated_at",
+      "b": "Quotation.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.folio",
+      "b": "Quotation.folio",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.total",
+      "b": "Quotation.total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.toPay",
+      "b": "Quotation.toPay",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.discount",
+      "b": "Quotation.discount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.currency",
+      "b": "Quotation.currency",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.is_converted",
+      "b": "Quotation.is_converted",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.converted_order_id",
+      "b": "Quotation.converted_order_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.terms_quote",
+      "b": "Quotation.terms_quote",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.transfer_comment",
+      "b": "Quotation.transfer_comment",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.box_id",
+      "b": "Quotation.box_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.user_id",
+      "b": "Quotation.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation.customer_id",
+      "b": "Quotation.customer_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail",
+      "b": "Quotation_detail",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.object_id",
+      "b": "Quotation_detail.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.created_at",
+      "b": "Quotation_detail.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.updated_at",
+      "b": "Quotation_detail.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.code",
+      "b": "Quotation_detail.code",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.product",
+      "b": "Quotation_detail.producto",
+      "reason": "CatalogEquivalence"
+    },
+    {
+      "a": "Quotation_detail.quantity",
+      "b": "Quotation_detail.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.price",
+      "b": "Quotation_detail.price",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.discount",
+      "b": "Quotation_detail.discount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.total",
+      "b": "Quotation_detail.total",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.quotation_id",
+      "b": "Quotation_detail.quotation_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.product_id",
+      "b": "Quotation_detail.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.department_id",
+      "b": "Quotation_detail.department_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.unit",
+      "b": "Quotation_detail.unit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail.comments",
+      "b": "Quotation_detail.comments",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Unit",
+      "b": "Unit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Unit.object_id",
+      "b": "Unit.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Unit.created_at",
+      "b": "Unit.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Unit.updated_at",
+      "b": "Unit.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Unit.name",
+      "b": "Unit.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Unit.is_enabled",
+      "b": "Unit.is_enabled",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Restaurant_tables",
+      "b": "Restaurant_tables",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Restaurant_tables.object_id",
+      "b": "Restaurant_tables.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Restaurant_tables.created_at",
+      "b": "Restaurant_tables.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Restaurant_tables.updated_at",
+      "b": "Restaurant_tables.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Restaurant_tables.name",
+      "b": "Restaurant_tables.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Restaurant_tables.area",
+      "b": "Restaurant_tables.area",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Restaurant_tables.is_active",
+      "b": "Restaurant_tables.is_active",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Restaurant_tables.priority",
+      "b": "Restaurant_tables.priority",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Recipe_items",
+      "b": "Recipe_items",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Recipe_items.object_id",
+      "b": "Recipe_items.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Recipe_items.created_at",
+      "b": "Recipe_items.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Recipe_items.updated_at",
+      "b": "Recipe_items.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Recipe_items.recipe_id",
+      "b": "Recipe_items.recipe_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Recipe_items.food_supply_id",
+      "b": "Recipe_items.food_supply_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Recipe_items.quantity",
+      "b": "Recipe_items.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options",
+      "b": "Product_options",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.object_id",
+      "b": "Product_options.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.created_at",
+      "b": "Product_options.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.updated_at",
+      "b": "Product_options.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.product_id",
+      "b": "Product_options.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.name",
+      "b": "Product_options.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.selection_mode",
+      "b": "Product_options.selection_mode",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.is_required",
+      "b": "Product_options.is_required",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.sort_order",
+      "b": "Product_options.sort_order",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_options.is_active",
+      "b": "Product_options.is_active",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail",
+      "b": "Product_option_detail",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.object_id",
+      "b": "Product_option_detail.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.created_at",
+      "b": "Product_option_detail.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.updated_at",
+      "b": "Product_option_detail.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.product_option_id",
+      "b": "Product_option_detail.product_option_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.name",
+      "b": "Product_option_detail.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.price_delta",
+      "b": "Product_option_detail.price_delta",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.sku_suffix",
+      "b": "Product_option_detail.sku_suffix",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.sort_order",
+      "b": "Product_option_detail.sort_order",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_option_detail.is_active",
+      "b": "Product_option_detail.is_active",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options",
+      "b": "Order_detail_options",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options.object_id",
+      "b": "Order_detail_options.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options.created_at",
+      "b": "Order_detail_options.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options.updated_at",
+      "b": "Order_detail_options.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options.order_detail_id",
+      "b": "Order_detail_options.order_detail_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options.product_option_id",
+      "b": "Order_detail_options.product_option_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options.product_option_detail_id",
+      "b": "Order_detail_options.product_option_detail_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options.name_snapshot",
+      "b": "Order_detail_options.name_snapshot",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Order_detail_options.price_delta_snapshot",
+      "b": "Order_detail_options.price_delta_snapshot",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers",
+      "b": "Suppliers",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.object_id",
+      "b": "Suppliers.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.created_at",
+      "b": "Suppliers.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.updated_at",
+      "b": "Suppliers.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.name",
+      "b": "Suppliers.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.phone",
+      "b": "Suppliers.phone",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.email",
+      "b": "Suppliers.email",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.address",
+      "b": "Suppliers.address",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Suppliers.is_active",
+      "b": "Suppliers.is_active",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders",
+      "b": "Purchase_orders",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.object_id",
+      "b": "Purchase_orders.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.created_at",
+      "b": "Purchase_orders.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.updated_at",
+      "b": "Purchase_orders.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.supplier_id",
+      "b": "Purchase_orders.supplier_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.status",
+      "b": "Purchase_orders.status",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.currency",
+      "b": "Purchase_orders.currency",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.currency_exchange",
+      "b": "Purchase_orders.currency_exchange",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.additionals",
+      "b": "Purchase_orders.additionals",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.notes",
+      "b": "Purchase_orders.notes",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.paid_from_cash",
+      "b": "Purchase_orders.paid_from_cash",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_orders.cash_movement_id",
+      "b": "Purchase_orders.cash_movement_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details",
+      "b": "Purchase_order_details",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.object_id",
+      "b": "Purchase_order_details.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.created_at",
+      "b": "Purchase_order_details.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.updated_at",
+      "b": "Purchase_order_details.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.purchase_order_id",
+      "b": "Purchase_order_details.purchase_order_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.product_id",
+      "b": "Purchase_order_details.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.quantity",
+      "b": "Purchase_order_details.quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.unit_cost",
+      "b": "Purchase_order_details.unit_cost",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.unit_cost_mxn",
+      "b": "Purchase_order_details.unit_cost_mxn",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.applied_unit_cost_mxn",
+      "b": "Purchase_order_details.applied_unit_cost_mxn",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.applied_total_mxn",
+      "b": "Purchase_order_details.applied_total_mxn",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.unit_purchase",
+      "b": "Purchase_order_details.unit_purchase",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.unit_quantity",
+      "b": "Purchase_order_details.unit_quantity",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Purchase_order_details.unit_sale",
+      "b": "Purchase_order_details.unit_sale",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost",
+      "b": "Product_cost",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.object_id",
+      "b": "Product_cost.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.created_at",
+      "b": "Product_cost.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.updated_at",
+      "b": "Product_cost.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.product_id",
+      "b": "Product_cost.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.source_type",
+      "b": "Product_cost.source_type",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.source_id",
+      "b": "Product_cost.source_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.old_cost",
+      "b": "Product_cost.old_cost",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.new_cost",
+      "b": "Product_cost.new_cost",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.currency",
+      "b": "Product_cost.currency",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Product_cost.note",
+      "b": "Product_cost.note",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct",
+      "b": "CatalogProduct",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct.object_id",
+      "b": "CatalogProduct.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct.created_at",
+      "b": "CatalogProduct.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct.updated_at",
+      "b": "CatalogProduct.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct.code",
+      "b": "CatalogProduct.code",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct.name",
+      "b": "CatalogProduct.name",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct.department",
+      "b": "CatalogProduct.department",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct.unit",
+      "b": "CatalogProduct.unit",
+      "reason": "ExactName"
+    },
+    {
+      "a": "CatalogProduct.image_url",
+      "b": "CatalogProduct.image_url",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements",
+      "b": "Cash_movements",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.object_id",
+      "b": "Cash_movements.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.created_at",
+      "b": "Cash_movements.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.updated_at",
+      "b": "Cash_movements.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.box_id",
+      "b": "Cash_movements.box_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.user_id",
+      "b": "Cash_movements.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.type",
+      "b": "Cash_movements.type",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.amount",
+      "b": "Cash_movements.amount",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.currency",
+      "b": "Cash_movements.currency",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.note",
+      "b": "Cash_movements.note",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.metadata",
+      "b": "Cash_movements.metadata",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Cash_movements.tip",
+      "b": "Cash_movements.tip",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options",
+      "b": "Quotation_detail_options",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options.object_id",
+      "b": "Quotation_detail_options.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options.created_at",
+      "b": "Quotation_detail_options.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options.updated_at",
+      "b": "Quotation_detail_options.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options.quotation_detail_id",
+      "b": "Quotation_detail_options.quotation_detail_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options.product_option_id",
+      "b": "Quotation_detail_options.product_option_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options.product_option_detail_id",
+      "b": "Quotation_detail_options.product_option_detail_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options.name_snapshot",
+      "b": "Quotation_detail_options.name_snapshot",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Quotation_detail_options.price_delta_snapshot",
+      "b": "Quotation_detail_options.price_delta_snapshot",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements",
+      "b": "Inventory_movements",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.object_id",
+      "b": "Inventory_movements.object_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.created_at",
+      "b": "Inventory_movements.created_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.updated_at",
+      "b": "Inventory_movements.updated_at",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.inventory_id",
+      "b": "Inventory_movements.inventory_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.product_id",
+      "b": "Inventory_movements.product_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.warehouse_id",
+      "b": "Inventory_movements.warehouse_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.user_id",
+      "b": "Inventory_movements.user_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.qty",
+      "b": "Inventory_movements.qty",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.qty_before",
+      "b": "Inventory_movements.qty_before",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.qty_after",
+      "b": "Inventory_movements.qty_after",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.movement_type",
+      "b": "Inventory_movements.movement_type",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.movement_direction",
+      "b": "Inventory_movements.movement_direction",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.reference_type",
+      "b": "Inventory_movements.reference_type",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.reference_id",
+      "b": "Inventory_movements.reference_id",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.source",
+      "b": "Inventory_movements.source",
+      "reason": "ExactName"
+    },
+    {
+      "a": "Inventory_movements.notes",
+      "b": "Inventory_movements.notes",
+      "reason": "ExactName"
+    }
+  ],
+  "exclusives": [
+    {
+      "side": "a",
+      "entity": "Warehouse",
+      "field": "updated_at"
+    }
+  ],
+  "conflicts": [
+    {
+      "entity": "Tax",
+      "field": "withholding",
+      "type": "TypeIncompatible",
+      "side": "b",
+      "expected_suggestion": "CastSafe"
+    },
+    {
+      "entity": "ProductLog",
+      "field": "user_id",
+      "type": "ConstraintMismatch",
+      "side": "b",
+      "expected_suggestion": "NoSuggestion"
+    },
+    {
+      "entity": "Quotation_detail_options",
+      "field": "quotation_detail_id",
+      "type": "ConstraintMismatch",
+      "side": "b",
+      "expected_suggestion": "NoSuggestion"
+    }
+  ]
+}

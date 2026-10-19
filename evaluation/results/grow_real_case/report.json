@@ -1,0 +1,1627 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "growvtravel",
+    "schema_b": "growventa",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 17,
+      "total_exclusives": 180,
+      "total_conflicts": 4,
+      "exclusives_from_a": 95,
+      "exclusives_from_b": 85,
+      "compatibility_score": 80.95238095238095,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 19.047619047619047
+    },
+    "risk_assessment": {
+      "risk_level": "Medium",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 0,
+      "reasons": [
+        "Conflict rate is 19.0% (above 10% threshold)"
+      ]
+    },
+    "top_conflicts": [
+      {
+        "entity_name": "settings",
+        "conflict_count": 3,
+        "highest_severity": "Medium"
+      },
+      {
+        "entity_name": "users",
+        "conflict_count": 1,
+        "highest_severity": "Medium"
+      }
+    ]
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 17,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 0.9956655995731626
+    },
+    "exclusives": {
+      "from_schema_a": 95,
+      "from_schema_b": 85,
+      "safe_from_a": 95,
+      "safe_from_b": 85,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 4,
+      "by_type": {
+        "NullabilityMismatch": 4
+      },
+      "by_severity": {
+        "Medium": 4
+      }
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "customers",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.9832199546485261,
+        "index_a": 11,
+        "index_b": 4
+      },
+      {
+        "entity": "customers",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 3
+      },
+      {
+        "entity": "customers",
+        "field": "phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 4
+      },
+      {
+        "entity": "customers",
+        "field": "email",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 5
+      },
+      {
+        "entity": "customers",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 1
+      },
+      {
+        "entity": "customers",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 2
+      },
+      {
+        "entity": "settings",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.9805555555555555,
+        "index_a": 57,
+        "index_b": 35
+      },
+      {
+        "entity": "settings",
+        "field": "name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 8
+      },
+      {
+        "entity": "settings",
+        "field": "address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 10
+      },
+      {
+        "entity": "settings",
+        "field": "phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 9
+      },
+      {
+        "entity": "settings",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 1
+      },
+      {
+        "entity": "settings",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 2
+      },
+      {
+        "entity": "users",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.9625396825396827,
+        "index_a": 67,
+        "index_b": 42
+      },
+      {
+        "entity": "users",
+        "field": "email",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 5
+      },
+      {
+        "entity": "users",
+        "field": "password",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "users",
+        "field": "created_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 1
+      },
+      {
+        "entity": "users",
+        "field": "updated_at",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 13,
+        "index_b": 2
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "customers",
+        "field": "id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "customers",
+        "field": "public_token",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "customers",
+        "field": "birthdate",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "customers",
+        "field": "credit_days",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "customers",
+        "field": "classification_id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "customers",
+        "field": "UNIQUE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "customers",
+        "field": "KEY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "customers",
+        "field": "object_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "customers",
+        "field": "discount",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "customers",
+        "field": "credit",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "customers",
+        "field": "points",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "customers",
+        "field": "street",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "customers",
+        "field": "exterior_number",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "customers",
+        "field": "interior_number",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "customers",
+        "field": "city",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "customers",
+        "field": "state",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "customers",
+        "field": "country",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "customers",
+        "field": "postal_code",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "settings",
+        "field": "id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "settings",
+        "field": "email",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "settings",
+        "field": "terms",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "settings",
+        "field": "reservation_prefix",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "settings",
+        "field": "reservation_format",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "settings",
+        "field": "reservation_id_pad_length",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "settings",
+        "field": "profit_percentage",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "settings",
+        "field": "profit_include_in_total",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "settings",
+        "field": "enable_birthdate",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "settings",
+        "field": "UNIQUE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "settings",
+        "field": "object_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "settings",
+        "field": "small_logo",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "settings",
+        "field": "big_logo",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "settings",
+        "field": "print_logo",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "settings",
+        "field": "principal_color",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "settings",
+        "field": "secondary_color",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "settings",
+        "field": "bank_account",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "settings",
+        "field": "bank_name",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "settings",
+        "field": "bank_clabe",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "settings",
+        "field": "name_quote",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "settings",
+        "field": "terms_quote",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "settings",
+        "field": "transfer_comment",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "settings",
+        "field": "max_credit",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "settings",
+        "field": "discount_customer",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "settings",
+        "field": "discount_order",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "settings",
+        "field": "enable_discount",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 20
+      },
+      {
+        "entity": "settings",
+        "field": "mandatory_reference",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 21
+      },
+      {
+        "entity": "settings",
+        "field": "usd_price",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 22
+      },
+      {
+        "entity": "settings",
+        "field": "enable_bailment",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 23
+      },
+      {
+        "entity": "settings",
+        "field": "tax_included",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 24
+      },
+      {
+        "entity": "settings",
+        "field": "is_restaurant",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 25
+      },
+      {
+        "entity": "settings",
+        "field": "currency",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 26
+      },
+      {
+        "entity": "settings",
+        "field": "second_currency",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 27
+      },
+      {
+        "entity": "settings",
+        "field": "costing_strategy",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 28
+      },
+      {
+        "entity": "settings",
+        "field": "costing_last_n",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 29
+      },
+      {
+        "entity": "settings",
+        "field": "enable_batches",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 30
+      },
+      {
+        "entity": "settings",
+        "field": "points_perc",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 31
+      },
+      {
+        "entity": "settings",
+        "field": "quotation_folio_prefix",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 32
+      },
+      {
+        "entity": "settings",
+        "field": "quotation_folio_min_length",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 33
+      },
+      {
+        "entity": "users",
+        "field": "id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "users",
+        "field": "name",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "users",
+        "field": "email_verified_at",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "users",
+        "field": "phone",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "users",
+        "field": "commission",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "users",
+        "field": "birthdate",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "users",
+        "field": "start_date",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "users",
+        "field": "position",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "users",
+        "field": "weekly_salary",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "users",
+        "field": "remember_token",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "users",
+        "field": "UNIQUE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "users",
+        "field": "object_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "users",
+        "field": "username",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "users",
+        "field": "admin_permission",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "users",
+        "field": "pin",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "airlines",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "bank_accounts",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "benefit_transaction_settings",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "bonus_transaction_settings",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "cache",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "cache_locks",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "channels",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "classifications",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "comments",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "commission_transaction_settings",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "currencies",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "customer_classifications",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "customer_megatravel_interests",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "destinations",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "events",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "failed_jobs",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "files",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "groups",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "group_products",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "group_services",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 20
+      },
+      {
+        "entity": "hotels",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 21
+      },
+      {
+        "entity": "jobs",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 22
+      },
+      {
+        "entity": "job_batches",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 23
+      },
+      {
+        "entity": "leads",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 24
+      },
+      {
+        "entity": "lead_groups",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 25
+      },
+      {
+        "entity": "lead_products",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 26
+      },
+      {
+        "entity": "lead_profits",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 27
+      },
+      {
+        "entity": "lead_services",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 28
+      },
+      {
+        "entity": "megatravel_categories",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 29
+      },
+      {
+        "entity": "megatravel_offers",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 30
+      },
+      {
+        "entity": "megatravel_offer_category",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 31
+      },
+      {
+        "entity": "migrations",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 32
+      },
+      {
+        "entity": "occupations",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 33
+      },
+      {
+        "entity": "password_reset_tokens",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 34
+      },
+      {
+        "entity": "payments",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 35
+      },
+      {
+        "entity": "payment_attempts",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 36
+      },
+      {
+        "entity": "payment_installments",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 37
+      },
+      {
+        "entity": "payment_requests",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 38
+      },
+      {
+        "entity": "payment_settings",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 39
+      },
+      {
+        "entity": "payment_supplier_settings",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 40
+      },
+      {
+        "entity": "payroll_payments",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 41
+      },
+      {
+        "entity": "payroll_transaction_settings",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 42
+      },
+      {
+        "entity": "periods",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 43
+      },
+      {
+        "entity": "personal_access_tokens",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 44
+      },
+      {
+        "entity": "pos_custom_field_definitions",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 45
+      },
+      {
+        "entity": "pos_custom_field_values",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 46
+      },
+      {
+        "entity": "preleads",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 47
+      },
+      {
+        "entity": "profit_distributions",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 48
+      },
+      {
+        "entity": "reminders",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 49
+      },
+      {
+        "entity": "retained_profit_settings",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 50
+      },
+      {
+        "entity": "roles",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 51
+      },
+      {
+        "entity": "role_screens",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 52
+      },
+      {
+        "entity": "services",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 53
+      },
+      {
+        "entity": "service_categories",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 54
+      },
+      {
+        "entity": "service_types",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 55
+      },
+      {
+        "entity": "sessions",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 56
+      },
+      {
+        "entity": "stages",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 58
+      },
+      {
+        "entity": "subsidiaries",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 59
+      },
+      {
+        "entity": "supplier_group_payments",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 60
+      },
+      {
+        "entity": "supplier_payments",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 61
+      },
+      {
+        "entity": "surveys",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 62
+      },
+      {
+        "entity": "survey_answers",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 63
+      },
+      {
+        "entity": "survey_questions",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 64
+      },
+      {
+        "entity": "tags",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 65
+      },
+      {
+        "entity": "transactions",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 66
+      },
+      {
+        "entity": "user_roles",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 68
+      },
+      {
+        "entity": "vacations",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 69
+      },
+      {
+        "entity": "Cash_movements",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "Cashcut",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Department",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "Department_Printer",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "Expense",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "Inventory",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "InventoryLog",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "License",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "Multibox",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "Order_detail",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "Order_payment",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "Order_tax",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "Orders",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "Payment_methods",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "Printer",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "Product",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 20
+      },
+      {
+        "entity": "ProductLog",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 21
+      },
+      {
+        "entity": "Product_Product",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 22
+      },
+      {
+        "entity": "Product_Tax",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 23
+      },
+      {
+        "entity": "Product_cost",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 24
+      },
+      {
+        "entity": "Product_option_assignment",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 25
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 26
+      },
+      {
+        "entity": "Product_options",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 27
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 28
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 29
+      },
+      {
+        "entity": "Quotation",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 30
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 31
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 32
+      },
+      {
+        "entity": "Recipe_items",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 33
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 34
+      },
+      {
+        "entity": "Setting_discount",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 36
+      },
+      {
+        "entity": "Setting_local",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 37
+      },
+      {
+        "entity": "Suppliers",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 38
+      },
+      {
+        "entity": "Tax",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 39
+      },
+      {
+        "entity": "Tour",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 40
+      },
+      {
+        "entity": "Unit",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 41
+      },
+      {
+        "entity": "Warehouse",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 43
+      }
+    ],
+    "conflicts": [
+      {
+        "id": 1,
+        "entity": "settings",
+        "field": "name",
+        "conflict_type": "NullabilityMismatch",
+        "severity": "Medium",
+        "evidence_a": "Nullable: false",
+        "evidence_b": "Nullable: true",
+        "rule": "Nullability must match or be compatible",
+        "index_a": 1,
+        "index_b": 8
+      },
+      {
+        "id": 2,
+        "entity": "settings",
+        "field": "address",
+        "conflict_type": "NullabilityMismatch",
+        "severity": "Medium",
+        "evidence_a": "Nullable: false",
+        "evidence_b": "Nullable: true",
+        "rule": "Nullability must match or be compatible",
+        "index_a": 2,
+        "index_b": 10
+      },
+      {
+        "id": 3,
+        "entity": "settings",
+        "field": "phone",
+        "conflict_type": "NullabilityMismatch",
+        "severity": "Medium",
+        "evidence_a": "Nullable: false",
+        "evidence_b": "Nullable: true",
+        "rule": "Nullability must match or be compatible",
+        "index_a": 3,
+        "index_b": 9
+      },
+      {
+        "id": 4,
+        "entity": "users",
+        "field": "email",
+        "conflict_type": "NullabilityMismatch",
+        "severity": "Medium",
+        "evidence_a": "Nullable: false",
+        "evidence_b": "Nullable: true",
+        "rule": "Nullability must match or be compatible",
+        "index_a": 2,
+        "index_b": 5
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 4,
+      "high_confidence": 4,
+      "medium_confidence": 0,
+      "auto_accepted": 4,
+      "total_decisions": 4,
+      "accepted_decisions": 4,
+      "rejected_decisions": 0,
+      "system_decisions": 4,
+      "user_decisions": 0
+    },
+    "suggestions": [
+      {
+        "id": "sug_0",
+        "conflict_id": 1,
+        "entity": "settings",
+        "field": "name",
+        "kind": "PreferType { preferred_type: \"Nullable\", alternative_type: \"alternative\", rule: \"R-NULL-001\" }",
+        "confidence": 0.9,
+        "impact": "Medium",
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "status": "accepted"
+      },
+      {
+        "id": "sug_1",
+        "conflict_id": 2,
+        "entity": "settings",
+        "field": "address",
+        "kind": "PreferType { preferred_type: \"Nullable\", alternative_type: \"alternative\", rule: \"R-NULL-001\" }",
+        "confidence": 0.9,
+        "impact": "Medium",
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "status": "accepted"
+      },
+      {
+        "id": "sug_2",
+        "conflict_id": 3,
+        "entity": "settings",
+        "field": "phone",
+        "kind": "PreferType { preferred_type: \"Nullable\", alternative_type: \"alternative\", rule: \"R-NULL-001\" }",
+        "confidence": 0.9,
+        "impact": "Medium",
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "status": "accepted"
+      },
+      {
+        "id": "sug_3",
+        "conflict_id": 4,
+        "entity": "users",
+        "field": "email",
+        "kind": "PreferType { preferred_type: \"Nullable\", alternative_type: \"alternative\", rule: \"R-NULL-001\" }",
+        "confidence": 0.9,
+        "impact": "Medium",
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "status": "accepted"
+      }
+    ],
+    "decisions": [
+      {
+        "id": "auto_dec_1",
+        "suggestion_id": "sug_0",
+        "accepted": true,
+        "source": "system:high_confidence_auto_accept",
+        "rationale": "Automated by rule: high_confidence_auto_accept",
+        "timestamp": "1970-01-01T00:00:00+00:00"
+      },
+      {
+        "id": "auto_dec_2",
+        "suggestion_id": "sug_1",
+        "accepted": true,
+        "source": "system:high_confidence_auto_accept",
+        "rationale": "Automated by rule: high_confidence_auto_accept",
+        "timestamp": "1970-01-01T00:00:00+00:00"
+      },
+      {
+        "id": "auto_dec_3",
+        "suggestion_id": "sug_2",
+        "accepted": true,
+        "source": "system:high_confidence_auto_accept",
+        "rationale": "Automated by rule: high_confidence_auto_accept",
+        "timestamp": "1970-01-01T00:00:00+00:00"
+      },
+      {
+        "id": "auto_dec_4",
+        "suggestion_id": "sug_3",
+        "accepted": true,
+        "source": "system:high_confidence_auto_accept",
+        "rationale": "Automated by rule: high_confidence_auto_accept",
+        "timestamp": "1970-01-01T00:00:00+00:00"
+      }
+    ]
+  },
+  "recommendations": [
+    "Review medium and high-severity conflicts before unification",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

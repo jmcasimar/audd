@@ -1,0 +1,6401 @@
+{
+  "source_name": "growvtravel",
+  "source_type": "sql",
+  "entities": [
+    {
+      "entity_name": "airlines",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "contraction",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "bank_accounts",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "clabe",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "account",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "card",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "owner",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "bank",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "benefit_transaction_settings",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "subsidiary_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "concept",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "transaction_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`BENEFIT_TRANSACTION_SETTINGS_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`BENEFIT_TRANSACTION_SETTINGS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`BENEFIT_TRANSACTION_SETTINGS_SUBSIDIARY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`BENEFIT_TRANSACTION_SETTINGS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "bonus_transaction_settings",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "subsidiary_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "concept",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "transaction_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`BONUS_TRANSACTION_SETTINGS_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`BONUS_TRANSACTION_SETTINGS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`BONUS_TRANSACTION_SETTINGS_SUBSIDIARY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`BONUS_TRANSACTION_SETTINGS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "cache",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "key",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "value",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "expiration",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`key`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "cache_locks",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "key",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "owner",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "expiration",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`key`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "channels",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "classifications",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "comments",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "lead_group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "file_name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "file_path",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`COMMENTS_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`COMMENTS_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`COMMENTS_LEAD_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "commission_transaction_settings",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "subsidiary_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "concept",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "transaction_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`COMMISSION_TRANSACTION_SETTINGS_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`COMMISSION_TRANSACTION_SETTINGS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`COMMISSION_TRANSACTION_SETTINGS_SUBSIDIARY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`COMMISSION_TRANSACTION_SETTINGS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "currencies",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "customers",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "public_token",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "phone",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "birthdate",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "credit_days",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`CUSTOMERS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "customer_classifications",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "customer_megatravel_interests",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "customer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "mt_clv",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "mt_code",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "title",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "price_from",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "imp_from",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "detail_url",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "notes",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "captured_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`CUSTOMER_MEGATRAVEL_INTERESTS_MT_CLV_INDEX`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`CUSTOMER_MEGATRAVEL_INTERESTS_CUSTOMER_ID_MT_CLV_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "destinations",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "contraction",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "events",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "start_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "end_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "notes",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "failed_jobs",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "uuid",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "connection",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "queue",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "payload",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "exception",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "failed_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "files",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "file_path",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "lead_group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "public",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`FILES_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`FILES_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`FILES_LEAD_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "groups",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "group_products",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_service_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "departure_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "arrival_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "airline_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "hotel_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "occupation_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "service_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "guests",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "profit",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "flight_datetime",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_PRODUCTS_LEAD_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_PRODUCTS_GROUP_SERVICE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_PRODUCTS_DEPARTURE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_PRODUCTS_ARRIVAL_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_PRODUCTS_AIRLINE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_PRODUCTS_HOTEL_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_PRODUCTS_OCCUPATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_PRODUCTS_SERVICE_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "group_services",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "service_category_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "round_trip",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_SERVICES_LEAD_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`GROUP_SERVICES_SERVICE_CATEGORY_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "hotels",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "contraction",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "jobs",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "queue",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "payload",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "attempts",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "reserved_at",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "available_at",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`JOBS_QUEUE_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "job_batches",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total_jobs",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "pending_jobs",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "failed_jobs",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "failed_job_ids",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "options",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "cancelled_at",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "finished_at",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "leads",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "public_token",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "survey",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "pos_sale",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "lead_group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "customer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "prelead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "cost",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "profit",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "toPay",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "stage_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "service_type_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "channel_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "operator",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "due_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEADS_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEADS_CUSTOMER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEADS_PRELEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEADS_STAGE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEADS_SERVICE_TYPE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEADS_LEAD_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEADS_CHANNEL_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "lead_groups",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "contraction",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "operator",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "service_type_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "due_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "profit",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "channel_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_GROUPS_SERVICE_TYPE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_GROUPS_CHANNEL_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "lead_products",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_service_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "departure_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "arrival_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "airline_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "hotel_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "occupation_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "service_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "quantity",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "unit_price",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "discount",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "guests",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "profit",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "flight_datetime",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PRODUCTS_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PRODUCTS_LEAD_SERVICE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PRODUCTS_DEPARTURE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PRODUCTS_ARRIVAL_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PRODUCTS_AIRLINE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PRODUCTS_HOTEL_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PRODUCTS_OCCUPATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PRODUCTS_SERVICE_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "lead_profits",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "profit_distribution_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "profit",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "operator",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "notes",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PROFITS_LEAD_ID_INDEX`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_PROFITS_PROFIT_DISTRIBUTION_ID_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "lead_services",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "service_category_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "round_trip",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_SERVICES_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`LEAD_SERVICES_SERVICE_CATEGORY_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "megatravel_categories",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "slug",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "megatravel_offers",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "mt_clv",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "mt_code",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "title",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "price_from",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "imp_from",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "detail_url",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "image_url",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "source",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "last_synced_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`MEGATRAVEL_OFFERS_ACTIVE_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "megatravel_offer_category",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "megatravel_offer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "megatravel_category_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`MEGATRAVEL_OFFER_CATEGORY_MEGATRAVEL_CATEGORY_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "migrations",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "migration",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "batch",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "occupations",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "adults",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "kids",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "order",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "contraction",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "password_reset_tokens",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "token",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`email`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "payments",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "exchange_rate",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total_mxn",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "reference",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "file_path",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "paid",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENTS_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "payment_attempts",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "payment_request_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "provider",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "provider_reference",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "payment_intent_id",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "provider_response",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "checkout_url",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "status",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "amount",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_ATTEMPTS_PAYMENT_REQUEST_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_ATTEMPTS_PROVIDER_REFERENCE_INDEX`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_ATTEMPTS_PAYMENT_INTENT_ID_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "payment_installments",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "amount",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "due_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "status",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "payment_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_INSTALLMENTS_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_INSTALLMENTS_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_INSTALLMENTS_PAYMENT_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "payment_requests",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "public_token",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "customer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "payment_installment_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "amount",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "provider",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "origin",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "status",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "expires_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_REQUESTS_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_REQUESTS_CUSTOMER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_REQUESTS_PAYMENT_INSTALLMENT_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "payment_settings",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "subsidiary_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "concept",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "transaction_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_SETTINGS_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_SETTINGS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_SETTINGS_SUBSIDIARY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_SETTINGS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "payment_supplier_settings",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "subsidiary_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "concept",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "transaction_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_SUPPLIER_SETTINGS_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_SUPPLIER_SETTINGS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_SUPPLIER_SETTINGS_SUBSIDIARY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYMENT_SUPPLIER_SETTINGS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "payroll_payments",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "week_start",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "week_end",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "amount",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "commission",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "benefit",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "bonus",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "paid_at",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "payment_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYROLL_PAYMENTS_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYROLL_PAYMENTS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "payroll_transaction_settings",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "subsidiary_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "concept",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "transaction_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYROLL_TRANSACTION_SETTINGS_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYROLL_TRANSACTION_SETTINGS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYROLL_TRANSACTION_SETTINGS_SUBSIDIARY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PAYROLL_TRANSACTION_SETTINGS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "periods",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "personal_access_tokens",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "tokenable_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "tokenable_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "token",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "abilities",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "last_used_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "expires_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PERSONAL_ACCESS_TOKENS_TOKENABLE_TYPE_TOKENABLE_ID_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "pos_custom_field_definitions",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "code",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "field_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "options",
+          "canonical_type": {
+            "type": "json"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "is_required",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "target_type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "sort_order",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "pos_custom_field_values",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "definition_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "lead_product_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "value",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`POS_CUSTOM_FIELD_VALUES_DEFINITION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`POS_CUSTOM_FIELD_VALUES_LEAD_PRODUCT_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`POS_CUSTOM_FIELD_VALUES_LEAD_ID_LEAD_PRODUCT_ID_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "preleads",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "customer_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PRELEADS_CUSTOMER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PRELEADS_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "profit_distributions",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total_profit",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total_dividend",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "remaining_profit",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "distribution_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "notes",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`PROFIT_DISTRIBUTIONS_DISTRIBUTION_DATE_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "reminders",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "finished",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "lead_group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "payment_installment_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`REMINDERS_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`REMINDERS_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`REMINDERS_LEAD_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`REMINDERS_PAYMENT_INSTALLMENT_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "retained_profit_settings",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "subsidiary_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "description_template",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "is_active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`RETAINED_PROFIT_SETTINGS_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`RETAINED_PROFIT_SETTINGS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`RETAINED_PROFIT_SETTINGS_SUBSIDIARY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`RETAINED_PROFIT_SETTINGS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`RETAINED_PROFIT_SETTINGS_IS_ACTIVE_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "roles",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "hidden",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "role_screens",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "role_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "screen",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`ROLE_SCREENS_ROLE_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "services",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "service_categories",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "tablename",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "service_types",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "sessions",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ip_address",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "user_agent",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "payload",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "last_activity",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`SESSIONS_USER_ID_INDEX`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`SESSIONS_LAST_ACTIVITY_INDEX`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "settings",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "address",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "phone",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "terms",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "reservation_prefix",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "reservation_format",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "reservation_id_pad_length",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "profit_percentage",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "profit_include_in_total",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "enable_birthdate",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "stages",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "color",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "subsidiaries",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "address",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "supplier_group_payments",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "supplier_name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "exchange_rate",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total_mxn",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "file_path",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "canceled",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "paid",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`SUPPLIER_GROUP_PAYMENTS_LEAD_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "supplier_payments",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "supplier_group_payment_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "supplier_name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "currency",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "exchange_rate",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total_mxn",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "file_path",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "canceled",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "paid",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`SUPPLIER_PAYMENTS_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`SUPPLIER_PAYMENTS_SUPPLIER_GROUP_PAYMENT_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "surveys",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "version",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "active",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "survey_answers",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "survey_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "survey_question_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "answer",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`SURVEY_ANSWERS_SURVEY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`SURVEY_ANSWERS_SURVEY_QUESTION_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "survey_questions",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "survey_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "question",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "order",
+          "canonical_type": {
+            "type": "int32"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`SURVEY_QUESTIONS_SURVEY_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "tags",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "color",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "lead_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`TAGS_LEAD_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "transactions",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "aproximadamente)",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "--"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "description",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "type",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "group_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "classification_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "subsidiary_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "period_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "payroll_payment_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "payment_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "supplier_payment_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`TRANSACTIONS_GROUP_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`TRANSACTIONS_CLASSIFICATION_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`TRANSACTIONS_SUBSIDIARY_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`TRANSACTIONS_PERIOD_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`TRANSACTIONS_PAYROLL_PAYMENT_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`TRANSACTIONS_PAYMENT_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`TRANSACTIONS_SUPPLIER_PAYMENT_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "users",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "email_verified_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "password",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "phone",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "commission",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "birthdate",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "start_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "position",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "weekly_salary",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "remember_token",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UNIQUE",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "KEY"
+          },
+          "nullable": true,
+          "constraints": [
+            {
+              "constraint_type": "Unique"
+            }
+          ]
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "user_roles",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "role_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`USER_ROLES_ROLE_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`USER_ROLES_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "vacations",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "user_id",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "start_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "end_date",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "accepted",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "refused",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "TINYINT(1)"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "reviewed_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "reviewed_by",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "notes",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "created_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "updated_at",
+          "canonical_type": {
+            "type": "timestamp"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`VACATIONS_USER_ID_FOREIGN`"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "KEY",
+          "canonical_type": {
+            "type": "unknown",
+            "original_type": "`VACATIONS_REVIEWED_BY_FOREIGN`"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "`id`"
+          ]
+        }
+      ]
+    }
+  ],
+  "ir_version": "1.0.0"
+}

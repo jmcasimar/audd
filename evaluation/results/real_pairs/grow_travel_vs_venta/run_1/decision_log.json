@@ -1,0 +1,138 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "1970-01-01T00:00:00Z",
+    "updated_at": "1970-01-01T00:00:00Z",
+    "total_decisions": 4,
+    "accepted_decisions": 4,
+    "rejected_decisions": 0,
+    "schema_a_id": "growvtravel",
+    "schema_b_id": "growventa"
+  },
+  "decisions": [
+    {
+      "id": "auto_dec_1",
+      "suggestion": {
+        "id": "sug_0",
+        "entity_name": "settings",
+        "field_name": "name",
+        "kind": {
+          "prefer_type": {
+            "preferred_type": "Nullable",
+            "alternative_type": "alternative",
+            "rule": "R-NULL-001"
+          }
+        },
+        "confidence": 0.9,
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "impact": "medium",
+        "conflict_index": null
+      },
+      "accepted": true,
+      "rationale": "Automated by rule: high_confidence_auto_accept",
+      "source": {
+        "system": {
+          "rule": "high_confidence_auto_accept"
+        }
+      },
+      "status": "pending",
+      "timestamp": "1970-01-01T00:00:00Z"
+    },
+    {
+      "id": "auto_dec_2",
+      "suggestion": {
+        "id": "sug_1",
+        "entity_name": "settings",
+        "field_name": "address",
+        "kind": {
+          "prefer_type": {
+            "preferred_type": "Nullable",
+            "alternative_type": "alternative",
+            "rule": "R-NULL-001"
+          }
+        },
+        "confidence": 0.9,
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "impact": "medium",
+        "conflict_index": null
+      },
+      "accepted": true,
+      "rationale": "Automated by rule: high_confidence_auto_accept",
+      "source": {
+        "system": {
+          "rule": "high_confidence_auto_accept"
+        }
+      },
+      "status": "pending",
+      "timestamp": "1970-01-01T00:00:00Z"
+    },
+    {
+      "id": "auto_dec_3",
+      "suggestion": {
+        "id": "sug_2",
+        "entity_name": "settings",
+        "field_name": "phone",
+        "kind": {
+          "prefer_type": {
+            "preferred_type": "Nullable",
+            "alternative_type": "alternative",
+            "rule": "R-NULL-001"
+          }
+        },
+        "confidence": 0.9,
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "impact": "medium",
+        "conflict_index": null
+      },
+      "accepted": true,
+      "rationale": "Automated by rule: high_confidence_auto_accept",
+      "source": {
+        "system": {
+          "rule": "high_confidence_auto_accept"
+        }
+      },
+      "status": "pending",
+      "timestamp": "1970-01-01T00:00:00Z"
+    },
+    {
+      "id": "auto_dec_4",
+      "suggestion": {
+        "id": "sug_3",
+        "entity_name": "users",
+        "field_name": "email",
+        "kind": {
+          "prefer_type": {
+            "preferred_type": "Nullable",
+            "alternative_type": "alternative",
+            "rule": "R-NULL-001"
+          }
+        },
+        "confidence": 0.9,
+        "explanation": "Acepta los datos de ambas fuentes",
+        "evidence": [
+          "catalog:R-NULL-001"
+        ],
+        "impact": "medium",
+        "conflict_index": null
+      },
+      "accepted": true,
+      "rationale": "Automated by rule: high_confidence_auto_accept",
+      "source": {
+        "system": {
+          "rule": "high_confidence_auto_accept"
+        }
+      },
+      "status": "pending",
+      "timestamp": "1970-01-01T00:00:00Z"
+    }
+  ]
+}

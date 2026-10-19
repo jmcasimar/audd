@@ -35,15 +35,17 @@ pub struct SqliteConnector {
 
 #[cfg(feature = "sqlite")]
 fn validate_sql_identifier(name: &str) -> DbResult<()> {
-    if name.is_empty() || name.len() > 64 {
+    if name.is_empty() || name.len() > 128 {
         return Err(DbError::ExtractionError(format!(
             "Invalid identifier length: {}",
             name
         )));
     }
+    // SQLite allows a wide range of characters when the identifier is quoted.
+    // We allow alphanumerics, underscore, dollar sign, space and hyphen.
     if !name
         .chars()
-        .all(|c| c.is_alphanumeric() || c == '_' || c == '$')
+        .all(|c| c.is_alphanumeric() || c == '_' || c == '$' || c == ' ' || c == '-')
     {
         return Err(DbError::ExtractionError(format!(
             "Invalid identifier characters: {}",
@@ -127,7 +129,7 @@ impl SqliteConnector {
     /// Extract field schemas for a table
     fn extract_fields(&self, table_name: &str) -> DbResult<Vec<FieldSchema>> {
         validate_sql_identifier(table_name)?;
-        let query = format!("PRAGMA table_info('{}')", table_name);
+        let query = format!("PRAGMA table_info(\"{}\")", table_name.replace('"', "\"\""));
         let mut stmt = self
             .connection
             .prepare(&query)
@@ -192,7 +194,7 @@ impl SqliteConnector {
     /// Extract primary key fields
     fn extract_primary_key(&self, table_name: &str) -> DbResult<Vec<String>> {
         validate_sql_identifier(table_name)?;
-        let query = format!("PRAGMA table_info('{}')", table_name);
+        let query = format!("PRAGMA table_info(\"{}\")", table_name.replace('"', "\"\""));
         let mut stmt = self
             .connection
             .prepare(&query)
@@ -227,7 +229,7 @@ impl SqliteConnector {
     /// Extract unique indexes
     fn extract_unique_indexes(&self, table_name: &str) -> DbResult<Vec<Key>> {
         validate_sql_identifier(table_name)?;
-        let query = format!("PRAGMA index_list('{}')", table_name);
+        let query = format!("PRAGMA index_list(\"{}\")", table_name.replace('"', "\"\""));
         let mut stmt = self
             .connection
             .prepare(&query)
@@ -263,7 +265,7 @@ impl SqliteConnector {
     /// Extract columns for a specific index
     fn extract_index_columns(&self, _table_name: &str, index_name: &str) -> DbResult<Vec<String>> {
         validate_sql_identifier(index_name)?;
-        let query = format!("PRAGMA index_info('{}')", index_name);
+        let query = format!("PRAGMA index_info(\"{}\")", index_name.replace('"', "\"\""));
         let mut stmt = self
             .connection
             .prepare(&query)
@@ -283,7 +285,7 @@ impl SqliteConnector {
     /// Extract foreign keys for a table
     fn extract_foreign_keys(&self, table_name: &str) -> DbResult<Vec<Key>> {
         validate_sql_identifier(table_name)?;
-        let query = format!("PRAGMA foreign_key_list('{}')", table_name);
+        let query = format!("PRAGMA foreign_key_list(\"{}\")", table_name.replace('"', "\"\""));
         let mut stmt = self
             .connection
             .prepare(&query)
@@ -320,7 +322,7 @@ impl SqliteConnector {
     /// Extract all indexes (including non-unique) for a table
     fn extract_indexes(&self, table_name: &str) -> DbResult<Vec<Index>> {
         validate_sql_identifier(table_name)?;
-        let query = format!("PRAGMA index_list('{}')", table_name);
+        let query = format!("PRAGMA index_list(\"{}\")", table_name.replace('"', "\"\""));
         let mut stmt = self
             .connection
             .prepare(&query)

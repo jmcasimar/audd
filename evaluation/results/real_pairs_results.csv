@@ -1,0 +1,6 @@
+pair_id,description,exit_code,runs,time_ms,matches,exclusives,conflicts,suggestions,pre,rep,rob
+chinook_cross_engine,Chinook en MySQL DDL vs Chinook en SQLite,0,3,49.25,71,2,0,0,100.0,100.0,100.0
+grow_travel_vs_venta,Caso real Grow Travel (MySQL DDL) vs Grow Venta (SQLite),0,3,79.9,17,180,4,4,100.0,100.0,100.0
+unicenta_vs_growventa,UniCenta OPOS (MySQL DDL) vs Grow Venta (SQLite),0,3,59.49,12,183,0,0,100.0,100.0,100.0
+northwind_vs_chinook,Northwind (SQLite) vs Chinook (SQLite),0,3,37.62,20,41,1,1,100.0,100.0,100.0
+sakila_vs_chinook_mysql,Sakila (MySQL DDL) vs Chinook (MySQL DDL),0,3,29.62,5,42,0,0,100.0,100.0,100.0

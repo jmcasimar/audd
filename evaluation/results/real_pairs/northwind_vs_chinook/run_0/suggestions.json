@@ -1,0 +1,13 @@
+[
+  {
+    "conflict_index": 0,
+    "entity_name": "Customers",
+    "field_name": "CustomerID",
+    "conflict_type": "TypeIncompatible",
+    "suggestion_id": "sug_1",
+    "suggestion_kind": "CastRisky",
+    "confidence": 0.75,
+    "accepted_auto": false,
+    "explanation": "Narrowing or lossy cast from Text to Int64 - Requires validating that all values can be parsed"
+  }
+]

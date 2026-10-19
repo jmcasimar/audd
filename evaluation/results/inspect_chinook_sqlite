@@ -1,0 +1,821 @@
+{
+  "source_name": "Chinook_Sqlite",
+  "source_type": "sqlite",
+  "entities": [
+    {
+      "entity_name": "Album",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "AlbumId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Title",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ArtistId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "AlbumId"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "ArtistId"
+          ],
+          "metadata": {
+            "from_column": "ArtistId",
+            "referenced_table": "Artist",
+            "referenced_column": "ArtistId"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "IFK_AlbumArtistId",
+          "index_type": "regular",
+          "field_names": [
+            "ArtistId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Artist",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ArtistId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ArtistId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Customer",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "CustomerId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "FirstName",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LastName",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Company",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Address",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "City",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "State",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Country",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PostalCode",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Phone",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Fax",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "SupportRepId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "CustomerId"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "SupportRepId"
+          ],
+          "metadata": {
+            "referenced_table": "Employee",
+            "referenced_column": "EmployeeId",
+            "from_column": "SupportRepId"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "IFK_CustomerSupportRepId",
+          "index_type": "regular",
+          "field_names": [
+            "SupportRepId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Employee",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "EmployeeId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LastName",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "FirstName",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Title",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ReportsTo",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BirthDate",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "HireDate",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Address",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "City",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "State",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Country",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PostalCode",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Phone",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Fax",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Email",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "EmployeeId"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "ReportsTo"
+          ],
+          "metadata": {
+            "from_column": "ReportsTo",
+            "referenced_table": "Employee",
+            "referenced_column": "EmployeeId"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "IFK_EmployeeReportsTo",
+          "index_type": "regular",
+          "field_names": [
+            "ReportsTo"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Genre",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "GenreId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "GenreId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Invoice",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "InvoiceId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CustomerId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "InvoiceDate",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "BillingAddress",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BillingCity",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BillingState",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BillingCountry",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BillingPostalCode",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Total",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "InvoiceId"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "CustomerId"
+          ],
+          "metadata": {
+            "referenced_table": "Customer",
+            "from_column": "CustomerId",
+            "referenced_column": "CustomerId"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "IFK_InvoiceCustomerId",
+          "index_type": "regular",
+          "field_names": [
+            "CustomerId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "InvoiceLine",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "InvoiceLineId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "InvoiceId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TrackId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "UnitPrice",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Quantity",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "InvoiceLineId"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "TrackId"
+          ],
+          "metadata": {
+            "from_column": "TrackId",
+            "referenced_table": "Track",
+            "referenced_column": "TrackId"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "InvoiceId"
+          ],
+          "metadata": {
+            "referenced_table": "Invoice",
+            "from_column": "InvoiceId",
+            "referenced_column": "InvoiceId"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "IFK_InvoiceLineTrackId",
+          "index_type": "regular",
+          "field_names": [
+            "TrackId"
+          ]
+        },
+        {
+          "index_name": "IFK_InvoiceLineInvoiceId",
+          "index_type": "regular",
+          "field_names": [
+            "InvoiceId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "MediaType",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "MediaTypeId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "MediaTypeId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Playlist",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "PlaylistId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "PlaylistId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "PlaylistTrack",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "PlaylistId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TrackId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "PlaylistId",
+            "TrackId"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "TrackId"
+          ],
+          "metadata": {
+            "referenced_table": "Track",
+            "referenced_column": "TrackId",
+            "from_column": "TrackId"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "PlaylistId"
+          ],
+          "metadata": {
+            "from_column": "PlaylistId",
+            "referenced_table": "Playlist",
+            "referenced_column": "PlaylistId"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "IFK_PlaylistTrackTrackId",
+          "index_type": "regular",
+          "field_names": [
+            "TrackId"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Track",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "TrackId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Name",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "AlbumId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "MediaTypeId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "GenreId",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Composer",
+          "canonical_type": {
+            "type": "string"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Milliseconds",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Bytes",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UnitPrice",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "TrackId"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "MediaTypeId"
+          ],
+          "metadata": {
+            "referenced_table": "MediaType",
+            "referenced_column": "MediaTypeId",
+            "from_column": "MediaTypeId"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "GenreId"
+          ],
+          "metadata": {
+            "referenced_table": "Genre",
+            "from_column": "GenreId",
+            "referenced_column": "GenreId"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "AlbumId"
+          ],
+          "metadata": {
+            "from_column": "AlbumId",
+            "referenced_table": "Album",
+            "referenced_column": "AlbumId"
+          }
+        }
+      ],
+      "indexes": [
+        {
+          "index_name": "IFK_TrackMediaTypeId",
+          "index_type": "regular",
+          "field_names": [
+            "MediaTypeId"
+          ]
+        },
+        {
+          "index_name": "IFK_TrackGenreId",
+          "index_type": "regular",
+          "field_names": [
+            "GenreId"
+          ]
+        },
+        {
+          "index_name": "IFK_TrackAlbumId",
+          "index_type": "regular",
+          "field_names": [
+            "AlbumId"
+          ]
+        }
+      ]
+    }
+  ],
+  "ir_version": "1.0.0"
+}

@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created_at": "1970-01-01T00:00:00Z",
+    "updated_at": "1970-01-01T00:00:00Z",
+    "total_decisions": 0,
+    "accepted_decisions": 0,
+    "rejected_decisions": 0,
+    "schema_a_id": "MySQL-create",
+    "schema_b_id": "growventa"
+  },
+  "decisions": []
+}

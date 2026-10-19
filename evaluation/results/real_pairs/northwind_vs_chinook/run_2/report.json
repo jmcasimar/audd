@@ -1,0 +1,549 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "northwind",
+    "schema_b": "Chinook_Sqlite",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 20,
+      "total_exclusives": 41,
+      "total_conflicts": 1,
+      "exclusives_from_a": 22,
+      "exclusives_from_b": 19,
+      "compatibility_score": 95.23809523809523,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 4.761904761904762
+    },
+    "risk_assessment": {
+      "risk_level": "High",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 1,
+      "reasons": [
+        "1 high-severity conflict(s) detected"
+      ]
+    },
+    "top_conflicts": [
+      {
+        "entity_name": "Customers",
+        "conflict_count": 1,
+        "highest_severity": "High"
+      }
+    ]
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 20,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 0.9983219954648526
+    },
+    "exclusives": {
+      "from_schema_a": 22,
+      "from_schema_b": 19,
+      "safe_from_a": 22,
+      "safe_from_b": 19,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 1,
+      "by_type": {
+        "TypeIncompatible": 1
+      },
+      "by_severity": {
+        "High": 1
+      }
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "Customers",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.9832199546485261,
+        "index_a": 3,
+        "index_b": 2
+      },
+      {
+        "entity": "Customers",
+        "field": "CustomerID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Customers",
+        "field": "Address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "Customers",
+        "field": "City",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Customers",
+        "field": "PostalCode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 8
+      },
+      {
+        "entity": "Customers",
+        "field": "Country",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 7
+      },
+      {
+        "entity": "Customers",
+        "field": "Phone",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 9,
+        "index_b": 9
+      },
+      {
+        "entity": "Customers",
+        "field": "Fax",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 10
+      },
+      {
+        "entity": "Employees",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.9832199546485261,
+        "index_a": 5,
+        "index_b": 3
+      },
+      {
+        "entity": "Employees",
+        "field": "EmployeeID",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "Employees",
+        "field": "LastName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 1
+      },
+      {
+        "entity": "Employees",
+        "field": "FirstName",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 2
+      },
+      {
+        "entity": "Employees",
+        "field": "Title",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "Employees",
+        "field": "BirthDate",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 5
+      },
+      {
+        "entity": "Employees",
+        "field": "HireDate",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 6,
+        "index_b": 6
+      },
+      {
+        "entity": "Employees",
+        "field": "Address",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 7,
+        "index_b": 7
+      },
+      {
+        "entity": "Employees",
+        "field": "City",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 8,
+        "index_b": 8
+      },
+      {
+        "entity": "Employees",
+        "field": "PostalCode",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 11
+      },
+      {
+        "entity": "Employees",
+        "field": "Country",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 11,
+        "index_b": 10
+      },
+      {
+        "entity": "Employees",
+        "field": "ReportsTo",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 16,
+        "index_b": 4
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "Customers",
+        "field": "CompanyName",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "Customers",
+        "field": "ContactName",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "Customers",
+        "field": "ContactTitle",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Customers",
+        "field": "Region",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "Customers",
+        "field": "FirstName",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "Customers",
+        "field": "LastName",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "Customers",
+        "field": "Company",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Customers",
+        "field": "State",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "Customers",
+        "field": "Email",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "Customers",
+        "field": "SupportRepId",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "Employees",
+        "field": "TitleOfCourtesy",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Employees",
+        "field": "Region",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Employees",
+        "field": "HomePhone",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "Employees",
+        "field": "Extension",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "Employees",
+        "field": "Photo",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "Employees",
+        "field": "Notes",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "Employees",
+        "field": "PhotoPath",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "Employees",
+        "field": "State",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Employees",
+        "field": "Phone",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "Employees",
+        "field": "Fax",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "Employees",
+        "field": "Email",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "Categories",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "CustomerCustomerDemo",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "CustomerDemographics",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "EmployeeTerritories",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Order Details",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "Orders",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "Products",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "Regions",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Shippers",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "Suppliers",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "Territories",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "Album",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "Artist",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "Genre",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Invoice",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "InvoiceLine",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "MediaType",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "Playlist",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "PlaylistTrack",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Track",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      }
+    ],
+    "conflicts": [
+      {
+        "id": 1,
+        "entity": "Customers",
+        "field": "CustomerID",
+        "conflict_type": "TypeIncompatible",
+        "severity": "High",
+        "evidence_a": "Type: Text",
+        "evidence_b": "Type: Int64",
+        "rule": "Types must be compatible",
+        "index_a": 0,
+        "index_b": 0
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 0,
+      "high_confidence": 0,
+      "medium_confidence": 0,
+      "auto_accepted": 0,
+      "total_decisions": 0,
+      "accepted_decisions": 0,
+      "rejected_decisions": 0,
+      "system_decisions": 0,
+      "user_decisions": 0
+    },
+    "suggestions": [],
+    "decisions": []
+  },
+  "recommendations": [
+    "HIGH RISK: Careful review of all conflicts recommended",
+    "Address 1 high-severity conflict(s) before auto-unification",
+    "1 conflict(s) remain without accepted resolutions",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

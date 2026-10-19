@@ -1,0 +1,7200 @@
+{
+  "schema_name": "a_b_unified",
+  "entities": [
+    {
+      "entity_name": "Cash_movements",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "box_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "type",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "amount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "currency",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "note",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "metadata",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "tip",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Cashcut",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "cash",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "msg",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "open",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "box_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "CashregisterLog",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "cash",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "CatalogProduct",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "code",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "department",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "unit",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "image_url",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Customer",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "phone",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "email",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "discount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "credit",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "points",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "street",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "exterior_number",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "interior_number",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "city",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "state",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "country",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "postal_code",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Department",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "description",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Department_Printer",
+      "fields": [
+        {
+          "field": {
+            "field_name": "department_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "printer_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Expense",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "description",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "payment_method",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "box_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Inventory",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "diff",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "min_quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "warehouse_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "InventoryLog",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "diff",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "warehouse_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Inventory_movements",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "inventory_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "warehouse_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "qty",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "qty_before",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "qty_after",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "movement_type",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "movement_direction",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "reference_type",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "reference_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "source",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "notes",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "License",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "demo",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "expired_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "license_hash",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "first_license_hash",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "license_id",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "machine_id",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "issued_at",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Multibox",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "type",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "current_ip",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "port",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "principal_ip",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "connected",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "last_connection",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "machine_id",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "settings_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Order_detail",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "code",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "price",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "discount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "order_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "department_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "unit",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "comments",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "is_prepared",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        },
+        {
+          "field": {
+            "field_name": "product",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "producto",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Order_detail_options",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "order_detail_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "product_option_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "product_option_detail_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "name_snapshot",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "price_delta_snapshot",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Order_payment",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "payment_method",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "reference",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "currency",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "currency_amount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "exchange_rate",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "box_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "order_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "tip",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Order_tax",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "order_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "order_array_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Orders",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "toPay",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "discount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "paid",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "layaway",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "credit",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "currency",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "box_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "customer_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "table_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "tip",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        },
+        {
+          "field": {
+            "field_name": "type",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 16,
+          "index_b": 16
+        },
+        {
+          "field": {
+            "field_name": "comments",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 17,
+          "index_b": 17
+        },
+        {
+          "field": {
+            "field_name": "points",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 18,
+          "index_b": 18
+        },
+        {
+          "field": {
+            "field_name": "identifier",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 19,
+          "index_b": 19
+        },
+        {
+          "field": {
+            "field_name": "is_cancellable",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 20,
+          "index_b": 20
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Payment_methods",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "label",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "value",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "is_active",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Printer",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "role",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "is_default",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "is_enabled",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "connection_type",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "usb_mode",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "usb_vid",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "usb_pid",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "os_printer_name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "net_host",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "net_port",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "ticket_copy",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "settings",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "code",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "amount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "price",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "department_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "unit",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "url_image",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "is_supply",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "unit_purchase",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "unit_quantity",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "track_inventory",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        },
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "code",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "amount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "price",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 6,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 7,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 8,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "department_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 9,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "unit",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 10,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "url_image",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 11,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "is_supply",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 12,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "unit_purchase",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 13,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "unit_quantity",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 14,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "track_inventory",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 15,
+          "index_b": null
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "ProductLog",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "price",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product_Product",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "includes_product",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "price",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "department_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "unit",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "url_image",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "is_supply",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "unit_purchase",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "unit_quantity",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "track_inventory",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 15
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product_Product",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "includes_product",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product_Tax",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "tax_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product_cost",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "source_type",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "source_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "old_cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "new_cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "currency",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "note",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product_option_assignment",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "product_option_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "sort_order",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product_option_detail",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "product_option_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "price_delta",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "sku_suffix",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "sort_order",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "is_active",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Product_options",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "selection_mode",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "is_required",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "sort_order",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "is_active",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Purchase_order_details",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "purchase_order_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "unit_cost",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "unit_cost_mxn",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "applied_unit_cost_mxn",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "applied_total_mxn",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "unit_purchase",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "unit_quantity",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "unit_sale",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Purchase_orders",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "supplier_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "status",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "currency",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "currency_exchange",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "additionals",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "notes",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "paid_from_cash",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "cash_movement_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Quotation",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "folio",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "toPay",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "discount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "currency",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "is_converted",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "converted_order_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "terms_quote",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "transfer_comment",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "box_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "customer_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Quotation_detail",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "code",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "price",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "discount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "total",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "quotation_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "product_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "department_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "unit",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "comments",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "product",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 4,
+          "index_b": null
+        },
+        {
+          "field": {
+            "field_name": "producto",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "B",
+          "state": "exclusive",
+          "index_a": null,
+          "index_b": 4
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Quotation_detail_options",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "quotation_detail_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "product_option_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "product_option_detail_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "name_snapshot",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "price_delta_snapshot",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Recipe_items",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "recipe_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "food_supply_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "quantity",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Restaurant_tables",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "area",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "is_active",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "priority",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Setting",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "small_logo",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "big_logo",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "print_logo",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "principal_color",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "secondary_color",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "phone",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "address",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "bank_account",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "bank_name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "bank_clabe",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "name_quote",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "terms_quote",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        },
+        {
+          "field": {
+            "field_name": "transfer_comment",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 16,
+          "index_b": 16
+        },
+        {
+          "field": {
+            "field_name": "max_credit",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 17,
+          "index_b": 17
+        },
+        {
+          "field": {
+            "field_name": "discount_customer",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 18,
+          "index_b": 18
+        },
+        {
+          "field": {
+            "field_name": "discount_order",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 19,
+          "index_b": 19
+        },
+        {
+          "field": {
+            "field_name": "enable_discount",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 20,
+          "index_b": 20
+        },
+        {
+          "field": {
+            "field_name": "mandatory_reference",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 21,
+          "index_b": 21
+        },
+        {
+          "field": {
+            "field_name": "usd_price",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 22,
+          "index_b": 22
+        },
+        {
+          "field": {
+            "field_name": "enable_bailment",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 23,
+          "index_b": 23
+        },
+        {
+          "field": {
+            "field_name": "tax_included",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 24,
+          "index_b": 24
+        },
+        {
+          "field": {
+            "field_name": "is_restaurant",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 25,
+          "index_b": 25
+        },
+        {
+          "field": {
+            "field_name": "currency",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 26,
+          "index_b": 26
+        },
+        {
+          "field": {
+            "field_name": "second_currency",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 27,
+          "index_b": 27
+        },
+        {
+          "field": {
+            "field_name": "costing_strategy",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 28,
+          "index_b": 28
+        },
+        {
+          "field": {
+            "field_name": "costing_last_n",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 29,
+          "index_b": 29
+        },
+        {
+          "field": {
+            "field_name": "enable_batches",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 30,
+          "index_b": 30
+        },
+        {
+          "field": {
+            "field_name": "points_perc",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 31,
+          "index_b": 31
+        },
+        {
+          "field": {
+            "field_name": "quotation_folio_prefix",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 32,
+          "index_b": 32
+        },
+        {
+          "field": {
+            "field_name": "quotation_folio_min_length",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 33,
+          "index_b": 33
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Setting_discount",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "min",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "discount",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "setting_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Setting_local",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "NUM"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "unknown",
+              "original_type": "NUM"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "setting_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "machine_id",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "backup_path",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "scale_vid",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "scale_pid",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "cash",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "enable_scale",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "version",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "channel",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "tour_login",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "touch_mode",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "is_commander",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        },
+        {
+          "field": {
+            "field_name": "is_kitchen_display",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 16,
+          "index_b": 16
+        },
+        {
+          "field": {
+            "field_name": "auto_updates_enabled",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 17,
+          "index_b": 17
+        },
+        {
+          "field": {
+            "field_name": "allow_unstable_channel",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 18,
+          "index_b": 18
+        },
+        {
+          "field": {
+            "field_name": "product_grid_view",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 19,
+          "index_b": 19
+        },
+        {
+          "field": {
+            "field_name": "is_price_checker",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 20,
+          "index_b": 20
+        },
+        {
+          "field": {
+            "field_name": "uuid_baseboard",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 21,
+          "index_b": 21
+        },
+        {
+          "field": {
+            "field_name": "uuid_ram",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 22,
+          "index_b": 22
+        },
+        {
+          "field": {
+            "field_name": "uuid_disk",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 23,
+          "index_b": 23
+        },
+        {
+          "field": {
+            "field_name": "uuid_system",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 24,
+          "index_b": 24
+        },
+        {
+          "field": {
+            "field_name": "platform",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 25,
+          "index_b": 25
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Suppliers",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "phone",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "email",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "address",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "is_active",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Tax",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "tax_name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "value",
+            "canonical_type": {
+              "type": "float64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "type",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "withholding",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "transfer",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "apply_default",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Tour",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "user_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "dashboard_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "customers_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "products_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "departments_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "open_cash_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "cash_register_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        },
+        {
+          "field": {
+            "field_name": "orders_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 8,
+          "index_b": 8
+        },
+        {
+          "field": {
+            "field_name": "inventory_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 9,
+          "index_b": 9
+        },
+        {
+          "field": {
+            "field_name": "expenses_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 10,
+          "index_b": 10
+        },
+        {
+          "field": {
+            "field_name": "cash_drawer_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 11,
+          "index_b": 11
+        },
+        {
+          "field": {
+            "field_name": "close_cash_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 12,
+          "index_b": 12
+        },
+        {
+          "field": {
+            "field_name": "reports_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 13,
+          "index_b": 13
+        },
+        {
+          "field": {
+            "field_name": "configuration_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 14,
+          "index_b": 14
+        },
+        {
+          "field": {
+            "field_name": "daily_sales_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 15,
+          "index_b": 15
+        },
+        {
+          "field": {
+            "field_name": "weekly_sales_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 16,
+          "index_b": 16
+        },
+        {
+          "field": {
+            "field_name": "monthly_sales_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 17,
+          "index_b": 17
+        },
+        {
+          "field": {
+            "field_name": "best_customers_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 18,
+          "index_b": 18
+        },
+        {
+          "field": {
+            "field_name": "best_products_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 19,
+          "index_b": 19
+        },
+        {
+          "field": {
+            "field_name": "product_details_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 20,
+          "index_b": 20
+        },
+        {
+          "field": {
+            "field_name": "product_analysis_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 21,
+          "index_b": 21
+        },
+        {
+          "field": {
+            "field_name": "payments_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 22,
+          "index_b": 22
+        },
+        {
+          "field": {
+            "field_name": "credit_statement_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 23,
+          "index_b": 23
+        },
+        {
+          "field": {
+            "field_name": "credit_general_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 24,
+          "index_b": 24
+        },
+        {
+          "field": {
+            "field_name": "cashcuts_report_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 25,
+          "index_b": 25
+        },
+        {
+          "field": {
+            "field_name": "options_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 26,
+          "index_b": 26
+        },
+        {
+          "field": {
+            "field_name": "business_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 27,
+          "index_b": 27
+        },
+        {
+          "field": {
+            "field_name": "users_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 28,
+          "index_b": 28
+        },
+        {
+          "field": {
+            "field_name": "taxes_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 29,
+          "index_b": 29
+        },
+        {
+          "field": {
+            "field_name": "database_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 30,
+          "index_b": 30
+        },
+        {
+          "field": {
+            "field_name": "printer_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 31,
+          "index_b": 31
+        },
+        {
+          "field": {
+            "field_name": "scale_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 32,
+          "index_b": 32
+        },
+        {
+          "field": {
+            "field_name": "tpv_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 33,
+          "index_b": 33
+        },
+        {
+          "field": {
+            "field_name": "multibox_config_tour",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 34,
+          "index_b": 34
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Unit",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "is_enabled",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "User",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 2,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "username",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "password",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "email",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 5
+        },
+        {
+          "field": {
+            "field_name": "admin_permission",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 6,
+          "index_b": 6
+        },
+        {
+          "field": {
+            "field_name": "pin",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 7,
+          "index_b": 7
+        }
+      ],
+      "origin": "BOTH"
+    },
+    {
+      "entity_name": "Warehouse",
+      "fields": [
+        {
+          "field": {
+            "field_name": "object_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 0,
+          "index_b": 0
+        },
+        {
+          "field": {
+            "field_name": "created_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 1,
+          "index_b": 1
+        },
+        {
+          "field": {
+            "field_name": "name",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": false
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 3,
+          "index_b": 2
+        },
+        {
+          "field": {
+            "field_name": "description",
+            "canonical_type": {
+              "type": "text"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 4,
+          "index_b": 3
+        },
+        {
+          "field": {
+            "field_name": "customer_id",
+            "canonical_type": {
+              "type": "int64"
+            },
+            "nullable": true
+          },
+          "origin": "BOTH",
+          "state": "matched",
+          "index_a": 5,
+          "index_b": 4
+        },
+        {
+          "field": {
+            "field_name": "updated_at",
+            "canonical_type": {
+              "type": "date_time"
+            },
+            "nullable": false
+          },
+          "origin": "A",
+          "state": "exclusive",
+          "index_a": 2,
+          "index_b": null
+        }
+      ],
+      "origin": "BOTH"
+    }
+  ],
+  "metadata": {}
+}

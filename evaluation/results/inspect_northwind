@@ -1,0 +1,1044 @@
+{
+  "source_name": "northwind",
+  "source_type": "sqlite",
+  "entities": [
+    {
+      "entity_name": "Categories",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "CategoryID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CategoryName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Description",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Picture",
+          "canonical_type": {
+            "type": "binary"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "CategoryID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "CustomerCustomerDemo",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "CustomerID",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CustomerTypeID",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "CustomerID",
+            "CustomerTypeID"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "CustomerTypeID"
+          ],
+          "metadata": {
+            "referenced_table": "CustomerDemographics",
+            "referenced_column": "CustomerTypeID",
+            "from_column": "CustomerTypeID"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "CustomerID"
+          ],
+          "metadata": {
+            "from_column": "CustomerID",
+            "referenced_table": "Customers",
+            "referenced_column": "CustomerID"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "CustomerDemographics",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "CustomerTypeID",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CustomerDesc",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "CustomerTypeID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Customers",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "CustomerID",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CompanyName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ContactName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ContactTitle",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Address",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "City",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Region",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PostalCode",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Country",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Phone",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Fax",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "CustomerID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "EmployeeTerritories",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "EmployeeID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TerritoryID",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "EmployeeID",
+            "TerritoryID"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "TerritoryID"
+          ],
+          "metadata": {
+            "referenced_table": "Territories",
+            "referenced_column": "TerritoryID",
+            "from_column": "TerritoryID"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "EmployeeID"
+          ],
+          "metadata": {
+            "referenced_table": "Employees",
+            "referenced_column": "EmployeeID",
+            "from_column": "EmployeeID"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Employees",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "EmployeeID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "LastName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "FirstName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Title",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "TitleOfCourtesy",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "BirthDate",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "HireDate",
+          "canonical_type": {
+            "type": "date"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Address",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "City",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Region",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PostalCode",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Country",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "HomePhone",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Extension",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Photo",
+          "canonical_type": {
+            "type": "binary"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Notes",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ReportsTo",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PhotoPath",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "EmployeeID"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "ReportsTo"
+          ],
+          "metadata": {
+            "from_column": "ReportsTo",
+            "referenced_column": "EmployeeID",
+            "referenced_table": "Employees"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Order Details",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "OrderID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ProductID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "UnitPrice",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Quantity",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Discount",
+          "canonical_type": {
+            "type": "float64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "OrderID",
+            "ProductID"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "ProductID"
+          ],
+          "metadata": {
+            "referenced_table": "Products",
+            "from_column": "ProductID",
+            "referenced_column": "ProductID"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "OrderID"
+          ],
+          "metadata": {
+            "referenced_column": "OrderID",
+            "referenced_table": "Orders",
+            "from_column": "OrderID"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Orders",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "OrderID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CustomerID",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "EmployeeID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "OrderDate",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "RequiredDate",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ShippedDate",
+          "canonical_type": {
+            "type": "date_time"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ShipVia",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Freight",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ShipName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ShipAddress",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ShipCity",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ShipRegion",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ShipPostalCode",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ShipCountry",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "OrderID"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "ShipVia"
+          ],
+          "metadata": {
+            "from_column": "ShipVia",
+            "referenced_table": "Shippers",
+            "referenced_column": "ShipperID"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "CustomerID"
+          ],
+          "metadata": {
+            "referenced_table": "Customers",
+            "from_column": "CustomerID",
+            "referenced_column": "CustomerID"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "EmployeeID"
+          ],
+          "metadata": {
+            "referenced_column": "EmployeeID",
+            "referenced_table": "Employees",
+            "from_column": "EmployeeID"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Products",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ProductID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ProductName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "SupplierID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "CategoryID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "QuantityPerUnit",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UnitPrice",
+          "canonical_type": {
+            "type": "decimal",
+            "precision": 10,
+            "scale": 2
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UnitsInStock",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "UnitsOnOrder",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ReorderLevel",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Discontinued",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ProductID"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "SupplierID"
+          ],
+          "metadata": {
+            "from_column": "SupplierID",
+            "referenced_table": "Suppliers",
+            "referenced_column": "SupplierID"
+          }
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "CategoryID"
+          ],
+          "metadata": {
+            "from_column": "CategoryID",
+            "referenced_table": "Categories",
+            "referenced_column": "CategoryID"
+          }
+        }
+      ]
+    },
+    {
+      "entity_name": "Regions",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "RegionID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "RegionDescription",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "RegionID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Shippers",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "ShipperID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CompanyName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "Phone",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "ShipperID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Suppliers",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "SupplierID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "CompanyName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "ContactName",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "ContactTitle",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Address",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "City",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Region",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "PostalCode",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Country",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Phone",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "Fax",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        },
+        {
+          "field_name": "HomePage",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": true
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "SupplierID"
+          ]
+        }
+      ]
+    },
+    {
+      "entity_name": "Territories",
+      "entity_type": "table",
+      "fields": [
+        {
+          "field_name": "TerritoryID",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "TerritoryDescription",
+          "canonical_type": {
+            "type": "text"
+          },
+          "nullable": false
+        },
+        {
+          "field_name": "RegionID",
+          "canonical_type": {
+            "type": "int64"
+          },
+          "nullable": false
+        }
+      ],
+      "keys": [
+        {
+          "key_type": "primary",
+          "field_names": [
+            "TerritoryID"
+          ]
+        },
+        {
+          "key_type": "foreign",
+          "field_names": [
+            "RegionID"
+          ],
+          "metadata": {
+            "referenced_column": "RegionID",
+            "from_column": "RegionID",
+            "referenced_table": "Regions"
+          }
+        }
+      ]
+    }
+  ],
+  "views": [
+    {
+      "view_name": "Alphabetical list of products",
+      "definition": "CREATE VIEW [Alphabetical list of products] \nAS\nSELECT Products.*, \n       Categories.CategoryName\nFROM Categories \n   INNER JOIN Products ON Categories.CategoryID = Products.CategoryID\nWHERE (((Products.Discontinued)=0))",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Category Sales for 1997",
+      "definition": "CREATE VIEW [Category Sales for 1997] AS\nSELECT     [Product Sales for 1997].CategoryName, \n       Sum([Product Sales for 1997].ProductSales) AS CategorySales\nFROM [Product Sales for 1997]\nGROUP BY [Product Sales for 1997].CategoryName",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Current Product List",
+      "definition": "CREATE VIEW [Current Product List] \nAS\nSELECT ProductID,\n       ProductName \nFROM Products \nWHERE Discontinued=0",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Customer and Suppliers by City",
+      "definition": "CREATE VIEW [Customer and Suppliers by City] \nAS\nSELECT City, \n       CompanyName, \n       ContactName, \n       'Customers' AS Relationship \nFROM Customers\nUNION \nSELECT City, \n       CompanyName, \n       ContactName, \n       'Suppliers'\nFROM Suppliers \nORDER BY City, CompanyName",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Invoices",
+      "definition": "CREATE VIEW [Invoices] \nAS\nSELECT Orders.ShipName,\n       Orders.ShipAddress,\n       Orders.ShipCity,\n       Orders.ShipRegion, \n       Orders.ShipPostalCode,\n       Orders.ShipCountry,\n       Orders.CustomerID,\n       Customers.CompanyName AS CustomerName, \n       Customers.Address,\n       Customers.City,\n       Customers.Region,\n       Customers.PostalCode,\n       Customers.Country,\n       (Employees.FirstName + ' ' + Employees.LastName) AS Salesperson, \n       Orders.OrderID,\n       Orders.OrderDate,\n       Orders.RequiredDate,\n       Orders.ShippedDate, \n       Shippers.CompanyName As ShipperName,\n       [Order Details].ProductID,\n       Products.ProductName, \n       [Order Details].UnitPrice,\n       [Order Details].Quantity,\n       [Order Details].Discount, \n       ((([Order Details].UnitPrice*Quantity*(1-Discount))/100)*100) AS ExtendedPrice,\n       Orders.Freight \nFROM Customers \n  JOIN Orders ON Customers.CustomerID = Orders.CustomerID  \n    JOIN Employees ON Employees.EmployeeID = Orders.EmployeeID    \n     JOIN [Order Details] ON Orders.OrderID = [Order Details].OrderID     \n      JOIN Products ON Products.ProductID = [Order Details].ProductID      \n       JOIN Shippers ON Shippers.ShipperID = Orders.ShipVia",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Order Details Extended",
+      "definition": "CREATE VIEW [Order Details Extended] AS\nSELECT [Order Details].OrderID, \n       [Order Details].ProductID, \n       Products.ProductName, \n\t   [Order Details].UnitPrice, \n       [Order Details].Quantity, \n       [Order Details].Discount, \n      ([Order Details].UnitPrice*Quantity*(1-Discount)/100)*100 AS ExtendedPrice\nFROM Products \n     JOIN [Order Details] ON Products.ProductID = [Order Details].ProductID",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Order Subtotals",
+      "definition": "CREATE VIEW [Order Subtotals] AS\nSELECT [Order Details].OrderID, \nSum(([Order Details].UnitPrice*Quantity*(1-Discount)/100)*100) AS Subtotal\nFROM [Order Details]\nGROUP BY [Order Details].OrderID",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Orders Qry",
+      "definition": "CREATE VIEW [Orders Qry] AS\nSELECT Orders.OrderID,\n       Orders.CustomerID,\n       Orders.EmployeeID, \n       Orders.OrderDate, \n       Orders.RequiredDate,\n       Orders.ShippedDate, \n       Orders.ShipVia, \n       Orders.Freight,\n       Orders.ShipName, \n       Orders.ShipAddress, \n       Orders.ShipCity,\n       Orders.ShipRegion,\n       Orders.ShipPostalCode,\n       Orders.ShipCountry,\n       Customers.CompanyName,\n       Customers.Address,\n       Customers.City,\n       Customers.Region,\n       Customers.PostalCode, \n       Customers.Country\nFROM Customers \n     JOIN Orders ON Customers.CustomerID = Orders.CustomerID",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Product Sales for 1997",
+      "definition": "CREATE VIEW [Product Sales for 1997] AS\nSELECT Categories.CategoryName, \n       Products.ProductName, \n       Sum(([Order Details].UnitPrice*Quantity*(1-Discount)/100)*100) AS ProductSales\nFROM Categories\n JOIN    Products On Categories.CategoryID = Products.CategoryID\n    JOIN  [Order Details] on Products.ProductID = [Order Details].ProductID     \n     JOIN  [Orders] on Orders.OrderID = [Order Details].OrderID \nWHERE Orders.ShippedDate Between DATETIME('1997-01-01') And DATETIME('1997-12-31')\nGROUP BY Categories.CategoryName, Products.ProductName",
+      "is_materialized": false
+    },
+    {
+      "view_name": "ProductDetails_V",
+      "definition": "CREATE VIEW [ProductDetails_V] as\nselect \np.*, \nc.CategoryName, c.Description as [CategoryDescription],\ns.CompanyName as [SupplierName], s.Region as [SupplierRegion]\nfrom [Products] p\njoin [Categories] c on p.CategoryId = c.CategoryId\njoin [Suppliers] s on s.SupplierId = p.SupplierId",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Products Above Average Price",
+      "definition": "CREATE VIEW [Products Above Average Price] AS\nSELECT Products.ProductName, \n       Products.UnitPrice\nFROM Products\nWHERE Products.UnitPrice>(SELECT AVG(UnitPrice) From Products)",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Products by Category",
+      "definition": "CREATE VIEW [Products by Category] AS\nSELECT Categories.CategoryName, \n       Products.ProductName, \n       Products.QuantityPerUnit, \n       Products.UnitsInStock, \n       Products.Discontinued\nFROM Categories \n     INNER JOIN Products ON Categories.CategoryID = Products.CategoryID\nWHERE Products.Discontinued <> 1",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Quarterly Orders",
+      "definition": "CREATE VIEW [Quarterly Orders] AS\nSELECT DISTINCT Customers.CustomerID, \n                Customers.CompanyName, \n                Customers.City, \n                Customers.Country\nFROM Customers \n     JOIN Orders ON Customers.CustomerID = Orders.CustomerID\nWHERE Orders.OrderDate BETWEEN DATETIME('1997-01-01') And DATETIME('1997-12-31')",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Sales Totals by Amount",
+      "definition": "CREATE VIEW [Sales Totals by Amount] AS\nSELECT [Order Subtotals].Subtotal AS SaleAmount, \n                  Orders.OrderID, \n               Customers.CompanyName, \n                  Orders.ShippedDate\nFROM Customers \n JOIN Orders ON Customers.CustomerID = Orders.CustomerID\n    JOIN [Order Subtotals] ON Orders.OrderID = [Order Subtotals].OrderID \nWHERE ([Order Subtotals].Subtotal >2500) \nAND (Orders.ShippedDate BETWEEN DATETIME('1997-01-01') And DATETIME('1997-12-31'))",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Sales by Category",
+      "definition": "CREATE VIEW [Sales by Category] AS\nSELECT Categories.CategoryID, \n       Categories.CategoryName, \n         Products.ProductName, \n\tSum([Order Details Extended].ExtendedPrice) AS ProductSales\nFROM  Categories \n    JOIN Products \n      ON Categories.CategoryID = Products.CategoryID\n       JOIN [Order Details Extended] \n         ON Products.ProductID = [Order Details Extended].ProductID                \n           JOIN Orders \n             ON Orders.OrderID = [Order Details Extended].OrderID \nWHERE Orders.OrderDate BETWEEN DATETIME('1997-01-01') And DATETIME('1997-12-31')\nGROUP BY Categories.CategoryID, Categories.CategoryName, Products.ProductName",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Summary of Sales by Quarter",
+      "definition": "CREATE VIEW [Summary of Sales by Quarter] AS\nSELECT Orders.ShippedDate, \n       Orders.OrderID, \n       [Order Subtotals].Subtotal\nFROM Orders \n     INNER JOIN [Order Subtotals] ON Orders.OrderID = [Order Subtotals].OrderID\nWHERE Orders.ShippedDate IS NOT NULL",
+      "is_materialized": false
+    },
+    {
+      "view_name": "Summary of Sales by Year",
+      "definition": "CREATE VIEW [Summary of Sales by Year] AS\nSELECT      Orders.ShippedDate, \n            Orders.OrderID, \n [Order Subtotals].Subtotal\nFROM Orders \n     INNER JOIN [Order Subtotals] ON Orders.OrderID = [Order Subtotals].OrderID\nWHERE Orders.ShippedDate IS NOT NULL",
+      "is_materialized": false
+    }
+  ],
+  "ir_version": "1.0.0"
+}

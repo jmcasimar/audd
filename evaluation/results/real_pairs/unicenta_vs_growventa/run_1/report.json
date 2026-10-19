@@ -1,0 +1,1452 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "MySQL-create",
+    "schema_b": "growventa",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 12,
+      "total_exclusives": 183,
+      "total_conflicts": 0,
+      "exclusives_from_a": 103,
+      "exclusives_from_b": 80,
+      "compatibility_score": 100.0,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 0.0
+    },
+    "risk_assessment": {
+      "risk_level": "Low",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 0,
+      "reasons": [
+        "Low conflict rate and no high-severity issues"
+      ]
+    }
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 12,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 0.9798801020408163
+    },
+    "exclusives": {
+      "from_schema_a": 103,
+      "from_schema_b": 80,
+      "safe_from_a": 103,
+      "safe_from_b": 80,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 0,
+      "by_type": {},
+      "by_severity": {}
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "CUSTOMERS",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.9832199546485261,
+        "index_a": 5,
+        "index_b": 4
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "NAME",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 3
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "CITY",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 10,
+        "index_b": 12
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "COUNTRY",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 12,
+        "index_b": 14
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "EMAIL",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 15,
+        "index_b": 5
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "PHONE",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 16,
+        "index_b": 4
+      },
+      {
+        "entity": "TAXES",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.9231746031746032,
+        "index_a": 8,
+        "index_b": 39
+      },
+      {
+        "entity": "TAXES",
+        "field": "NAME",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 1,
+        "index_b": 3
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.9805555555555555,
+        "index_a": 15,
+        "index_b": 20
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "CODE",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 3
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "NAME",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 4
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 0.8716111111111111,
+        "index_a": 15,
+        "index_b": 22
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "CUSTOMERS",
+        "field": "ID",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "SEARCHKEY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "TAXID",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "TAXCATEGORY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "CARD",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "MAXDEBT",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "ADDRESS",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "ADDRESS2",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "POSTAL",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "REGION",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "FIRSTNAME",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "LASTNAME",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "PHONE2",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "FAX",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "NOTES",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "VISIBLE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 20
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "CURDATE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 21
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "CURDEBT",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 22
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "object_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "created_at",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "updated_at",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "discount",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "credit",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "points",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "street",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "exterior_number",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "interior_number",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "state",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "CUSTOMERS",
+        "field": "postal_code",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "TAXES",
+        "field": "ID",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "TAXES",
+        "field": "CATEGORY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "TAXES",
+        "field": "CUSTCATEGORY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "TAXES",
+        "field": "PARENTID",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "TAXES",
+        "field": "RATE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "TAXES",
+        "field": "RATECASCADE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "TAXES",
+        "field": "RATEORDER",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "TAXES",
+        "field": "object_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "TAXES",
+        "field": "created_at",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "TAXES",
+        "field": "updated_at",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "TAXES",
+        "field": "tax_name",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "TAXES",
+        "field": "value",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "TAXES",
+        "field": "type",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "TAXES",
+        "field": "withholding",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "TAXES",
+        "field": "transfer",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "TAXES",
+        "field": "apply_default",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ID",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "REFERENCE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "CODETYPE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "PRICEBUY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "PRICESELL",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "CATEGORY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "TAXCAT",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ATTRIBUTESET_ID",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "STOCKCOST",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "STOCKVOLUME",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "IMAGE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ISCOM",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ISSCALE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ISKITCHEN",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "PRINTKB",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "SENDSTATUS",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ISSERVICE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ATTRIBUTES",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "DISPLAY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 20
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "object_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "created_at",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "updated_at",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "amount",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "price",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "cost",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "user_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "department_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "unit",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "url_image",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "is_supply",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "unit_purchase",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "unit_quantity",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "track_inventory",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ID",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "REFERENCE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "CODE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "CODETYPE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "NAME",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "PRICEBUY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "PRICESELL",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "CATEGORY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "TAXCAT",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ATTRIBUTESET_ID",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "STOCKCOST",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "STOCKVOLUME",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "IMAGE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ISCOM",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ISSCALE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ISKITCHEN",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "PRINTKB",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "SENDSTATUS",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ISSERVICE",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "ATTRIBUTES",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "DISPLAY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 20
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "object_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "created_at",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "updated_at",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "quantity",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "product_id",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "PRODUCTS",
+        "field": "includes_product",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "APPLICATIONS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "ROLES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "PEOPLE",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "RESOURCES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "TAXCUSTCATEGORIES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "CATEGORIES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "TAXCATEGORIES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "ATTRIBUTE",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "ATTRIBUTEVALUE",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "ATTRIBUTESET",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "ATTRIBUTEUSE",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "ATTRIBUTESETINSTANCE",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "ATTRIBUTEINSTANCE",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "PRODUCTS_CAT",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "PRODUCTS_COM",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "LOCATIONS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "STOCKDIARY",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "STOCKLEVEL",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 20
+      },
+      {
+        "entity": "STOCKCURRENT",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 21
+      },
+      {
+        "entity": "CLOSEDCASH",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 22
+      },
+      {
+        "entity": "RECEIPTS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 23
+      },
+      {
+        "entity": "TICKETS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 24
+      },
+      {
+        "entity": "TICKETSNUM",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 25
+      },
+      {
+        "entity": "TICKETSNUM_REFUND",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 26
+      },
+      {
+        "entity": "TICKETSNUM_PAYMENT",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 27
+      },
+      {
+        "entity": "TICKETLINES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 28
+      },
+      {
+        "entity": "PAYMENTS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 29
+      },
+      {
+        "entity": "TAXLINES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 30
+      },
+      {
+        "entity": "FLOORS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 31
+      },
+      {
+        "entity": "PLACES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 32
+      },
+      {
+        "entity": "RESERVATIONS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 33
+      },
+      {
+        "entity": "RESERVATION_CUSTOMERS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 34
+      },
+      {
+        "entity": "THIRDPARTIES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 35
+      },
+      {
+        "entity": "SHAREDTICKETS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 36
+      },
+      {
+        "entity": "SHIFTS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 37
+      },
+      {
+        "entity": "LEAVES",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 38
+      },
+      {
+        "entity": "BREAKS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 39
+      },
+      {
+        "entity": "SHIFT_BREAKS",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 40
+      },
+      {
+        "entity": "Cash_movements",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "Cashcut",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "CashregisterLog",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "CatalogProduct",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Department",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "Department_Printer",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "Expense",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "Inventory",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "InventoryLog",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Inventory_movements",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "License",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "Multibox",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "Order_detail",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "Order_detail_options",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "Order_payment",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "Order_tax",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 16
+      },
+      {
+        "entity": "Orders",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 17
+      },
+      {
+        "entity": "Payment_methods",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 18
+      },
+      {
+        "entity": "Printer",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 19
+      },
+      {
+        "entity": "ProductLog",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 21
+      },
+      {
+        "entity": "Product_Tax",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 23
+      },
+      {
+        "entity": "Product_cost",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 24
+      },
+      {
+        "entity": "Product_option_assignment",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 25
+      },
+      {
+        "entity": "Product_option_detail",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 26
+      },
+      {
+        "entity": "Product_options",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 27
+      },
+      {
+        "entity": "Purchase_order_details",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 28
+      },
+      {
+        "entity": "Purchase_orders",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 29
+      },
+      {
+        "entity": "Quotation",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 30
+      },
+      {
+        "entity": "Quotation_detail",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 31
+      },
+      {
+        "entity": "Quotation_detail_options",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 32
+      },
+      {
+        "entity": "Recipe_items",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 33
+      },
+      {
+        "entity": "Restaurant_tables",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 34
+      },
+      {
+        "entity": "Setting",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 35
+      },
+      {
+        "entity": "Setting_discount",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 36
+      },
+      {
+        "entity": "Setting_local",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 37
+      },
+      {
+        "entity": "Suppliers",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 38
+      },
+      {
+        "entity": "Tour",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 40
+      },
+      {
+        "entity": "Unit",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 41
+      },
+      {
+        "entity": "User",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 42
+      },
+      {
+        "entity": "Warehouse",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 43
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 0,
+      "high_confidence": 0,
+      "medium_confidence": 0,
+      "auto_accepted": 0,
+      "total_decisions": 0,
+      "accepted_decisions": 0,
+      "rejected_decisions": 0,
+      "system_decisions": 0,
+      "user_decisions": 0
+    },
+    "suggestions": [],
+    "decisions": []
+  },
+  "recommendations": [
+    "Low risk detected - schemas are mostly compatible",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}

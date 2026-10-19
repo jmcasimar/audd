@@ -1,0 +1,409 @@
+{
+  "metadata": {
+    "generated_at": "1970-01-01 00:00:00 UTC",
+    "schema_a": "sakila-schema",
+    "schema_b": "Chinook_MySql",
+    "report_version": "1.0.0"
+  },
+  "executive_summary": {
+    "compatibility_overview": {
+      "total_matches": 5,
+      "total_exclusives": 42,
+      "total_conflicts": 0,
+      "exclusives_from_a": 23,
+      "exclusives_from_b": 19,
+      "compatibility_score": 100.0,
+      "safe_addition_rate": 100.0,
+      "conflict_rate": 0.0
+    },
+    "risk_assessment": {
+      "risk_level": "Low",
+      "critical_conflicts": 0,
+      "high_severity_conflicts": 0,
+      "reasons": [
+        "Low conflict rate and no high-severity issues"
+      ]
+    }
+  },
+  "detailed_breakdown": {
+    "matches": {
+      "total": 5,
+      "exact_name_matches": 0,
+      "normalized_matches": 0,
+      "similarity_matches": 0,
+      "average_confidence": 1.0
+    },
+    "exclusives": {
+      "from_schema_a": 23,
+      "from_schema_b": 19,
+      "safe_from_a": 23,
+      "safe_from_b": 19,
+      "safe_addition_rate": 100.0
+    },
+    "conflicts": {
+      "total": 0,
+      "by_type": {},
+      "by_severity": {}
+    }
+  },
+  "technical_details": {
+    "matches": [
+      {
+        "entity": "customer",
+        "field": null,
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 5,
+        "index_b": 2
+      },
+      {
+        "entity": "customer",
+        "field": "customer_id",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 0,
+        "index_b": 0
+      },
+      {
+        "entity": "customer",
+        "field": "first_name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 2,
+        "index_b": 1
+      },
+      {
+        "entity": "customer",
+        "field": "last_name",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 3,
+        "index_b": 2
+      },
+      {
+        "entity": "customer",
+        "field": "email",
+        "match_type": "semantic_match",
+        "score": 1.0,
+        "index_a": 4,
+        "index_b": 11
+      }
+    ],
+    "exclusives": [
+      {
+        "entity": "customer",
+        "field": "store_id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "customer",
+        "field": "address_id",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "customer",
+        "field": "active",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "customer",
+        "field": "create_date",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "customer",
+        "field": "last_update",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "customer",
+        "field": "KEY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "customer",
+        "field": "KEY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "customer",
+        "field": "KEY",
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "customer",
+        "field": "Company",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "customer",
+        "field": "Address",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "customer",
+        "field": "City",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "customer",
+        "field": "State",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "customer",
+        "field": "Country",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "customer",
+        "field": "PostalCode",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "customer",
+        "field": "Phone",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "customer",
+        "field": "Fax",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "customer",
+        "field": "SupportRepId",
+        "side": "B",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "actor",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "address",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "category",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 2
+      },
+      {
+        "entity": "city",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "country",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "film",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "film_actor",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "film_category",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "film_text",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "inventory",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 10
+      },
+      {
+        "entity": "language",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 11
+      },
+      {
+        "entity": "payment",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 12
+      },
+      {
+        "entity": "rental",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 13
+      },
+      {
+        "entity": "staff",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 14
+      },
+      {
+        "entity": "store",
+        "field": null,
+        "side": "A",
+        "safe_to_add": true,
+        "index": 15
+      },
+      {
+        "entity": "s\r\n********************************************************************************/\r\nCREATE TABLE `Album",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 0
+      },
+      {
+        "entity": "Artist",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 1
+      },
+      {
+        "entity": "Employee",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 3
+      },
+      {
+        "entity": "Genre",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 4
+      },
+      {
+        "entity": "Invoice",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 5
+      },
+      {
+        "entity": "InvoiceLine",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 6
+      },
+      {
+        "entity": "MediaType",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 7
+      },
+      {
+        "entity": "Playlist",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 8
+      },
+      {
+        "entity": "PlaylistTrack",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 9
+      },
+      {
+        "entity": "Track",
+        "field": null,
+        "side": "B",
+        "safe_to_add": true,
+        "index": 10
+      }
+    ]
+  },
+  "resolution": {
+    "summary": {
+      "total_suggestions": 0,
+      "high_confidence": 0,
+      "medium_confidence": 0,
+      "auto_accepted": 0,
+      "total_decisions": 0,
+      "accepted_decisions": 0,
+      "rejected_decisions": 0,
+      "system_decisions": 0,
+      "user_decisions": 0
+    },
+    "suggestions": [],
+    "decisions": []
+  },
+  "recommendations": [
+    "Low risk detected - schemas are mostly compatible",
+    "High compatibility score - schemas align well",
+    "See decision_log.json for complete decision history"
+  ]
+}
