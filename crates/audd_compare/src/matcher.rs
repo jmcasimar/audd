@@ -3,7 +3,7 @@
 use audd_ir::{normalize_identifier, EntitySchema, FieldSchema};
 
 use crate::config::CompareConfig;
-use crate::result::Match;
+use crate::result::{Match, MatchReason};
 use crate::semantic::{SemanticMatchDecision, SemanticMatchPipeline};
 
 /// Match entities by name
@@ -12,17 +12,18 @@ pub fn match_entities(
     entities_b: &[EntitySchema],
     config: &CompareConfig,
 ) -> Vec<Match> {
-    let mut matches = Vec::new();
+    let mut candidates = Vec::new();
 
     for (idx_a, entity_a) in entities_a.iter().enumerate() {
         for (idx_b, entity_b) in entities_b.iter().enumerate() {
             if let Some(m) = try_match_entity(entity_a, entity_b, idx_a, idx_b, config) {
-                matches.push(m);
+                let tier = match_tier(&entity_a.entity_name, &entity_b.entity_name, &m.reason);
+                candidates.push((tier, m));
             }
         }
     }
 
-    matches
+    assign_one_to_one(candidates, entities_a.len(), entities_b.len())
 }
 
 /// Try to match two entities
@@ -126,17 +127,77 @@ pub fn match_fields(
     fields_b: &[FieldSchema],
     config: &CompareConfig,
 ) -> Vec<Match> {
-    let mut matches = Vec::new();
+    let mut candidates = Vec::new();
 
     for (idx_a, field_a) in fields_a.iter().enumerate() {
         for (idx_b, field_b) in fields_b.iter().enumerate() {
             if let Some(m) = try_match_field(entity_name, field_a, field_b, idx_a, idx_b, config) {
-                matches.push(m);
+                let tier = match_tier(&field_a.field_name, &field_b.field_name, &m.reason);
+                candidates.push((tier, m));
             }
         }
     }
 
+    assign_one_to_one(candidates, fields_a.len(), fields_b.len())
+}
+
+/// Priority of a candidate match (lower is stronger):
+/// exact name > normalized name > semantic > similarity.
+///
+/// The tier is derived from the names themselves, so an identical pair outranks
+/// a semantic or similarity candidate even when the semantic pipeline produced it.
+fn match_tier(name_a: &str, name_b: &str, reason: &MatchReason) -> u8 {
+    if name_a == name_b {
+        0
+    } else if normalize_identifier(name_a) == normalize_identifier(name_b) {
+        1
+    } else if matches!(reason, MatchReason::Semantic { .. }) {
+        2
+    } else {
+        3
+    }
+}
+
+/// Greedy one-to-one assignment over candidate pairs.
+///
+/// Candidates are taken by tier, then by descending score; remaining ties are
+/// broken by index (lower index pair first, independent of which side it comes
+/// from) so the result is deterministic and does not depend on A/B order.
+/// Each element of A and of B ends up in at most one match. The result is
+/// returned ordered by (index_a, index_b).
+fn assign_one_to_one(mut candidates: Vec<(u8, Match)>, len_a: usize, len_b: usize) -> Vec<Match> {
+    candidates.sort_by(|(tier_x, x), (tier_y, y)| {
+        tier_x
+            .cmp(tier_y)
+            .then_with(|| y.score.total_cmp(&x.score))
+            .then_with(|| index_key(x).cmp(&index_key(y)))
+    });
+
+    let mut used_a = vec![false; len_a];
+    let mut used_b = vec![false; len_b];
+    let mut matches = Vec::new();
+
+    for (_, m) in candidates {
+        if used_a[m.index_a] || used_b[m.index_b] {
+            continue;
+        }
+        used_a[m.index_a] = true;
+        used_b[m.index_b] = true;
+        matches.push(m);
+    }
+
+    matches.sort_by_key(|m| (m.index_a, m.index_b));
     matches
+}
+
+/// Tie-break key that is invariant under swapping A and B, except for the
+/// mirrored pair (i, j) / (j, i), which is resolved by `index_a`.
+fn index_key(m: &Match) -> (usize, usize, usize) {
+    (
+        m.index_a.min(m.index_b),
+        m.index_a.max(m.index_b),
+        m.index_a,
+    )
 }
 
 /// Try to match two fields
@@ -242,7 +303,6 @@ pub fn calculate_similarity(a: &str, b: &str) -> f64 {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::result::MatchReason;
     use audd_ir::CanonicalType;
 
     fn create_test_entity(name: &str) -> EntitySchema {
@@ -345,6 +405,32 @@ mod tests {
             }
             _ => panic!("Expected NormalizedName match"),
         }
+    }
+
+    #[test]
+    fn test_exact_field_wins_over_normalized() {
+        let config = CompareConfig::default();
+        let fields_a = vec![create_test_field("to_date")];
+        let fields_b = vec![create_test_field("ToDate"), create_test_field("to_date")];
+
+        let matches = match_fields("history", &fields_a, &fields_b, &config);
+
+        assert_eq!(matches.len(), 1);
+        assert_eq!(matches[0].index_b, 1);
+    }
+
+    #[test]
+    fn test_entities_assigned_one_to_one() {
+        let config = CompareConfig::default();
+        let entities = vec![
+            create_test_entity("Product"),
+            create_test_entity("Product_Product"),
+        ];
+
+        let matches = match_entities(&entities, &entities, &config);
+
+        assert_eq!(matches.len(), 2);
+        assert!(matches.iter().all(|m| m.index_a == m.index_b));
     }
 
     #[test]

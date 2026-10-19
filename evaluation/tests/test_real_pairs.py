@@ -56,15 +56,22 @@ class RealPairTests(unittest.TestCase):
         self.assertEqual(r.exclusives, 0, f"exclusives={r.exclusives}")
         self.assertEqual(r.conflicts, 24, f"conflicts={r.conflicts}")
 
+    # Conteos con emparejamiento uno a uno (exacto > normalizado > semántico > similitud).
+
     def test_grow_real_case_expected_counts(self):
+        # Sin cambios con el emparejamiento uno a uno: los pares del caso Grow ya eran únicos.
         r = self.results["grow_travel_vs_venta"]
         self.assertEqual(r.matches, 17, f"matches={r.matches}")
         self.assertEqual(r.conflicts, 12, f"conflicts={r.conflicts}")
-        self.assertGreater(r.exclusives, 0, f"exclusives={r.exclusives}")
+        self.assertEqual(r.exclusives, 176, f"exclusives={r.exclusives}")
 
     def test_unicenta_vs_growventa_has_matches(self):
+        # PRODUCTS ya no se empareja también con Product_Product: 12 -> 11 matches y
+        # 183 -> 157 exclusivos (Product_Product pasa a exclusivo de entidad y se dejan
+        # de duplicar los 21 campos de PRODUCTS y 6 de Product_Product).
         r = self.results["unicenta_vs_growventa"]
-        self.assertGreater(r.matches, 0, f"matches={r.matches}")
+        self.assertEqual(r.matches, 11, f"matches={r.matches}")
+        self.assertEqual(r.exclusives, 157, f"exclusives={r.exclusives}")
         self.assertEqual(r.conflicts, 2, f"conflicts={r.conflicts}")
 
     def test_northwind_loads_with_quoted_identifiers(self):
