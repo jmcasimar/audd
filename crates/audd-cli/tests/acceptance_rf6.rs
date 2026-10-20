@@ -297,3 +297,42 @@ fn acceptance_rf6_k07_catalog_has_no_network_dependencies() {
         );
     }
 }
+
+#[test]
+fn acceptance_rf6_k04_domain_only_adds_matches() {
+    // `customers` (plural) is not an alias, `Customer` is: the domain must not
+    // break the match that already exists without it
+    let a = "CREATE TABLE customers (customer_id INT PRIMARY KEY, quantity INT, unit_price DECIMAL(10,2));";
+    let b = "CREATE TABLE Customer (CustomerId INT PRIMARY KEY, qty INT, price DECIMAL(10,2));";
+    let tmp = tempfile::tempdir().unwrap();
+    let (pa, pb) = write_pair(tmp.path(), a, b);
+    let catalog = catalog_dir().display().to_string();
+
+    let run = |name: &str, extra: &[&str]| {
+        let out = tmp.path().join(name);
+        let mut args = vec!["--catalog", catalog.as_str()];
+        args.extend_from_slice(extra);
+        assert!(compare(tmp.path(), &pa, &pb, &out, &args).status.success());
+        let diff = read_json(&out.join("diff.json"));
+        diff["matches"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|m| (m["entity_name"].clone(), m["field_name"].clone()))
+            .collect::<Vec<_>>()
+    };
+    let plain = run("plain", &[]);
+    let pos = run("pos", &["--domain", "pos"]);
+
+    for m in &plain {
+        assert!(pos.contains(m), "the domain removed the match {:?}", m);
+    }
+    // quantity <-> qty and unit_price <-> price come from the domain
+    assert_eq!(
+        pos.len(),
+        plain.len() + 2,
+        "plain {:?} / pos {:?}",
+        plain,
+        pos
+    );
+}

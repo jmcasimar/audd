@@ -124,33 +124,77 @@ def score_pair(truth: Dict[str, Any], run_dir: Path, ir_b: Optional[Dict[str, An
             continue
         ka = (norm(m.get("entity_name")), norm(m.get("field_name")))
         det_m[ka] = bmap.get(ka)
-    truth_m = {}
+    truth_m, truth_cat = {}, {}
     for m in truth.get("matches", []):
         ka = _split(m["a"])
         if scope_a and not entity_scope_ok(ka[0], scope_a):
             continue
         truth_m[ka] = _split(m["b"]) if m.get("b") else None
+        truth_cat[ka] = m.get("category", "unchanged")
+    # Elementos de A que NO deben emparejarse (distractores, renombrados sin relación)
+    no_match_cat = {(norm(x.get("entity")), norm(x.get("field"))): x["category"]
+                    for x in truth.get("exclusives", [])
+                    if str(x.get("side")).lower() == "a" and x.get("category")}
+
+    # Conteos por categoría: un VP exige el campo correcto de B; emparejar con el
+    # campo equivocado cuenta como FP y FN; emparejar algo que no debía, como FP
+    by_cat = defaultdict(Counter)
     m_vp = 0
     for ka, tb in truth_m.items():
-        if ka not in det_m:
+        cat = truth_cat[ka]
+        db = det_m.get(ka, "missing")
+        if db == "missing":
+            by_cat[cat]["FN"] += 1
             continue
-        db = det_m[ka]
         if tb is not None and db is not None and (norm(db[0]), norm(db[1])) != tb:
-            continue  # coincidencia con el campo equivocado del lado B
+            by_cat[cat]["FN"] += 1  # coincidencia con el campo equivocado del lado B
+            by_cat[cat]["FP"] += 1
+            continue
+        by_cat[cat]["VP"] += 1
         m_vp += 1
+    for ka in det_m:
+        if ka not in truth_m:
+            by_cat[no_match_cat.get(ka, "other")]["FP"] += 1
     m_fp = len(det_m) - m_vp
     m_fn = len(truth_m) - m_vp
-    p = m_vp / (m_vp + m_fp) if (m_vp + m_fp) else 0.0
-    r = m_vp / (m_vp + m_fn) if (m_vp + m_fn) else 0.0
-    f1 = round(2 * p * r / (p + r), 4) if (p + r) else 0.0
+
+    def prf(vp: int, fp: int, fn: int) -> Dict[str, Any]:
+        p = vp / (vp + fp) if (vp + fp) else 0.0
+        r = vp / (vp + fn) if (vp + fn) else 0.0
+        return {"VP": vp, "FP": fp, "FN": fn, "P": round(p, 4), "R": round(r, 4),
+                "F1": round(2 * p * r / (p + r), 4) if (p + r) else 0.0}
+
+    overall = prf(m_vp, m_fp, m_fn)
+    p, r, f1 = overall["P"], overall["R"], overall["F1"]
+    # F1 de los elementos afectados: todo menos los campos que no cambiaron
+    affected = Counter()
+    for cat, c in by_cat.items():
+        if cat != "unchanged":
+            affected.update(c)
+    f1_affected = prf(affected["VP"], affected["FP"], affected["FN"])
+
+    # PCD por nivel de dificultad de la mutación
+    per_level = defaultdict(Counter)
+    for c, _ in vp_list:
+        per_level[c.get("level", "—")]["VP"] += 1
+    for c in fn_list:
+        per_level[c.get("level", "—")]["FN"] += 1
 
     # ---------------- Exclusivos ----------------
     def ex_key(side, e, f):
         return (str(side).lower(), norm(e), norm(f))
 
-    det_x = {ex_key(x.get("side"), x.get("entity_name"), x.get("field_name"))
+    def own_entity(x):
+        # diff.json nombra con la tabla de A los exclusivos de B dentro de una tabla
+        # emparejada; la verdad usa el nombre propio de B
+        e = x.get("entity_name", "")
+        if str(x.get("side")).lower() == "b" and x.get("field_name") is not None:
+            e = bmap.get((norm(e), ""), (e, ""))[0]
+        return e
+
+    det_x = {ex_key(x.get("side"), own_entity(x), x.get("field_name"))
              for x in diff.get("exclusives", [])
-             if entity_scope_ok(x.get("entity_name", ""), scope_a if str(x.get("side")).lower() == "a" else scope_b)}
+             if entity_scope_ok(own_entity(x), scope_a if str(x.get("side")).lower() == "a" else scope_b)}
     truth_x = {ex_key(x.get("side"), x.get("entity"), x.get("field"))
                for x in truth.get("exclusives", [])
                if entity_scope_ok(x.get("entity", ""), scope_a if str(x.get("side")).lower() == "a" else scope_b)}
@@ -165,6 +209,9 @@ def score_pair(truth: Dict[str, Any], run_dir: Path, ir_b: Optional[Dict[str, An
         "PSR": _ratio(psr_hit, psr_den),
         "matches": {"VP": m_vp, "FP": m_fp, "FN": m_fn, "P": round(p, 4), "R": round(r, 4)},
         "F1": f1,
+        "F1_affected": f1_affected,
+        "matches_by_category": {cat: dict(c) for cat, c in sorted(by_cat.items())},
+        "conflicts_by_level": {lv: dict(c) for lv, c in sorted(per_level.items())},
         "exclusives": {"VP": x_vp, "FP": len(det_x - truth_x), "FN": len(truth_x - det_x)},
         "per_type": {t: dict(c) for t, c in sorted(per_type.items())},
         "detail": {

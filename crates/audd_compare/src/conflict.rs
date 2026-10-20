@@ -216,7 +216,8 @@ impl Conflict {
     ) -> Self {
         Self::new(
             entity_name,
-            None,
+            // The first field of the pair, so the conflict can be traced to a field
+            Some(name_a.clone()),
             ConflictType::NormalizationCollision,
             ConflictSeverity::Critical,
             ConflictEvidence::new(

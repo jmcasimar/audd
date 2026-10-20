@@ -1,5 +1,8 @@
 # Instrucciones para el par
 
+Guía completa, con ejemplos y la tabla para decidir cada tipo de conflicto:
+`evaluation/PROTOCOLO_EVALUACION.md`, sección 7.
+
 Antes de empezar, revisa el alcance (`scope_a` y `scope_b`) del par en `config/suite.toml`. Solo entran a la verdad las tablas del alcance.
 
 ## Condición manual (evaluador 1)

@@ -327,6 +327,82 @@ fn detect_normalization_collisions(
         }
     }
 
+    // Collisions inside one schema: two fields of the same entity that normalize
+    // alike would collapse into one name in the unified schema (spec, section 5).
+    // If the other schema has exactly the same names, every field pairs with its
+    // namesake and unification adds no ambiguity, so it is not a conflict.
+    let groups = |entity: &audd_ir::EntitySchema| {
+        let mut groups: BTreeMap<String, Vec<usize>> = BTreeMap::new();
+        for (idx, field) in entity.fields.iter().enumerate() {
+            groups
+                .entry(normalize_identifier(&field.field_name))
+                .or_default()
+                .push(idx);
+        }
+        groups
+    };
+    let names = |entity: &audd_ir::EntitySchema, idxs: Option<&Vec<usize>>| {
+        idxs.map(|v| {
+            v.iter()
+                .map(|&i| entity.fields[i].field_name.clone())
+                .collect::<std::collections::BTreeSet<_>>()
+        })
+        .unwrap_or_default()
+    };
+    let (groups_a, groups_b) = (groups(entity_a), groups(entity_b));
+    for (side, entity, matched, own, other, other_entity) in [
+        (
+            "A",
+            entity_a,
+            matched_fields_a,
+            &groups_a,
+            &groups_b,
+            entity_b,
+        ),
+        (
+            "B",
+            entity_b,
+            matched_fields_b,
+            &groups_b,
+            &groups_a,
+            entity_a,
+        ),
+    ] {
+        for (normalized, idxs) in own {
+            if idxs.len() < 2
+                || names(entity, Some(idxs)) == names(other_entity, other.get(normalized))
+            {
+                continue;
+            }
+            let mut idxs = idxs.clone();
+            // The field that has a partner on the other side goes first, so the
+            // conflict names the same field when A and B are swapped
+            idxs.sort_by_key(|&i| (!matched[i], i));
+            let (first, second) = (&entity.fields[idxs[0]], &entity.fields[idxs[1]]);
+            conflicts.push(Conflict::new(
+                entity_name.to_string(),
+                Some(first.field_name.clone()),
+                crate::conflict::ConflictType::NormalizationCollision,
+                ConflictSeverity::Critical,
+                crate::conflict::ConflictEvidence::new(
+                    format!(
+                        "Fields '{}' and '{}' in schema {} normalize to '{}'",
+                        first.field_name, second.field_name, side, normalized
+                    ),
+                    format!(
+                        "Schema {} has {} fields named '{}'",
+                        side,
+                        idxs.len(),
+                        normalized
+                    ),
+                    "Different fields cannot normalize to the same identifier".to_string(),
+                ),
+                idxs[0],
+                idxs[1],
+            ));
+        }
+    }
+
     conflicts
 }
 

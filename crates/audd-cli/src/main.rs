@@ -208,24 +208,6 @@ fn main() {
     }
 }
 
-/// Replace entity and field names with their canonical form from an active domain.
-fn apply_domain_aliases(
-    mut schema: audd_ir::SourceSchema,
-    aliases: &std::collections::HashMap<String, String>,
-) -> audd_ir::SourceSchema {
-    for entity in &mut schema.entities {
-        if let Some(canonical) = aliases.get(&entity.entity_name.to_lowercase()) {
-            entity.entity_name.clone_from(canonical);
-        }
-        for field in &mut entity.fields {
-            if let Some(canonical) = aliases.get(&field.field_name.to_lowercase()) {
-                field.field_name.clone_from(canonical);
-            }
-        }
-    }
-    schema
-}
-
 fn handle_load(source: &str, conn: Option<&str>, format: &str) -> CliResult<()> {
     println!("📁 AUDD Load Schema");
     println!("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
@@ -343,30 +325,25 @@ fn handle_compare(
         );
     }
 
-    // Apply domain aliases if requested
-    let (schema_a, schema_b) = if let Some(domain_name) = domain {
-        let aliases = catalog.domain_aliases(domain_name);
-        if aliases.is_empty() {
+    // Domain equivalences become one more matching strategy (K04): they can only
+    // add matches, never rename the schemas
+    let mut compare_config = audd_compare::CompareConfig::default();
+    if let Some(domain_name) = domain {
+        compare_config.equivalences = catalog.domain_groups(domain_name);
+        if compare_config.equivalences.is_empty() {
             eprintln!("⚠️  Domain '{}' not found in catalog", domain_name);
         } else {
             println!(
-                "✓ Applied domain '{}' ({} aliases)",
+                "✓ Applied domain '{}' ({} equivalence groups)",
                 domain_name,
-                aliases.len()
+                compare_config.equivalences.len()
             );
         }
-        (
-            apply_domain_aliases(schema_a, &aliases),
-            apply_domain_aliases(schema_b, &aliases),
-        )
-    } else {
-        (schema_a, schema_b)
-    };
+    }
 
     // Compare schemas
     println!();
     println!("Comparing schemas...");
-    let compare_config = audd_compare::CompareConfig::default();
     let comparison_result = audd_compare::compare(&schema_a, &schema_b, &compare_config);
 
     println!("✓ Comparison complete!");

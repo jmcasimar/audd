@@ -136,6 +136,21 @@ def main() -> int:
     for t, c in (b.get("per_type") or {}).items():
         L.append(f"| {t} | {c.get('VP', 0)} | {c.get('FN', 0)} | {c.get('FP', 0)} | {fmt(c.get('PCD'))} |")
 
+    if b.get("PCD_by_level"):
+        L.append("\n| Nivel de la mutación | VP | FN | PCD |")
+        L.append("|---|---|---|---|")
+        for lv, c in b["PCD_by_level"].items():
+            L.append(f"| {lv} | {c.get('VP', 0)} | {c.get('FN', 0)} | {fmt(c.get('PCD'))} |")
+
+    if b.get("matches_by_category"):
+        aff = b.get("F1_affected") or {}
+        L.append(f"\n- F1 global: {fmt(b.get('F1'))} · F1 de elementos afectados: {fmt(aff.get('F1'))} "
+                 f"(P {fmt(aff.get('P'))}, R {fmt(aff.get('R'))})")
+        L.append("\n| Categoría de coincidencia | VP | FP | FN | P | R | F1 |")
+        L.append("|---|---|---|---|---|---|---|")
+        for cat, c in b["matches_by_category"].items():
+            L.append(f"| {cat} | {c['VP']} | {c['FP']} | {c['FN']} | {fmt(c['P'])} | {fmt(c['R'])} | {fmt(c['F1'])} |")
+
     L.append("\n## Bloque C. Pares con verdad manual\n")
     L.append("| Par | VP | FP | FN | PCD | PRE | PSR | F1 | Versiones de la verdad |")
     L.append("|---|---|---|---|---|---|---|---|---|")

@@ -22,6 +22,11 @@ pub enum MatchReason {
         #[serde(skip_serializing_if = "Option::is_none")]
         details: Option<serde_json::Value>,
     },
+    /// Both names are equivalent in the active catalog domain (K04)
+    CatalogEquivalence {
+        /// Shared canonical form, e.g. `unit_precio` for `unit_price` and `unit_pvp`
+        canonical: String,
+    },
 }
 
 /// A matched field or entity between schemas A and B

@@ -103,6 +103,19 @@ fn try_match_entity(
         }
     }
 
+    // Domain equivalence (catalog)
+    if let Some(canonical) = domain_equivalent(&entity_a.entity_name, &entity_b.entity_name, config)
+    {
+        return Some(Match::new(
+            entity_a.entity_name.clone(),
+            None,
+            MatchReason::CatalogEquivalence { canonical },
+            DOMAIN_MATCH_SCORE,
+            idx_a,
+            idx_b,
+        ));
+    }
+
     // Similarity-based match
     if config.similarity_matching {
         let score = calculate_similarity(&entity_a.entity_name, &entity_b.entity_name);
@@ -151,7 +164,10 @@ fn match_tier(name_a: &str, name_b: &str, reason: &MatchReason) -> u8 {
         0
     } else if normalize_identifier(name_a) == normalize_identifier(name_b) {
         1
-    } else if matches!(reason, MatchReason::Semantic { .. }) {
+    } else if matches!(
+        reason,
+        MatchReason::Semantic { .. } | MatchReason::CatalogEquivalence { .. }
+    ) {
         2
     } else {
         3
@@ -278,6 +294,18 @@ fn try_match_field(
         }
     }
 
+    // Domain equivalence (catalog)
+    if let Some(canonical) = domain_equivalent(&field_a.field_name, &field_b.field_name, config) {
+        return Some(Match::new(
+            entity_name.to_string(),
+            Some(field_a.field_name.clone()),
+            MatchReason::CatalogEquivalence { canonical },
+            DOMAIN_MATCH_SCORE,
+            idx_a,
+            idx_b,
+        ));
+    }
+
     // Similarity-based match
     if config.similarity_matching {
         let score = calculate_similarity(&field_a.field_name, &field_b.field_name);
@@ -293,6 +321,75 @@ fn try_match_field(
     }
 
     None
+}
+
+/// Score given to a match produced by a domain equivalence
+const DOMAIN_MATCH_SCORE: f64 = 0.9;
+
+/// Singular form of one normalized token (`categories` -> `category`, `items` -> `item`)
+fn singular(token: &str) -> String {
+    if let Some(stem) = token.strip_suffix("ies") {
+        if !stem.is_empty() {
+            return format!("{}y", stem);
+        }
+    }
+    if token.len() > 3 && token.ends_with('s') && !token.ends_with("ss") {
+        return token[..token.len() - 1].to_string();
+    }
+    token.to_string()
+}
+
+/// Normalized, singular tokens of a name (`UnitPrices` -> `["unit", "price"]`)
+fn name_tokens(name: &str) -> Vec<String> {
+    normalize_identifier(name)
+        .split('_')
+        .filter(|t| !t.is_empty())
+        .map(singular)
+        .collect()
+}
+
+/// Canonical form of a name under the domain equivalences, or `None` if no alias applies.
+///
+/// The whole name is tried first (`precio_unitario` -> `precio`), then each token
+/// (`unit_price` -> `unit_precio`).
+fn domain_canonical(name: &str, config: &CompareConfig) -> Option<String> {
+    let key = |s: &str| name_tokens(s).join("_");
+    let canonical_of = |k: &str| {
+        config.equivalences.iter().find_map(|group| {
+            let canonical = group.first()?;
+            group
+                .iter()
+                .any(|alias| key(alias) == k)
+                .then(|| key(canonical))
+        })
+    };
+
+    let whole = key(name);
+    if let Some(c) = canonical_of(&whole) {
+        return Some(c);
+    }
+    let mut replaced = false;
+    let tokens: Vec<String> = name_tokens(name)
+        .into_iter()
+        .map(|t| match canonical_of(&t) {
+            Some(c) => {
+                replaced = true;
+                c
+            }
+            None => t,
+        })
+        .collect();
+    replaced.then(|| tokens.join("_"))
+}
+
+/// Shared canonical form when two names are equivalent in the active domain
+fn domain_equivalent(a: &str, b: &str, config: &CompareConfig) -> Option<String> {
+    if config.equivalences.is_empty() {
+        return None;
+    }
+    let ca = domain_canonical(a, config).unwrap_or_else(|| name_tokens(a).join("_"));
+    let cb = domain_canonical(b, config).unwrap_or_else(|| name_tokens(b).join("_"));
+    (ca == cb).then_some(ca)
 }
 
 /// Calculate similarity between two strings using Jaro-Winkler

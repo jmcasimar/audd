@@ -3,8 +3,11 @@
 
 Para cada base y semilla:
     1. Lee la IR de la base con `audd inspect` (de su DDL en el repositorio o de su fuente).
-    2. Genera A renderizando esa IR como DDL MySQL y B aplicando 3 a 6 mutaciones
+    2. Genera A renderizando esa IR como DDL MySQL y B aplicando 5 a 10 mutaciones
        sobre la misma IR. Así, A y B solo difieren en las mutaciones registradas.
+       Cada mutación tiene un nivel (facil, medio, dificil) y, si renombra, una
+       categoría (style, plural, affix, abbreviation, synonym, translation); además
+       hay cambios combinados, cambios equivalentes y distractores (sección 12).
     3. Escribe la verdad (`truth.json`) a partir del registro de mutaciones y de la
        especificación de unificación (sección 5), sin usar el motor de comparación.
     4. Carga A y B en MySQL (backend `mysql`, oficial) o los deja como archivos DDL
@@ -29,6 +32,7 @@ import re
 import shutil
 import sys
 import tempfile
+import tomllib
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
@@ -40,7 +44,7 @@ from common import (EVAL_DIR, PROJECT_ROOT, bases_by_id, load_config, load_json,
 GENERATED_DIR = EVAL_DIR / "generated"
 DEFAULT_BASES = ["chinook", "employees", "northwind", "unicenta", "growtravel"]
 DEFAULT_SEEDS = list(range(1000, 1010))
-MIN_CHANGES, MAX_CHANGES = 3, 6
+MIN_CHANGES, MAX_CHANGES = 5, 10  # sección 12 del protocolo (2026-10-19)
 
 # --------------------------------------------------------------------------
 # Modelo mínimo del esquema (a partir de la IR)
@@ -162,30 +166,150 @@ TARGET_TYPES = {
     "string": {"type": "string"}, "date": {"type": "date"}, "date_time": {"type": "date_time"},
 }
 
-# Sinónimos por palabra para renombrar sin cambiar el significado
+# --------------------------------------------------------------------------
+# Transformaciones de nombres (sección 12 del protocolo, 2026-10-19)
+# --------------------------------------------------------------------------
+
+# Sinónimos en inglés (por palabra)
 SYNONYMS = {
     "customer": "client", "client": "customer", "phone": "telephone", "email": "mail",
-    "quantity": "qty", "qty": "quantity", "description": "details", "first": "given",
-    "last": "family", "zip": "postal", "postal": "zip", "country": "nation",
-    "company": "firm", "employee": "staff", "product": "item", "item": "product",
-    "order": "purchase", "invoice": "bill", "address": "location", "title": "heading",
+    "description": "details", "first": "given", "last": "family", "zip": "postal",
+    "postal": "zip", "country": "nation", "company": "firm", "employee": "staff",
+    "product": "item", "item": "product", "order": "purchase", "invoice": "bill",
+    "address": "location", "title": "heading", "price": "cost", "sale": "ticket",
+}
+
+# Abreviaturas habituales en esquemas heredados
+ABBREVIATIONS = {
+    "quantity": "qty", "number": "num", "description": "desc", "address": "addr",
+    "amount": "amt", "telephone": "tel", "phone": "tel", "information": "info",
+    "category": "cat", "customer": "cust", "product": "prod", "department": "dept",
+    "employee": "emp", "reference": "ref", "account": "acct", "payment": "pmt",
+    "transaction": "txn", "invoice": "inv", "maximum": "max", "minimum": "min",
+    "identifier": "id", "position": "pos", "message": "msg", "configuration": "config",
+}
+
+# Traducción inglés -> español
+TRANSLATIONS = {
+    "status": "estado", "name": "nombre", "city": "ciudad", "address": "direccion",
+    "phone": "telefono", "country": "pais", "total": "total_importe", "notes": "notas",
+    "description": "descripcion", "email": "correo", "price": "precio", "date": "fecha",
+    "customer": "cliente", "product": "producto", "quantity": "cantidad", "user": "usuario",
+    "title": "titulo", "company": "empresa", "state": "estado", "code": "codigo",
+    "order": "pedido", "invoice": "factura", "employee": "empleado", "type": "tipo",
+}
+
+# Palabras que cambian el significado: base de los distractores
+NEAR_MISSES = {
+    "at": "by", "by": "at", "start": "end", "end": "start", "from": "to", "to": "from",
+    "min": "max", "max": "min", "first": "last", "last": "first", "in": "out",
+    "out": "in", "old": "new", "new": "old", "buy": "sell", "sell": "buy",
+    "debit": "credit", "credit": "debit", "open": "close", "close": "open",
+    "gross": "net", "net": "gross", "created": "updated", "updated": "created",
+    "birth": "hire", "hire": "birth", "billing": "shipping", "shipping": "billing",
 }
 
 
 def _tokens(name: str) -> List[str]:
-    return [t for t in re.split(r"[_\s]+|(?<=[a-z])(?=[A-Z])", name) if t]
+    return [t for t in re.split(r"[_\s]+|(?<=[a-z0-9])(?=[A-Z])", name) if t]
 
 
-def synonym_of(name: str) -> Optional[str]:
+def _replace_token(name: str, table: Dict[str, str]) -> Optional[str]:
     toks = _tokens(name)
     for i, tok in enumerate(toks):
         low = tok.lower()
-        for base in (low, low.rstrip("s")):
-            if base in SYNONYMS:
-                rep = SYNONYMS[base] + ("s" if base != low else "")
-                new = toks[:i] + [rep] + toks[i + 1:]
-                return "_".join(t.lower() for t in new)
+        for base, suffix in ((low, ""), (low[:-1], "s") if low.endswith("s") else (low, "")):
+            if base in table:
+                new = toks[:i] + [table[base] + suffix] + toks[i + 1:]
+                out = "_".join(t.lower() for t in new)
+                return out if out.lower() != name.lower() else None
     return None
+
+
+def to_style(name: str) -> Optional[str]:
+    toks = _tokens(name)
+    if len(toks) > 1:
+        if "_" in name:
+            return "".join(t[:1].upper() + t[1:].lower() for t in toks)  # snake -> Pascal
+        return "_".join(t.lower() for t in toks)  # camel/Pascal -> snake
+    return None
+
+
+def to_plural(name: str) -> Optional[str]:
+    toks = _tokens(name)
+    if not toks:
+        return None
+    last = toks[-1]
+    low = last.lower()
+    if low.endswith("ies") and len(low) > 4:
+        new = last[:-3] + "y"
+    elif low.endswith("s") and not low.endswith("ss") and len(low) > 3:
+        new = last[:-1]
+    elif low.endswith("y") and len(low) > 2 and low[-2] not in "aeiou":
+        new = last[:-1] + "ies"
+    else:
+        new = last + "s"
+    sep = "_" if "_" in name else ""
+    return sep.join(toks[:-1] + [new]) if len(toks) > 1 else new
+
+
+def to_affix(name: str, table: str) -> Optional[str]:
+    prefix = re.sub(r"[^a-z]", "", table.lower())[:3]
+    return f"{prefix}_{name.lower()}" if prefix and not name.lower().startswith(prefix + "_") else None
+
+
+RENAMES: Dict[str, Callable[..., Optional[str]]] = {
+    "style": lambda name, table: to_style(name),
+    "plural": lambda name, table: to_plural(name),
+    "affix": lambda name, table: to_affix(name, table),
+    "abbreviation": lambda name, table: _replace_token(name, ABBREVIATIONS),
+    "synonym": lambda name, table: _replace_token(name, SYNONYMS),
+    "translation": lambda name, table: _replace_token(name, TRANSLATIONS),
+}
+
+# Nivel de dificultad de cada categoría de renombrado
+RENAME_LEVEL = {"style": "facil", "plural": "facil", "affix": "medio",
+                "abbreviation": "dificil", "synonym": "dificil", "translation": "dificil"}
+
+# Cambios que la especificación considera equivalentes: no deben producir conflicto
+EQUIVALENT_CHANGES = {
+    "string": ({"type": "text"}, None),           # VARCHAR(n) -> TEXT
+    "date_time": ({"type": "timestamp"}, None),   # DATETIME -> TIMESTAMP
+    "timestamp": ({"type": "date_time"}, None),
+}
+
+
+# --------------------------------------------------------------------------
+# Cobertura del dominio pos (réplica de la estrategia CatalogEquivalence del núcleo)
+# --------------------------------------------------------------------------
+
+
+def _norm_tokens(name: str) -> List[str]:
+    def singular(t: str) -> str:
+        if t.endswith("ies") and len(t) > 3:
+            return t[:-3] + "y"
+        if len(t) > 3 and t.endswith("s") and not t.endswith("ss"):
+            return t[:-1]
+        return t
+    snake = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", "_", name.strip()).lower()
+    return [singular(t) for t in re.split(r"[^a-z0-9]+", snake) if t]
+
+
+def load_domain_groups(path: Path) -> List[List[str]]:
+    if not path.exists():
+        return []
+    with open(path, "rb") as f:
+        data = tomllib.load(f)
+    return [[e["canonical"], *e.get("aliases", [])] for e in data.get("equivalence", [])]
+
+
+def domain_canonical(name: str, groups: List[List[str]]) -> str:
+    key = lambda s: "_".join(_norm_tokens(s))  # noqa: E731
+    lookup = {key(alias): key(g[0]) for g in groups for alias in g}
+    whole = key(name)
+    if whole in lookup:
+        return lookup[whole]
+    return "_".join(lookup.get(t, t) for t in _norm_tokens(name))
 
 
 # --------------------------------------------------------------------------
@@ -200,6 +324,8 @@ class Mutation:
     column: Optional[str] = None     # columna en A (o columna afectada)
     detail: Dict[str, Any] = field(default_factory=dict)
     conflict: Optional[Dict[str, Any]] = None
+    level: str = "facil"
+    category: Optional[str] = None
 
 
 class Mutator:
@@ -212,6 +338,8 @@ class Mutator:
         self.touched: set = set()                                    # (tabla A, columna A)
         self.added_tables: List[str] = []
         self.added_cols: List[Tuple[str, str]] = []                   # (tabla A, columna B)
+        self.no_match: Dict[Tuple[str, str], str] = {}               # (tabla A, col A) -> categoría
+        self.match_cat: Dict[Tuple[str, Optional[str]], str] = {}    # categoría de la coincidencia
         self.log: List[Mutation] = []
 
     # ---- utilidades
@@ -234,123 +362,81 @@ class Mutator:
     def pick(self, items):
         return self.rng.choice(items) if items else None
 
+    def b_col(self, t: Table, c: Column) -> Column:
+        return self.b_table(t.name).col(self.col_map[(t.name, c.name)])
+
     def conflict(self, t: Table, c: Column, ctype: str, suggestion: str, rule: str, **extra):
         return {"entity": t.name, "field": c.name, "entity_b": self.table_map[t.name],
                 "field_b": self.col_map[(t.name, c.name)], "type": ctype,
                 "expected_suggestion": suggestion, "rule": rule, **extra}
 
-    # ---- operadores (sección 7.3). Devuelven False si no hay objetivo válido.
-    def change_type(self) -> bool:
-        def ok(t, c):
-            return c.name not in t.pk and any(_family(c.ctype) == a for a, _ in TYPE_CHANGES)
-        tc = self.pick(self.candidates(ok))
-        if not tc:
-            return False
-        t, c = tc
+    def free_name(self, t: Table, name: Optional[str]) -> bool:
+        return bool(name) and all(x.name.lower() != name.lower() for x in self.b_table(t.name).columns)
+
+    # ---- cambios que producen conflicto (se reutilizan en los combinados)
+    def _type_ok(self, t, c):
+        return c.name not in t.pk and any(_family(c.ctype) == a for a, _ in TYPE_CHANGES)
+
+    def _apply_type(self, t: Table, c: Column) -> Dict[str, Any]:
         options = sorted(b for a, b in TYPE_CHANGES if a == _family(c.ctype))
         target = self.rng.choice(options)
         suggestion, rule = TYPE_CHANGES[(_family(c.ctype), target)]
-        bc = self.b_table(t.name).col(self.col_map[(t.name, c.name)])
+        bc = self.b_col(t, c)
         bc.ctype = dict(TARGET_TYPES[target])
         bc.max_length = 20 if target == "string" else None
+        return self.conflict(t, c, "TypeIncompatible", suggestion, rule,
+                             change={"from": _family(c.ctype), "to": target})
+
+    def _length_ok(self, t, c):
+        return _family(c.ctype) == "string" and bool(c.max_length)
+
+    def _apply_length(self, t: Table, c: Column) -> Dict[str, Any]:
+        new = c.max_length * 2 if self.rng.random() < 0.5 or c.max_length < 2 else max(1, c.max_length // 2)
+        self.b_col(t, c).max_length = new
+        return self.conflict(t, c, "LengthMismatch", "PreferType", "R-LEN-001",
+                             change={"from": c.max_length, "to": new})
+
+    def _nullable_ok(self, t, c):
+        return c.name not in t.pk
+
+    def _apply_nullable(self, t: Table, c: Column) -> Dict[str, Any]:
+        self.b_col(t, c).nullable = not c.nullable
+        return self.conflict(t, c, "NullabilityMismatch", "PreferType", "R-NULL-001",
+                             change={"from": c.nullable, "to": not c.nullable})
+
+    def _simple(self, operator, ok, apply) -> bool:
+        tc = self.pick(self.candidates(ok))
+        if not tc:
+            return False
+        t, c = tc
+        conflict = apply(t, c)
         self.touched.add((t.name, c.name))
-        self.log.append(Mutation("change_type", t.name, c.name,
-                                 {"from": _family(c.ctype), "to": target},
-                                 self.conflict(t, c, "TypeIncompatible", suggestion, rule)))
+        conflict["level"] = "facil"
+        self.log.append(Mutation(operator, t.name, c.name, conflict.get("change", {}), conflict))
         return True
+
+    # ---- nivel fácil: un cambio estructural (sección 7.3)
+    def change_type(self) -> bool:
+        return self._simple("change_type", self._type_ok, self._apply_type)
 
     def change_length(self) -> bool:
-        tc = self.pick(self.candidates(lambda t, c: _family(c.ctype) == "string" and c.max_length))
-        if not tc:
-            return False
-        t, c = tc
-        new = c.max_length * 2 if self.rng.random() < 0.5 or c.max_length < 2 else max(1, c.max_length // 2)
-        self.b_table(t.name).col(self.col_map[(t.name, c.name)]).max_length = new
-        self.touched.add((t.name, c.name))
-        self.log.append(Mutation("change_length", t.name, c.name, {"from": c.max_length, "to": new},
-                                 self.conflict(t, c, "LengthMismatch", "PreferType", "R-LEN-001")))
-        return True
+        return self._simple("change_length", self._length_ok, self._apply_length)
 
     def toggle_nullable(self) -> bool:
-        tc = self.pick(self.candidates(lambda t, c: c.name not in t.pk))
-        if not tc:
-            return False
-        t, c = tc
-        self.b_table(t.name).col(self.col_map[(t.name, c.name)]).nullable = not c.nullable
-        self.touched.add((t.name, c.name))
-        self.log.append(Mutation("toggle_nullable", t.name, c.name,
-                                 {"from": c.nullable, "to": not c.nullable},
-                                 self.conflict(t, c, "NullabilityMismatch", "PreferType", "R-NULL-001")))
-        return True
+        return self._simple("toggle_nullable", self._nullable_ok, self._apply_nullable)
 
     def toggle_unique(self) -> bool:
         indexable = {"int32", "int64", "string", "decimal", "date", "date_time", "boolean"}
-        tc = self.pick(self.candidates(
+
+        def apply(t, c):
+            self.b_col(t, c).unique = not c.unique
+            return self.conflict(t, c, "ConstraintMismatch", "PreferType", "R-CONS-001",
+                                 change={"from": c.unique, "to": not c.unique})
+        return self._simple(
+            "toggle_unique",
             lambda t, c: c.name not in t.pk and _family(c.ctype) in indexable
-            and not any(c.name in u for u in t.composite_uniques)))
-        if not tc:
-            return False
-        t, c = tc
-        self.b_table(t.name).col(self.col_map[(t.name, c.name)]).unique = not c.unique
-        self.touched.add((t.name, c.name))
-        self.log.append(Mutation("toggle_unique", t.name, c.name, {"from": c.unique, "to": not c.unique},
-                                 self.conflict(t, c, "ConstraintMismatch", "PreferType", "R-CONS-001")))
-        return True
-
-    def normalization_collision(self) -> bool:
-        def variant(name):
-            return "".join(p[:1].upper() + p[1:] for p in name.split("_") if p)
-
-        def ok(t, c):
-            if "_" not in c.name.strip("_"):
-                return False
-            v = variant(c.name)
-            return v != c.name and all(x.name.lower() != v.lower() for x in self.b_table(t.name).columns)
-        tc = self.pick(self.candidates(ok))
-        if not tc:
-            return False
-        t, c = tc
-        bt = self.b_table(t.name)
-        new = Column(name=variant(c.name), ctype=dict(c.ctype), nullable=True, max_length=c.max_length)
-        bt.columns.append(new)
-        self.touched.add((t.name, c.name))
-        self.added_cols.append((t.name, new.name))
-        self.log.append(Mutation("normalization_collision", t.name, c.name, {"added_b": new.name},
-                                 {**self.conflict(t, c, "NormalizationCollision", "RenameField", "R-NORM-001"),
-                                  "field_b": new.name}))
-        return True
-
-    def rename_synonym(self) -> bool:
-        def ok(t, c):
-            s = synonym_of(c.name)
-            return s and all(x.name.lower() != s.lower() for x in self.b_table(t.name).columns)
-        tc = self.pick(self.candidates(ok))
-        if not tc:
-            return False
-        t, c = tc
-        new = synonym_of(c.name)
-        self._rename_col(t, c, new)
-        self.log.append(Mutation("rename_synonym", t.name, c.name, {"to": new}))
-        return True
-
-    def rename_unrelated(self) -> bool:
-        tc = self.pick(self.candidates(lambda t, c: c.name not in t.pk))
-        if not tc:
-            return False
-        t, c = tc
-        new = f"fld_{self.rng.randint(1000, 9999)}"
-        self._rename_col(t, c, new)
-        self.log.append(Mutation("rename_unrelated", t.name, c.name, {"to": new}))
-        return True
-
-    def _rename_col(self, t: Table, c: Column, new: str) -> None:
-        bt = self.b_table(t.name)
-        old = self.col_map[(t.name, c.name)]
-        bt.col(old).name = new
-        bt.pk = [new if n == old else n for n in bt.pk]
-        bt.composite_uniques = [[new if n == old else n for n in u] for u in bt.composite_uniques]
-        self.col_map[(t.name, c.name)] = new
-        self.touched.add((t.name, c.name))
+            and not any(c.name in u for u in t.composite_uniques),
+            apply)
 
     def add_field(self) -> bool:
         t = self.pick(self.live_tables())
@@ -389,7 +475,8 @@ class Mutator:
 
     def drop_table(self) -> bool:
         cands = [t for t in self.live_tables()
-                 if not any((t.name, c.name) in self.touched for c in t.columns)]
+                 if not any((t.name, c.name) in self.touched for c in t.columns)
+                 and self.table_map[t.name] == t.name]
         if len(self.live_tables()) < 3 or not cands:
             return False
         t = self.pick(cands)
@@ -398,24 +485,149 @@ class Mutator:
         self.log.append(Mutation("drop_table", t.name))
         return True
 
-    def rename_table_synonym(self) -> bool:
-        def ok(t):
-            s = synonym_of(t.name)
-            return s and self.table_map[t.name] == t.name and all(
-                x.name.lower() != s.lower() for x in self.b)
-        cands = [t for t in self.live_tables() if ok(t)]
-        t = self.pick(cands)
-        if not t:
+    def rename_unrelated(self) -> bool:
+        tc = self.pick(self.candidates(lambda t, c: c.name not in t.pk))
+        if not tc:
             return False
-        new = synonym_of(t.name)
+        t, c = tc
+        new = f"fld_{self.rng.randint(1000, 9999)}"
+        self._rename_col(t, c, new)
+        self.no_match[(t.name, c.name)] = "unrelated"
+        self.log.append(Mutation("rename_unrelated", t.name, c.name, {"to": new},
+                                 level="dificil", category="unrelated"))
+        return True
+
+    # ---- renombrados por categoría (campos)
+    def _rename_col(self, t: Table, c: Column, new: str) -> None:
+        bt = self.b_table(t.name)
+        old = self.col_map[(t.name, c.name)]
+        bt.col(old).name = new
+        bt.pk = [new if n == old else n for n in bt.pk]
+        bt.composite_uniques = [[new if n == old else n for n in u] for u in bt.composite_uniques]
+        self.col_map[(t.name, c.name)] = new
+        self.touched.add((t.name, c.name))
+
+    def _rename_candidates(self, category: str):
+        fn = RENAMES[category]
+        return [(t, c, fn(c.name, t.name)) for t, c in self.candidates(lambda t, c: True)
+                if self.free_name(t, fn(c.name, t.name))]
+
+    def rename_field(self) -> bool:
+        category = self.rng.choice(sorted(RENAMES))
+        cand = self.pick(self._rename_candidates(category))
+        if not cand:
+            return False
+        t, c, new = cand
+        self._rename_col(t, c, new)
+        self.match_cat[(t.name, c.name)] = category
+        self.log.append(Mutation(f"rename_{category}", t.name, c.name, {"to": new},
+                                 level=RENAME_LEVEL[category], category=category))
+        return True
+
+    # ---- renombrados de tabla
+    def rename_table(self) -> bool:
+        category = self.rng.choice(["style", "plural", "affix", "synonym", "translation"])
+        fn = RENAMES[category]
+        cands = []
+        for t in self.live_tables():
+            new = fn(t.name, "tbl")
+            if self.table_map[t.name] == t.name and new and all(
+                    x.name.lower() != new.lower() for x in self.b):
+                cands.append((t, new))
+        cand = self.pick(cands)
+        if not cand:
+            return False
+        t, new = cand
         self.b_table(t.name).name = new
         self.table_map[t.name] = new
-        self.log.append(Mutation("rename_table_synonym", t.name, None, {"to": new}))
+        self.match_cat[(t.name, None)] = category
+        self.log.append(Mutation(f"rename_table_{category}", t.name, None, {"to": new},
+                                 level=RENAME_LEVEL[category], category=category))
+        return True
+
+    # ---- nivel medio
+    def combined(self) -> bool:
+        """Renombrar y además cambiar tipo, longitud o nulabilidad del mismo campo."""
+        changes = [("type", self._type_ok, self._apply_type),
+                   ("length", self._length_ok, self._apply_length),
+                   ("nullable", self._nullable_ok, self._apply_nullable)]
+        kind, ok, apply = self.rng.choice(changes)
+        category = self.rng.choice(["style", "plural", "affix", "abbreviation", "synonym"])
+        fn = RENAMES[category]
+        cands = [(t, c, fn(c.name, t.name)) for t, c in self.candidates(ok)
+                 if self.free_name(t, fn(c.name, t.name))]
+        cand = self.pick(cands)
+        if not cand:
+            return False
+        t, c, new = cand
+        self._rename_col(t, c, new)
+        conflict = apply(t, c)
+        level = "dificil" if RENAME_LEVEL[category] == "dificil" else "medio"
+        conflict["level"] = level
+        self.match_cat[(t.name, c.name)] = category
+        self.log.append(Mutation(f"combined_{category}_{kind}", t.name, c.name,
+                                 {"to": new, **conflict.get("change", {})}, conflict,
+                                 level=level, category=category))
+        return True
+
+    def equivalent_change(self) -> bool:
+        """VARCHAR -> TEXT o DATETIME <-> TIMESTAMP: la especificación no lo considera conflicto."""
+        tc = self.pick(self.candidates(
+            lambda t, c: _family(c.ctype) in EQUIVALENT_CHANGES and c.name not in t.pk
+            and not c.unique and not any(c.name in u for u in t.composite_uniques)))
+        if not tc:
+            return False
+        t, c = tc
+        ctype, max_length = EQUIVALENT_CHANGES[_family(c.ctype)]
+        bc = self.b_col(t, c)
+        bc.ctype = dict(ctype)
+        bc.max_length = max_length
+        self.touched.add((t.name, c.name))
+        self.log.append(Mutation("equivalent_change", t.name, c.name,
+                                 {"from": _family(c.ctype), "to": ctype["type"]},
+                                 level="medio", category="equivalent"))
+        return True
+
+    def normalization_collision(self) -> bool:
+        def ok(t, c):
+            v = to_style(c.name)
+            return "_" in c.name and v is not None and self.free_name(t, v)
+        tc = self.pick(self.candidates(ok))
+        if not tc:
+            return False
+        t, c = tc
+        new = Column(name=to_style(c.name), ctype=dict(c.ctype), nullable=True, max_length=c.max_length)
+        self.b_table(t.name).columns.append(new)
+        self.touched.add((t.name, c.name))
+        self.added_cols.append((t.name, new.name))
+        conflict = {**self.conflict(t, c, "NormalizationCollision", "RenameField", "R-NORM-001"),
+                    "field_b": new.name, "level": "medio"}
+        self.log.append(Mutation("normalization_collision", t.name, c.name, {"added_b": new.name},
+                                 conflict, level="medio", category="collision"))
+        return True
+
+    # ---- nivel difícil
+    def distractor(self) -> bool:
+        """Sustituir un campo por otro de nombre casi igual y significado distinto."""
+        def near(c):
+            return _replace_token(c.name, NEAR_MISSES) or f"{c.name.lower()}_old"
+        cands = [(t, c, near(c)) for t, c in self.candidates(lambda t, c: c.name not in t.pk)
+                 if self.free_name(t, near(c))]
+        cand = self.pick(cands)
+        if not cand:
+            return False
+        t, c, new = cand
+        self._rename_col(t, c, new)
+        self.no_match[(t.name, c.name)] = "distractor"
+        self.log.append(Mutation("distractor", t.name, c.name, {"to": new},
+                                 level="dificil", category="distractor"))
         return True
 
     OPERATORS = ["change_type", "change_length", "toggle_nullable", "toggle_unique",
-                 "normalization_collision", "rename_synonym", "rename_unrelated",
-                 "add_field", "drop_field", "add_table", "drop_table", "rename_table_synonym"]
+                 "add_field", "drop_field", "add_table", "drop_table",
+                 "rename_field", "rename_field", "rename_table",
+                 "combined", "combined", "equivalent_change", "normalization_collision",
+                 "distractor", "rename_unrelated"]
 
     def run(self, n: int) -> None:
         attempts = 0
@@ -429,34 +641,43 @@ class Mutator:
 # --------------------------------------------------------------------------
 
 
-def build_truth(pair_id: str, base: str, seed: int, m: Mutator) -> Dict[str, Any]:
-    matches, exclusives, conflicts = [], [], []
-    unrelated = {(x.table, x.column) for x in m.log if x.operator == "rename_unrelated"}
+def build_truth(pair_id: str, base: str, seed: int, m: Mutator,
+                domain_groups: List[List[str]]) -> Dict[str, Any]:
+    matches, exclusives = [], []
+
+    def in_domain(a: str, b: str) -> bool:
+        return bool(domain_groups) and domain_canonical(a, domain_groups) == domain_canonical(b, domain_groups)
+
     for t in m.a:
         tb = m.table_map[t.name]
         if tb is None:
             exclusives.append({"side": "a", "entity": t.name, "field": None})
             continue
-        matches.append({"a": t.name, "b": tb})
+        cat = m.match_cat.get((t.name, None), "unchanged")
+        matches.append({"a": t.name, "b": tb, "category": cat,
+                        **({"in_domain": in_domain(t.name, tb)} if cat != "unchanged" else {})})
         for c in t.columns:
             cb = m.col_map[(t.name, c.name)]
             if cb is None:
                 exclusives.append({"side": "a", "entity": t.name, "field": c.name})
-            elif (t.name, c.name) in unrelated:
-                exclusives.append({"side": "a", "entity": t.name, "field": c.name})
-                # Los exclusivos de B dentro de una tabla emparejada llevan el nombre de A
-                exclusives.append({"side": "b", "entity": t.name, "field": cb})
+            elif (t.name, c.name) in m.no_match:
+                cat = m.no_match[(t.name, c.name)]
+                exclusives.append({"side": "a", "entity": t.name, "field": c.name, "category": cat})
+                exclusives.append({"side": "b", "entity": tb, "field": cb, "category": cat})
             else:
-                matches.append({"a": f"{t.name}.{c.name}", "b": f"{tb}.{cb}"})
+                cat = m.match_cat.get((t.name, c.name), "unchanged")
+                matches.append({"a": f"{t.name}.{c.name}", "b": f"{tb}.{cb}", "category": cat,
+                                **({"in_domain": in_domain(c.name, cb)} if cat != "unchanged" else {})})
     for ta, cb in m.added_cols:
-        exclusives.append({"side": "b", "entity": ta, "field": cb})
+        if m.table_map[ta] is not None:
+            exclusives.append({"side": "b", "entity": m.table_map[ta], "field": cb})
     for tb in m.added_tables:
         exclusives.append({"side": "b", "entity": tb, "field": None})
     conflicts = []
     for x in m.log:
         if not x.conflict:
             continue
-        c = dict(x.conflict)
+        c = {k: v for k, v in x.conflict.items() if k != "change"}
         # Nombres finales en B: una mutación posterior pudo renombrar la tabla
         c["entity_b"] = m.table_map[x.table]
         if x.operator != "normalization_collision":
@@ -464,7 +685,7 @@ def build_truth(pair_id: str, base: str, seed: int, m: Mutator) -> Dict[str, Any
         conflicts.append(c)
     return {
         "pair_id": pair_id, "block": "B", "base": base, "seed": seed,
-        "spec": "unificación simétrica (PROTOCOLO_EVALUACION.md, sección 5)",
+        "spec": "unificación simétrica (PROTOCOLO_EVALUACION.md, secciones 5 y 12)",
         "matches": matches, "exclusives": exclusives, "conflicts": conflicts,
         "mutations": [asdict(x) for x in m.log],
     }
@@ -506,7 +727,8 @@ def generate(cfg, base: Dict[str, Any], seed: int, backend: str, out_root: Path,
     ddl_a, ddl_b = render(m.a), render(m.b)
     (d / "a.sql").write_text(ddl_a, encoding="utf-8")
     (d / "b.sql").write_text(ddl_b, encoding="utf-8")
-    truth = build_truth(pair_id, base["id"], seed, m)
+    truth = build_truth(pair_id, base["id"], seed, m,
+                        load_domain_groups(PROJECT_ROOT / "catalog" / "domains" / "pos.toml"))
     write_json(d / "truth.json", truth)
 
     if backend == "mysql":

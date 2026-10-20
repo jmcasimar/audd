@@ -343,6 +343,11 @@ pub struct CompareConfig {
 
     /// Semantic matching configuration
     pub semantic_match: SemanticMatchConfig,
+
+    /// Domain equivalence groups from an active catalog domain (K04). Each group
+    /// lists names that mean the same thing, e.g. `["precio", "price", "pvp"]`.
+    #[serde(default)]
+    pub equivalences: Vec<Vec<String>>,
 }
 
 impl Default for CompareConfig {
@@ -357,6 +362,7 @@ impl Default for CompareConfig {
             check_constraints: true,
             detect_collisions: true,
             semantic_match: SemanticMatchConfig::default(),
+            equivalences: Vec::new(),
         }
     }
 }
@@ -388,6 +394,7 @@ impl CompareConfig {
             check_constraints: false,
             detect_collisions: false,
             semantic_match: semantic_config,
+            equivalences: Vec::new(),
         }
     }
 
@@ -403,6 +410,7 @@ impl CompareConfig {
             check_constraints: true,
             detect_collisions: true,
             semantic_match: SemanticMatchConfig::default(),
+            equivalences: Vec::new(),
         }
     }
 

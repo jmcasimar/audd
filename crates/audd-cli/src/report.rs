@@ -509,6 +509,7 @@ fn generate_technical_details(md: &mut String, result: &ComparisonResult) {
                 MatchReason::NormalizedName { .. } => "normalized".to_string(),
                 MatchReason::Similarity { .. } => "similarity".to_string(),
                 MatchReason::Semantic { decision, .. } => format!("semantic_{}", decision),
+                MatchReason::CatalogEquivalence { .. } => "catalog_equivalence".to_string(),
             };
             md.push_str(&format!(
                 "| {} | {} | {} | {:.2} | {} | {} |\n",
@@ -1359,6 +1360,7 @@ fn build_json_technical_details(result: &ComparisonResult) -> JsonTechnicalDetai
                 MatchReason::NormalizedName { .. } => "normalized".to_string(),
                 MatchReason::Similarity { .. } => "similarity".to_string(),
                 MatchReason::Semantic { decision, .. } => format!("semantic_{}", decision),
+                MatchReason::CatalogEquivalence { .. } => "catalog_equivalence".to_string(),
             };
             JsonMatch {
                 entity: m.entity_name.clone(),

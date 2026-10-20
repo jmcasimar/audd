@@ -263,3 +263,50 @@ fn acceptance_rnf2_symmetry() {
     assert_eq!(ab.summary.exclusives_a, ba.summary.exclusives_b);
     assert_eq!(ab.summary.exclusives_b, ba.summary.exclusives_a);
 }
+
+fn entity_with(fields: &[&str]) -> EntitySchema {
+    EntitySchema::builder()
+        .entity_name("orders")
+        .fields(
+            fields
+                .iter()
+                .map(|n| field(n, CanonicalType::Int32, true))
+                .collect(),
+        )
+        .build()
+}
+
+#[test]
+fn acceptance_rf3_normalization_collision_within_one_schema() {
+    // B has cliente_id and ClienteId: both would become `cliente_id` in the unified schema
+    let a = schema("db_a", entity_with(&["id", "cliente_id"]));
+    let b = schema("db_b", entity_with(&["id", "cliente_id", "ClienteId"]));
+    let config = CompareConfig::default();
+
+    let ab = compare(&a, &b, &config);
+    let collisions = of_type(&ab.conflicts, ConflictType::NormalizationCollision);
+    assert_eq!(collisions.len(), 1, "{:?}", ab.conflicts);
+    assert_eq!(collisions[0].field_name.as_deref(), Some("cliente_id"));
+
+    let suggestions = SuggestionEngine::new().suggest(collisions[0]);
+    assert!(suggestions
+        .iter()
+        .any(|s| matches!(s.kind, SuggestionKind::RenameField { .. })));
+
+    // Same conflict, on the same field, when A and B are swapped
+    let ba = compare(&b, &a, &config);
+    assert_eq!(
+        conflict_signature(&ab.conflicts),
+        conflict_signature(&ba.conflicts)
+    );
+}
+
+#[test]
+fn acceptance_rf3_identical_name_groups_are_not_collisions() {
+    // Both schemas already have cliente_id and ClienteId: each pairs with its namesake
+    let a = schema("db_a", entity_with(&["cliente_id", "ClienteId"]));
+    let b = schema("db_b", entity_with(&["cliente_id", "ClienteId"]));
+    let result = compare(&a, &b, &CompareConfig::default());
+    assert!(result.conflicts.is_empty(), "{:?}", result.conflicts);
+    assert_eq!(result.summary.total_exclusives, 0);
+}

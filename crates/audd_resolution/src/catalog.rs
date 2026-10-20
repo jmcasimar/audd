@@ -140,6 +140,23 @@ impl ResolutionCatalog {
         })
     }
 
+    /// Equivalence groups of a domain: the canonical name first, then its aliases.
+    pub fn domain_groups(&self, domain_name: &str) -> Vec<Vec<String>> {
+        self.domains
+            .get(domain_name)
+            .map(|d| {
+                d.equivalence
+                    .iter()
+                    .map(|e| {
+                        std::iter::once(e.canonical.clone())
+                            .chain(e.aliases.clone())
+                            .collect()
+                    })
+                    .collect()
+            })
+            .unwrap_or_default()
+    }
+
     /// Return aliases for a given active domain, mapped to their canonical form.
     pub fn domain_aliases(&self, domain_name: &str) -> HashMap<String, String> {
         let mut aliases = HashMap::new();

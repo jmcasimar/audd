@@ -70,7 +70,7 @@ dominio = "punto de venta"
 id      = "M1_growtravel_growventa"
 a       = "growtravel"
 b       = "growventa"
-scope_a = []          # par ya documentado (17 / 145 / 4): esquema completo
+scope_a = []          # caso documentado en 5.4 (hoy 17 / 176 / 12): esquema completo
 scope_b = []
 tri     = true
 

@@ -50,11 +50,15 @@ def main() -> int:
     ap.add_argument("--pairs", required=True, type=Path)
     ap.add_argument("--out", required=True, type=Path)
     ap.add_argument("--skip-run", action="store_true", help="reutilizar salidas existentes (solo puntuar)")
+    ap.add_argument("--domain", help="activar un dominio del catálogo (análisis adicional; la corrida oficial va sin dominio)")
     args = ap.parse_args()
     cfg = load_config()
+    if args.domain:
+        cfg["audd"]["domain"] = args.domain
     runs = int(cfg["audd"].get("runs", 3))
 
     rows, tot, per_type, validation = [], Counter(), defaultdict(Counter), Counter()
+    by_cat, by_level = defaultdict(Counter), defaultdict(Counter)
     psr_hit = psr_den = 0
     for pdir in sorted(d for d in args.pairs.iterdir() if (d / "truth.json").exists()):
         if "identity" in pdir.name:
@@ -94,6 +98,10 @@ def main() -> int:
                 per_type[t].update(c)
             for k in ("VP", "FP", "FN"):
                 tot["m_" + k] += res["matches"][k]
+            for cat, c in res["matches_by_category"].items():
+                by_cat[cat].update(c)
+            for lv, c in res["conflicts_by_level"].items():
+                by_level[lv].update(c)
             n_psr = sum(1 for c in truth["conflicts"] if c.get("expected_suggestion")
                         and c.get("status", "observable") == "observable")
             psr_den_pair = n_psr - len([c for c in res["detail"]["false_negatives"] if c.get("expected_suggestion")])
@@ -102,6 +110,17 @@ def main() -> int:
         rows.append({"pair": pdir.name, "robust": robust, "reproducible": rep,
                      **({"PCD": res["PCD"], "PRE": res["PRE"], "PSR": res["PSR"], "F1": res["F1"],
                          **res["conflicts"]} if res else {})})
+
+    def prf(c) -> dict:
+        p = c["VP"] / (c["VP"] + c["FP"]) if (c["VP"] + c["FP"]) else 0.0
+        r = c["VP"] / (c["VP"] + c["FN"]) if (c["VP"] + c["FN"]) else 0.0
+        return {**{k: c.get(k, 0) for k in ("VP", "FP", "FN")}, "P": round(p, 4), "R": round(r, 4),
+                "F1": round(2 * p * r / (p + r), 4) if (p + r) else 0.0}
+
+    affected = Counter()
+    for cat, c in by_cat.items():
+        if cat != "unchanged":
+            affected.update(c)
 
     mp = tot["m_VP"] / (tot["m_VP"] + tot["m_FP"]) if (tot["m_VP"] + tot["m_FP"]) else 0
     mr = tot["m_VP"] / (tot["m_VP"] + tot["m_FN"]) if (tot["m_VP"] + tot["m_FN"]) else 0
@@ -116,6 +135,12 @@ def main() -> int:
         "totals": dict(tot),
         "per_type": {t: {**dict(c), "PCD": pct(c["VP"], c["VP"] + c["FN"])} for t, c in per_type.items()},
         "truth_validation": dict(validation),
+        "domain": cfg["audd"].get("domain") or None,
+        # F1 sin los campos que no cambiaron, y por categoría de cambio (sección 12)
+        "F1_affected": prf(affected),
+        "matches_by_category": {cat: prf(c) for cat, c in sorted(by_cat.items())},
+        "PCD_by_level": {lv: {**dict(c), "PCD": pct(c["VP"], c["VP"] + c["FN"])}
+                         for lv, c in sorted(by_level.items())},
     }
     write_json(args.out / "mutations_rows.json", rows)
     write_json(args.out / "mutations_indicators.json", indicators)
